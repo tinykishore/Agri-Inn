@@ -2,6 +2,8 @@
     import BackgroundVideo from "$lib/components/BackgroundVideo.svelte";
     import currentNavigation from "$lib/stores/currentNavigation";
     import DefaultNavigation from "$lib/components/dynamicNavigations/DefaultNavigation.svelte";
+    import LandingPageSteps from "$lib/components/LandingPageSteps.svelte";
+
     currentNavigation.set(DefaultNavigation)
 </script>
 
@@ -36,12 +38,11 @@
 				Within just a few clicks, you can start your journey to a better life...
 			</span>
 		</h1>
+
+		<LandingPageSteps/>
 	</section>
 
 </main>
 
-<main class="h-[1000px]">
-	Hello
-</main>
 
 <BackgroundVideo/>
