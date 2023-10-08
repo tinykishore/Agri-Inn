@@ -1,6 +1,6 @@
 <script lang="ts">
     import {enhance} from "$app/forms";
-    import cancel_icon from "$lib/assets/icons/sign-up-cancel-icon.svg";
+    // import cancel_icon from "$lib/assets/icons/sign-up-cancel-icon.svg";
     import {fade} from "svelte/transition";
     import {user} from "$lib/stores/currentNavigation";
 
