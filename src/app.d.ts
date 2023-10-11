@@ -9,4 +9,7 @@ declare global {
 	}
 }
 
-export {};
+interface SignInCredentials {
+	key: string
+	password: string
+}
