@@ -38,7 +38,9 @@ export const POST = async ({request}: any) => {
         consoleLog("SignInAPI RESPONSE: Password Matched", LEVEL.OK);
         consoleLog("SignInAPI RESPONSE: Sending response with cookie headers", LEVEL.OK);
         // If the password is correct, generate a token and send it back to the client
-        const token: string = generateToken({key: credentials.key});
+        const token: string = generateToken({
+            username: authResult.credentials["username"],
+        });
         // Add Cookie Headers to the response with CORS Headers
         // Redirect to the dashboard
         return new Response(
