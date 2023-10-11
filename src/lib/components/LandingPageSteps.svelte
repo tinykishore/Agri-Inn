@@ -35,10 +35,10 @@
 		Create an Account <br> Start with Us
 	</h1>
 	<h1 class="w-[23rem]">
-		Describe Step 2
+		Find Farms Near You <br> Get Fresh Product
 
 	</h1>
 	<h1>
-		Describe Step 2
+		Order Online <br> Get it Delivered
 	</h1>
 </div>
