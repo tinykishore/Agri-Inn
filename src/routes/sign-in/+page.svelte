@@ -4,8 +4,8 @@
     import currentNavigation from "$lib/stores/currentNavigation";
     import SignInNavigation from "$lib/components/dynamicNavigations/SignInNavigation.svelte";
     import logo from "$lib/assets/icons/logo.svg";
-    import {redirect} from "@sveltejs/kit";
     import {goto} from "$app/navigation";
+    import {USER_ROLE} from "../../globals";
 
     currentNavigation.set(SignInNavigation);
 
@@ -51,7 +51,11 @@
             document.getElementById('password')!.classList.add('bg-green-200');
             document.getElementById('password')!.classList.add('border-green-200');
 
-            await goto('/dashboard');
+            // Get response data, check user role
+            const data = await response.json();
+            if (data.role === USER_ROLE.ADMIN) await goto("/admin");
+            else await goto("/dashboard");
+
         }
         // If response is not ok, update UI with error UI
         else {
