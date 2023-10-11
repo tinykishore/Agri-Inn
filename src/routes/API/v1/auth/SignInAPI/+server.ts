@@ -30,7 +30,7 @@ export const POST = async ({request}: any) => {
     // If the user is not found, return a 401 status code
     if (!authResult) {
         consoleLog("SignInAPI RESPONSE: status 401", LEVEL.ERROR);
-        return new Response(null, {status: 401});
+        return new Response(null, {status: 404});
     }
 
     // If the user is found, check if the password is correct
