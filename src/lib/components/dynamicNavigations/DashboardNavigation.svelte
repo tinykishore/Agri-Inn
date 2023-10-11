@@ -2,21 +2,31 @@
     import {enhance} from "$app/forms";
     import cancel_icon from "$lib/assets/icons/sign-up-cancel-icon.svg";
     import {fade} from "svelte/transition";
-    import {user} from "$lib/stores/currentNavigation";
+    import {onMount} from "svelte";
+    import username from "$lib/stores/username";
 
-    let full_name: string | undefined = undefined;
-    let email: string | undefined = undefined;
-    let image: string | undefined = undefined;
+    let _username: string | null;
+    let full_name: string;
+    let email: string;
+    let image: string;
 
-    // Subscribe to the user store
-    user.subscribe((value) => {
-        // store the user in local storage
-        full_name = value?.full_name;
-        email = value?.email;
-        image = value?.profile_picture;
-    });
+    username.subscribe(value => {
+        _username = value;
+    })
 
-
+    onMount(async () => {
+        const response = await fetch('/API/v1/dynamicNavbar/GetUserDetails', {
+            method: 'POST',
+            body: JSON.stringify({username: _username}),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+        const data = await response.json();
+        full_name = data.full_name;
+        email = data.email;
+        image = data.profile_picture;
+    })
 </script>
 
 <div class="grid grid-cols-3 items-center">
@@ -46,15 +56,21 @@
 	</div>
 
 	<div class="flex justify-end gap-2 text-sm">
-		<div class="flex gap-4 rounded-full align-middle border-yellow-800/20 border justify-center
-		 items-center font-semibold text-yellow-950  hover:bg-yellow-300 hover:border-yellow-800 transition-all duration-300">
 
 			{#if full_name === undefined && email === undefined && image === undefined}
-				<h1>Loading</h1>
+			<!--	Loading svg -->
+			<svg class="animate-spin  h-[30px] w-[30px] mr-1 text-yellow-800" xmlns="http://www.w3.org/2000/svg" fill="none"
+				 viewBox="0 0 24 24">
+				<circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+				<path class="opacity-75" fill="currentColor"
+					  d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0
+					  3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+			</svg>
 			{:else }
+				<div in:fade class="flex gap-4 rounded-full align-middle border-yellow-800/20 border justify-center items-center font-semibold text-yellow-950  hover:bg-yellow-300 hover:border-yellow-800 transition-all duration-300">
 				<h1 class=" pl-4 font-bold py-2">{full_name}</h1>
-				<img alt="profile_picture" class="h-9 w-9 rounded-full" src={image}>
+					<img alt="" class="h-9 w-9 rounded-full" src={image}>
+				</div>
 			{/if}
-		</div>
 	</div>
 </div>
