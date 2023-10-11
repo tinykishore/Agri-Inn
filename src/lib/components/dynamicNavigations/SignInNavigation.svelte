@@ -34,8 +34,10 @@
 	<div class="flex justify-start gap-2">
 		<a href="/"
 		   class="px-3 py-2 text-sm flex items-center gap-0.5 align-middle rounded-full font-bold border border-yellow-800
-		   hover:bg-amber-300 text-yellow-950 transition-all duration-300"><span
-				class="block h-5 w-5"><img alt="cancel_icon" src={cancel_icon}></span>
+		   hover:bg-amber-300 text-yellow-950 transition-all duration-300">
+			<span class="block h-5 w-5 mr-1">
+				<img alt="cancel_icon" src={cancel_icon}>
+			</span>
 			Go to Home
 		</a>
 		<form action="?/OAuth" method="POST">
