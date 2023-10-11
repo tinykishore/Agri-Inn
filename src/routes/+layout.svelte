@@ -3,7 +3,6 @@
     import {fade} from 'svelte/transition';
     import Footer from "$lib/components/Footer.svelte";
     import currentNavigation from "$lib/stores/currentNavigation";
-
     export let data;
 </script>
 
