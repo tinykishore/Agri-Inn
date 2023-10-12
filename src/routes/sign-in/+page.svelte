@@ -19,6 +19,9 @@
         event.target.classList.remove('border-red-400');
     }
 
+    /**
+     * Handle the button click event for signing in and update the UI.
+     */
     const onSignInButtonClick = () => {
         // Update UI
 		document.getElementById('submit')!.innerHTML = '';
@@ -34,9 +37,11 @@
 		document.getElementById('submit_button')!.classList.add('hidden');
     }
 
+    /**
+     * Handle the form submission, sending credentials to the server and updating the UI accordingly.
+     */
     const handleSubmit = async () => {
         // Send credentials to server and await response
-        // Server response : {token: token, name: name, email: email}
         const response = await fetch('/API/v1/auth/SignInAPI', {
             method: 'POST',
             body: JSON.stringify(credentials),
