@@ -1,11 +1,7 @@
 import {Db, MongoClient} from "mongodb";
-import {MONGO_DATABASE, MONGO_URL, USER_ACCOUNTS_COLLECTION} from "$env/static/private";
+import {MONGO_DATABASE, MONGO_URL} from "$env/static/private";
 import consoleLog, {LEVEL} from "$lib/server/log";
 
-export const Collections = {
-    user_account: USER_ACCOUNTS_COLLECTION,
-    farm_info: null
-}
 
 const client: MongoClient = new MongoClient(MONGO_URL, {
     connectTimeoutMS: 5000,
