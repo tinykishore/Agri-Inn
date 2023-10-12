@@ -97,10 +97,10 @@
 					  3.042 1.135 5.824 3 7.938l3-2.647z"></path>
 			</svg>
 			{:else }
-				<div in:fade class="flex gap-4 rounded-full align-middle border-yellow-800/20 border justify-center items-center font-semibold text-yellow-950  hover:bg-yellow-300 hover:border-yellow-800 transition-all duration-300">
+				<a href="/{_username}" in:fade class="flex gap-4 rounded-full align-middle border-yellow-800/20 border justify-center items-center font-semibold text-yellow-950  hover:bg-yellow-300 hover:border-yellow-800 transition-all duration-300">
 				<h1 class=" pl-4 font-bold py-2">{full_name}</h1>
 					<img alt="" class="h-9 w-9 rounded-full" src={image}>
-				</div>
+				</a>
 			{/if}
 	</div>
 </div>
