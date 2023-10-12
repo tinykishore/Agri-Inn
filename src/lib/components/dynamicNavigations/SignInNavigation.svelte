@@ -63,7 +63,7 @@
 	</div>
 
 	<div class="flex justify-end gap-2 ">
-		<a href="/sign-up"
+		<a href="/sign-in/forgot-password"
 		   class=" px-6 py-2 text-sm rounded-full font-semibold hover:bg-amber-300 text-yellow-950 transition-all duration-300">
 			Forgot Password?
 		</a>
