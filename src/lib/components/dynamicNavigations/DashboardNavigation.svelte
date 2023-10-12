@@ -3,25 +3,25 @@
     import cancel_icon from "$lib/assets/icons/sign-up-cancel-icon.svg";
     import {fade} from "svelte/transition";
     import {onMount} from "svelte";
-    import username from "$lib/stores/username";
-    import navigationUserDetails from "$lib/stores/navigationUserDetails";
+    import UserCache from "$lib/stores/UserCache";
+    import {isUserCacheValid} from "../../../globals";
 
-    let _username: string | null;
+    let _username: string;
     let full_name: string;
     let email: string;
     let image: string;
 
-    username.subscribe(value => {
-        _username = value;
+    let UserCacheValid = isUserCacheValid();
+
+    UserCache.subscribe(value => {
+        _username = value.username;
+        full_name = value.full_name;
+        email = value.email;
+        image = value.profile_picture;
     })
 
     onMount(async () => {
-        navigationUserDetails.subscribe(value => {
-            full_name = value.full_name;
-            email = value.email;
-            image = value.profile_picture;
-        })
-        if (full_name === "" && email === "" && image === "") {
+        if (!UserCacheValid) {
             const response = await fetch('/API/v1/dynamicNavbar/GetUserDetailsAPI', {
                 method: 'POST',
                 body: JSON.stringify({username: _username}),
@@ -30,16 +30,17 @@
                 }
             });
             const data = await response.json();
-            full_name = data.full_name;
-            email = data.email;
-            image = data.profile_picture;
-			navigationUserDetails.set({
-				full_name: full_name,
-				email: email,
-				profile_picture: image
-			})
+            UserCache.update(value => {
+                value.full_name = data.full_name;
+                value.email = data.email;
+                value.profile_picture = data.profile_picture;
+                value.username = _username;
+                value.role = data.role;
+                return value;
+            });
+            UserCacheValid = true;
         }
-    })
+    });
 
     const onSignOutClick = () => {
         document.getElementById('close_image')?.classList.add('hidden');
@@ -87,8 +88,7 @@
 	</div>
 
 	<div class="flex justify-end gap-2 text-sm">
-
-			{#if full_name === "" && email === "" && image === ""}
+			{#if !UserCacheValid}
 			<svg class="animate-spin  h-[30px] w-[30px] mr-1 text-yellow-800" xmlns="http://www.w3.org/2000/svg" fill="none"
 				 viewBox="0 0 24 24">
 				<circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>

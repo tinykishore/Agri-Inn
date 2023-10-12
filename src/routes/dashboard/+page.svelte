@@ -1,11 +1,17 @@
 <script>
     import currentNavigation from "$lib/stores/currentNavigation";
     import DashboardNavigation from "$lib/components/dynamicNavigations/DashboardNavigation.svelte";
-    import username from "$lib/stores/username";
     import {USER_ROLE} from "../../globals";
+	import UserCache from "$lib/stores/UserCache";
     currentNavigation.set(DashboardNavigation);
     export let data;
-    username.set(data.username);
+    UserCache.set({
+		full_name: data.full_name,
+		email: data.email,
+		username: data.username,
+		profile_picture: "",
+		role: data.user_role,
+	});
 </script>
 
 <svelte:head>
