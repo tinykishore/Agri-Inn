@@ -1,12 +1,18 @@
-// Login POST API
-
 import {getUserByEmail, getUserByUsername} from "$lib/server/database";
 import consoleLog, {LEVEL} from "$lib/server/log";
 import bcrypt from "bcrypt";
 import {generateToken} from "$lib/server/utility";
 
-export const POST = async ({request}: any) => {
+/**
+ * Sign-in API for authenticating users.
+ *
+ * @param {Object} options - An object containing the request and other data.
+ * @param {Request} options.request - The HTTP request object.
+ * @returns {Response} - The HTTP response containing the authentication result.
+ */
+export const POST = async ({request}: any): Promise<Response> => {
     consoleLog("SignInAPI REQUEST Received", LEVEL.OK)
+
     // Server Should receive a Credential JSON object
     const credentials: SignInCredentials = await request.json();
     const key: string = credentials.key;
