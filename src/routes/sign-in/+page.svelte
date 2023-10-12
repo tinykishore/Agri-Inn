@@ -7,7 +7,6 @@
     import {goto} from "$app/navigation";
     import {USER_ROLE} from "../../globals";
     import {fade} from "svelte/transition";
-
     currentNavigation.set(SignInNavigation);
 
     // Credentials Object
@@ -15,9 +14,6 @@
         key: '',
         password: ''
     };
-
-    let keyErrorMessage = '';
-    let passwordErrorMessage = '';
 
     const onPasswordInput = (event: any) => {
         event.target.classList.remove('border-red-400');
@@ -91,49 +87,61 @@
 </section>
 
 <main class="flex items-center justify-center min-h-screen -mt-16 overscroll-y-none" id="body">
-	<div class="mx-auto w-fit mt-24 grid grid-cols-2 justify-between rounded-2xl xl:grid-cols-2 bg-white/60 backdrop-blur-md shadow-2xl">
+	<div class="mx-auto w-fit mt-20 grid grid-cols-2 justify-between rounded-2xl xl:grid-cols-2 bg-white/60 backdrop-blur-md shadow-2xl">
 
 		<form on:submit|preventDefault="{handleSubmit}"
 			  class="rounded-l-2xl p-8 flex flex-col bg-yellow-50/50 w-full h-full justify-between">
 			<div>
-				<h1 class="text-2xl font-black text-yellow-950 mb-12">
+				<h1 class="text-3xl font-black text-yellow-950 mb-4">
 					Sign In
 				</h1>
+
 			</div>
 
-			<div class="mb-4">
-				<label for="username" class="block font-bold text-gray-600 text-center">Username or Email</label>
-				<input required on:input={onKeyInput}
-					   type="text" id="key" name="key" bind:value={credentials['key']}
-					   class="mt-2 font-mono bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-full text-center outline-none
+			<div class="flex flex-col gap-1">
+				<div class="mb-1">
+					<label for="username" class="block font-bold text-gray-600 text-center">Username or Email</label>
+					<input required on:input={onKeyInput}
+						   type="text" id="key" name="key" bind:value={credentials['key']}
+						   class="mt-2 font-mono bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-full text-center outline-none
                        focus:shadow-md block w-full p-2.5 transition-all duration-300 antialiased">
-			</div>
+				</div>
 
-			<div class="mb-4">
-				<label for="password"
-					   class="block font-bold text-gray-600 text-center">
-					Password
-				</label>
-				<input required on:input={onPasswordInput} bind:value={credentials['password']}
-					   type="password" id="password" name="password"
-					   class="mt-2 font-mono bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-full text-center outline-none
+				<div class="mb-1">
+					<label for="password"
+						   class="block font-bold text-gray-600 text-center">
+						Password
+					</label>
+					<input required on:input={onPasswordInput} bind:value={credentials['password']}
+						   type="password" id="password" name="password"
+						   class="mt-2 font-mono bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-full text-center outline-none
                        focus:shadow-md block w-full p-2.5 transition-all duration-300 antialiased">
-			</div>
+				</div>
 
-			<div id="error-message" class="text-center text-sm text-red-500 font-medium invisible">
-				Credential Error
-			</div>
+				<div id="error-message" class="invisible text-center text-sm text-red-500 font-medium mt-1 mb-2">
+					Credential Error
+				</div>
 
-			<div class="mb-4 place-self-center mt-4" id="submit_button">
-				<button type="submit" id="submit"
-						on:click={onSignInButtonClick}
-						class="w-fit px-12 bg-amber-700 font-bold text-white py-2 rounded-full hover:bg-amber-900 focus:outline-none transition-all duration-300">
-					Sign In
-				</button>
-			</div>
-			<div in:fade
-				 class="mb-4 mt-4 place-self-center flex gap-x-3  hidden align-middle items-center justify-center"
-				 id="sign_in_spinner">
+				<div class="mx-auto" id="submit_button">
+					{#if (credentials.key.length > 0 && credentials.password.length > 0)}
+						<button type="submit" id="submit"
+								on:click={onSignInButtonClick}
+								class="w-fit px-12 bg-amber-700 font-bold text-white py-2 rounded-full hover:bg-amber-900 focus:outline-none transition-all duration-300">
+							Sign In
+						</button>
+					{:else}
+						<button type="submit" id="submit" disabled
+								on:click={onSignInButtonClick}
+								class="w-fit px-12 bg-zinc-400 opacity-70 font-bold text-white py-2 rounded-full">
+							Sign In
+						</button>
+					{/if}
+
+				</div>
+
+				<div in:fade
+					 class="flex gap-x-3 py-2 hidden align-middle items-center justify-center"
+					 id="sign_in_spinner">
 				<span>
 					<svg class="animate-spin h-5 w-5 text-yellow-800" xmlns="http://www.w3.org/2000/svg"
 						 fill="none"
@@ -145,12 +153,17 @@
 						</path>
 					</svg>
 				</span>
-				<h1 class="animate-pulse text-amber-700 font-bold">Signing In ...</h1>
+					<h1 class="animate-pulse text-amber-700 font-bold">Signing In ...</h1>
+				</div>
 			</div>
-			<h1 class="text-zinc-500">
-				Need Help Signing In? <a href="/"
-										 class="font-semibold hover:underline transition-all duration-300 text-yellow-950">Contact
-				Us</a>
+
+
+			<h1 class="text-zinc-500 text-sm">
+				Need Help Signing In?
+				<a href="/"
+				   class="font-semibold hover:underline transition-all duration-300 text-yellow-950">
+					Contact Us
+				</a>
 			</h1>
 		</form>
 
