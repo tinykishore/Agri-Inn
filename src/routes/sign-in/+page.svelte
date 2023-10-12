@@ -6,6 +6,7 @@
     import logo from "$lib/assets/icons/logo.svg";
     import {goto} from "$app/navigation";
     import {USER_ROLE} from "../../globals";
+    import {fade} from "svelte/transition";
 
     currentNavigation.set(SignInNavigation);
 
@@ -15,24 +16,23 @@
         password: ''
     };
 
+    let keyErrorMessage = '';
+    let passwordErrorMessage = '';
+
     const onPasswordInput = (event: any) => {
         event.target.classList.remove('border-red-400');
+        document.getElementById('error-message')!.classList.add('invisible');
+    }
+
+    const onKeyInput = (event: any) => {
+        event.target.classList.remove('border-red-400');
+        document.getElementById('error-message')!.classList.add('invisible');
     }
 
     /**
      * Handle the button click event for signing in and update the UI.
      */
     const onSignInButtonClick = () => {
-        // Update UI
-		document.getElementById('submit')!.innerHTML = '';
-		document.getElementById('submit')!.classList.remove('text-white');
-		document.getElementById('submit')!.classList.add(
-			'bg-transparent',
-			'border',
-			'text-teal-800',
-			'hover:bg-transparent',
-			'hover:shadow-none'
-		);
 		document.getElementById('sign_in_spinner')!.classList.remove('hidden');
 		document.getElementById('submit_button')!.classList.add('hidden');
     }
@@ -70,16 +70,9 @@
             // Update UI
             document.getElementById('key')!.classList.add('border-red-400');
             document.getElementById('password')!.classList.add('border-red-400');
-            document.getElementById('password')!.nextElementSibling!.classList.remove('invisible');
-            document.getElementById('submit')!.innerHTML = 'Log in';
-            document.getElementById('submit')!.classList.add('text-white');
-            document.getElementById('submit')!.classList.remove(
-                'bg-transparent',
-                'border',
-                'text-teal-800',
-                'hover:bg-transparent',
-                'hover:shadow-none'
-            );
+            document.getElementById('sign_in_spinner')!.classList.add('hidden');
+            document.getElementById('submit_button')!.classList.remove('hidden');
+            document.getElementById('error-message')!.classList.remove('invisible');
         }
     }
 </script>
@@ -99,11 +92,18 @@
 
 <main class="flex items-center justify-center min-h-screen -mt-16 overscroll-y-none" id="body">
 	<div class="mx-auto w-fit mt-24 grid grid-cols-2 justify-between rounded-2xl xl:grid-cols-2 bg-white/60 backdrop-blur-md shadow-2xl">
+
 		<form on:submit|preventDefault="{handleSubmit}"
-			  class=" rounded-l-2xl p-8 flex flex-col place-self-center bg-yellow-50/50 w-full h-full">
+			  class="rounded-l-2xl p-8 flex flex-col bg-yellow-50/50 w-full h-full justify-between">
+			<div>
+				<h1 class="text-2xl font-black text-yellow-950 mb-12">
+					Sign In
+				</h1>
+			</div>
+
 			<div class="mb-4">
 				<label for="username" class="block font-bold text-gray-600 text-center">Username or Email</label>
-				<input required
+				<input required on:input={onKeyInput}
 					   type="text" id="key" name="key" bind:value={credentials['key']}
 					   class="mt-2 font-mono bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-full text-center outline-none
                        focus:shadow-md block w-full p-2.5 transition-all duration-300 antialiased">
@@ -120,16 +120,22 @@
                        focus:shadow-md block w-full p-2.5 transition-all duration-300 antialiased">
 			</div>
 
-			<div class="mb-4 place-self-center" id="submit_button">
+			<div id="error-message" class="text-center text-sm text-red-500 font-medium invisible">
+				Credential Error
+			</div>
+
+			<div class="mb-4 place-self-center mt-4" id="submit_button">
 				<button type="submit" id="submit"
 						on:click={onSignInButtonClick}
 						class="w-fit px-12 bg-amber-700 font-bold text-white py-2 rounded-full hover:bg-amber-900 focus:outline-none transition-all duration-300">
 					Sign In
 				</button>
 			</div>
-			<div class="mb-4 place-self-center flex gap-x-4 leading-7 hidden" id="sign_in_spinner">
+			<div in:fade
+				 class="mb-4 mt-4 place-self-center flex gap-x-3  hidden align-middle items-center justify-center"
+				 id="sign_in_spinner">
 				<span>
-					<svg class="animate-spin h-[30px] w-[30px] mr-1 text-yellow-800" xmlns="http://www.w3.org/2000/svg"
+					<svg class="animate-spin h-5 w-5 text-yellow-800" xmlns="http://www.w3.org/2000/svg"
 						 fill="none"
 						 viewBox="0 0 24 24">
 						<circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor"
@@ -141,6 +147,11 @@
 				</span>
 				<h1 class="animate-pulse text-amber-700 font-bold">Signing In ...</h1>
 			</div>
+			<h1 class="text-zinc-500">
+				Need Help Signing In? <a href="/"
+										 class="font-semibold hover:underline transition-all duration-300 text-yellow-950">Contact
+				Us</a>
+			</h1>
 		</form>
 
 		<div class="flex flex-col items-end gap-4 p-8">
