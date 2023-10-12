@@ -22,7 +22,7 @@
             image = value.profile_picture;
         })
         if (full_name === "" && email === "" && image === "") {
-            const response = await fetch('/API/v1/dynamicNavbar/GetUserDetails', {
+            const response = await fetch('/API/v1/dynamicNavbar/GetUserDetailsAPI', {
                 method: 'POST',
                 body: JSON.stringify({username: _username}),
                 headers: {
