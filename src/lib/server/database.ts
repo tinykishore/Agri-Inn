@@ -54,3 +54,17 @@ export async function getUserByUsername(username: string) {
     await closeMongoConnection();
     return result;
 }
+
+export async function getAllFarmInfo() {
+    // Connect to the MongoDB cluster
+    const database = await connectToMongo();
+
+    // Get the collection
+    const collection = database.collection('farm-info');
+
+    // Insert the document into the database, return the result and close the connection
+    consoleLog("DATABASE LOG: Getting all farms information...", LEVEL.OK)
+    const result = await collection.find({}).toArray();
+    await closeMongoConnection();
+    return result;
+}
