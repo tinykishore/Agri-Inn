@@ -7,6 +7,19 @@
     currentNavigation.set(DefaultNavigation)
 </script>
 
+<svelte:head>
+	<title>Agri-Inn</title>
+	<meta name="description" content="Agri-Inn is a platform that connects farmers and consumers.
+	We are here to help you find the best products and services for your farm.">
+	<meta name="robots" content="index, follow">
+	<meta name="author" content="Agri-Inn">
+	<meta name="url" content="https://agri-inn.com">
+	<meta name="identifier-URL" content="https://agri-inn.com">
+	<meta name="rating" content="general">
+	<meta name="language" content="en">
+	<meta name="viewport" content="width=device-width, initial-scale=0.9">
+</svelte:head>
+
 <main class="bg-cover bg-center bg-no-repeat min-h-screen">
 	<div class="min-h-screen flex flex-col items-center justify-center mx-32 -translate-y-10">
 		<h1 class="text-7xl font-bold text-white
