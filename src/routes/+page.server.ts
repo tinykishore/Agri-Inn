@@ -13,5 +13,5 @@ export async function load({cookies}: any): Promise<void> {
     if(!token) return;
 
     const authenticated = jwt.verify(token, JWT_SECRET);
-    if (authenticated) throw redirect(307, "/dashboard");
+    if (authenticated) throw redirect(301, "/dashboard");
 }

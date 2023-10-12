@@ -4,8 +4,8 @@
     import currentNavigation from "$lib/stores/currentNavigation";
     import SignInNavigation from "$lib/components/dynamicNavigations/SignInNavigation.svelte";
     import logo from "$lib/assets/icons/logo.svg";
-    import {redirect} from "@sveltejs/kit";
     import {goto} from "$app/navigation";
+    import {USER_ROLE} from "../../globals";
 
     currentNavigation.set(SignInNavigation);
 
@@ -20,15 +20,18 @@
     }
 
     const onSignInButtonClick = () => {
-        document.getElementById('submit')?.classList.remove('text-white');
-        document.getElementById('submit')?.classList.add(
-            'bg-transparent',
-            'text-amber-800',
-            'hover:bg-transparent',
-            'hover:shadow-none'
-        );
-        document.getElementById('submit')!.innerHTML = 'Signing in';
-        //document.getElementById('loader_icon')?.classList.remove('hidden');
+        // Update UI
+		document.getElementById('submit')!.innerHTML = '';
+		document.getElementById('submit')!.classList.remove('text-white');
+		document.getElementById('submit')!.classList.add(
+			'bg-transparent',
+			'border',
+			'text-teal-800',
+			'hover:bg-transparent',
+			'hover:shadow-none'
+		);
+		document.getElementById('sign_in_spinner')!.classList.remove('hidden');
+		document.getElementById('submit_button')!.classList.add('hidden');
     }
 
     const handleSubmit = async () => {
@@ -51,7 +54,11 @@
             document.getElementById('password')!.classList.add('bg-green-200');
             document.getElementById('password')!.classList.add('border-green-200');
 
-            await goto('/dashboard');
+            // Get response data, check user role
+            const data = await response.json();
+            if (data.role === USER_ROLE.ADMIN) await goto("/admin");
+            else await goto("/dashboard");
+
         }
         // If response is not ok, update UI with error UI
         else {
@@ -68,7 +75,6 @@
                 'hover:bg-transparent',
                 'hover:shadow-none'
             );
-            //document.getElementById('loader_icon')!.classList.add('hidden');
         }
     }
 </script>
@@ -109,12 +115,26 @@
                        focus:shadow-md block w-full p-2.5 transition-all duration-300 antialiased">
 			</div>
 
-			<div class="mb-4 place-self-center">
+			<div class="mb-4 place-self-center" id="submit_button">
 				<button type="submit" id="submit"
 						on:click={onSignInButtonClick}
 						class="w-fit px-12 bg-amber-700 font-bold text-white py-2 rounded-full hover:bg-amber-900 focus:outline-none transition-all duration-300">
 					Sign In
 				</button>
+			</div>
+			<div class="mb-4 place-self-center flex gap-x-4 leading-7 hidden" id="sign_in_spinner">
+				<span>
+					<svg class="animate-spin h-[30px] w-[30px] mr-1 text-yellow-800" xmlns="http://www.w3.org/2000/svg"
+						 fill="none"
+						 viewBox="0 0 24 24">
+						<circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor"
+								stroke-width="4"></circle>
+						<path class="opacity-75" fill="currentColor"
+							  d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
+						</path>
+					</svg>
+				</span>
+				<h1 class="animate-pulse text-amber-700 font-bold">Signing In ...</h1>
 			</div>
 		</form>
 
@@ -131,7 +151,5 @@
 				2023 &copy; Agri-Inn. All rights reserved.
 			</p>
 		</div>
-
-
 	</div>
 </main>

@@ -1,6 +1,6 @@
 <script lang="ts">
     import {fade} from "svelte/transition";
-    import cancel_icon from "../../../../../Agri-Inn/src/lib/assets/icons/sign-up-cancel-icon.svg";
+    import cancel_icon from "$lib/assets/icons/sign-up-cancel-icon.svg";
     import google_icon from "$lib/assets/icons/google-auth.svg";
 
     let error_message: string = "";
