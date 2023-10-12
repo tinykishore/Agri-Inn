@@ -101,3 +101,23 @@ export async function getProductInfo(product_id: string) {
         }
     }
 }
+
+export async function insertResetPasswordToken(email: string, token: string) {
+    const database = await connectToMongo();
+    const collection = database.collection("user-account");
+
+    // Insert the reset token into the database where the email matches
+    const result = await collection.updateOne(
+        {"credentials.email": email},
+        {
+            $set: {"credentials.password_reset_token": token}
+        });
+
+    if (result.modifiedCount === 1) {
+        consoleLog("DATABASE LOG: Reset token inserted successfully", LEVEL.OK);
+        return true;
+    } else {
+        consoleLog("DATABASE LOG: Reset token insertion failed", LEVEL.ERROR);
+        return false;
+    }
+}
