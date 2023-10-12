@@ -90,3 +90,18 @@ export async function getOneFarmProducts(farm_uid: string) {
     await closeMongoConnection();
     return result;
 }
+
+export async function getProductInfo(product_id: string) {
+    // Connect to the MongoDB cluster and get the collection `credentials`
+    const database = await connectToMongo();
+    const collection = database.collection("farm-products");
+    const result: any = await collection.findOne({'products.id': product_id});
+
+    // Search inside the array of products for the product with the matching id
+    const products = result.products;
+    for (let i: number = 0; i < products.length; i++) {
+        if (products[i].id === product_id) {
+            return products[i];
+        }
+    }
+}
