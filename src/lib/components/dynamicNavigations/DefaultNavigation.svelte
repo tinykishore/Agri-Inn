@@ -1,5 +1,6 @@
 <script lang="ts">
     import search_icon from "$lib/assets/icons/landing-page-search-icon.svg";
+    import logo from "$lib/assets/icons/logo.svg";
 </script>
 
 <div class="grid grid-cols-3 justify-center items-center">
@@ -15,7 +16,9 @@
 
 	</div>
 	<div class="flex justify-center text-xl font-bold text-amber-800">
-		<a href="/">Agri-Inn(LOGO)</a>
+		<a href="/">
+			<img src={logo} alt="logo" class="w-32">
+		</a>
 
 	</div>
 	<div class="flex justify-end gap-2">

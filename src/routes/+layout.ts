@@ -7,6 +7,6 @@
  */
 export function load({url}: any): { url: any } {
     return {
-        url: url.pathname,
+        url: url.pathname
     }
 }
