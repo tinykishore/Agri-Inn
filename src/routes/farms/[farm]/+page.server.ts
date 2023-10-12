@@ -11,9 +11,11 @@ export const load = async ({cookies, url}: any) => {
     if (!token) throw redirect(307, "/sign-in");
 
     // If the cookie is found, verify the JWT
-    const authenticated: any = jwt.verify(token, JWT_SECRET);
-    // If the JWT is invalid, redirect to sign-in page
-    if (!authenticated) {
+    let authenticated: any;
+    try {
+        authenticated = jwt.verify(token, JWT_SECRET);
+    } catch (e) {
+        console.log(e);
         throw redirect(307, "/sign-in");
     }
 
