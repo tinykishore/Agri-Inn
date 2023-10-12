@@ -23,6 +23,4 @@
 			{/each}
 		</div>
 	{/if}
-
-
 </main>
