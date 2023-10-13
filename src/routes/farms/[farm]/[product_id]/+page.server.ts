@@ -28,6 +28,7 @@ export const load = async ({cookies, url}: any) => {
         full_name: authenticated.full_name,
         username: authenticated.username,
         email: authenticated.email,
+        profile_picture: authenticated.profile_picture,
         user_role: authenticated.user_role,
         product_id: product_id
     }
