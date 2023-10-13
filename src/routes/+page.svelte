@@ -1,10 +1,10 @@
 <script lang="ts">
     import BackgroundVideo from "$lib/components/BackgroundVideo.svelte";
     import currentNavigation from "$lib/stores/currentNavigation";
-    import DefaultNavigation from "$lib/components/dynamicNavigations/DefaultNavigation.svelte";
     import LandingPageSteps from "$lib/components/LandingPageSteps.svelte";
+    import LandingPageNavigation from "$lib/components/dynamicNavigations/LandingPageNavigation.svelte";
 
-    currentNavigation.set(DefaultNavigation)
+    currentNavigation.set(LandingPageNavigation)
 </script>
 
 <svelte:head>
