@@ -11,7 +11,7 @@ import {JWT_SECRET} from "$env/static/private";
  * @returns {Promise<object>} - A Promise that resolves with user data if authenticated.
  * @throws {object} - Throws a redirect response if not authenticated.
  */
-export const load = async ({cookies}: any): Promise<object> => {
+export const load = async ({cookies}: any) => {
     // Get cookie value "sessionID"
     const token = cookies.get('sessionID');
 
@@ -34,5 +34,6 @@ export const load = async ({cookies}: any): Promise<object> => {
         username: authenticated.username,
         email: authenticated.email,
         user_role: authenticated.user_role,
+        profile_picture: authenticated.profile_picture
     }
 }
