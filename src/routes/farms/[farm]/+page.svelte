@@ -27,6 +27,8 @@
             }
         });
         farm_products = await farm_products_response.json();
+        const installments = farm_products["installments"]
+        console.log(installments)
     })
 
 

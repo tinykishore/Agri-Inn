@@ -21,7 +21,8 @@ export const load = async ({cookies, url}: any) => {
 
     const urlPath = url.pathname.split("/");
     const product_id = urlPath[urlPath.length - 1];
-    console.log(product_id);
+    const farm_id = urlPath[urlPath.length - 2];
+
 
     // If the JWT is valid, return the username
     return {
@@ -30,6 +31,7 @@ export const load = async ({cookies, url}: any) => {
         email: authenticated.email,
         profile_picture: authenticated.profile_picture,
         user_role: authenticated.user_role,
-        product_id: product_id
+        product_id: product_id,
+        farm_id: farm_id
     }
 }
