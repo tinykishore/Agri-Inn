@@ -8,6 +8,7 @@
     import {USER_ROLE} from "../../globals";
     import {fade} from "svelte/transition";
     import UserCache from "$lib/stores/UserCache";
+
     currentNavigation.set(SignInNavigation);
 
     // Credentials Object
@@ -102,30 +103,32 @@
 		<form on:submit|preventDefault="{handleSubmit}"
 			  class="rounded-l-2xl p-8 flex flex-col bg-yellow-50/50 w-full h-full justify-between">
 			<div>
-				<h1 class="text-3xl font-black text-yellow-950 mb-4">
+				<h1 class="text-2xl font-black text-yellow-950 mb-4">
 					Sign In
 				</h1>
 
 			</div>
 
-			<div class="flex flex-col gap-1">
+			<div class="flex flex-col gap-3">
 				<div class="mb-1">
-					<label for="username" class="block font-bold text-gray-600 text-center">Username or Email</label>
+					<label class="block font-bold text-gray-600 ml-3" for="username">Username or Email</label>
+					<label class="block font-light text-xs text-gray-600 ml-3" for="username">Make sure you are
+						registered with us!</label>
 					<input required on:input={onKeyInput}
 						   type="text" id="key" name="key" bind:value={credentials['key']}
-						   class="mt-2 font-mono bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-full text-center outline-none
-                       focus:shadow-md block w-full p-2.5 transition-all duration-300 antialiased">
+						   class="mt-2 font-mono bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-full outline-none
+                       focus:shadow-md block w-full py-2.5 px-3 transition-all duration-300 antialiased">
 				</div>
 
 				<div class="mb-1">
-					<label for="password"
-						   class="block font-bold text-gray-600 text-center">
-						Password
-					</label>
+					<label class="block font-bold text-gray-600 ml-3" for="password">Password</label>
+					<label class="block font-light text-xs text-gray-600 ml-3" for="username">Watch out for caps
+						lock!</label>
+
 					<input required on:input={onPasswordInput} bind:value={credentials['password']}
 						   type="password" id="password" name="password"
-						   class="mt-2 font-mono bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-full text-center outline-none
-                       focus:shadow-md block w-full p-2.5 transition-all duration-300 antialiased">
+						   class="mt-2 font-mono bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-full outline-none
+                       focus:shadow-md block w-full py-2.5 px-3 transition-all duration-300 antialiased">
 				</div>
 
 				<div id="error-message" class="invisible text-center text-sm text-red-500 font-medium mt-1 mb-2">
