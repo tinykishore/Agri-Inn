@@ -1,5 +1,5 @@
 import consoleLog, {LEVEL} from "$lib/server/log";
-import {getOneFarmInfo} from "$lib/server/database";
+import {getOneFarmInfo} from "$lib/server/database_v2";
 
 export const POST = async ({request}: any): Promise<Response> => {
     consoleLog("GetOneFarmAPI REQUEST Received", LEVEL.OK);

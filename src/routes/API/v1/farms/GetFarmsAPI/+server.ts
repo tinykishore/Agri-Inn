@@ -1,5 +1,5 @@
 import consoleLog, {LEVEL} from "$lib/server/log";
-import {getAllFarmInfo} from "$lib/server/database";
+import {getAllFarmInfo} from "$lib/server/database_v2";
 
 export const GET = async () => {
     consoleLog("GetFarmsAPI REQUEST Received", LEVEL.OK);

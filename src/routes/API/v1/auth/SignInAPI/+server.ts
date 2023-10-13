@@ -1,4 +1,4 @@
-import {getUserByEmail, getUserByUsername} from "$lib/server/database";
+import {getUserByEmail, getUserByUsername} from "$lib/server/database_v2";
 import consoleLog, {LEVEL} from "$lib/server/log";
 import bcrypt from "bcrypt";
 import {generateToken} from "$lib/server/utility";
