@@ -8,6 +8,7 @@ export let collections: any = {
     "user-account": null,
     "farm-info": null,
     "farm-products": null,
+    "forum": null
 }
 
 const client: MongoClient = new MongoClient(MONGO_URL, {
@@ -24,6 +25,7 @@ export const initializeDatabase = async (): Promise<void> => {
         collections["user-account"] = databaseConnection.collection("user-account");
         collections["farm-info"] = databaseConnection.collection("farm-info");
         collections["farm-products"] = databaseConnection.collection("farm-products");
+        collections["forum"] = databaseConnection.collection("forum");
     } catch (error: any) {
         consoleLog(`DATABASE ERROR: ${error.message}`, LEVEL.ERROR);
         databaseConnection = null;
@@ -94,4 +96,15 @@ export async function insertResetPasswordToken(email: string, token: string) {
         consoleLog("DATABASE LOG: Reset token insertion failed", LEVEL.ERROR);
         return false;
     }
+}
+export async function insertForumPost(post: Posts) {
+    const result = await collections["forum"].insertOne(post);
+    return result;
+
+}
+
+export async function getAllPost() {
+    const result = await collections["forum"].find({}).toArray();
+    consoleLog("DATABASE LOG: Getting all farms information...", LEVEL.OK)
+    return result;
 }
