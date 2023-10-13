@@ -14,9 +14,9 @@ interface SignInCredentials {
 	password: string
 }
 
-interface Posts {
+interface Post {
+	title: string
 	post : string
-	title : string
 	author : string
 	timestamp : number
 	likes : number
