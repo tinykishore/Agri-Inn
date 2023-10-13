@@ -1,17 +1,25 @@
 <script>
-    import currentNavigation from "$lib/stores/currentNavigation";
-    import DashboardNavigation from "$lib/components/dynamicNavigations/DashboardNavigation.svelte";
-    import {USER_ROLE} from "../../globals";
+	import currentNavigation from "$lib/stores/currentNavigation";
+	import DashboardNavigation from "$lib/components/dynamicNavigations/DashboardNavigation.svelte";
+	import {isUserCacheValid, USER_ROLE} from "../../globals";
+	import {onMount} from "svelte";
 	import UserCache from "$lib/stores/UserCache";
-    currentNavigation.set(DashboardNavigation);
+
+	currentNavigation.set(DashboardNavigation);
     export let data;
-    UserCache.set({
-		full_name: data.full_name,
-		email: data.email,
-		username: data.username,
-		profile_picture: "",
-		role: data.user_role,
-	});
+
+	onMount(async () => {
+		if (!isUserCacheValid()){
+			UserCache.update(value => {
+				value.full_name = data.full_name;
+				value.email = data.email;
+				value.profile_picture = data.profile_picture;
+				value.username = data.username;
+				value.role = data.user_role;
+				return value;
+			});
+		}
+	})
 </script>
 
 <svelte:head>

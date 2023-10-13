@@ -7,6 +7,7 @@
     import {goto} from "$app/navigation";
     import {USER_ROLE} from "../../globals";
     import {fade} from "svelte/transition";
+    import UserCache from "$lib/stores/UserCache";
     currentNavigation.set(SignInNavigation);
 
     // Credentials Object
@@ -46,6 +47,7 @@
             }
         });
 
+        // Extract response data
         if (response.ok) {
             // Update UI
             document.getElementById('key')!.classList.remove('border-red-400');
@@ -57,6 +59,14 @@
 
             // Get response data, check user role
             const data = await response.json();
+            UserCache.update(value => {
+                value.full_name = data.full_name;
+                value.email = data.email;
+                value.profile_picture = data.profile_picture;
+                value.username = data.username;
+                value.role = data.user_role;
+                return value;
+            });
             if (data.role === USER_ROLE.ADMIN) await goto("/admin");
             else await goto("/dashboard");
 
