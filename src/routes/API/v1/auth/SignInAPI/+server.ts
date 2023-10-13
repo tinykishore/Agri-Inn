@@ -48,15 +48,18 @@ export const POST = async ({request}: any): Promise<Response> => {
             full_name: authResult["full_name"],
             username: authResult.credentials["username"],
             email: authResult.credentials["email"],
+            profile_picture: authResult["profile_picture"],
             user_role: authResult["role"]
         });
         // Add Cookie Headers to the response with CORS Headers
         // Redirect to the dashboard
         return new Response(
             JSON.stringify({
-                name: authResult.name,
-                email: authResult.email,
-                token: token
+                full_name: authResult["full_name"],
+                username: authResult.credentials["username"],
+                email: authResult.credentials["email"],
+                profile_picture: authResult["profile_picture"],
+                user_role: authResult["role"]
             }),
             {
                 status: 200,
