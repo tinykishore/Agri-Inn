@@ -1,9 +1,8 @@
 import consoleLog, {LEVEL} from "$lib/server/log";
-import {getAllFarmInfo, getAllPost} from "$lib/server/database_v2";
-
+import {getAllPost} from "$lib/server/database_v2";
 
 export const GET = async () => {
-    consoleLog("GetAllPost REQUEST Received", LEVEL.OK);
+    consoleLog("GetAllPostAPI REQUEST Received", LEVEL.OK);
     const allPosts = await getAllPost();
     if (!allPosts) {
         consoleLog("GetAllPostAPI RESPONSE: status 404", LEVEL.ERROR);

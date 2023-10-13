@@ -11,7 +11,6 @@ export const POST = async ({request}: any): Promise<Response> => {
         consoleLog("GetProductInfoAPI RESPONSE: status 404", LEVEL.ERROR);
         return new Response(null, {status: 404})
     }
-    console.log(product_info)
     consoleLog("GetProductInfoAPI RESPONSE: status 200", LEVEL.OK);
     return new Response(JSON.stringify(product_info), {status: 200})
 
