@@ -30,5 +30,5 @@
         <input type="email" id="email" name="email" required bind:value={email} />
 
         <button type="submit">Send Reset Link</button>
-
+    </form>
 </main>
