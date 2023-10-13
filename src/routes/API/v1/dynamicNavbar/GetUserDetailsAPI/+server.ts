@@ -1,5 +1,5 @@
 import consoleLog, {LEVEL} from "$lib/server/log";
-import {getUserByUsername} from "$lib/server/database";
+import {getUserByUsername} from "$lib/server/database_v2";
 
 /**
  * Handles a POST request to retrieve user details based on the provided username.
