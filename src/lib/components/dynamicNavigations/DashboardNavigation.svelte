@@ -8,7 +8,7 @@
 
     let _username: string;
     let full_name: string;
-    let email: string;
+
     let image: string;
 
     let UserCacheValid = isUserCacheValid();
@@ -16,7 +16,6 @@
     UserCache.subscribe(value => {
         _username = value.username;
         full_name = value.full_name;
-        email = value.email;
         image = value.profile_picture;
     })
 
@@ -50,7 +49,7 @@
 
 <div class="grid grid-cols-3 items-center">
 	<div class="flex justify-start gap-2">
-		<form action="?/SignOut" method="POST" use:enhance>
+		<form action="/dashboard" method="POST" use:enhance>
 			<button class="px-3 py-2 flex text-sm items-center gap-0.5 align-middle rounded-full font-bold border border-yellow-800 hover:bg-red-100 text-yellow-950 transition-all duration-300" name="log_out"
 					type="submit" on:click={onSignOutClick}>
 				<span id="close_image" class="block h-5 w-5 mr-1">

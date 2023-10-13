@@ -28,7 +28,7 @@ export const load = async ({cookies}: any) => {
 }
 
 export const actions = {
-    SignOut: async ({cookies}: any) => {
+    default: async ({cookies}: any) => {
         cookies.delete('sessionID');
         throw redirect(307, '/');
     }
