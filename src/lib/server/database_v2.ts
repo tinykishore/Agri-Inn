@@ -99,8 +99,7 @@ export async function insertResetPasswordToken(email: string, token: string) {
 }
 
 export async function insertForumPost(post: Post) {
-    const result = await collections["forum"].insertOne(post);
-    return result;
+    return await collections["forum"].insertOne(post);
 
 }
 
@@ -111,7 +110,7 @@ export async function getAllPost() {
 }
 
 export async function getMostLikedPosts() {
-    const result = await collections["forum"].find({}).sort({likes: -1}).limit(5).toArray();
+    const result = await collections["forum"].find({}).sort({like: -1}).limit(3).toArray();
     consoleLog("DATABASE LOG: Getting all farms information...", LEVEL.OK)
     return result;
 }
