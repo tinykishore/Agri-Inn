@@ -1,34 +1,14 @@
-<script lang="ts">
-    import search_icon from "$lib/assets/icons/landing-page-search-icon.svg";
-    import logo from "$lib/assets/icons/logo.svg";
-</script>
-
-<div class="grid grid-cols-3 justify-center items-center">
-	<div class="flex justify-start gap-2">
-		<a href="/search"
-		   class="px-6 py-2 text-sm flex items-center gap-2 align-middle rounded-full font-bold border border-yellow-800 hover:bg-amber-300 text-yellow-950 transition-all duration-300"><span
-				class="block h-4 w-4">
-							<img src={search_icon} alt="search_icon"></span>
-			Search Anywhere
-		</a>
-		<a href="/about"
-		   class="px-6 py-2 text-sm rounded-full border-0 font-medium text-yellow-950 hover:bg-yellow-300 transition-all duration-300">About</a>
-
-	</div>
-	<div class="flex justify-center text-xl font-bold text-amber-800">
-		<a href="/">
-			<img src={logo} alt="logo" class="w-32">
-		</a>
-
-	</div>
-	<div class="flex justify-end gap-2">
-		<a href="/sign-in"
-		   class="px-6 py-2 rounded-full text-sm border-0 font-semibold text-yellow-950  hover:bg-yellow-300 transition-all duration-300">
-			Sign In
-		</a>
-		<a href="/sign-up"
-		   class=" px-6 py-2 rounded-full text-sm font-bold border border-yellow-800 hover:bg-amber-300 text-yellow-950 transition-all duration-300">
-			Get Started with Us
-		</a>
-	</div>
+<div class="flex justify-between items-center align-middle">
+	<h1 class="ml-4 font-bold text-amber-600 text-xl animate-pulse">Please Wait</h1>
+	<span class="place-self-end">
+	<svg class="animate-spin h-[2.35rem] w-[2.35rem] text-yellow-800" xmlns="http://www.w3.org/2000/svg"
+		 fill="none"
+		 viewBox="0 0 24 24">
+		<circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor"
+				stroke-width="4"></circle>
+		<path class="opacity-75" fill="currentColor"
+			  d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
+		</path>
+	</svg>
+	</span>
 </div>

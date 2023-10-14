@@ -22,12 +22,13 @@ export const load = async ({cookies}: any) => {
         full_name: authenticated.full_name,
         username: authenticated.username,
         email: authenticated.email,
-        user_role: authenticated.user_role
+        user_role: authenticated.user_role,
+        profile_picture: authenticated.profile_picture
     }
 }
 
 export const actions = {
-    SignOut: async ({cookies}: any) => {
+    default: async ({cookies}: any) => {
         cookies.delete('sessionID');
         throw redirect(307, '/');
     }

@@ -5,6 +5,10 @@
 
 </script>
 
+<svelte:head>
+	<title>About Us</title>
+	<meta name="description" content="About Us">
+</svelte:head>
 
 <main class="h-[1000px]">
 	Hello

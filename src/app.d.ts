@@ -13,3 +13,11 @@ interface SignInCredentials {
 	key: string
 	password: string
 }
+
+interface Post {
+	title: string
+	post : string
+	author : string
+	timestamp : number
+	likes : number
+}
