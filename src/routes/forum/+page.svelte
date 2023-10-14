@@ -4,6 +4,9 @@
     import {isUserCacheValid} from "../../globals";
     import forum_art from "$lib/assets/images/forum-art.svg";
     import logo from "$lib/assets/icons/logo.svg";
+    import forum_bg from "$lib/assets/images/forum-bg.png";
+    import PostGrid from "./PostGrid.svelte";
+    import TrendingSection from "./TrendingSection.svelte";
 
     export let data;
 
@@ -51,7 +54,6 @@
     }
 
     onMount(async () => {
-        // Update the user cache if it is not valid
         if (!isUserCacheValid()) {
             UserCache.update(value => {
                 value.full_name = data.full_name;
@@ -68,15 +70,20 @@
         posts = await getAllPostAPIResponse.json();
 
         // Get first 5 most liked posts via API GetMostLikedPostsAPI
-        const mostLikedAPIResponse = await fetch('/API/v1/forum/GetMostLikedPostAPI');
+        const mostLikedAPIResponse = await fetch('/API/v1/forum/GetMostLikedPostsAPI');
         mostLikedPosts = await mostLikedAPIResponse.json();
     });
 
 </script>
 
+<section class="fixed bg-fixed top-0 left-0 h-screen w-screen -z-50">
+    <img alt="sign-in-bg" class="w-full h-full bg-fixed object-cover" src="{forum_bg}">
+</section>
+
+
 <main class="my-24 mx-32">
     <div class="grid grid-cols-3 gap-6 h-full">
-        <div class="col-span-2 bg-white/70 backdrop-blur-2xl rounded-2xl shadow-md p-6">
+        <div class="col-span-2 bg-white/70 backdrop-blur-2xl rounded-2xl shadow-md p-6 ">
             <div class="flex justify-between align-middle items-center">
                 <div class="flex flex-col gap-1">
                     <h1 class="text-3xl font-bold text-amber-900 bg-gradient-to-l from-amber-800 to-amber-600 text-transparent bg-clip-text">
@@ -87,8 +94,6 @@
                 </div>
                 <img alt="" class="h-10" src={logo}/>
             </div>
-
-
             <div class="gap grid grid-cols-2 mt-8 gap-4">
                 <div class="flex flex-col">
                     <label class="ml-4 font-bold text-zinc-500" for="postTitle">Post Title</label>
@@ -125,32 +130,10 @@
 
             </div>
         </div>
-        <div class="flex flex-col gap-3 bg-amber-300/60 backdrop-blur-2xl rounded-2xl p-4">
-            <h1 class="text-2xl font-bold text-amber-800">Trending Topics</h1>
-            <h1 class="text-sm font-light text-amber-700">Top 5 most liked posts</h1>
-            <div class="grid grid-cols-2 gap-4">
 
-            </div>
-
-        </div>
-
-
-    <div>
-        <h1>Posts</h1>
-        <div class="grid grid-cols-4 gap-4">
-            {#each posts as post}
-                <div class="bg-amber-100 p-3 rounded-xl shadow-xl">
-                    <p>{post.author}</p>
-                    <p>{post.title}</p>
-                    <p>{post.post}</p>
-                    <p>{post.timestamp}</p>
-                    <p>{post.likes}</p>
-                <button>Like</button>
-                <button>Comment</button>
-                <button>Save</button>
-                </div>
-            {/each}
-        </div>
+        <TrendingSection mostLikedPosts={mostLikedPosts}/>
 
     </div>
+
+    <PostGrid posts={posts}/>
 </main>
