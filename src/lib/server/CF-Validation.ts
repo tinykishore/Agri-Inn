@@ -1,9 +1,7 @@
 import {TURNSTILE_KEY} from "$env/static/private";
 
 export const cfTurnstileValidation = async (token: string) => {
-
     const url = 'https://challenges.cloudflare.com/turnstile/v0/siteverify';
-
     const result = await fetch(url, {
         method: 'POST',
         headers: {
