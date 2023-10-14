@@ -35,6 +35,7 @@
 		"google-auth-library": "^9.1.0",
 		"jsonwebtoken": "^9.0.2",
 		"mongodb": "^6.1.0",
-		"nodemailer": "^6.9.6"
+		"nodemailer": "^6.9.6",
+		"svelte-turnstile": "^0.5.0"
 	}
 }
