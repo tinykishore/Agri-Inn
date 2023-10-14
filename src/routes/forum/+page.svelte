@@ -81,7 +81,7 @@
 </section>
 
 
-<main class="my-24 mx-32">
+<main class="my-20 mx-32">
     <div class="grid grid-cols-3 gap-6 h-full">
         <div class="col-span-2 bg-white/70 backdrop-blur-2xl rounded-2xl shadow-md p-6 ">
             <div class="flex justify-between align-middle items-center">
@@ -114,8 +114,7 @@
                             name="post" placeholder="Write Your Post Here in Detail" rows="5"></textarea>
 
                     <button class="bg-amber-600 mt-2 text-white w-fit font-bold py-2 px-4 rounded-full hover:bg-amber-700 focus:outline-none focus:ring-2 focus:ring-amber-600 focus:ring-opacity-50 hover:shadow-md transition duration-300"
-                            on:click={onPostSubmit}
-                    >Submit Post
+                            on:click={onPostSubmit}>Submit Post
                     </button>
                 </div>
 
@@ -130,10 +129,7 @@
 
             </div>
         </div>
-
         <TrendingSection mostLikedPosts={mostLikedPosts}/>
-
     </div>
-
     <PostGrid posts={posts}/>
 </main>
