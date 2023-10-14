@@ -12,7 +12,6 @@ import {JWT_SECRET} from "$env/static/private";
  * @throws {object} - Throws a redirect response if not authenticated.
  */
 export const load = async ({cookies}: any) => {
-    console.log("Loading user data...");
     // Get cookie value "sessionID"
     const token = cookies.get('sessionID');
 
