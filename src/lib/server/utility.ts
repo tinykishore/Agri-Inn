@@ -1,6 +1,7 @@
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import {JWT_SECRET} from "$env/static/private";
+import consoleLog, {LEVEL} from "$lib/server/log";
 
 export function encryptPassword(password: string): string {
     return bcrypt.hashSync(password, 10);
@@ -23,4 +24,20 @@ export function authorized(token: string): boolean {
     } catch (e) {
         return false;
     }
+}
+
+export function verifyRequest(cookies: any): boolean {
+    const sessionID = cookies.get("sessionID");
+    let authorized;
+    try {
+        authorized = jwt.verify(sessionID, JWT_SECRET);
+        if (authorized) {
+            consoleLog("API Access Granted", LEVEL.OK);
+            return true;
+        }
+    } catch (e) {
+        consoleLog("API Access Unauthorized", LEVEL.ERROR);
+        return false;
+    }
+    return false;
 }
