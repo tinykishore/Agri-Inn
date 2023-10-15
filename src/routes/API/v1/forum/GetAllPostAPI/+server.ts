@@ -1,8 +1,13 @@
 import consoleLog, {LEVEL} from "$lib/server/log";
 import {getAllPost} from "$lib/server/database_v2";
+import {verifyRequest} from "$lib/server/utility";
 
-export const GET = async () => {
+export const GET = async ({cookies}: any) => {
     consoleLog("GetAllPostAPI REQUEST Received", LEVEL.OK);
+    // Protect API from unauthorized access.
+    if (!verifyRequest(cookies)) {
+        return new Response("Unauthorized", {status: 401});
+    }
     const allPosts = await getAllPost();
     if (!allPosts) {
         consoleLog("GetAllPostAPI RESPONSE: status 404", LEVEL.ERROR);

@@ -1,8 +1,15 @@
 import consoleLog, {LEVEL} from "$lib/server/log";
 import {getMostLikedPosts} from "$lib/server/database_v2";
+import {verifyRequest} from "$lib/server/utility";
 
-export const GET = async () => {
+export const GET = async ({cookies}: any) => {
     consoleLog("GetMostLikedPostsAPI REQUEST Received", LEVEL.OK);
+
+    // Protect API from unauthorized access.
+    if (!verifyRequest(cookies)) {
+        return new Response("Unauthorized", {status: 401});
+    }
+
     const mostLikedPosts = await getMostLikedPosts();
     if (!mostLikedPosts) {
         consoleLog("GetMostLikedPostsAPI RESPONSE: status 404", LEVEL.ERROR);
