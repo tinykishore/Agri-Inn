@@ -4,7 +4,7 @@ import consoleLog, {LEVEL} from "$lib/server/log";
 import nodemailer from "nodemailer";
 import CryptoJS from "crypto-js";
 import {GMAIL_APP_PASS} from "$env/static/private";
-import {insertResetPasswordToken} from "$lib/server/database_v2";
+import {insertResetPasswordToken} from "$lib/server/database";
 import {cfTurnstileValidation} from "$lib/server/CF-Validation";
 
 let transporter = nodemailer.createTransport({

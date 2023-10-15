@@ -2,112 +2,88 @@ import {Db, MongoClient} from "mongodb";
 import {MONGO_DATABASE, MONGO_URL} from "$env/static/private";
 import consoleLog, {LEVEL} from "$lib/server/log";
 
+export let databaseConnection: Db | null = null;
+
+export let collections: any = {
+    "user-account": null,
+    "farm-info": null,
+    "farm-products": null,
+    "forum": null
+}
 
 const client: MongoClient = new MongoClient(MONGO_URL, {
     connectTimeoutMS: 5000,
     socketTimeoutMS: 5000
 });
 
-const connectToMongo = async (): Promise<Db> => {
+export const initializeDatabase = async (): Promise<void> => {
     try {
         // Connect to the MongoDB cluster
         await client.connect();
         consoleLog("DATABASE LOG: Connected to MongoDB Server", LEVEL.OK)
-        // Return the database object
-        return client.db(MONGO_DATABASE);
+        databaseConnection = client.db(MONGO_DATABASE);
+        collections["user-account"] = databaseConnection.collection("user-account");
+        collections["farm-info"] = databaseConnection.collection("farm-info");
+        collections["farm-products"] = databaseConnection.collection("farm-products");
+        collections["forum"] = databaseConnection.collection("forum");
     } catch (error: any) {
         consoleLog(`DATABASE ERROR: ${error.message}`, LEVEL.ERROR);
-        throw new Error('Internal Server Error');
+        databaseConnection = null;
     }
-};
+}
 
-const closeMongoConnection = async (): Promise<void> => {
-    // Close the client
-    consoleLog("DATABASE LOG: Connection to MongoDB Server closed", LEVEL.OK)
+export const destroyDatabase = async (): Promise<void> => {
+    for (let key in collections) {
+        collections[key] = null;
+    }
+    databaseConnection = null;
     await client.close();
-};
+    consoleLog("DATABASE LOG: Connection to MongoDB Server closed", LEVEL.OK)
+}
 
 export async function getUserByEmail(email: string) {
-    // Connect to the MongoDB cluster
-    const database = await connectToMongo();
-    // Get the collection
-    const collection = database.collection('user-account');
-    // Insert the document into the database, return the result and close the connection
-    const result = await collection.findOne({"credentials.email": email});
+    const result = await collections["user-account"].findOne({"credentials.email": email});
     consoleLog("DATABASE LOG: Getting user by email...", LEVEL.OK)
-    await closeMongoConnection();
     return result;
 }
 
 export async function getUserByUsername(username: string) {
-    // Connect to the MongoDB cluster
-    const database = await connectToMongo();
-    // Get the collection
-    const collection = database.collection('user-account');
-    // Insert the document into the database, return the result and close the connection
-    const result = await collection.findOne({"credentials.username": username});
+    const result = await collections["user-account"].findOne({"credentials.username": username});
     consoleLog("DATABASE LOG: Getting user by username...", LEVEL.OK)
-    await closeMongoConnection();
     return result;
 }
 
 export async function getAllFarmInfo() {
-    // Connect to the MongoDB cluster
-    const database = await connectToMongo();
-    // Get the collection
-    const collection = database.collection('farm-info');
-    // Insert the document into the database, return the result and close the connection
+    const result = await collections["farm-info"].find({}).toArray();
     consoleLog("DATABASE LOG: Getting all farms information...", LEVEL.OK)
-    const result = await collection.find({}).toArray();
-    await closeMongoConnection();
     return result;
 }
 
 export async function getOneFarmInfo(farm_uid: string) {
-    // Connect to the MongoDB cluster
-    const database = await connectToMongo();
-    // Get the collection
-    const collection = database.collection('farm-info');
-    // Insert the document into the database, return the result and close the connection
+    const result = await collections["farm-info"].findOne({"uid": farm_uid});
     consoleLog(`DATABASE LOG: Getting farm {` + farm_uid + `} information...`, LEVEL.OK)
-    const result = await collection.findOne({"uid": farm_uid});
-    await closeMongoConnection();
     return result;
 }
 
 export async function getOneFarmProducts(farm_uid: string) {
-    // Connect to the MongoDB cluster
-    const database = await connectToMongo();
-    // Get the collection
-    const collection = database.collection('farm-products');
-    // Insert the document into the database, return the result and close the connection
+    const result = await collections["farm-products"].findOne({"uid": farm_uid});
     consoleLog(`DATABASE LOG: Getting farm products {` + farm_uid + `} information...`, LEVEL.OK)
-    const result = await collection.findOne({"uid": farm_uid});
-    await closeMongoConnection();
     return result;
 }
 
 export async function getProductInfo(product_id: string) {
-    // Connect to the MongoDB cluster and get the collection `credentials`
-    const database = await connectToMongo();
-    const collection = database.collection("farm-products");
-    const result: any = await collection.findOne({'products.id': product_id});
-
-    // Search inside the array of products for the product with the matching id
+    const result = await collections["farm-products"].findOne({'products.id': product_id});
     const products = result.products;
     for (let i: number = 0; i < products.length; i++) {
         if (products[i].id === product_id) {
             return products[i];
         }
     }
+    return null;
 }
 
 export async function insertResetPasswordToken(email: string, token: string) {
-    const database = await connectToMongo();
-    const collection = database.collection("user-account");
-
-    // Insert the reset token into the database where the email matches
-    const result = await collection.updateOne(
+    const result = await collections["user-account"].updateOne(
         {"credentials.email": email},
         {
             $set: {"credentials.password_reset_token": token}
@@ -121,3 +97,20 @@ export async function insertResetPasswordToken(email: string, token: string) {
         return false;
     }
 }
+
+export async function insertForumPost(post: Post) {
+    return await collections["forum"].insertOne(post);
+}
+
+export async function getAllPost() {
+    const result = await collections["forum"].find({}).toArray();
+    consoleLog("DATABASE LOG: Getting all posts...", LEVEL.OK)
+    return result;
+}
+
+export async function getMostLikedPosts() {
+    const result = await collections["forum"].find({}).sort({like: -1}).limit(3).toArray();
+    consoleLog("DATABASE LOG: Getting all most liked posts...", LEVEL.OK)
+    return result;
+}
+

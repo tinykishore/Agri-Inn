@@ -1,5 +1,5 @@
 import consoleLog, {LEVEL} from "$lib/server/log";
-import {getUserByUsername} from "$lib/server/database_v2";
+import {getUserByUsername} from "$lib/server/database";
 import {verifyRequest} from "$lib/server/utility";
 
 /**

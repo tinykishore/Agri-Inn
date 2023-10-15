@@ -12,9 +12,6 @@ export const cfTurnstileValidation = async (token: string) => {
             response: token
         })
     });
-
     const outcome = await result.json();
-
     return !!outcome.success;
-
 }

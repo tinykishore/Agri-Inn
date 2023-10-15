@@ -1,5 +1,5 @@
 import consoleLog, {LEVEL} from "$lib/server/log";
-import {getAllPost} from "$lib/server/database_v2";
+import {getAllPost} from "$lib/server/database";
 import {verifyRequest} from "$lib/server/utility";
 
 export const GET = async ({cookies}: any) => {

@@ -1,5 +1,5 @@
 import consoleLog, {LEVEL} from "$lib/server/log";
-import {getOneFarmProducts} from "$lib/server/database_v2";
+import {getOneFarmProducts} from "$lib/server/database";
 import {verifyRequest} from "$lib/server/utility";
 
 export const POST = async ({request, cookies}: any): Promise<Response> => {
