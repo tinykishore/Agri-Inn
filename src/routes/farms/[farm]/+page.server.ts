@@ -24,11 +24,7 @@ export const load = async ({cookies, url}: any) => {
 
     // If the JWT is valid, return the username
     return {
-        full_name: authenticated.full_name,
-        username: authenticated.username,
-        email: authenticated.email,
-        profile_picture: authenticated.profile_picture,
-        user_role: authenticated.user_role,
+        _id: authenticated._id,
         farm_uid: farm
     }
 }
