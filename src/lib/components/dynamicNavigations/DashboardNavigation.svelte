@@ -13,12 +13,6 @@
 
     let UserCacheValid = isUserCacheValid();
 
-    UserCache.subscribe(value => {
-        _username = value.username;
-        full_name = value.full_name;
-        image = value.profile_picture;
-    })
-
     onMount(async () => {
         if (!UserCacheValid) {
             const response = await fetch('/API/v1/dynamicNavbar/GetUserDetailsAPI', {
