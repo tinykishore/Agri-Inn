@@ -1,11 +1,18 @@
 <script lang="ts">
     import {onMount} from "svelte";
+    import currentNavigation, {uid} from "$lib/stores/currentNavigation";
+    import DashboardNavigation from "$lib/components/dynamicNavigations/DashboardNavigation.svelte";
 
     export let data
+    uid.set(data._id);
+    currentNavigation.set(DashboardNavigation);
+
+
     const farm_uid = data.farm_uid;
 
     let farm_info: any;
     let farm_products: any;
+
     onMount(async () => {
         // Call API to get farm info
         const farm_info_response = await fetch('/API/v1/farms/GetOneFarmAPI', {
