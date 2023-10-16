@@ -1,7 +1,7 @@
 <script lang="ts">
     import {onMount} from "svelte";
     import UserCache from "$lib/stores/UserCache";
-    import {isUserCacheValid} from "../../globals";
+    import {isUserCacheValid} from "$lib/globals/globals";
     import forum_art from "$lib/assets/images/forum-art.svg";
     import logo from "$lib/assets/icons/logo.svg";
     import forum_bg from "$lib/assets/images/forum-bg.png";

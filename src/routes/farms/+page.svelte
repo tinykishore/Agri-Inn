@@ -2,7 +2,7 @@
     import currentNavigation from "$lib/stores/currentNavigation";
     import DashboardNavigation from "$lib/components/dynamicNavigations/DashboardNavigation.svelte";
     import {onMount} from "svelte";
-    import {isUserCacheValid} from "../../globals";
+    import {isUserCacheValid} from "$lib/globals/globals";
     import UserCache from "$lib/stores/UserCache";
     currentNavigation.set(DashboardNavigation);
 

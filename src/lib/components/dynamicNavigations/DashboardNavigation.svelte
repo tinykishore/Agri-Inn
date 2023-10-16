@@ -4,7 +4,7 @@
     import {fade} from "svelte/transition";
     import {onMount} from "svelte";
     import UserCache from "$lib/stores/UserCache";
-    import {isUserCacheValid} from "../../../globals";
+    import {isUserCacheValid} from "$lib/globals/globals";
 
     let _username: string;
     let full_name: string;

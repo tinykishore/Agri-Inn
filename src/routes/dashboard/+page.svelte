@@ -1,7 +1,7 @@
 <script>
 	import currentNavigation from "$lib/stores/currentNavigation";
 	import DashboardNavigation from "$lib/components/dynamicNavigations/DashboardNavigation.svelte";
-	import {isUserCacheValid, USER_ROLE} from "../../globals";
+	import {isUserCacheValid, USER_ROLE} from "$lib/globals/globals.js";
 	import {onMount} from "svelte";
 	import UserCache from "$lib/stores/UserCache";
 
