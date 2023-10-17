@@ -18,12 +18,13 @@
     let profile_picture: string;
     let UserCacheValid = isUserCacheValid();
 
+
     UserCache.subscribe((value) => {
         username = value.username;
         full_name = value.full_name;
         profile_picture = value.profile_picture;
     });
-
+  
     onMount(async () => {
         if (!isUserCacheValid()) {
             // TODO: API call to get user data, set user cache

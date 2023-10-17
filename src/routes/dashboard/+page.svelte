@@ -5,7 +5,6 @@
     import {onMount} from "svelte";
     import type {TypeUserCache} from "$lib/stores/UserCache";
     import UserCache from "$lib/stores/UserCache";
-
     export let data;
     uid.set(data._id);
     currentNavigation.set(DashboardNavigation);
