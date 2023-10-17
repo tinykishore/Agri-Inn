@@ -5,32 +5,43 @@
     import {onMount} from "svelte";
     import UserCache from "$lib/stores/UserCache";
     import {isUserCacheValid} from "$lib/globals/globals";
+    import {uid} from "$lib/stores/currentNavigation";
 
-    let _username: string;
+    let id: any;
+    uid.subscribe((value: any) => {
+        id = value;
+    });
+    console.log(id);
+
+    let username: string;
     let full_name: string;
-
-    let image: string;
-
+    let profile_picture: string;
     let UserCacheValid = isUserCacheValid();
 
+
+    UserCache.subscribe((value) => {
+        username = value.username;
+        full_name = value.full_name;
+        profile_picture = value.profile_picture;
+    });
+  
     onMount(async () => {
-        if (!UserCacheValid) {
-            const response = await fetch('/API/v1/dynamicNavbar/GetUserDetailsAPI', {
+        if (!isUserCacheValid()) {
+            // TODO: API call to get user data, set user cache
+            const response = await fetch('/API/v1/auth/RetrieveCache', {
                 method: 'POST',
-                body: JSON.stringify({username: _username}),
+                body: JSON.stringify(id),
                 headers: {
                     'Content-Type': 'application/json'
                 }
             });
-            const data = await response.json();
-            UserCache.update(value => {
-                value.full_name = data.full_name;
-                value.email = data.email;
-                value.profile_picture = data.profile_picture;
-                value.username = _username;
-                value.role = data.role;
-                return value;
-            });
+
+            if (response.ok) {
+                const json = await response.json();
+                UserCache.set(json);
+            } else {
+                console.log(response);
+            }
             UserCacheValid = true;
         }
     });
@@ -89,10 +100,15 @@
 					  d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0
 					  3.042 1.135 5.824 3 7.938l3-2.647z"></path>
 			</svg>
-			{:else }
-				<a href="/{_username}" in:fade class="flex gap-4 rounded-full align-middle border-yellow-800/20 border justify-center items-center font-semibold text-yellow-950  hover:bg-yellow-300 hover:border-yellow-800 transition-all duration-300">
+			{:else if (full_name === undefined)}
+				<div hidden>
+					<p>Loading</p>
+				</div>
+			{:else}
+				<a href="/{username}" in:fade
+				   class="flex gap-4 rounded-full align-middle border-yellow-800/20 border justify-center items-center font-semibold text-yellow-950  hover:bg-yellow-300 hover:border-yellow-800 transition-all duration-300">
 				<h1 class=" pl-4 font-bold py-2">{full_name}</h1>
-					<img alt="" class="h-9 w-9 rounded-full" src={image}>
+					<img alt="" class="h-9 w-9 rounded-full" src={profile_picture}>
 				</a>
 			{/if}
 	</div>

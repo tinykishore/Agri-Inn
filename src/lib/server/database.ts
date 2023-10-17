@@ -1,6 +1,7 @@
-import {Db, MongoClient} from "mongodb";
+import {Db, MongoClient, ObjectId} from "mongodb";
 import {MONGO_DATABASE, MONGO_URL} from "$env/static/private";
 import consoleLog, {LEVEL} from "$lib/server/log";
+import type {TypeUserCache} from "$lib/stores/UserCache";
 
 export let databaseConnection: Db | null = null;
 
@@ -98,7 +99,7 @@ export async function insertResetPasswordToken(email: string, token: string) {
     }
 }
 
-export async function insertForumPost(post: Post) {
+export async function insertForumPost(post: any) {
     return await collections["forum"].insertOne(post);
 }
 
@@ -114,3 +115,16 @@ export async function getMostLikedPosts() {
     return result;
 }
 
+export async function getUserDataForCacheRetrieve(_id: ObjectId) {
+    consoleLog(`DATABASE LOG: Getting userCacheRetrieval {` + _id + `} information...`, LEVEL.OK)
+    const result = await collections["user-account"].findOne({_id: _id});
+    const cache: TypeUserCache = {
+        full_name: result.full_name,
+        email: result.credentials.email,
+        username: result.credentials.username,
+        profile_picture: result.profile_picture,
+        role: result.role,
+    }
+
+    return cache;
+}
