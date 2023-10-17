@@ -4,7 +4,8 @@ import consoleLog, {LEVEL} from "$lib/server/log";
 import nodemailer from "nodemailer";
 import CryptoJS from "crypto-js";
 import {GMAIL_APP_PASS} from "$env/static/private";
-import {insertResetPasswordToken} from "$lib/server/database_v2";
+import {insertResetPasswordToken} from "$lib/server/database";
+import {cfTurnstileValidation} from "$lib/server/CF-Validation";
 
 let transporter = nodemailer.createTransport({
     host: 'smtp.gmail.com',
@@ -23,6 +24,14 @@ export const POST = async ({request}: any) => {
     consoleLog("ForgotPasswordAPI REQUEST Received", LEVEL.OK);
     // Server Should receive an email JSON object. Extract the email from the request body
     const email = (await request.json()).email;
+    const turnstile_token = (await request.json()).turnstile_token;
+
+    // Validate the turnstile token
+    const cfTurnstileValid = await cfTurnstileValidation(turnstile_token);
+
+    // If the token is invalid, return an error
+    if (!cfTurnstileValid) return new Response(null, {status: 401});
+
     consoleLog("ForgotPasswordAPI API REQUEST: Email is " + email, LEVEL.OK);
 
     // FIXME: Email verification will be moved to client side

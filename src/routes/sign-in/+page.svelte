@@ -5,7 +5,7 @@
     import SignInNavigation from "$lib/components/dynamicNavigations/SignInNavigation.svelte";
     import logo from "$lib/assets/icons/logo.svg";
     import {goto} from "$app/navigation";
-    import {USER_ROLE} from "../../globals";
+    import {USER_ROLE} from "$lib/globals/globals";
     import {fade} from "svelte/transition";
     import UserCache from "$lib/stores/UserCache";
 

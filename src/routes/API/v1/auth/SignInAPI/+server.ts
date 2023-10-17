@@ -1,4 +1,4 @@
-import {getUserByEmail, getUserByUsername} from "$lib/server/database_v2";
+import {getUserByEmail, getUserByUsername} from "$lib/server/database";
 import consoleLog, {LEVEL} from "$lib/server/log";
 import bcrypt from "bcrypt";
 import {generateToken} from "$lib/server/utility";
@@ -45,11 +45,7 @@ export const POST = async ({request}: any): Promise<Response> => {
         consoleLog("SignInAPI RESPONSE: Sending response with cookie headers", LEVEL.OK);
         // If the password is correct, generate a token and send it back to the client
         const token: string = generateToken({
-            full_name: authResult["full_name"],
-            username: authResult.credentials["username"],
-            email: authResult.credentials["email"],
-            profile_picture: authResult["profile_picture"],
-            user_role: authResult["role"]
+            _id: authResult._id,
         });
         // Add Cookie Headers to the response with CORS Headers
         // Redirect to the dashboard
