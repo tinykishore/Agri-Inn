@@ -51,6 +51,7 @@
             alert("Post Submitted");
             const response = await fetch('/API/v1/forum/GetAllPostAPI');
             posts = await response.json();
+            posts.sort((a:Post, b:Post) => b.timestamp - a.timestamp);
         } else {
             alert("Post Submission Failed");
         }
@@ -75,7 +76,12 @@
         // Get first 5 most liked posts via API GetMostLikedPostsAPI
         const mostLikedAPIResponse = await fetch('/API/v1/forum/GetMostLikedPostsAPI');
         mostLikedPosts = await mostLikedAPIResponse.json();
+
+        posts.sort((a:Post, b:Post) => b.timestamp - a.timestamp);
+
     });
+
+
 
 </script>
 
@@ -86,7 +92,7 @@
 
 <main class="my-20 mx-32">
     <div class="grid grid-cols-3 gap-6 h-full">
-        <div class="col-span-2 bg-white/70 backdrop-blur-2xl rounded-2xl shadow-md p-6 justify-between">
+        <div class="col-span-2 bg-white/70 hover:bg-white/90 hover:shadow-xl transition-all duration-300 backdrop-blur-2xl rounded-2xl shadow-md p-6 justify-between">
             <div class="flex justify-between align-middle items-center">
                 <div class="flex flex-col gap-1">
                     <h1 class="text-3xl font-bold text-amber-900 bg-gradient-to-l from-amber-800 to-amber-600 text-transparent bg-clip-text">
@@ -98,7 +104,7 @@
                 <img alt="" class="h-10" src={logo}/>
             </div>
             <div class="gap grid grid-cols-2 mt-8 gap-4">
-                <div class="flex flex-col">
+                <div class="flex flex-col justify-between">
                     <label class="ml-4 font-bold text-zinc-500" for="postTitle">Post Title</label>
                     <label class="ml-4 font-light text-zinc-500 text-sm" for="postTitle">Write what describes your topic
                         in a sentence</label>
