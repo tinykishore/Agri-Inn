@@ -34,9 +34,7 @@
         const minutes = date.getMinutes();
 
         const daySuffix = getDaySuffix(day);
-        const formattedDate = `${day}${daySuffix} ${month} ${year}, ${hours.toString().padStart(2, '0')}.${minutes.toString().padStart(2, '0')}`;
-
-        return formattedDate;
+        return `${day}${daySuffix} ${month} ${year}, ${hours.toString().padStart(2, '0')}.${minutes.toString().padStart(2, '0')}`;
     }
 
     function getDaySuffix(day: number): string {
