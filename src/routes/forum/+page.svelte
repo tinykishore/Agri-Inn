@@ -35,8 +35,8 @@
             title: postTitle,
             post: postBody,
             author: postAuthor,
-            timestamp: Date.now(),
-            likes: 0
+            timestamp: getCurrentEpochTime(),
+            likes: 0,
         }
 
         const response = await fetch('/API/v1/forum/InsertPostAPI', {
@@ -58,29 +58,19 @@
     }
 
     onMount(async () => {
-        // if (!isUserCacheValid()) {
-        //     UserCache.update(value => {
-        //         value.full_name = data.full_name;
-        //         value.email = data.email;
-        //         value.profile_picture = data.profile_picture;
-        //         value.username = data.username;
-        //         value.role = data.user_role;
-        //         return value;
-        //     });
-        // }
-
         // Get all posts via API GetAllPostAPI
         const getAllPostAPIResponse = await fetch('/API/v1/forum/GetAllPostAPI');
         posts = await getAllPostAPIResponse.json();
-
-        // Get first 5 most liked posts via API GetMostLikedPostsAPI
-        const mostLikedAPIResponse = await fetch('/API/v1/forum/GetMostLikedPostsAPI');
-        mostLikedPosts = await mostLikedAPIResponse.json();
-
         posts.sort((a:Post, b:Post) => b.timestamp - a.timestamp);
 
+        // Get first 3 most liked posts via API GetMostLikedPostsAPI
+        const mostLikedAPIResponse = await fetch('/API/v1/forum/GetMostLikedPostsAPI');
+        mostLikedPosts = await mostLikedAPIResponse.json();
     });
 
+    function getCurrentEpochTime(): number {
+        return Math.floor(Date.now() / 1000); // Divide by 1000 to get seconds instead of milliseconds
+    }
 
 
 </script>
