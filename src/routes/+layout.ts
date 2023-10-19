@@ -19,7 +19,7 @@ export let load = async ({url, parent, data, fetch}: any): Promise<{ url: any }>
     await parent();
 
     // Try load USER_CACHE from localStorage
-    if (!isUserCacheValid()) {
+    if (!isUserCacheValid() && data.userID) {
         // TODO: API call to get user data, set user cache
         const response = await fetch('/API/v1/auth/RetrieveCache', {
             method: 'POST',
