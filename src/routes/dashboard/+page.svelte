@@ -5,11 +5,12 @@
     import {onMount} from "svelte";
     import type {TypeUserCache} from "$lib/stores/UserCache";
     import UserCache from "$lib/stores/UserCache";
+
     export let data;
     uid.set(data._id);
     currentNavigation.set(DashboardNavigation);
 
-    let userCache: TypeUserCache;
+    let userCache: TypeUserCache | undefined;
 
     UserCache.subscribe(value => {
         userCache = value;
@@ -48,14 +49,14 @@
 		{userCache.email}
 		{userCache.username}
 		{userCache.profile_picture}
-		{userCache.role}
+		{userCache.user_role}
 	</div>
 	<h1>Sitemap</h1>
 	<div class="flex gap-4 bg-amber-100 rounded-xl">
 		<a href="/farms">Farms</a>
 		<a href="/forum">Forum</a>
 		<!--		FIXME: Sketchy-->
-		{#if userCache.role === USER_ROLE.OWNER}
+		{#if userCache.user_role === USER_ROLE.OWNER}
 			<a href="/loan">Loan</a>
 		{/if}
 		<a href="/news">News</a>

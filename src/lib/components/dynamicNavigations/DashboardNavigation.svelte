@@ -11,13 +11,11 @@
     uid.subscribe((value: any) => {
         id = value;
     });
-    console.log(id);
 
-    let username: string;
-    let full_name: string;
-    let profile_picture: string;
+    let username: string | undefined;
+    let full_name: string | undefined;
+    let profile_picture: string | undefined;
     let UserCacheValid = isUserCacheValid();
-
 
     UserCache.subscribe((value) => {
         username = value.username;
@@ -39,8 +37,6 @@
             if (response.ok) {
                 const json = await response.json();
                 UserCache.set(json);
-            } else {
-                console.log(response);
             }
             UserCacheValid = true;
         }
@@ -50,6 +46,7 @@
         document.getElementById('close_image')?.classList.add('hidden');
         document.getElementById('sign_out_spinner')?.classList.remove('hidden');
     }
+
 </script>
 
 <div class="grid grid-cols-3 items-center">

@@ -5,7 +5,7 @@ import type {TypeUserCache} from "$lib/stores/UserCache";
 
 export let databaseConnection: Db | null = null;
 
-export let collections: any = {
+let collections: any = {
     "user-account": null,
     "farm-info": null,
     "farm-products": null,
@@ -86,17 +86,17 @@ export async function getProductInfo(product_id: string) {
 export async function insertResetPasswordToken(email: string, token: string) {
     const result = await collections["user-account"].updateOne(
         {"credentials.email": email},
-        {
-            $set: {"credentials.password_reset_token": token}
-        });
+        {$set: {"credentials.password_reset_token": token}}
+    );
 
     if (result.modifiedCount === 1) {
         consoleLog("DATABASE LOG: Reset token inserted successfully", LEVEL.OK);
         return true;
-    } else {
-        consoleLog("DATABASE LOG: Reset token insertion failed", LEVEL.ERROR);
-        return false;
     }
+
+    consoleLog("DATABASE LOG: Reset token insertion failed", LEVEL.ERROR);
+    return false;
+
 }
 
 export async function insertForumPost(post: any) {
@@ -123,7 +123,7 @@ export async function getUserDataForCacheRetrieve(_id: ObjectId) {
         email: result.credentials.email,
         username: result.credentials.username,
         profile_picture: result.profile_picture,
-        role: result.role,
+        user_role: result.role,
     }
 
     return cache;

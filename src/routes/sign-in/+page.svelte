@@ -65,9 +65,10 @@
                 value.email = data.email;
                 value.profile_picture = data.profile_picture;
                 value.username = data.username;
-                value.role = data.user_role;
+                value.user_role = data.user_role;
                 return value;
             });
+
             if (data.role === USER_ROLE.ADMIN) await goto("/admin");
             else await goto("/dashboard");
 
