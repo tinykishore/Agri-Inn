@@ -30,6 +30,11 @@ jobs:
     - run: touch .env
     - run: echo MONGO_URL=${{ secrets.MONGO_URL }} >> .env
     - run: echo MONGO_DATABASE=${{ secrets.MONGO_DATABASE }} >> .env
+    - run: echo GOOGLE_CLIENT_SECRET=${{ secrets.GOOGLE_CLIENT_SECRET }} >> .env
+    - run: echo GOOGLE_CLIENT_ID=${{ secrets.GOOGLE_CLIENT_ID }} >> .env
+    - run: echo JWT_SECRET=${{ secrets.JWT_SECRET }} >> .env
+    - run: echo TURNSTILE_KEY=${{ secrets.TURNSTILE_KEY }} >> .env
+    - run: echo USER_ACCOUNTS_COLLECTION=${{ secrets.USER_ACCOUNTS_COLLECTION }} >> .env
     - run: npm ci
     - run: npm run build --if-present
     - run: npm test
