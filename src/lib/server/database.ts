@@ -9,7 +9,8 @@ let collections: any = {
     "user-account": null,
     "farm-info": null,
     "farm-products": null,
-    "forum": null
+    "forum": null,
+    "comment": null
 }
 
 const client: MongoClient = new MongoClient(MONGO_URL, {
@@ -27,6 +28,7 @@ export const initializeDatabase = async (): Promise<void> => {
         collections["farm-info"] = databaseConnection.collection("farm-info");
         collections["farm-products"] = databaseConnection.collection("farm-products");
         collections["forum"] = databaseConnection.collection("forum");
+        collections["comment"] = databaseConnection.collection("comment");
     } catch (error: any) {
         consoleLog(`DATABASE ERROR: ${error.message}`, LEVEL.ERROR);
         databaseConnection = null;
@@ -127,4 +129,18 @@ export async function getUserDataForCacheRetrieve(_id: ObjectId) {
     }
 
     return cache;
+}
+
+export async function getOnePostInfo(post_uid: ObjectId) {
+    const result = await collections["forum"].findOne({_id: post_uid});
+    consoleLog(`DATABASE LOG: Getting post {` + post_uid + `} information...`, LEVEL.OK)
+    return result;
+}
+
+export async function sendPostReply(reply: any) {
+    //insert a new reply to the post not the reply
+    const result = await collections["comment"].insertOne(reply);
+    consoleLog(`DATABASE LOG: Sending reply {` + reply + `} information...`, LEVEL.OK)
+    return result;
+
 }
