@@ -2,15 +2,8 @@
     import {enhance} from "$app/forms";
     import cancel_icon from "$lib/assets/icons/sign-up-cancel-icon.svg";
     import {fade} from "svelte/transition";
-    import {onMount} from "svelte";
     import UserCache from "$lib/stores/UserCache";
     import {isUserCacheValid} from "$lib/globals/globals";
-    import {uid} from "$lib/stores/currentNavigation";
-
-    let id: any;
-    uid.subscribe((value: any) => {
-        id = value;
-    });
 
     let username: string | undefined;
     let full_name: string | undefined;
@@ -21,25 +14,6 @@
         username = value.username;
         full_name = value.full_name;
         profile_picture = value.profile_picture;
-    });
-  
-    onMount(async () => {
-        if (!isUserCacheValid()) {
-            // TODO: API call to get user data, set user cache
-            const response = await fetch('/API/v1/auth/RetrieveCache', {
-                method: 'POST',
-                body: JSON.stringify(id),
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            });
-
-            if (response.ok) {
-                const json = await response.json();
-                UserCache.set(json);
-            }
-            UserCacheValid = true;
-        }
     });
 
     const onSignOutClick = () => {

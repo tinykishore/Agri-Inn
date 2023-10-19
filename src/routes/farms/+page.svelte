@@ -1,10 +1,9 @@
 <script lang="ts">
-    import currentNavigation, {uid} from "$lib/stores/currentNavigation";
+    import currentNavigation from "$lib/stores/currentNavigation";
     import DashboardNavigation from "$lib/components/dynamicNavigations/DashboardNavigation.svelte";
     import {onMount} from "svelte";
 
     export let data
-    uid.set(data._id);
     currentNavigation.set(DashboardNavigation);
 
     let farms: any;

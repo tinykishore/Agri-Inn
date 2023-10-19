@@ -6,14 +6,13 @@
     import forum_bg from "$lib/assets/images/forum-bg.png";
     import PostGrid from "./PostGrid.svelte";
     import TrendingSection from "./TrendingSection.svelte";
-    import currentNavigation, {uid} from "$lib/stores/currentNavigation";
+    import currentNavigation from "$lib/stores/currentNavigation";
     import DashboardNavigation from "$lib/components/dynamicNavigations/DashboardNavigation.svelte";
 
     export let data;
-    uid.set(data._id);
     currentNavigation.set(DashboardNavigation);
 
-    let postSubmittedMessage=false;
+    let postSubmittedMessage = false;
 
     let postTitle: string = "";
     let postBody: string = "";
