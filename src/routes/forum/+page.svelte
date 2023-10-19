@@ -13,6 +13,8 @@
     uid.set(data._id);
     currentNavigation.set(DashboardNavigation);
 
+    let postSubmittedMessage=false;
+
     let postTitle: string = "";
     let postBody: string = "";
     let postAuthor: string = "";
@@ -35,8 +37,8 @@
             title: postTitle,
             post: postBody,
             author: postAuthor,
-            timestamp: Date.now(),
-            likes: 0
+            timestamp: getCurrentEpochTime(),
+            likes: 0,
         }
 
         const response = await fetch('/API/v1/forum/InsertPostAPI', {
@@ -48,7 +50,12 @@
         });
 
         if (response.ok) {
-            alert("Post Submitted");
+            postSubmittedMessage = true;
+
+            setTimeout(()=>{
+                postSubmittedMessage = false;
+            }, 3000);
+
             const response = await fetch('/API/v1/forum/GetAllPostAPI');
             posts = await response.json();
             posts.sort((a:Post, b:Post) => b.timestamp - a.timestamp);
@@ -58,29 +65,19 @@
     }
 
     onMount(async () => {
-        // if (!isUserCacheValid()) {
-        //     UserCache.update(value => {
-        //         value.full_name = data.full_name;
-        //         value.email = data.email;
-        //         value.profile_picture = data.profile_picture;
-        //         value.username = data.username;
-        //         value.role = data.user_role;
-        //         return value;
-        //     });
-        // }
-
         // Get all posts via API GetAllPostAPI
         const getAllPostAPIResponse = await fetch('/API/v1/forum/GetAllPostAPI');
         posts = await getAllPostAPIResponse.json();
-
-        // Get first 5 most liked posts via API GetMostLikedPostsAPI
-        const mostLikedAPIResponse = await fetch('/API/v1/forum/GetMostLikedPostsAPI');
-        mostLikedPosts = await mostLikedAPIResponse.json();
-
         posts.sort((a:Post, b:Post) => b.timestamp - a.timestamp);
 
+        // Get first 3 most liked posts via API GetMostLikedPostsAPI
+        const mostLikedAPIResponse = await fetch('/API/v1/forum/GetMostLikedPostsAPI');
+        mostLikedPosts = await mostLikedAPIResponse.json();
     });
 
+    function getCurrentEpochTime(): number {
+        return Math.floor(Date.now() / 1000); // Divide by 1000 to get seconds instead of milliseconds
+    }
 
 
 </script>
@@ -126,9 +123,14 @@
                                 on:click={onPostSubmit}>Submit Post
                         </button>
                     {:else}
-                        <button class="bg-amber-600 mt-2 text-white w-fit font-bold py-2 px-4 rounded-full hover:bg-amber-700 focus:outline-none focus:ring-2 focus:ring-amber-600 focus:ring-opacity-50 hover:shadow-md transition duration-300"
+                        <div class="flex justify-between items-center mt-2">
+                            <button class="bg-amber-600 text-white w-fit font-bold py-2 px-4 rounded-full hover:bg-amber-700 focus:outline-none focus:ring-2 focus:ring-amber-600 focus:ring-opacity-50 hover:shadow-md transition duration-300"
                                 on:click={onPostSubmit}>Submit Post
-                        </button>
+                            </button>
+                            {#if (postSubmittedMessage)}
+                                <h1 class="text-green-600 font-bold ">Post Submitted!</h1>
+                            {/if}
+                        </div>
                     {/if}
 
                 </div>
