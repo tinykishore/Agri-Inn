@@ -3,13 +3,16 @@ import jwt from "jsonwebtoken";
 import {JWT_SECRET} from "$env/static/private";
 
 /**
- * Loads user data and handles authentication.
+ * Load user information from cookies and verify the JWT token for authentication.
+ * THE ONLY USAGE OF THIS LOAD FUNCTION IS TO REDIRECT THE USER.
  *
- * @param {object} options - An object containing the following properties:
- * @param {object} options.cookies - An object representing the cookies for the request.
- * @returns {Promise<void>} - A Promise that resolves when the loading and authentication process is complete.
+ * @param {Object} options - The options object.
+ * @param {Cookies} options.cookies - The cookies object for retrieving the session token.
+ * @throws {Error} Throws an error if the JWT verification fails.
+ * @returns {Promise<void>} A Promise that resolves with no value when the JWT is valid and the user is redirected to the dashboard page.
  */
-export async function load({cookies}: any): Promise<void> {
+export let load = async ({cookies}: any): Promise<void> => {
+    // Check if the cookie is found
     const token: string | undefined = cookies.get('sessionID');
     if(!token) return;
 
