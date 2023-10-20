@@ -1,5 +1,5 @@
 import consoleLog, {LEVEL} from "$lib/server/log";
-import {getAllFarmInfo, getAllNewsInfo} from "$lib/server/database";
+import {getAllNewsInfo} from "$lib/server/database";
 import {verifyRequest} from "$lib/server/utility";
 
 export const GET = async ({cookies}: any) => {
