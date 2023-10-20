@@ -6,7 +6,7 @@
     import type {TypeUserCache} from "$lib/stores/UserCache";
     import UserCache from "$lib/stores/UserCache";
 
-    export let data;
+    // export let data;
     currentNavigation.set(DashboardNavigation);
 
     let userCache: TypeUserCache | undefined;
