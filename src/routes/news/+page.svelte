@@ -21,8 +21,16 @@
         </div>
     {:else}
         <div class="flex flex-col my-12 mx-24 gap-8">
-            {#each news as farm}
-                <a href="/farms/{farm.uid}">{farm.title}</a>
+            {#each news as newss}
+                <p>{newss.title}</p>
+                <p>{newss.content}</p>
+                <p>{newss.publish_date}</p>
+                <div> {#each newss.tags as tags }
+                    <p> {tags} </p>
+                {/each}
+                    </div>
+
+
             {/each}
         </div>
     {/if}
