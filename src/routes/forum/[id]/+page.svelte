@@ -1,10 +1,9 @@
 <script lang="ts">
     import {onMount} from "svelte";
-    import currentNavigation, {uid} from "$lib/stores/currentNavigation";
+    import currentNavigation from "$lib/stores/currentNavigation";
     import DashboardNavigation from "$lib/components/dynamicNavigations/DashboardNavigation.svelte";
 
     export let data
-    console.log(data.post_uid)
     let post_detail: any;
     currentNavigation.set(DashboardNavigation);
     let post_data = false;
@@ -23,6 +22,27 @@
         console.log(post_detail)
 
     })
+
+
+    async function handleScroll() {
+        // Get the current scroll position
+        const scrollPosition = window.pageYOffset;
+        // Get the current window height
+        const windowSize = window.innerHeight;
+        // Get the current document height
+        const bodyHeight = document.body.offsetHeight;
+
+        // If the user has scrolled to the bottom of the page, increment viewCount
+        if (scrollPosition + windowSize >= bodyHeight) {
+            const incrementViewCountResponse = await fetch('/API/v1/forum/IncrementViewCountAPI', {
+                method: 'POST',
+                body: JSON.stringify(data.post_uid),
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+        }
+    }
 
     let postReply = "";
     async function sendReply() {
@@ -55,7 +75,7 @@
                     <h1>{post_detail.title}</h1>
                     <h2>{post_detail.author}</h2>
                     <h3>{post_detail.timestamp}</h3>
-                    <p>{post_detail.post}</p>
+                    <p class="mt-96">{post_detail.post}</p>
                     <h3>{post_detail.like}</h3>
                     <textarea bind:value={postReply} cols="30" rows="10"></textarea>
                     <button on:click={sendReply}>Reply</button>
