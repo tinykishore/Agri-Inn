@@ -13,14 +13,17 @@
     currentNavigation.set(DashboardNavigation);
 
     let postSubmittedMessage = false;
+    let isSubmitting = false;
 
     let postTitle: string = "";
     let postBody: string = "";
     let postAuthor: string = "";
+    let profilePicture: string = "";
     let posts: any = [];
     let mostLikedPosts: any = [];
 
     export let onPostSubmit = async () => {
+        isSubmitting = true;
         // Validation Check
         if (postTitle == "" || postBody == "") {
             alert("Post Title and Post Body cannot be empty");
@@ -30,6 +33,7 @@
         // Get Author
         UserCache.subscribe(value => {
             postAuthor = value.username;
+            profilePicture = value.profile_picture;
         });
 
         let post: Post = {
@@ -37,7 +41,9 @@
             post: postBody,
             author: postAuthor,
             timestamp: getCurrentEpochTime(),
-            likes: 0,
+            like: 0,
+            viewCount: 0,
+            profilePicture: profilePicture
         }
 
         const response = await fetch('/API/v1/forum/InsertPostAPI', {
@@ -49,6 +55,7 @@
         });
 
         if (response.ok) {
+            isSubmitting = false;
             postSubmittedMessage = true;
 
             setTimeout(()=>{
@@ -88,7 +95,8 @@
 
 <main class="my-20 mx-32">
     <div class="grid grid-cols-3 gap-6 h-full">
-        <div class="col-span-2 bg-white/70 hover:bg-white/90 hover:shadow-xl transition-all duration-300 backdrop-blur-2xl rounded-2xl shadow-md p-6 justify-between">
+        <div class="flex flex-col col-span-2 bg-white/70 hover:bg-white/90 hover:shadow-xl transition-all duration-300
+       backdrop-blur-2xl rounded-2xl shadow-md p-6 justify-evenly">
             <div class="flex justify-between align-middle items-center">
                 <div class="flex flex-col gap-1">
                     <h1 class="text-3xl font-bold text-amber-900 bg-gradient-to-l from-amber-800 to-amber-600 text-transparent bg-clip-text">
@@ -115,13 +123,29 @@
                     </label>
                     <textarea
                             bind:value={postBody}
-                            class="transition duration-300 my-2 border border-orange-200 bg-zinc-50 px-4 py-2 rounded-2xl focus:outline-none hover:shadow-md"
+                            class="whitespace-pre-line transition duration-300 my-2 border border-orange-200 bg-zinc-50 px-4 py-2 rounded-2xl focus:outline-none hover:shadow-md"
                             name="post" placeholder="Write Your Post Here in Detail" rows="5"></textarea>
                     {#if postTitle === "" || postBody === ""}
                         <button disabled class="bg-zinc-400 mt-2 text-white w-fit font-bold py-2 px-4 rounded-full"
                                 on:click={onPostSubmit}>Submit Post
                         </button>
                     {:else}
+                        {#if isSubmitting}
+                            <div class="flex justify-start items-center mt-2 ml-2">
+                                <span>
+                                    <svg class="animate-spin h-5 w-5 text-yellow-800" xmlns="http://www.w3.org/2000/svg"
+                                         fill="none"
+                                         viewBox="0 0 24 24">
+                                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor"
+                                                stroke-width="4"></circle>
+                                        <path class="opacity-75" fill="currentColor"
+                                              d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
+                                        </path>
+                                    </svg>
+				                </span>
+                                <h1 class="text-amber-800 w-fit font-bold py-2 px-4 rounded-full">Submitting Post</h1>
+                            </div>
+                        {:else}
                         <div class="flex justify-between items-center mt-2">
                             <button class="bg-amber-600 text-white w-fit font-bold py-2 px-4 rounded-full hover:bg-amber-700 focus:outline-none focus:ring-2 focus:ring-amber-600 focus:ring-opacity-50 hover:shadow-md transition duration-300"
                                 on:click={onPostSubmit}>Submit Post
@@ -131,7 +155,7 @@
                             {/if}
                         </div>
                     {/if}
-
+                    {/if}
                 </div>
 
                 <div class="flex flex-col justify-between">
