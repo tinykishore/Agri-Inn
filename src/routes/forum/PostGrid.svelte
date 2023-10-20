@@ -1,5 +1,7 @@
 <script lang="ts">
     import {onMount} from "svelte";
+    import heart_icon from "$lib/assets/icons/heart-icon.svg";
+    import view_icon from "$lib/assets/icons/view-icon.svg";
 
     export let posts: any;
 
@@ -39,6 +41,20 @@
         }
     }
 
+    function truncateSentence(sentence: string) {
+        // Split the sentence into words
+        const words = sentence.split(' ');
+
+        // Check if the sentence has more than the word limit
+        if (words.length > 32) {
+            // Join the first 'wordLimit' words and add '...' at the end
+            return words.slice(0, 28).join(' ') + ' ...';
+        } else {
+            // If the sentence has fewer words, return it as is
+            return sentence;
+        }
+    }
+
 </script>
 
 <div class="mt-12">
@@ -63,12 +79,13 @@
 				</div>
 			{/each}
 {:else}
+			{#if posts.length > 0}
 			{#each posts as post}
 				<a class="group rounded-xl p-4 bg-white/60 backdrop-blur-lg hover:scale-[1.03] hover:shadow-xl hover:bg-amber-200 transition-all duration-300"
 				   href="/forum/{post._id}">
 					<div class="flex items-center gap-4 mb-2">
-						<img class="w-11 h-11 rounded-full" src="https://avatars.githubusercontent.com/u/59497705?v=4"
-							 alt=""/>
+						<img class="w-11 h-11 rounded-full" src={post.profilePicture}
+							 alt="authorAvatar"/>
 						<div>
 							<div class="font-bold group-hover:text-amber-600 transition-all duration-300">{post.author}</div>
 							<div class="font-light text-sm text-zinc-400">Posted on {formatEpochToCustom(post.timestamp)}</div>
@@ -76,9 +93,24 @@
 					</div>
 					<div class="font-bold group-hover:text-amber-600 transition-all duration-300"
 						 style="font-size: 1.10rem">{post.title}</div>
-					<div class="font-light text-sm">{post.post}</div>
+					<div class="font-light text-sm mb-2 whitespace-pre-line">{truncateSentence(post.post)}</div>
+
+					<div class="flex gap-4 justify-start items-center align-middle">
+						<div class="flex gap-2 justify-between align-middle items-center">
+							<img class="h-4 w-4" src={heart_icon} alt=""/>
+							<h1 class="text-sm font-bold">{post.like}</h1>
+						</div>
+
+						<div class="flex gap-2 justify-between align-middle items-center">
+							<img class="h-5 w-5" src={view_icon} alt=""/>
+							<h1 class="text-sm font-bold">{post.viewCount}</h1>
+						</div>
+					</div>
 				</a>
 			{/each}
+			{:else}
+				<h1 class=" col-span-3 text-2xl font-bold text-center text-gray-400">No posts yet</h1>
+			{/if}
 		{/if}
 	</div>
 </div>
