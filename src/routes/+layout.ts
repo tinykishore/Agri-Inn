@@ -13,7 +13,7 @@ import UserCache from "$lib/stores/UserCache";
  * @param {Function} options.parent - A function representing the parent process.
  * @param {Object} options.data - Data for the API call.
  * @param {Function} options.fetch - A function for making fetch requests.
- * @returns {Promise<{ url: any }>} A Promise that resolves with an object containing the URL's pathname.
+ * @returns {Promise<{ url: any }>} A Promise that resolves with an object containing the pathname of the URL.
  */
 export let load = async ({url, parent, data, fetch}: any): Promise<{ url: any }> => {
     await parent();
@@ -21,7 +21,7 @@ export let load = async ({url, parent, data, fetch}: any): Promise<{ url: any }>
     // Try load USER_CACHE from localStorage
     if (!isUserCacheValid() && data.userID) {
         // TODO: API call to get user data, set user cache
-        const response = await fetch('/API/v1/auth/RetrieveCache', {
+        const response: any = await fetch('/API/v1/auth/RetrieveCache', {
             method: 'POST',
             body: JSON.stringify(data.userID),
             headers: {
@@ -32,8 +32,6 @@ export let load = async ({url, parent, data, fetch}: any): Promise<{ url: any }>
         if (response.ok) {
             const json = await response.json();
             UserCache.set(json);
-        } else {
-            console.log(response);
         }
     }
 
