@@ -10,7 +10,9 @@ let collections: any = {
     "farm-info": null,
     "farm-products": null,
     "forum": null,
-    "comment": null
+    "comment": null,
+    "news": null
+
 }
 
 const client: MongoClient = new MongoClient(MONGO_URL, {
@@ -29,6 +31,8 @@ export const initializeDatabase = async (): Promise<void> => {
         collections["farm-products"] = databaseConnection.collection("farm-products");
         collections["forum"] = databaseConnection.collection("forum");
         collections["comment"] = databaseConnection.collection("comment");
+        collections["news"] = databaseConnection.collection("news");
+
     } catch (error: any) {
         consoleLog(`DATABASE ERROR: ${error.message}`, LEVEL.ERROR);
         databaseConnection = null;
@@ -143,4 +147,10 @@ export async function sendPostReply(reply: any) {
     consoleLog(`DATABASE LOG: Sending reply {` + reply + `} information...`, LEVEL.OK)
     return result;
 
+}
+
+export async function getAllNewsInfo() {
+    const result = await collections["news"].find({}).toArray();
+    consoleLog("DATABASE LOG: Getting all news information...", LEVEL.OK)
+    return result;
 }
