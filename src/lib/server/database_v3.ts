@@ -170,26 +170,54 @@ export class Database {
     // ##############################################################################################################
     // ##############################################################################################################
 
-    public static async getAllFarms() {
+    /**
+     * Retrieves information about all farms from the database.
+     *
+     * @returns A Promise that resolves to an array of farm information objects.
+     */
+    public static async getAllFarms(): Promise<any> {
         consoleLog("DATABASE LOG: Getting all farms information...", LEVEL.OK)
         return await collections["farm-info"].find({}).toArray();
     }
 
-    public static async getOneFarm(farm_uid: string) {
+    /**
+     * Retrieves information about a single farm by its unique identifier (UID).
+     *
+     * @param farm_uid - The unique identifier (UID) of the farm to retrieve information for.
+     * @returns A Promise that resolves to the farm information object or null if not found.
+     */
+    public static async getOneFarm(farm_uid: string): Promise<any> {
         consoleLog(`DATABASE LOG: Getting farm {` + farm_uid + `} information...`, LEVEL.OK)
         return await collections["farm-info"].findOne({"uid": farm_uid});
     }
 
-    public static async getAllFarmProducts() {
+    /**
+     * Retrieves information about all farm products from the database.
+     *
+     * @returns A Promise that will eventually contain the data once the implementation is completed.
+     */
+    public static async getAllFarmProducts(): Promise<any> {
         // TODO: Implement this
     }
 
-    public static async getOneFarmProducts(farm_uid: string) {
+    /**
+     * Retrieves information about farm products associated with a single farm by its unique identifier (UID).
+     *
+     * @param farm_uid - The unique identifier (UID) of the farm to retrieve product information for.
+     * @returns A Promise that resolves to the farm products information object or null if not found.
+     */
+    public static async getOneFarmProducts(farm_uid: string): Promise<any> {
         consoleLog(`DATABASE LOG: Getting farm products {` + farm_uid + `} information...`, LEVEL.OK)
         return await collections["farm-products"].findOne({"uid": farm_uid});
     }
 
-    public static async getOneProduct(product_id: string) {
+    /**
+     * Retrieves information about a single product by its unique identifier (ID).
+     *
+     * @param product_id - The unique identifier (ID) of the product to retrieve information for.
+     * @returns A Promise that resolves to the product information object or null if not found.
+     */
+    public static async getOneProduct(product_id: string): Promise<any> {
         consoleLog(`DATABASE LOG: Getting product {` + product_id + `} information...`, LEVEL.OK)
         const result = await collections["farm-products"].findOne({'products.id': product_id});
         const products = result.products;
@@ -201,5 +229,46 @@ export class Database {
         return null;
     }
 
-    /** more to add here */
+    // ##############################################################################################################
+    // ##############################################################################################################
+    // ##############################################################################################################
+    // END OF FARM INFO DATABASE OPERATIONS. START OF FORUM DATABASE OPERATIONS
+    // ##############################################################################################################
+    // ##############################################################################################################
+    // ##############################################################################################################
+
+    public static async insertPost(post: Post) {
+        return await collections["forum"].insertOne(post);
+    }
+
+    public static async editPost() {
+        // TODO: Implement this
+    }
+
+    public static async deletePost() {
+        // TODO: Implement this
+    }
+
+    public static async getOnePost(post_uid: ObjectId) {
+        consoleLog(`DATABASE LOG: Getting post {` + post_uid + `} information...`, LEVEL.OK)
+        return await collections["forum"].findOne({_id: post_uid});
+    }
+
+    public static async getAllPosts() {
+        consoleLog("DATABASE LOG: Getting all posts...", LEVEL.OK)
+        return await collections["forum"].find({}).toArray();
+    }
+
+    public static async getMostLikedPosts() {
+        consoleLog("DATABASE LOG: Getting all most liked posts...", LEVEL.OK)
+        return await collections["forum"].find({}).sort({like: -1}).limit(3).toArray();
+    }
+
+    public static async insertReplyInPost(reply: any) {
+        consoleLog(`DATABASE LOG: Sending reply {` + reply + `} information...`, LEVEL.OK)
+        return await collections["comment"].insertOne(reply);
+    }
+
+
+
 }
