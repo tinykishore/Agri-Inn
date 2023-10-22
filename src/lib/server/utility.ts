@@ -17,15 +17,6 @@ export function generateToken(payload: any): string {
     return jwt.sign(payload, JWT_SECRET, {expiresIn: '6h'})
 }
 
-export function authorized(token: string): boolean {
-    try {
-        jwt.verify(token, JWT_SECRET);
-        return true;
-    } catch (e) {
-        return false;
-    }
-}
-
 export function verifyRequest(cookies: any): boolean {
     const sessionID = cookies.get("sessionID");
     let authorized;
@@ -40,4 +31,15 @@ export function verifyRequest(cookies: any): boolean {
         return false;
     }
     return false;
+}
+
+export function isAuthorized(sessionID: string) {
+    if (!sessionID) return false;
+    let authenticated: any;
+    try {
+        authenticated = jwt.verify(sessionID, JWT_SECRET);
+    } catch (e) {
+        return false;
+    }
+    return authenticated;
 }
