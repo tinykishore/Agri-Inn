@@ -9,4 +9,6 @@ export let forum_id_navigation = writable({
     userObjectID: undefined,
     alreadyUpvoted: false,
     currentURL: "",
+    totalLikes: 0,
+    totalViews: 0
 });

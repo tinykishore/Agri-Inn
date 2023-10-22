@@ -3,6 +3,8 @@
     import like_icon from "$lib/assets/icons/forum-post-like-icon.svg";
     import liked_icon from "$lib/assets/icons/forum-post-liked-icon.svg";
     import comment_icon from "$lib/assets/icons/forum-post-comment-icon.svg";
+    import view_icon from "$lib/assets/icons/view-icon.svg";
+    import report_icon from "$lib/assets/icons/forum-post-report-icon.svg";
     import share_icon from "$lib/assets/icons/forum-post-share-icon.svg";
     import {fade} from "svelte/transition";
     import UserCache from "$lib/stores/UserCache";
@@ -15,12 +17,18 @@
     let userObjectID: string | undefined;
     let likedByThisUser: boolean = false;
     let currentURL: string = "";
+    let totalLikes: number = 0;
+    let totalViews: number = 0;
 
     forum_id_navigation.subscribe((value) => {
         postObjectID = value.postObjectID;
         userObjectID = value.userObjectID;
         likedByThisUser = value.alreadyUpvoted;
         currentURL = value.currentURL;
+        totalLikes = value.totalLikes;
+        totalViews = value.totalViews;
+        // FIXME totalComments is not defined
+        // totalComments = value.totalComments;
     });
 
     UserCache.subscribe((value) => {
@@ -46,6 +54,7 @@
 
     const votePost = async () => {
         likedByThisUser = !likedByThisUser;
+        totalLikes += likedByThisUser ? 1 : -1;
         await fetch('/API/v1/forum/UpvotePostAPI', {
             method: 'POST',
             body: JSON.stringify({
@@ -93,14 +102,36 @@
 		</button>
 	</div>
 
-	<div class="gap-x-4 text-xl font-bold text-amber-800 text-center">
+	<div class="gap-x-4 font-bold text-sm text-zinc-500 text-center select-none">
 		<div in:fade={{ duration: 200, delay: 200 }}>
-			<h1>Dashboard</h1>
+			<div class="flex gap-4 justify-center align-middle items-center">
+				<div class="flex items-center align-middle gap-2">
+					<img alt="ico" class="block w-5 h-5" src={liked_icon}/>
+					<h1 class="font-bold py-2">{totalLikes}</h1>
+				</div>
+				<div class="h-5 w-1 rounded bg-zinc-300"></div>
+				<div class="flex items-center align-middle gap-2">
+					<img alt="ico" class="block w-5 h-5" src={view_icon}/>
+					<h1 class="font-bold py-2">{totalViews}</h1>
+
+				</div>
+				<div class="h-5 w-1 rounded bg-zinc-300"></div>
+				<div class="flex items-center align-middle gap-2">
+					<img alt="ico" class="block w-5 h-5" src={comment_icon}/>
+					<h1 class="font-bold py-2">0</h1>
+				</div>
+			</div>
 		</div>
 	</div>
 
 	<div class="flex justify-end gap-2  text-sm items-center">
 		<a class="flex gap-1 px-3 rounded-full align-middle border-yellow-800/20 border justify-center items-center font-semibold text-yellow-950 hover:bg-yellow-300 hover:border-yellow-800 transition-all duration-300" href="/{username}"
+		   in:fade>
+			<img alt="ico" class="block w-5 h-5" src={report_icon}/>
+			<h1 class="font-bold py-2">Report Post</h1>
+		</a>
+		<a class="flex gap1 px-3 rounded-full align-middle border-yellow-800/20 border justify-center items-center font-semibold text-yellow-950 hover:bg-yellow-300 hover:border-yellow-800 transition-all duration-300"
+		   href="/{username}"
 		   in:fade>
 			<img alt="ico" class="block w-5 h-5" src={save_icon}/>
 			<h1 class="font-bold py-2">Save Post</h1>

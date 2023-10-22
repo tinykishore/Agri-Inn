@@ -21,7 +21,6 @@
     let loggedInUser: string | undefined = undefined;
     UserCache.subscribe(value => {
         loggedInUser = value.full_name;
-
     })
 
     onMount(async () => {
@@ -49,7 +48,9 @@
             postObjectID: data.postObjectID,
             userObjectID: data.userObjectID,
             alreadyUpvoted: likedByThisUser,
-            currentURL: window.location.pathname
+            currentURL: window.location.pathname,
+            totalLikes: post_detail.likes.length,
+            totalViews: post_detail.viewCount
         });
         DynamicNavigation.set(Forum_ID_Navigation);
 
