@@ -86,9 +86,8 @@ export class Database {
      * @returns A Promise that resolves to the user object or null if not found.
      */
     public static async getUserByEmail(email: string): Promise<any> {
-        const result = await collections["user-account"].findOne({"credentials.email": email});
         consoleLog("DATABASE LOG: Getting user by email...", LEVEL.OK)
-        return result;
+        return await collections["user-account"].findOne({"credentials.email": email});
     }
 
     /**
@@ -98,9 +97,8 @@ export class Database {
      * @returns A Promise that resolves to the user object or null if not found.
      */
     public static async getUserByUsername(username: string): Promise<any> {
-        const result = await collections["user-account"].findOne({"credentials.username": username});
         consoleLog("DATABASE LOG: Getting user by username...", LEVEL.OK)
-        return result;
+        return await collections["user-account"].findOne({"credentials.username": username});
     }
 
     /**
@@ -110,9 +108,8 @@ export class Database {
      * @returns A Promise that resolves to the user object or null if not found.
      */
     public static async getUserByObjectID(_id: ObjectId): Promise<any> {
-        const result = await collections["user-account"].findOne({_id: _id});
         consoleLog("DATABASE LOG: Getting user by ObjectID...", LEVEL.OK)
-        return result;
+        return await collections["user-account"].findOne({_id: _id});
     }
 
     /**
@@ -140,8 +137,8 @@ export class Database {
      * @returns A Promise that resolves to a Credentials object.
      */
     public static async getUserCredentialsByObjectID(_id: ObjectId): Promise<Credentials> {
-        const result = await collections["user-account"].findOne({_id: _id});
         consoleLog("DATABASE LOG: Getting user credentials by ObjectID...", LEVEL.OK)
+        const result = await collections["user-account"].findOne({_id: _id});
         return result.credentials;
     }
 
@@ -174,15 +171,13 @@ export class Database {
     // ##############################################################################################################
 
     public static async getAllFarms() {
-        const result = await collections["farm-info"].find({}).toArray();
         consoleLog("DATABASE LOG: Getting all farms information...", LEVEL.OK)
-        return result;
+        return await collections["farm-info"].find({}).toArray();
     }
 
     public static async getOneFarm(farm_uid: string) {
-        const result = await collections["farm-info"].findOne({"uid": farm_uid});
         consoleLog(`DATABASE LOG: Getting farm {` + farm_uid + `} information...`, LEVEL.OK)
-        return result;
+        return await collections["farm-info"].findOne({"uid": farm_uid});
     }
 
     public static async getAllFarmProducts() {
@@ -190,12 +185,12 @@ export class Database {
     }
 
     public static async getOneFarmProducts(farm_uid: string) {
-        const result = await collections["farm-products"].findOne({"uid": farm_uid});
         consoleLog(`DATABASE LOG: Getting farm products {` + farm_uid + `} information...`, LEVEL.OK)
-        return result;
+        return await collections["farm-products"].findOne({"uid": farm_uid});
     }
 
     public static async getOneProduct(product_id: string) {
+        consoleLog(`DATABASE LOG: Getting product {` + product_id + `} information...`, LEVEL.OK)
         const result = await collections["farm-products"].findOne({'products.id': product_id});
         const products = result.products;
         for (let i: number = 0; i < products.length; i++) {
