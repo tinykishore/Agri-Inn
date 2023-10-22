@@ -19,7 +19,7 @@ interface Post {
 	post : string
 	author : string
 	timestamp : number
-	like : number,
+	likes: [],
 	viewCount : number,
 	profilePicture : string
 }
