@@ -8,7 +8,7 @@ export const load = async ({cookies, url}: any) => {
 
     // If the cookie is not found, redirect to sign-in page
     // Because the user is not authenticated
-    if (!sessionID) throw redirect(307, "/sign-in");
+    if (!sessionID) throw redirect(307, "/");
 
     // If the cookie is found, verify the JWT
     let authenticated: any;

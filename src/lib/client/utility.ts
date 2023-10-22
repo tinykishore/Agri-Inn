@@ -38,14 +38,14 @@ export function invalidateUserCache(): void {
 
 
 export function formatEpochToCustom(epoch: number): string {
-    const date = new Date(epoch * 1000); // Convert epoch to milliseconds
-    const day = date.getDate();
-    const month = date.toLocaleString('default', {month: 'short'});
-    const year = date.getFullYear();
-    const hours = date.getHours();
+    const date: Date = new Date(epoch * 1000); // Convert epoch to milliseconds
+    const day: number = date.getDate();
+    const month: string = date.toLocaleString('default', {month: 'short'});
+    const year: number = date.getFullYear();
+    const hours: number = date.getHours();
     const minutes = date.getMinutes();
 
-    const daySuffix = getDaySuffix(day);
+    const daySuffix: string = getDaySuffix(day);
     return `${day}${daySuffix} ${month} ${year}, ${hours.toString().padStart(2, '0')}.${minutes.toString().padStart(2, '0')}`;
 }
 
@@ -65,10 +65,9 @@ function getDaySuffix(day: number): string {
     }
 }
 
-export function truncateSentence(sentence: string) {
+export function truncateSentence(sentence: string): string {
     // Split the sentence into words
-    const words = sentence.split(' ');
-
+    const words: string[] = sentence.split(' ');
     // Check if the sentence has more than the word limit
     if (words.length > 32) {
         // Join the first 'wordLimit' words and add '...' at the end

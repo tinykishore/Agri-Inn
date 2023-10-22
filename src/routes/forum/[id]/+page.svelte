@@ -125,14 +125,8 @@
                 </div>
 
                 <div class="flex flex-col  my-4 items-end justify-end text-zinc-400 font-bold">
-                    <h1>
-                        Total {wordCount} words
-                    </h1>
-
-                    <h1>
-                        {timeToRead} minutes read...
-                    </h1>
-
+                    <h1>Total {wordCount} words</h1>
+                    <h1>{timeToRead} minutes read...</h1>
                 </div>
             </div>
             <p class="whitespace-pre-line antialiased p-1">{post_detail.post}</p>
@@ -150,9 +144,10 @@
                     on:click={sendReply}>Comment</button>
         </div>
 
-
-                    {:else}
-                    <h1>Loading...</h1>
-                {/if}
+    {:else}
+        <div>
+            <h1>Loading Story</h1>
+        </div>
+    {/if}
 
 </main>
