@@ -1,31 +1,21 @@
-import {JWT_SECRET} from "$env/static/private";
-import jwt from "jsonwebtoken";
 import {redirect} from "@sveltejs/kit";
+import {invalidateUserCache} from "$lib/globals/globals";
+import {isAuthorized} from "$lib/server/utility";
 
 export const load = async ({cookies}: any) => {
     // Get cookie value "sessionID"
-    const token = cookies.get('sessionID');
-
-    // If the cookie is not found, redirect to sign-in page
-    // Because the user is not authenticated
-    if (!token) throw redirect(307, "/sign-in");
-
-    // If the cookie is found, verify the JWT
-    const authenticated: any = jwt.verify(token, JWT_SECRET);
-    // If the JWT is invalid, redirect to sign-in page
-    if (!authenticated) {
-        throw redirect(307, "/sign-in");
-    }
-
+    const sessionID = cookies.get('sessionID');
+    const authorized = isAuthorized(sessionID);
     // If the JWT is valid, return the username
     return {
-        _id: authenticated._id,
+        userObjectID: authorized._id,
     }
 }
 
 export const actions = {
     default: async ({cookies}: any) => {
         cookies.delete('sessionID');
+        invalidateUserCache();
         throw redirect(307, '/');
     }
 }
