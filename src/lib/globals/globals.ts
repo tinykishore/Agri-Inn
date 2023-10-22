@@ -25,3 +25,13 @@ export function isUserCacheValid(): boolean {
         profile_picture !== undefined &&
         user_role !== undefined;
 }
+
+export function invalidateUserCache(): void {
+    UserCache.set({
+        username: undefined,
+        email: undefined,
+        full_name: undefined,
+        profile_picture: undefined,
+        user_role: undefined,
+    });
+}
