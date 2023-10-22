@@ -1,7 +1,7 @@
 import type {Handle} from "@sveltejs/kit";
-import {databaseConnection, initializeDatabase} from "$lib/server/database";
+import {databaseConnection, initializeDatabaseConnection} from "$lib/server/database_v3";
 
 export const handle: Handle = async ({event, resolve}) => {
-    if (databaseConnection === null) await initializeDatabase();
+    if (databaseConnection === null) await initializeDatabaseConnection();
     return resolve(event);
 };

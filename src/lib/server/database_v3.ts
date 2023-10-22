@@ -12,7 +12,6 @@ let collections: any = {
     "forum": null,
     "comment": null,
     "news": null
-
 }
 
 const client: MongoClient = new MongoClient(MONGO_URL, {
@@ -48,18 +47,7 @@ export const terminateDatabaseConnection = async (): Promise<void> => {
     consoleLog("DATABASE LOG: Connection to MongoDB Server closed", LEVEL.OK)
 }
 
-// export async function getAllFarmInfo() {
-//     const result = await collections["farm-info"].find({}).toArray();
-//     consoleLog("DATABASE LOG: Getting all farms information...", LEVEL.OK)
-//     return result;
-// }
-//
-// export async function getOneFarmInfo(farm_uid: string) {
-//     const result = await collections["farm-info"].findOne({"uid": farm_uid});
-//     consoleLog(`DATABASE LOG: Getting farm {` + farm_uid + `} information...`, LEVEL.OK)
-//     return result;
-// }
-//
+
 // export async function getOneFarmProducts(farm_uid: string) {
 //     const result = await collections["farm-products"].findOne({"uid": farm_uid});
 //     consoleLog(`DATABASE LOG: Getting farm products {` + farm_uid + `} information...`, LEVEL.OK)
@@ -114,7 +102,7 @@ export const terminateDatabaseConnection = async (): Promise<void> => {
 //     return result;
 // }
 
-export class UserFunctions {
+export class Database {
     public static async getUserByEmail(email: string) {
         const result = await collections["user-account"].findOne({"credentials.email": email});
         consoleLog("DATABASE LOG: Getting user by email...", LEVEL.OK)

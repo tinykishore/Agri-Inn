@@ -36,6 +36,6 @@ export let load = async ({cookies}: any): Promise<{ userObjectID: string | undef
 
     // If the JWT is valid, return the user ID
     return {
-        userObjectID: authenticated._id
+        userObjectID: authenticated.userObjectID
     }
 }
