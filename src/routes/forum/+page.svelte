@@ -60,11 +60,14 @@
 
             setTimeout(()=>{
                 postSubmittedMessage = false;
+                postTitle = "";
+                postBody = "";
             }, 3000);
 
             const response = await fetch('/API/v1/forum/GetAllPostAPI');
             posts = await response.json();
             posts.sort((a:Post, b:Post) => b.timestamp - a.timestamp);
+
         } else {
             alert("Post Submission Failed");
         }
