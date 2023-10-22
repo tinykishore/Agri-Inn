@@ -4,8 +4,8 @@ import consoleLog, {LEVEL} from "$lib/server/log";
 import nodemailer from "nodemailer";
 import CryptoJS from "crypto-js";
 import {GMAIL_APP_PASS} from "$env/static/private";
-import {insertResetPasswordToken} from "$lib/server/database";
 import {cfTurnstileValidation} from "$lib/server/CF-Validation";
+import {Database} from "$lib/server/database_v3";
 
 let transporter = nodemailer.createTransport({
     host: 'smtp.gmail.com',
@@ -62,7 +62,7 @@ export const POST = async ({request}: any) => {
     consoleLog("ForgotPasswordAPI API REQUEST: Token generated: " + reset_token, LEVEL.OK);
 
     // Insert the token into the database
-    const successInsertion: boolean = await insertResetPasswordToken(email, reset_token);
+    const successInsertion: boolean = await Database.insertResetPasswordToken(email, reset_token);
 
     if (successInsertion) {
         consoleLog("ForgotPasswordAPI API REQUEST: Database updated", LEVEL.OK);

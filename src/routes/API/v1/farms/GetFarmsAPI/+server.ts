@@ -1,6 +1,6 @@
 import consoleLog, {LEVEL} from "$lib/server/log";
-import {getAllFarmInfo} from "$lib/server/database";
 import {verifyRequest} from "$lib/server/utility";
+import {Database} from "$lib/server/database_v3";
 
 export const GET = async ({cookies}: any) => {
     consoleLog("GetFarmsAPI REQUEST Received", LEVEL.OK);
@@ -8,7 +8,7 @@ export const GET = async ({cookies}: any) => {
     if (!verifyRequest(cookies)) {
         return new Response("Unauthorized", {status: 401});
     }
-    const allFarmsInfo = await getAllFarmInfo();
+    const allFarmsInfo = await Database.getAllFarms();
     if (!allFarmsInfo) {
         consoleLog("GetFarmsAPI RESPONSE: status 404", LEVEL.ERROR);
         return new Response(null, {status: 404});

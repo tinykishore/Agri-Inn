@@ -1,5 +1,5 @@
 import consoleLog, {LEVEL} from "$lib/server/log";
-import {getOneFarmInfo, getOnePostInfo} from "$lib/server/database";
+import {getOnePostInfo} from "$lib/server/database";
 import {verifyRequest} from "$lib/server/utility";
 import {ObjectId} from "mongodb";
 
