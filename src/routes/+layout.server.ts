@@ -13,14 +13,14 @@ import {JWT_SECRET} from "$env/static/private";
  *
  * @param {Object} options - The options object.
  * @param {Cookies} options.cookies - The cookies object for retrieving the session token.
- * @returns {Promise<{ userID: string | undefined }>} A Promise that resolves with an object containing the user's ID if authenticated or `undefined` if not.
+ * @returns {Promise<{ userObjectID: string | undefined }>} A Promise that resolves with an object containing the user's ID if authenticated or `undefined` if not.
  */
-export let load = async ({cookies}: any): Promise<{ userID: string | undefined; }> => {
+export let load = async ({cookies}: any): Promise<{ userObjectID: string | undefined; }> => {
     // Check if the cookie is found
     const token: string | undefined = cookies.get('sessionID');
     if (!token)
         return {
-            userID: undefined
+            userObjectID: undefined
         };
 
     // If the cookie is found, verify the JWT
@@ -30,12 +30,12 @@ export let load = async ({cookies}: any): Promise<{ userID: string | undefined; 
     } catch (e) {
         // If the JWT is invalid, return and do nothing
         return {
-            userID: undefined
+            userObjectID: undefined
         };
     }
 
     // If the JWT is valid, return the user ID
     return {
-        userID: authenticated._id
+        userObjectID: authenticated._id
     }
 }

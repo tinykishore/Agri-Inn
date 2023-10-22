@@ -13,13 +13,13 @@ import {JWT_SECRET} from "$env/static/private";
  */
 export let load = async ({cookies}: any): Promise<void> => {
     // Check if the cookie is found
-    const token: string | undefined = cookies.get('sessionID');
-    if(!token) return;
+    const sessionID: string | undefined = cookies.get('sessionID');
+    if (!sessionID) return;
 
     // If the cookie is found, verify the JWT
-    let authenticated:any;
+    let authenticated: any;
     try {
-        authenticated = jwt.verify(token, JWT_SECRET);
+        authenticated = jwt.verify(sessionID, JWT_SECRET);
     } catch (e) {
         // If the JWT is invalid, return and do nothing
         return;

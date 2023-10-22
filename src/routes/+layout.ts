@@ -18,20 +18,19 @@ import UserCache from "$lib/stores/UserCache";
 export let load = async ({url, parent, data, fetch}: any): Promise<{ url: any }> => {
     await parent();
 
-    // Try load USER_CACHE from localStorage
-    if (!isUserCacheValid() && data.userID) {
-        // TODO: API call to get user data, set user cache
+    // Try load USER_CACHE
+    if (!isUserCacheValid() && data.userObjectID) {
         const response: any = await fetch('/API/v1/auth/RetrieveCache', {
             method: 'POST',
-            body: JSON.stringify(data.userID),
+            body: JSON.stringify(data.userObjectID),
             headers: {
                 'Content-Type': 'application/json'
             }
         });
 
         if (response.ok) {
-            const json = await response.json();
-            UserCache.set(json);
+            const cache = await response.json();
+            UserCache.set(cache);
         }
     }
 
