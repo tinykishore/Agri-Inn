@@ -32,6 +32,7 @@
             }
         });
         post_detail = await post_detail_response.json();
+
         for (let i = 0; i < post_detail.likes.length; i++) {
             if (post_detail.likes[i] === data.userObjectID) {
                 likedByThisUser = true;
@@ -71,6 +72,7 @@
     }
 
     let postReply = "";
+
     async function sendReply() {
         const reply_data = {
             "post_uid": data.postObjectID,
@@ -121,12 +123,13 @@
 
         <div id="comment-section" class="flex flex-col mt-4 items-start justify-start">
             <h1 class="text-xl font-bold">Comment as {loggedInUser}</h1>
-            <textarea bind:value={postReply} cols="20" rows="6" placeholder="What are your thoughts?"
-                      class="whitespace-pre-line transition duration-300 my-3 border border-orange-200
+            <textarea bind:value={postReply} cols="20" rows="5" placeholder="What are your thoughts?"
+                      class="whitespace-pre-line transition duration-300 my-3 border border-orange-200 resize-none
                       bg-zinc-50 px-4 w-full py-2 rounded-2xl focus:outline-none hover:shadow-md"></textarea>
             <button class="bg-amber-600 text-white w-fit font-bold py-2 px-4 rounded-full hover:bg-amber-700
             focus:outline-none focus:ring-2 focus:ring-amber-600 focus:ring-opacity-50 hover:shadow-md transition duration-300"
-                    on:click={sendReply}>Comment</button>
+                    on:click={sendReply}>Comment
+            </button>
         </div>
 
     {:else}
