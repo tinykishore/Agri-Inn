@@ -1,3 +1,6 @@
+// THIS IS THE UPDATED VERSION OF database.ts
+// version 3.0.0
+// author: @tinykishore
 import {Db, MongoClient, ObjectId} from "mongodb";
 import {MONGO_DATABASE, MONGO_URL} from "$env/static/private";
 import consoleLog, {LEVEL} from "$lib/server/log";
@@ -244,6 +247,7 @@ export class Database {
      * @returns A Promise that resolves to the result of the insertion operation.
      */
     public static async insertPost(post: Post): Promise<any> {
+        consoleLog(`DATABASE LOG: Inserting post {` + post + `} information...`, LEVEL.OK)
         return await collections["forum"].insertOne(post);
     }
 
