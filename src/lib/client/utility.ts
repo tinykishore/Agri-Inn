@@ -35,3 +35,46 @@ export function invalidateUserCache(): void {
         user_role: undefined,
     });
 }
+
+
+export function formatEpochToCustom(epoch: number): string {
+    const date = new Date(epoch * 1000); // Convert epoch to milliseconds
+    const day = date.getDate();
+    const month = date.toLocaleString('default', {month: 'short'});
+    const year = date.getFullYear();
+    const hours = date.getHours();
+    const minutes = date.getMinutes();
+
+    const daySuffix = getDaySuffix(day);
+    return `${day}${daySuffix} ${month} ${year}, ${hours.toString().padStart(2, '0')}.${minutes.toString().padStart(2, '0')}`;
+}
+
+function getDaySuffix(day: number): string {
+    if (day >= 11 && day <= 13) {
+        return 'th';
+    }
+    switch (day % 10) {
+        case 1:
+            return 'st';
+        case 2:
+            return 'nd';
+        case 3:
+            return 'rd';
+        default:
+            return 'th';
+    }
+}
+
+export function truncateSentence(sentence: string) {
+    // Split the sentence into words
+    const words = sentence.split(' ');
+
+    // Check if the sentence has more than the word limit
+    if (words.length > 32) {
+        // Join the first 'wordLimit' words and add '...' at the end
+        return words.slice(0, 28).join(' ') + ' ...';
+    } else {
+        // If the sentence has fewer words, return it as is
+        return sentence;
+    }
+}
