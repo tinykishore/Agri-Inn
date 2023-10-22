@@ -1,25 +1,27 @@
 <script lang="ts">
     import {onMount} from "svelte";
     import DynamicNavigation from "$lib/stores/DynamicNavigation";
-    import DashboardNavigation from "$lib/components/dynamicNavigations/DashboardNavigation.svelte";
     import {formatEpochToCustom} from "$lib/client/utility";
     import UserCache from "$lib/stores/UserCache";
+    import Forum_ID_Navigation from "$lib/components/dynamicNavigations/forum/Forum_ID_Navigation.svelte";
+    import {forum_id_navigation} from "$lib/stores/DynamicNavigation.js";
+    import DefaultNavigation from "$lib/components/dynamicNavigations/DefaultNavigation.svelte";
 
-    DynamicNavigation.set(DashboardNavigation);
+    DynamicNavigation.set(DefaultNavigation);
 
     export let data;
     let post_detail: any;
     let post_data = false;
     let timeToRead: number;
+
     let wordCount: number;
-
     // check if like array contains user id
+
     let likedByThisUser: boolean = false;
-
-    let loggedInUser: any;
-
+    let loggedInUser: string | undefined = undefined;
     UserCache.subscribe(value => {
         loggedInUser = value.full_name;
+
     })
 
     onMount(async () => {
@@ -42,6 +44,14 @@
         wordCount = post_detail.post.split(" ").length;
         // calculate the time it takes to read the post
         timeToRead = Math.round(wordCount / 200);
+
+        forum_id_navigation.set({
+            postObjectID: data.postObjectID,
+            userObjectID: data.userObjectID,
+            alreadyUpvoted: likedByThisUser,
+            currentURL: window.location.pathname
+        });
+        DynamicNavigation.set(Forum_ID_Navigation);
 
         post_data = true;
         await incrementViewCount();
@@ -78,36 +88,10 @@
         const reply_result = await reply_response.json();
     }
 
-    const votePost = async () => {
-        likedByThisUser = !likedByThisUser;
-        await fetch('/API/v1/forum/UpvotePostAPI', {
-            method: 'POST',
-            body: JSON.stringify({
-                postObjectID: data.postObjectID,
-                likerObjectID: data.userObjectID,
-                alreadyLiked: likedByThisUser
-            }),
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        });
-    }
-
-
 </script>
 
 <main class="my-28 mx-64">
     {#if post_data}
-        <!--{#if (!likedByThisUser)}-->
-        <!--    <button on:click={votePost}-->
-        <!--            class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">Upvote-->
-        <!--    </button>-->
-        <!--{:else}-->
-        <!--    <button on:click={votePost}-->
-        <!--            class="bg-zinc-400 text-white font-bold py-2 px-4 rounded">Downvote-->
-        <!--    </button>-->
-        <!--{/if}-->
-
         <div class="flex flex-col gap-4">
             <h1 class="text-5xl font-bold">{post_detail.title}</h1>
 

@@ -3,3 +3,10 @@ import DefaultNavigation from "$lib/components/dynamicNavigations/DefaultNavigat
 import DashboardNavigation from "$lib/components/dynamicNavigations/DashboardNavigation.svelte";
 
 export default writable(DefaultNavigation || DashboardNavigation || null);
+
+export let forum_id_navigation = writable({
+    postObjectID: undefined,
+    userObjectID: undefined,
+    alreadyUpvoted: false,
+    currentURL: "",
+});
