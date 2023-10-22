@@ -1,6 +1,6 @@
 import consoleLog, {LEVEL} from "$lib/server/log";
 import {verifyRequest} from "$lib/server/utility";
-import {Database} from "$lib/server/database_v3";
+import {Database} from "$lib/server/database";
 
 export const POST = async ({request, cookies}: any) => {
     consoleLog("InsertPostAPI REQUEST Received", LEVEL.OK);

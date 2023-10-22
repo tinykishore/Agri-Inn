@@ -1,7 +1,7 @@
 import consoleLog, {LEVEL} from "$lib/server/log";
 import bcrypt from "bcrypt";
 import {generateToken} from "$lib/server/utility";
-import {Database} from "$lib/server/database_v3";
+import {Database} from "$lib/server/database";
 
 /**
  * Sign-in API for authenticating users.

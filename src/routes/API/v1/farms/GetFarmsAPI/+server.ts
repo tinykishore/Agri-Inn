@@ -1,6 +1,6 @@
 import consoleLog, {LEVEL} from "$lib/server/log";
 import {verifyRequest} from "$lib/server/utility";
-import {Database} from "$lib/server/database_v3";
+import {Database} from "$lib/server/database";
 
 export const GET = async ({cookies}: any) => {
     consoleLog("GetFarmsAPI REQUEST Received", LEVEL.OK);

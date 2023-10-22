@@ -5,7 +5,7 @@ import nodemailer from "nodemailer";
 import CryptoJS from "crypto-js";
 import {GMAIL_APP_PASS} from "$env/static/private";
 import {cfTurnstileValidation} from "$lib/server/CF-Validation";
-import {Database} from "$lib/server/database_v3";
+import {Database} from "$lib/server/database";
 
 let transporter = nodemailer.createTransport({
     host: 'smtp.gmail.com',
