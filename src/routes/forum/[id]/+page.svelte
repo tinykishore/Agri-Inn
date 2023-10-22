@@ -9,25 +9,33 @@
     let post_detail: any;
     let post_data = false;
 
+    // check if like array contains user id
+    let likedByThisUser: boolean = false;
+
     onMount(async () => {
         const post_detail_response = await fetch('/API/v1/forum/GetOnePostAPI', {
             method: 'POST',
-            body: JSON.stringify(data.post_uid),
+            body: JSON.stringify(data.postObjectID),
             headers: {
                 'Content-Type': 'application/json'
             }
         });
         post_detail = await post_detail_response.json();
+        for (let i = 0; i < post_detail.likes.length; i++) {
+            if (post_detail.likes[i] === data.userObjectID) {
+                likedByThisUser = true;
+                break;
+            }
+        }
         post_data = true;
         await incrementViewCount();
     })
-
 
     async function incrementViewCount() {
         setTimeout(async () => {
             await fetch('/API/v1/forum/IncrementViewCountAPI', {
                 method: 'POST',
-                body: JSON.stringify(data.post_uid),
+                body: JSON.stringify(data.postObjectID),
                 headers: {
                     'Content-Type': 'application/json'
                 }
@@ -38,7 +46,7 @@
     let postReply = "";
     async function sendReply() {
         const reply_data = {
-            "post_uid": data.post_uid,
+            "post_uid": data.postObjectID,
             "reply": postReply,
             "author": "test",
             "timestamp": "test"
@@ -52,9 +60,22 @@
             }
         });
         const reply_result = await reply_response.json();
-        console.log(reply_result)
     }
 
+    const votePost = async () => {
+        likedByThisUser = !likedByThisUser;
+        await fetch('/API/v1/forum/UpvotePostAPI', {
+            method: 'POST',
+            body: JSON.stringify({
+                postObjectID: data.postObjectID,
+                likerObjectID: data.userObjectID,
+                alreadyLiked: likedByThisUser
+            }),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+    }
 
 </script>
 
@@ -63,11 +84,20 @@
         <div class="row">
             <div class="col-12">
                 {#if post_data}
+                    {#if (!likedByThisUser)}
+                        <button on:click={votePost}
+                                class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">Upvote
+                        </button>
+                    {:else}
+                        <button on:click={votePost}
+                                class="bg-zinc-400 text-white font-bold py-2 px-4 rounded">Downvote
+                        </button>
+                    {/if}
                     <h1>{post_detail.title}</h1>
                     <h2>{post_detail.author}</h2>
                     <h3>{post_detail.timestamp}</h3>
-                    <p class="mt-96">{post_detail.post}</p>
-                    <h3>{post_detail.like}</h3>
+                    <p>{post_detail.post}</p>
+                    <h3>{post_detail.likes.length}</h3>
                     <textarea bind:value={postReply} cols="30" rows="10"></textarea>
                     <button on:click={sendReply}>Reply</button>
 

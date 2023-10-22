@@ -41,7 +41,7 @@
             post: postBody,
             author: postAuthor,
             timestamp: getCurrentEpochTime(),
-            like: 0,
+            likes: [],
             viewCount: 0,
             profilePicture: profilePicture
         }

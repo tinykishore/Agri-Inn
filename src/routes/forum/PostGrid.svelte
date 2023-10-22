@@ -2,6 +2,7 @@
     import {onMount} from "svelte";
     import heart_icon from "$lib/assets/icons/heart-icon.svg";
     import view_icon from "$lib/assets/icons/view-icon.svg";
+    import {formatEpochToCustom, truncateSentence} from "$lib/client/utility.js";
 
     export let posts: any;
 
@@ -12,48 +13,6 @@
             isLoaded = true
         }, 1000)
     })
-
-    function formatEpochToCustom(epoch: number): string {
-        const date = new Date(epoch * 1000); // Convert epoch to milliseconds
-        const day = date.getDate();
-        const month = date.toLocaleString('default', {month: 'short'});
-        const year = date.getFullYear();
-        const hours = date.getHours();
-        const minutes = date.getMinutes();
-
-        const daySuffix = getDaySuffix(day);
-        return `${day}${daySuffix} ${month} ${year}, ${hours.toString().padStart(2, '0')}.${minutes.toString().padStart(2, '0')}`;
-    }
-
-    function getDaySuffix(day: number): string {
-        if (day >= 11 && day <= 13) {
-            return 'th';
-        }
-        switch (day % 10) {
-            case 1:
-                return 'st';
-            case 2:
-                return 'nd';
-            case 3:
-                return 'rd';
-            default:
-                return 'th';
-        }
-    }
-
-    function truncateSentence(sentence: string) {
-        // Split the sentence into words
-        const words = sentence.split(' ');
-
-        // Check if the sentence has more than the word limit
-        if (words.length > 32) {
-            // Join the first 'wordLimit' words and add '...' at the end
-            return words.slice(0, 28).join(' ') + ' ...';
-        } else {
-            // If the sentence has fewer words, return it as is
-            return sentence;
-        }
-    }
 
 </script>
 
@@ -98,7 +57,11 @@
 					<div class="flex gap-4 justify-start items-center align-middle">
 						<div class="flex gap-2 justify-between align-middle items-center">
 							<img class="h-4 w-4" src={heart_icon} alt=""/>
-							<h1 class="text-sm font-bold">{post.like}</h1>
+							{#if post.likes.length > 0}
+								<h1 class="text-sm font-bold">{post.likes.length}</h1>
+							{:else}
+								<h1 class="text-sm font-bold text-zinc-500">Be the first one to like!</h1>
+							{/if}
 						</div>
 
 						<div class="flex gap-2 justify-between align-middle items-center">
