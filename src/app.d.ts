@@ -23,3 +23,11 @@ interface Post {
 	viewCount : number,
 	profilePicture : string
 }
+
+interface Credentials {
+	email: string
+	username: string
+	password_hash: string
+	password_reset_token: string
+	google_id: string
+}

@@ -1,6 +1,6 @@
 import consoleLog, {LEVEL} from "$lib/server/log";
-import {getMostLikedPosts} from "$lib/server/database";
 import {verifyRequest} from "$lib/server/utility";
+import {Database} from "$lib/server/database";
 
 export const GET = async ({cookies}: any) => {
     consoleLog("GetMostLikedPostsAPI REQUEST Received", LEVEL.OK);
@@ -10,7 +10,7 @@ export const GET = async ({cookies}: any) => {
         return new Response("Unauthorized", {status: 401});
     }
 
-    const mostLikedPosts = await getMostLikedPosts();
+    const mostLikedPosts = await Database.getMostLikedPosts();
     if (!mostLikedPosts) {
         consoleLog("GetMostLikedPostsAPI RESPONSE: status 404", LEVEL.ERROR);
         return new Response(null, {status: 404});
