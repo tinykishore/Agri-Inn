@@ -311,8 +311,21 @@ export class Database {
         return await collections["comment"].insertOne(reply);
     }
 
-    public static async upvotePost(): Promise<any> {
-        // TODO: Implement this
+    public static async votePost(postObjectID: ObjectId, likerObjectID: string, alreadyLiked: boolean): Promise<any> {
+        consoleLog(`DATABASE LOG: Voting post {` + postObjectID + `} by user {` + likerObjectID + `}...`, LEVEL.OK)
+        if (!alreadyLiked) {
+            consoleLog(`DATABASE LOG: User {` + likerObjectID + `} already liked post {` + postObjectID + `}. Removing like...`, LEVEL.WARN)
+            return await collections["forum"].updateOne(
+                {_id: postObjectID},
+                {$pull: {likes: likerObjectID}}
+            );
+        } else {
+            consoleLog(`DATABASE LOG: User {` + likerObjectID + `} has not liked post {` + postObjectID + `}. Adding like...`, LEVEL.WARN)
+            return await collections["forum"].updateOne(
+                {_id: postObjectID},
+                {$addToSet: {likes: likerObjectID}}
+            );
+        }
     }
 
     public static async downVotePost(): Promise<any> {
