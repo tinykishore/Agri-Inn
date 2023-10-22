@@ -1,5 +1,5 @@
 import {writable} from "svelte/store";
-import type {USER_ROLE} from "$lib/globals/globals";
+import type {USER_ROLE} from "$lib/client/utility";
 
 export default writable({
     full_name: undefined,

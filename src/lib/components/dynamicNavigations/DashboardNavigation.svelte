@@ -3,7 +3,7 @@
     import cancel_icon from "$lib/assets/icons/sign-up-cancel-icon.svg";
     import {fade} from "svelte/transition";
     import UserCache from "$lib/stores/UserCache";
-    import {isUserCacheValid} from "$lib/globals/globals";
+    import {isUserCacheValid} from "$lib/client/utility";
 
     let username: string | undefined;
     let full_name: string | undefined;

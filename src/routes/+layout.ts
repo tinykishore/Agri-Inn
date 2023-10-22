@@ -1,4 +1,4 @@
-import {isUserCacheValid} from "$lib/globals/globals";
+import {isUserCacheValid} from "$lib/client/utility";
 import UserCache from "$lib/stores/UserCache";
 
 /**

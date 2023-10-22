@@ -1,5 +1,5 @@
 import {redirect} from "@sveltejs/kit";
-import {invalidateUserCache} from "$lib/globals/globals";
+import {invalidateUserCache} from "$lib/client/utility";
 import {isAuthorized} from "$lib/server/utility";
 
 export const load = async ({cookies}: any) => {
