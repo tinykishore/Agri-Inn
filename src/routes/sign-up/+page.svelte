@@ -1,12 +1,12 @@
 <script lang="ts">
     import signInBg from "$lib/assets/images/sign-in-bg.jpg"
     import signInBgArt from "$lib/assets/images/sign-in-bg-art.svg"
-    import currentNavigation from "$lib/stores/currentNavigation";
+    import DynamicNavigation from "$lib/stores/DynamicNavigation";
     import logo from "$lib/assets/icons/logo.svg";
     import {fade} from "svelte/transition";
     import SignUpNavigation from "$lib/components/dynamicNavigations/SignUpNavigation.svelte";
 
-    currentNavigation.set(SignUpNavigation);
+    DynamicNavigation.set(SignUpNavigation);
 
     let full_name: string;
     let email: string;

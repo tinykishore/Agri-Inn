@@ -2,7 +2,8 @@
     import '../tailwind.css';
     import {fade} from 'svelte/transition';
     import Footer from "$lib/components/Footer.svelte";
-    import currentNavigation from "$lib/stores/currentNavigation";
+    import DynamicNavigation from "$lib/stores/DynamicNavigation";
+
     export let data;
 </script>
 
@@ -10,7 +11,7 @@
 from-yellow-100 via-amber-200 to-yellow-100 z-[10000] min-h-fit">
 	{#key data.url}
 		<div in:fade={{ duration: 200, delay: 200 }}>
-			<svelte:component this={$currentNavigation} />
+			<svelte:component this={$DynamicNavigation}/>
 		</div>
 	{/key}
 </nav>

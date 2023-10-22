@@ -12,7 +12,7 @@
         2: "You're back! We've been waiting for you",
         3: "Good to see you again! Let's get started",
         4: "Hello again! Ready to access your account?",
-        5: "You're in! Let's continue where you left off.",
+        5: "You're in! Let's continue where you left off",
         6: "You've returned! Your journey continues.",
         7: "We're delighted you're back!",
         8: "Sign in and let's go!",

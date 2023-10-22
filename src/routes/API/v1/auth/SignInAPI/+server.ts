@@ -1,7 +1,7 @@
-import {getUserByEmail, getUserByUsername} from "$lib/server/database";
 import consoleLog, {LEVEL} from "$lib/server/log";
 import bcrypt from "bcrypt";
 import {generateToken} from "$lib/server/utility";
+import {Database} from "$lib/server/database";
 
 /**
  * Sign-in API for authenticating users.
@@ -15,47 +15,45 @@ export const POST = async ({request}: any): Promise<Response> => {
 
     // Server Should receive a Credential JSON object
     const credentials: SignInCredentials = await request.json();
-    const key: string = credentials.key;
-    const password: string = credentials.password;
 
     // Check if the key is username or email
-    const keyIsEmail: boolean = key.includes('@');
+    const keyIsEmail: boolean = credentials.key.includes('@');
 
-    // Define authResult variable, which will be used to determine if the user is authenticated
-    let authResult;
+    // Define authenticationResult variable, which will be used to determine if the user is authenticated
+    let authenticationResult: any;
     if (keyIsEmail) {
         consoleLog("SignInAPI API REQUEST: key is email", LEVEL.OK)
         // If the key is an email, find the user by email
-        authResult = await getUserByEmail(key);
+        authenticationResult = await Database.getUserByEmail(credentials.key);
     } else {
         consoleLog("SignInAPI API REQUEST: key is username", LEVEL.OK);
         // If the key is a username, find the user by username
-        authResult = await getUserByUsername(key);
+        authenticationResult = await Database.getUserByUsername(credentials.key);
     }
 
     // If the user is not found, return a 401 status code
-    if (!authResult) {
+    if (!authenticationResult) {
         consoleLog("SignInAPI RESPONSE: status 401", LEVEL.ERROR);
         return new Response(null, {status: 404});
     }
 
     // If the user is found, check if the password is correct
-    if (await bcrypt.compare(password, authResult.credentials["password_hash"])) {
+    if (await bcrypt.compare(credentials.password, authenticationResult.credentials["password_hash"])) {
         consoleLog("SignInAPI RESPONSE: Password Matched", LEVEL.OK);
         consoleLog("SignInAPI RESPONSE: Sending response with cookie headers", LEVEL.OK);
         // If the password is correct, generate a token and send it back to the client
         const token: string = generateToken({
-            _id: authResult._id,
+            userObjectID: authenticationResult._id,
         });
         // Add Cookie Headers to the response with CORS Headers
         // Redirect to the dashboard
         return new Response(
             JSON.stringify({
-                full_name: authResult["full_name"],
-                username: authResult.credentials["username"],
-                email: authResult.credentials["email"],
-                profile_picture: authResult["profile_picture"],
-                user_role: authResult["role"]
+                full_name: authenticationResult["full_name"],
+                username: authenticationResult.credentials["username"],
+                email: authenticationResult.credentials["email"],
+                profile_picture: authenticationResult["profile_picture"],
+                user_role: authenticationResult["role"]
             }),
             {
                 status: 200,

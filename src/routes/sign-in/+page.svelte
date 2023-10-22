@@ -1,15 +1,15 @@
 <script lang="ts">
     import signInBg from "$lib/assets/images/sign-in-bg.jpg"
     import signInBgArt from "$lib/assets/images/sign-in-bg-art.svg"
-    import currentNavigation from "$lib/stores/currentNavigation";
+    import DynamicNavigation from "$lib/stores/DynamicNavigation";
     import SignInNavigation from "$lib/components/dynamicNavigations/SignInNavigation.svelte";
     import logo from "$lib/assets/icons/logo.svg";
     import {goto} from "$app/navigation";
-    import {USER_ROLE} from "$lib/globals/globals";
+    import {USER_ROLE} from "$lib/client/utility";
     import {fade} from "svelte/transition";
     import UserCache from "$lib/stores/UserCache";
 
-    currentNavigation.set(SignInNavigation);
+    DynamicNavigation.set(SignInNavigation);
 
     // Credentials Object
     const credentials: SignInCredentials = {
@@ -65,9 +65,10 @@
                 value.email = data.email;
                 value.profile_picture = data.profile_picture;
                 value.username = data.username;
-                value.role = data.user_role;
+                value.user_role = data.user_role;
                 return value;
             });
+
             if (data.role === USER_ROLE.ADMIN) await goto("/admin");
             else await goto("/dashboard");
 
@@ -105,7 +106,6 @@
 			<div>
 				<h1 class="text-2xl font-black text-yellow-950 mb-4">
 					Sign In
-
 				</h1>
 
 			</div>
