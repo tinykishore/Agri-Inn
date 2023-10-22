@@ -3,13 +3,13 @@
     import currentNavigation from "$lib/stores/currentNavigation";
     import DashboardNavigation from "$lib/components/dynamicNavigations/DashboardNavigation.svelte";
 
-    export let data
-    let post_detail: any;
     currentNavigation.set(DashboardNavigation);
+
+    export let data;
+    let post_detail: any;
     let post_data = false;
 
     onMount(async () => {
-        // Call API to get farm info
         const post_detail_response = await fetch('/API/v1/forum/GetOnePostAPI', {
             method: 'POST',
             body: JSON.stringify(data.post_uid),
@@ -19,29 +19,20 @@
         });
         post_detail = await post_detail_response.json();
         post_data = true;
-        console.log(post_detail)
-
+        await incrementViewCount();
     })
 
 
-    async function handleScroll() {
-        // Get the current scroll position
-        const scrollPosition = window.pageYOffset;
-        // Get the current window height
-        const windowSize = window.innerHeight;
-        // Get the current document height
-        const bodyHeight = document.body.offsetHeight;
-
-        // If the user has scrolled to the bottom of the page, increment viewCount
-        if (scrollPosition + windowSize >= bodyHeight) {
-            const incrementViewCountResponse = await fetch('/API/v1/forum/IncrementViewCountAPI', {
+    async function incrementViewCount() {
+        setTimeout(async () => {
+            await fetch('/API/v1/forum/IncrementViewCountAPI', {
                 method: 'POST',
                 body: JSON.stringify(data.post_uid),
                 headers: {
                     'Content-Type': 'application/json'
                 }
             });
-        }
+        }, 2500);
     }
 
     let postReply = "";
