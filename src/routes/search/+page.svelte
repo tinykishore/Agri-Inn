@@ -1,7 +1,7 @@
 <script>
-    import currentNavigation from "$lib/stores/currentNavigation";
+    import DynamicNavigation from "$lib/stores/DynamicNavigation";
     import SearchNavigation from "$lib/components/dynamicNavigations/SearchNavigation.svelte";
-    currentNavigation.set(SearchNavigation);
+    DynamicNavigation.set(SearchNavigation);
 </script>
 
 <svelte:head>

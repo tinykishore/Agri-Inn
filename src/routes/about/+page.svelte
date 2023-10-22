@@ -1,7 +1,7 @@
 <script>
-	import currentNavigation from "$lib/stores/currentNavigation";
+	import DynamicNavigation from "$lib/stores/DynamicNavigation";
     import AboutNavigation from "$lib/components/dynamicNavigations/AboutNavigation.svelte";
-    currentNavigation.set(AboutNavigation);
+    DynamicNavigation.set(AboutNavigation);
 
 </script>
 

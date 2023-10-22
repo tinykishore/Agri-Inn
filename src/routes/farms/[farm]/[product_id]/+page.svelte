@@ -1,12 +1,11 @@
 <script lang="ts">
     import {onMount} from "svelte";
     import PaymentSection from "./PaymentSection.svelte";
-    import currentNavigation, {uid} from "$lib/stores/currentNavigation";
+    import DynamicNavigation from "$lib/stores/DynamicNavigation";
     import DashboardNavigation from "$lib/components/dynamicNavigations/DashboardNavigation.svelte";
 
     export let data;
-    uid.set(data._id);
-    currentNavigation.set(DashboardNavigation);
+    DynamicNavigation.set(DashboardNavigation);
     const product_id = data.product_id;
 
     let product_info: any;

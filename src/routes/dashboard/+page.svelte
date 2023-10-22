@@ -1,13 +1,12 @@
 <script lang="ts">
-    import currentNavigation from "$lib/stores/currentNavigation";
+    import DynamicNavigation from "$lib/stores/DynamicNavigation";
     import DashboardNavigation from "$lib/components/dynamicNavigations/DashboardNavigation.svelte";
     import {USER_ROLE} from "$lib/client/utility";
     import {onMount} from "svelte";
     import type {TypeUserCache} from "$lib/stores/UserCache";
     import UserCache from "$lib/stores/UserCache";
 
-    // export let data;
-    currentNavigation.set(DashboardNavigation);
+    DynamicNavigation.set(DashboardNavigation);
 
     let userCache: TypeUserCache | undefined;
 

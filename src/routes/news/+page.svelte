@@ -1,9 +1,9 @@
 <script lang="ts">
-    import currentNavigation from "$lib/stores/currentNavigation";
+    import DynamicNavigation from "$lib/stores/DynamicNavigation";
     import DashboardNavigation from "$lib/components/dynamicNavigations/DashboardNavigation.svelte";
     import {onMount} from "svelte";
 
-    currentNavigation.set(DashboardNavigation);
+    DynamicNavigation.set(DashboardNavigation);
 
     let news: any;
     onMount(async () => {

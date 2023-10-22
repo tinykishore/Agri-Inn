@@ -1,9 +1,9 @@
 <script lang="ts">
     import {onMount} from "svelte";
-    import currentNavigation from "$lib/stores/currentNavigation";
+    import DynamicNavigation from "$lib/stores/DynamicNavigation";
     import DashboardNavigation from "$lib/components/dynamicNavigations/DashboardNavigation.svelte";
 
-    currentNavigation.set(DashboardNavigation);
+    DynamicNavigation.set(DashboardNavigation);
 
     export let data;
     let post_detail: any;

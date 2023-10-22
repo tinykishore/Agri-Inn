@@ -1,7 +1,7 @@
 <script lang="ts">
     import signInBg from "$lib/assets/images/sign-in-bg.jpg"
     import signInBgArt from "$lib/assets/images/sign-in-bg-art.svg"
-    import currentNavigation from "$lib/stores/currentNavigation";
+    import DynamicNavigation from "$lib/stores/DynamicNavigation";
     import SignInNavigation from "$lib/components/dynamicNavigations/SignInNavigation.svelte";
     import logo from "$lib/assets/icons/logo.svg";
     import {goto} from "$app/navigation";
@@ -9,7 +9,7 @@
     import {fade} from "svelte/transition";
     import UserCache from "$lib/stores/UserCache";
 
-    currentNavigation.set(SignInNavigation);
+    DynamicNavigation.set(SignInNavigation);
 
     // Credentials Object
     const credentials: SignInCredentials = {
