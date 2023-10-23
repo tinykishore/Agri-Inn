@@ -148,13 +148,13 @@ export class Database {
     /**
      * Inserts a reset password token for a user by their unique ObjectID.
      *
-     * @param _id - The ObjectID of the user for whom the reset token is inserted.
+     * @param email - The ObjectID of the user for whom the reset token is inserted.
      * @param token - The reset password token to be inserted.
      * @returns A boolean indicating whether the reset token insertion was successful.
      */
-    public static async insertResetPasswordToken(_id: ObjectId, token: string): Promise<boolean> {
+    public static async insertResetPasswordToken(email: string, token: string): Promise<boolean> {
         const result = await collections["user-account"].updateOne(
-            {_id: _id},
+            {"credentials.email": email},
             {$set: {"credentials.password_reset_token": token}}
         );
         if (result.modifiedCount === 1) {
@@ -162,6 +162,50 @@ export class Database {
             return true;
         }
         consoleLog("DATABASE LOG: Reset token insertion failed", LEVEL.ERROR);
+        return false;
+    }
+
+    public static async getResetPasswordToken(token: string) {
+        consoleLog("DATABASE LOG: Getting reset password token...", LEVEL.OK)
+        const result = await collections["user-account"].findOne({"credentials.password_reset_token": token});
+        if (result !== null) {
+            consoleLog("DATABASE LOG: Reset token found", LEVEL.OK);
+            return {
+                _id: result._id,
+                success: true
+            }
+        }
+        consoleLog("DATABASE LOG: Reset token not found", LEVEL.ERROR);
+        return {success: false}
+    }
+
+    public static async deleteResetPasswordToken(_id: ObjectId) {
+        consoleLog("DATABASE LOG: Deleting reset password token...", LEVEL.OK)
+        const result = await collections["user-account"].updateOne(
+            {_id: _id},
+            {$unset: {"credentials.password_reset_token": ""}}
+        );
+        if (result.modifiedCount === 1) {
+            consoleLog("DATABASE LOG: Reset token deleted successfully", LEVEL.OK);
+            return true;
+        }
+
+        consoleLog("DATABASE LOG: Reset token deletion failed", LEVEL.ERROR);
+        return false;
+
+    }
+
+    public static async updatePassword(_id: ObjectId, password: string) {
+        consoleLog("DATABASE LOG: Updating password...", LEVEL.OK)
+        const result = await collections["user-account"].updateOne(
+            {_id: _id},
+            {$set: {"credentials.password_hash": password}}
+        );
+        if (result.modifiedCount === 1) {
+            consoleLog("DATABASE LOG: Password updated successfully", LEVEL.OK);
+            return true;
+        }
+        consoleLog("DATABASE LOG: Password update failed", LEVEL.ERROR);
         return false;
     }
 
