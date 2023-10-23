@@ -40,7 +40,7 @@
 			</span>
 			Go to Home
 		</a>
-		<form action="?/OAuth" method="POST">
+		<form action="/sign-in" method="POST">
 			<button class="px-3 py-2 flex bg-white items-center gap-2 align-middle rounded-full font-bold hover:bg-zinc-100
                transition-all duration-300 text-sm" name="google-sign-in"
 					type="submit"><span
