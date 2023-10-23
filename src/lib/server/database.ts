@@ -165,31 +165,6 @@ export class Database {
         return false;
     }
 
-    /**
-     * Updates the Google ID for a user based on their email.
-     *
-     * @param email - The email of the user for which the Google ID should be updated.
-     * @param google_id - The new Google ID to set for the user.
-     * @returns A boolean indicating whether the Google ID update was successful.
-     */
-    public static async updateGoogleID(email: string, google_id: string): Promise<boolean> {
-        const result = await collections["user-account"].updateOne(
-            {"credentials.email": email},
-            {$set: {"credentials.google_id": google_id}}
-        );
-        if (result.modifiedCount === 1) {
-            consoleLog("DATABASE LOG: Google ID updated successfully", LEVEL.OK);
-            return true;
-        }
-        consoleLog("DATABASE LOG: Google ID update failed", LEVEL.ERROR);
-        return false;
-    }
-
-    public static async insertUser(newUser: UserObject): Promise<any> {
-        consoleLog("DATABASE LOG: Inserting user...", LEVEL.OK)
-        return await collections["user-account"].insertOne(newUser);
-    }
-
     // ##############################################################################################################
     // ##############################################################################################################
     // ##############################################################################################################
