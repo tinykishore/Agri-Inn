@@ -165,6 +165,13 @@ export class Database {
         return false;
     }
 
+    /**
+     * Updates the Google ID for a user based on their email.
+     *
+     * @param email - The email of the user for which the Google ID should be updated.
+     * @param google_id - The new Google ID to set for the user.
+     * @returns A boolean indicating whether the Google ID update was successful.
+     */
     public static async updateGoogleID(email: string, google_id: string): Promise<boolean> {
         const result = await collections["user-account"].updateOne(
             {"credentials.email": email},
