@@ -1,11 +1,12 @@
 <script lang="ts">
-    import {onMount} from "svelte";
+    import {afterUpdate, onMount} from "svelte";
     import DynamicNavigation from "$lib/stores/DynamicNavigation";
     import {formatEpochToCustom} from "$lib/client/utility";
     import UserCache from "$lib/stores/UserCache";
     import Forum_ID_Navigation from "$lib/components/dynamicNavigations/forum/Forum_ID_Navigation.svelte";
     import {forum_id_navigation} from "$lib/stores/DynamicNavigation.js";
     import DefaultNavigation from "$lib/components/dynamicNavigations/DefaultNavigation.svelte";
+    import {fade} from "svelte/transition";
 
     DynamicNavigation.set(DefaultNavigation);
 
@@ -13,14 +14,27 @@
     let post_detail: any;
     let post_data = false;
     let timeToRead: number;
+    let fontSize: number;
 
     let wordCount: number;
     // check if like array contains user id
 
     let likedByThisUser: boolean = false;
     let loggedInUser: string | undefined = undefined;
+
     UserCache.subscribe(value => {
         loggedInUser = value.full_name;
+    })
+    forum_id_navigation.subscribe(value => {
+        fontSize = value.fontSize;
+    })
+
+    afterUpdate(() => {
+        const post_body = document.getElementById("post_body");
+        console.log(fontSize);
+        if (post_body) {
+            post_body.style.fontSize = `${fontSize}px`;
+        }
     })
 
     onMount(async () => {
@@ -51,7 +65,8 @@
             alreadyUpvoted: likedByThisUser,
             currentURL: window.location.pathname,
             totalLikes: post_detail.likes.length,
-            totalViews: post_detail.viewCount
+            totalViews: post_detail.viewCount,
+            fontSize: 0
         });
         DynamicNavigation.set(Forum_ID_Navigation);
 
@@ -113,10 +128,14 @@
 
                 <div class="flex flex-col  my-4 items-end justify-end text-zinc-400 font-bold">
                     <h1>Total {wordCount} words</h1>
-                    <h1>{timeToRead} minutes read...</h1>
+                    <h1>About {timeToRead} minutes read...</h1>
                 </div>
+
             </div>
-            <p class="whitespace-pre-line antialiased p-1">{post_detail.post}</p>
+
+            {#key fontSize}
+                <p in:fade id="post_body" class="whitespace-pre-line hover:antialiased p-1">{post_detail.post}</p>
+            {/key}
 
             <hr class="border-2 rounded-full w-full">
         </div>

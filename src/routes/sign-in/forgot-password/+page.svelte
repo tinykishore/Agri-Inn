@@ -1,10 +1,8 @@
 <script lang="ts">
-
     import {Turnstile} from "svelte-turnstile";
     import {PUBLIC_TURNSTILE_SITE_KEY} from "$env/static/public";
 
     let siteKey = PUBLIC_TURNSTILE_SITE_KEY;
-
     let email: string;
 
     const handleSubmit = async () => {
