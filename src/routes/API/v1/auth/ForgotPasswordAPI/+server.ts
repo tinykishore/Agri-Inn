@@ -23,8 +23,7 @@ let transporter = nodemailer.createTransport({
 export const POST = async ({request}: any) => {
     consoleLog("ForgotPasswordAPI REQUEST Received", LEVEL.OK);
     // Server Should receive an email JSON object. Extract the email from the request body
-    const email = (await request.json()).email;
-    const turnstile_token = (await request.json()).turnstile_token;
+    const {email, turnstile_token} = await request.json();
 
     // Validate the turnstile token
     const cfTurnstileValid = await cfTurnstileValidation(turnstile_token);
@@ -67,7 +66,7 @@ export const POST = async ({request}: any) => {
     if (successInsertion) {
         consoleLog("ForgotPasswordAPI API REQUEST: Database updated", LEVEL.OK);
         // TODO: Change the link to the actual link
-        const link = 'https://example.com/lost-password/' + reset_token;
+        const link = 'https://localhost:5174/sign-in/forgot-password/' + reset_token;
         await sendMail(email, link);
         return new Response(null, {status: 200});
     } else {
