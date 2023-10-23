@@ -185,6 +185,11 @@ export class Database {
         return false;
     }
 
+    public static async insertUser(newUser: UserObject): Promise<any> {
+        consoleLog("DATABASE LOG: Inserting user...", LEVEL.OK)
+        return await collections["user-account"].insertOne(newUser);
+    }
+
     // ##############################################################################################################
     // ##############################################################################################################
     // ##############################################################################################################
