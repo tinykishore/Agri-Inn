@@ -5,6 +5,7 @@
     import logo from "$lib/assets/icons/logo.svg";
     import {fade} from "svelte/transition";
     import SignUpNavigation from "$lib/components/dynamicNavigations/SignUpNavigation.svelte";
+    import sign_up_logo from "$lib/assets/icons/sign-up-logo.svg";
 
     DynamicNavigation.set(SignUpNavigation);
 
@@ -21,10 +22,6 @@
 
     const handleSubmit = async () => {
 
-    }
-
-    const onNextClick = async () => {
-        pageChange = 1;
     }
 
     const validateEmail = async (event: any) => {
@@ -116,20 +113,22 @@
 			</p>
 		</div>
 		<div class="rounded-r-2xl p-8 flex flex-col bg-yellow-50/50 w-full h-full justify-between">
-			<div>
-				<h1 class="text-2xl font-black text-end text-yellow-950 mb-4">
+			<div class="flex gap-2 justify-end items-center align-middle">
+				<h1 class="text-2xl font-black text-yellow-950">
 					Sign Up
 				</h1>
+				<img alt="" class="h-7 w-7" src={sign_up_logo}/>
 			</div>
 
 
 			{#key pageChange}
 				<div in:fade={{ duration: 200, delay: 500 }}>
 					{#if (pageChange === 0)}
-						<div class="flex flex-col gap-1">
+						<div class="flex flex-col">
 							<div class="mb-1">
 								<label for="email" class="block font-bold text-gray-600 ml-4">Email Address</label>
-								<label for="email" class="block font-light text-xs text-gray-600 ml-4">The Email Address
+								<label in:fade for="email" class="block font-light text-xs text-gray-600 ml-4">The Email
+									Address
 									You
 									Want to
 									Register</label>
@@ -141,11 +140,10 @@
 
 							<div class="mb-1">
 								<label for="password" class="block font-bold text-gray-600 ml-4">New Password</label>
-								<label for="email" class="block font-light text-xs text-gray-600 ml-4">Password
-									Strength</label>
-								<div class="mx-4 mt-1 h-1 bg-zinc-200 rounded-full overflow-hidden">
-									<div id="password_strength_meter" class=" h-1 w-[75%] bg-green-500"></div>
-								</div>
+								<label for="email" class="block font-light text-xs text-gray-600 ml-4">
+									Choose a password of 8 characters
+
+								</label>
 
 								<input required on:input={validatePassword} bind:value={password}
 									   type="password" id="password" name="password"
@@ -165,16 +163,15 @@
                        focus:shadow-md block w-full py-2.5 px-4 transition-all duration-300 antialiased">
 							</div>
 
-							<div class="mx-auto" id="submit_button">
-								<button on:click={onNextClick}
-										class="w-fit px-12 font-bold py-2 mb-2 rounded-full hover:bg-amber-300 text-amber-900 focus:outline-none transition-all duration-300">
+							<div class="mx-auto flex justify-end items-end mt-4" id="submit_button">
+								<button on:click={()=>{pageChange++;}}
+										class="w-fit px-6 bg-amber-700 font-bold text-white py-2 rounded-full hover:bg-amber-900 focus:outline-none transition-all duration-300">
 									Next
 								</button>
 							</div>
-
 						</div>
 					{:else if (pageChange === 1)}
-						<form on:submit={handleSubmit} class="flex flex-col gap-1 ">
+						<div class="flex flex-col gap-1 ">
 							<div class="mb-1">
 								<label for="full_name" class="block font-bold text-gray-600 ml-4">Full Name</label>
 								<label for="full_name" class="block font-light text-xs text-gray-600 ml-4">
@@ -201,14 +198,32 @@
 							<div class="flex justify-between align-middle items-center mt-6 ">
 								<button type="button"
 										class="w-fit px-8 font-bold py-2 rounded-full hover:bg-amber-300 text-amber-900 focus:outline-none transition-all duration-300"
-										on:click={() => pageChange = 0}>
+										on:click={()=>{pageChange--;}}>
 									Back
 								</button>
-								<button type="submit" id="submit"
+								<button on:click={()=>{pageChange++;}}
 										class="w-fit px-6 bg-amber-700 font-bold text-white py-2 rounded-full hover:bg-amber-900 focus:outline-none transition-all duration-300">
-									Sign Up
+									Next
 								</button>
 							</div>
+						</div>
+					{:else if (pageChange === 2)}
+						<form on:submit={handleSubmit} class="flex flex-col gap-1">
+							<!--							Choose Profile Pic-->
+							<h1>Choose profile Pic</h1>
+							<div class="flex justify-between items-center align-middle">
+								<button type="button"
+										class="w-fit px-8 font-bold py-2 rounded-full hover:bg-amber-300 text-amber-900 focus:outline-none transition-all duration-300"
+										on:click={()=>{pageChange--;}}>
+									Back
+								</button>
+
+								<button type="submit" name="submit"
+										class="w-fit px-6 bg-amber-700 font-bold text-white py-2 rounded-full hover:bg-amber-900 focus:outline-none transition-all duration-300">
+									Get Started
+								</button>
+							</div>
+
 						</form>
 					{/if}
 				</div>
