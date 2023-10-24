@@ -31,7 +31,6 @@
 
     afterUpdate(() => {
         const post_body = document.getElementById("post_body");
-        console.log(fontSize);
         if (post_body) {
             post_body.style.fontSize = `${fontSize}px`;
         }
