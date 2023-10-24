@@ -1,10 +1,1 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0,0,256,256" width="50px"
-     height="50px">
-    <g fill="#fa5252" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter"
-       stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none"
-       font-size="none" text-anchor="none" style="mix-blend-mode: normal">
-        <g transform="scale(5.12,5.12)">
-            <path d="M25,47.30078l-0.64062,-0.53125c-1.21484,-1.01562 -2.85937,-2.11719 -4.76562,-3.39062c-7.42578,-4.97266 -17.59375,-11.77734 -17.59375,-23.37891c0,-7.16797 5.83203,-13 13,-13c3.89453,0 7.54297,1.73438 10,4.69922c2.45703,-2.96484 6.10547,-4.69922 10,-4.69922c7.16797,0 13,5.83203 13,13c0,11.60156 -10.16797,18.40625 -17.59375,23.37891c-1.90625,1.27344 -3.55078,2.375 -4.76562,3.39063z"></path>
-        </g>
-    </g>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 256 256"><g fill="#fa5252" fill-rule="nonzero" stroke="none" stroke-dashoffset="0" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-width="1" font-family="none" font-size="none" font-weight="none" text-anchor="none" style="mix-blend-mode:normal"><g><path d="M25,47.30078l-0.64062,-0.53125c-1.21484,-1.01562 -2.85937,-2.11719 -4.76562,-3.39062c-7.42578,-4.97266 -17.59375,-11.77734 -17.59375,-23.37891c0,-7.16797 5.83203,-13 13,-13c3.89453,0 7.54297,1.73438 10,4.69922c2.45703,-2.96484 6.10547,-4.69922 10,-4.69922c7.16797,0 13,5.83203 13,13c0,11.60156 -10.16797,18.40625 -17.59375,23.37891c-1.90625,1.27344 -3.55078,2.375 -4.76562,3.39063z" transform="scale(5.12,5.12)"/></g></g></svg>
