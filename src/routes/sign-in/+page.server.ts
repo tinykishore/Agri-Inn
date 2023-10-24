@@ -22,7 +22,7 @@ export const actions = {
 
         // This is the URL that Google will call back to with the auth code appended to the query string.
         // FIXME: CHANGE THIS TO YOUR ACTUAL DOMAIN NAME
-        const redirectURL = 'http://localhost:5173/API/v1/auth/OAuth';
+        const redirectURL = 'https://agriinn.vercel.app/API/v1/auth/OAuth';
         consoleLog(`Oauth: RedirectURL = ` + redirectURL, LEVEL.OK);
 
 

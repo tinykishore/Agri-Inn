@@ -9,7 +9,7 @@ import {generateToken} from "$lib/server/utility";
 
 export const GET = async ({url, cookies}: any) => {
     consoleLog("Oauth: Google OAuth2.0 Request Received", LEVEL.OK);
-    const redirectURL: string = 'http://localhost:5173/API/v1/auth/OAuth';
+    const redirectURL: string = 'https://agriinn.vercel.app/API/v1/auth/OAuth';
 
     const code: any = url.searchParams.get('code');
     consoleLog("Code: " + code, LEVEL.WARN)
