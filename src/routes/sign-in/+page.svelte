@@ -7,6 +7,7 @@
     import {goto} from "$app/navigation";
     import {USER_ROLE} from "$lib/client/utility";
     import {fade} from "svelte/transition";
+    import sign_in_logo from "$lib/assets/icons/sign-in-logo.svg";
     import UserCache from "$lib/stores/UserCache";
 
     DynamicNavigation.set(SignInNavigation);
@@ -103,11 +104,11 @@
 
 		<form on:submit|preventDefault="{handleSubmit}"
 			  class="rounded-l-2xl p-8 flex flex-col bg-yellow-50/50 w-full h-full justify-between">
-			<div>
-				<h1 class="text-2xl font-black text-yellow-950 mb-4">
+			<div class="flex gap-2 items-center align-middle">
+				<img alt="" class="h-7 w-7" src={sign_in_logo}/>
+				<h1 class="text-2xl font-black text-yellow-950">
 					Sign In
 				</h1>
-
 			</div>
 
 			<div class="flex flex-col gap-3">

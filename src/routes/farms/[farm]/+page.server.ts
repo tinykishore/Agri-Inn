@@ -2,7 +2,7 @@ import {redirect} from "@sveltejs/kit";
 import jwt from "jsonwebtoken";
 import {JWT_SECRET} from "$env/static/private";
 
-export const load = async ({cookies, url}: any) => {
+export const load = async ({cookies, params}: any) => {
     // Get cookie value "sessionID"
     const token = cookies.get('sessionID');
 
@@ -19,12 +19,9 @@ export const load = async ({cookies, url}: any) => {
         throw redirect(307, "/sign-in");
     }
 
-    const urlPath = url.pathname.split("/");
-    const farm = urlPath[urlPath.length - 1];
-
     // If the JWT is valid, return the username
     return {
         _id: authenticated._id,
-        farm_uid: farm
+        farm_uid: params.farm,
     }
 }

@@ -126,7 +126,8 @@
                     </label>
                     <textarea
                             bind:value={postBody}
-                            class="whitespace-pre-line transition duration-300 my-2 border border-orange-200 bg-zinc-50 px-4 py-2 rounded-2xl focus:outline-none hover:shadow-md"
+                            class="whitespace-pre-line transition duration-300 my-2 border border-orange-200 bg-zinc-50
+                            px-4 py-2 rounded-2xl focus:outline-none hover:shadow-md resize-none"
                             name="post" placeholder="Write Your Post Here in Detail" rows="5"></textarea>
                     {#if postTitle === "" || postBody === ""}
                         <button disabled class="bg-zinc-400 mt-2 text-white w-fit font-bold py-2 px-4 rounded-full"
