@@ -228,6 +228,21 @@ export class Database {
         return await collections["user-account"].insertOne(userObject);
     }
 
+    public static async completeGoogleSignUp(_id: ObjectId, username: string, password_hash: string) {
+        // insert username and password_hash into database for user with _id
+        consoleLog("DATABASE LOG: Completing Google Sign Up...", LEVEL.OK)
+        const result = await collections["user-account"].updateOne(
+            {_id: _id},
+            {$set: {"credentials.username": username, "credentials.password_hash": password_hash}}
+        );
+        if (result.modifiedCount === 1) {
+            consoleLog("DATABASE LOG: Google Sign Up completed successfully", LEVEL.OK);
+            return true;
+        }
+        consoleLog("DATABASE LOG: Google Sign Up failed", LEVEL.ERROR);
+        return false;
+    }
+
     // ##############################################################################################################
     // ##############################################################################################################
     // ##############################################################################################################
