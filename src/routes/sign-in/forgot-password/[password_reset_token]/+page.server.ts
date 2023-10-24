@@ -1,7 +1,6 @@
 import {Database} from "$lib/server/database";
 import {fail, redirect} from "@sveltejs/kit";
 import {ObjectId} from "mongodb";
-import bcrypt from "bcrypt";
 import {encryptPassword} from "$lib/server/utility";
 
 interface PasswordResetToken {
