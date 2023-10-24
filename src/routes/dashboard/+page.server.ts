@@ -6,7 +6,7 @@ export const load = async ({cookies}: any) => {
     // Get cookie value "sessionID"
     const sessionID = cookies.get('sessionID');
     const authorized = isAuthorized(sessionID);
-    // If the JWT is valid, return the username
+    if (!authorized) throw redirect(307, "/sign-in");
     return {
         userObjectID: authorized._id,
     }
