@@ -148,13 +148,13 @@ export class Database {
     /**
      * Inserts a reset password token for a user by their unique ObjectID.
      *
-     * @param _id - The ObjectID of the user for whom the reset token is inserted.
+     * @param email - The ObjectID of the user for whom the reset token is inserted.
      * @param token - The reset password token to be inserted.
      * @returns A boolean indicating whether the reset token insertion was successful.
      */
-    public static async insertResetPasswordToken(_id: ObjectId, token: string): Promise<boolean> {
+    public static async insertResetPasswordToken(email: string, token: string): Promise<boolean> {
         const result = await collections["user-account"].updateOne(
-            {_id: _id},
+            {"credentials.email": email},
             {$set: {"credentials.password_reset_token": token}}
         );
         if (result.modifiedCount === 1) {
