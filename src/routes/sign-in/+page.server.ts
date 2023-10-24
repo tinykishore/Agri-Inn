@@ -2,6 +2,19 @@ import {OAuth2Client} from "google-auth-library";
 import {GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET} from "$env/static/private";
 import {redirect} from "@sveltejs/kit";
 import consoleLog, {LEVEL} from "$lib/server/log";
+import {isAuthorized} from "$lib/server/utility";
+
+export const load = async ({cookies}: any) => {
+    // Get cookie value "sessionID"
+    const sessionID = cookies.get('sessionID');
+    const authorized = isAuthorized(sessionID);
+    if (!authorized) {
+        consoleLog("User not authorized", LEVEL.ERROR);
+        return Promise.resolve()
+    }
+    consoleLog("User authorized", LEVEL.OK)
+    throw redirect(301, "/dashboard");
+}
 
 export const actions = {
     default: async ({}) => {

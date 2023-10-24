@@ -5,6 +5,7 @@ import consoleLog, {LEVEL} from "$lib/server/log";
 import {Database} from "$lib/server/database";
 import {USER_ROLE} from "$lib/client/utility";
 import jwt from "jsonwebtoken";
+import {generateToken} from "$lib/server/utility";
 
 export const GET = async ({url, cookies}: any) => {
     consoleLog("Oauth: Google OAuth2.0 Request Received", LEVEL.OK);
@@ -34,17 +35,27 @@ export const GET = async ({url, cookies}: any) => {
     const google_id = data.sub;
 
     const result = await Database.getUserByEmail(email)
-    if (result !== null) {
+    if (result) {
         consoleLog("User found", LEVEL.OK);
         if (result.credentials.google_id === "" || result.credentials.google_id !== google_id) {
             consoleLog("Google ID not set", LEVEL.WARN);
             await Database.updateGoogleID(email, google_id);
-            /// TODO: Redirect to sign-in page with google_id
-            throw redirect(302, "/sign-in/" + google_id);
-        } else {
-            /// Simply authenticate user
-            throw redirect(302, "/sign-in/" + google_id);
         }
+
+        consoleLog("Google ID set", LEVEL.OK);
+        // Set token and cookie and redirect to dashboard
+        const token: string = generateToken(
+            {userObjectID: result._id}
+        );
+        cookies.set("sessionID", token, {
+            path: "/",
+            httpOnly: true,
+            secure: true,
+            sameSite: "lax",
+            maxAge: 60 * 60 * 24 * 7,
+        });
+        throw redirect(301, "/dashboard");
+
     } else {
         consoleLog("User not found", LEVEL.WARN);
         consoleLog("Creating new user", LEVEL.OK);
