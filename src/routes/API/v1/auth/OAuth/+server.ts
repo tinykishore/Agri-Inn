@@ -1,11 +1,12 @@
 import {OAuth2Client} from "google-auth-library";
-import {GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET} from "$env/static/private";
+import {GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET, JWT_SECRET} from "$env/static/private";
 import {redirect} from "@sveltejs/kit";
 import consoleLog, {LEVEL} from "$lib/server/log";
 import {Database} from "$lib/server/database";
 import {USER_ROLE} from "$lib/client/utility";
+import jwt from "jsonwebtoken";
 
-export const GET = async ({url}: any) => {
+export const GET = async ({url, cookies}: any) => {
     consoleLog("Oauth: Google OAuth2.0 Request Received", LEVEL.OK);
     const redirectURL: string = 'http://localhost:5173/API/v1/auth/OAuth';
 
@@ -80,7 +81,23 @@ export const GET = async ({url}: any) => {
             consoleLog("User created", LEVEL.OK);
             const new_user_id = success.insertedId.toString();
             consoleLog("New insertedID: " + new_user_id, LEVEL.OK);
-            throw redirect(302, "/sign-in/" + new_user_id);
+            const encrypted_id = jwt.sign(
+                {
+                    new_user_id,
+                    full_name,
+                    email,
+                    profile_picture,
+                    google_id
+                }, JWT_SECRET, {expiresIn: "30m"}
+            );
+            cookies.set("google_auth", encrypted_id, {
+                path: "/",
+                httpOnly: false,
+                // 10 minutes
+                maxAge: 60 * 10,
+                sameSite: "lax"
+            });
+            throw redirect(302, "/sign-in/google");
         }
     }
 }
