@@ -45,7 +45,7 @@
                transition-all duration-300 text-sm" name="google-sign-in"
 					type="submit"><span
 					class="block h-5 w-5"><img alt="search_icon" src={google_icon}></span>
-				Sign In with Google
+				Continue with Google
 			</button>
 		</form>
 	</div>
