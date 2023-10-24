@@ -85,7 +85,7 @@
 		{#if !likedByThisUser}
 			<button on:click={votePost}
 					class="flex gap-1 px-3 rounded-full align-middle border-red-600/60 border justify-center items-center font-semibold text-yellow-950 hover:bg-red-100 hover:border-red-800 transition-all duration-300">
-				<img class="block w-6 h-6" src={like_icon} alt="ico"/>
+				<img class="block w-6 h-6" src={like_icon} alt=""/>
 				<span class="font-bold py-2">Like Post</span>
 			</button>
 		{:else}
@@ -93,40 +93,40 @@
 					class="flex gap-1 px-3 rounded-full align-middle border-red-200
 		border justify-center items-center font-semibold text-yellow-950 bg-red-200
 		hover:bg-red-300 hover:border-red-200 transition-all duration-300">
-				<img class="block w-6 h-6" src={liked_icon} alt="ico"/>
+				<img class="block w-6 h-6" src={liked_icon} alt=""/>
 				<span class="font-bold py-2">Liked Post</span>
 			</button>
 		{/if}
 
 		<a class="flex gap-1 px-3 rounded-full align-middle border-amber-950/30 border justify-center items-center font-semibold text-yellow-950 hover:bg-white hover:border-white transition-all duration-300"
 		   href={currentURL + "#comment-section"}>
-			<img alt="ico" class="block w-6 h-6" src={comment_icon}/>
+			<img alt="" class="block w-6 h-6" src={comment_icon}/>
 			<span class="font-bold py-2">Comment</span>
 		</a>
 
 		<button class="flex gap-1 px-3 rounded-full align-middle border-yellow-800/20 border justify-center items-center font-semibold text-yellow-950 hover:bg-yellow-300 hover:border-yellow-800 transition-all duration-300"
 				on:click={shareButtonAction}>
-			<img alt="ico" class="block w-5 h-5 mr-1" src={share_icon}/>
+			<img alt="" class="block w-5 h-5 mr-1" src={share_icon}/>
 			<span class="font-bold py-2">Share Post</span>
 		</button>
 	</div>
 
 	<div class="gap-x-4 font-bold text-sm text-zinc-500 text-center select-none justify-between">
 		<div class="flex justify-evenly items-center align-middle" in:fade={{ duration: 200, delay: 200 }}>
-			<div class="flex gap-2 justify-center align-middle items-center">
+			<div class="flex gap-4 justify-center align-middle items-center">
 				<div class="flex items-center align-middle gap-1">
-					<img alt="ico" class="block w-5 h-5" src={liked_icon}/>
+					<img alt="" class="block w-5 h-5" src={liked_icon}/>
 					<h1 class="font-bold py-2">{totalLikes}</h1>
 				</div>
 				<div class="h-5 w-1 rounded bg-zinc-300"></div>
 				<div class="flex items-center align-middle gap-1">
-					<img alt="ico" class="block w-5 h-5" src={view_icon}/>
+					<img alt="" class="block w-5 h-5" src={view_icon}/>
 					<h1 class="font-bold py-2">{totalViews}</h1>
 
 				</div>
 				<div class="h-5 w-1 rounded bg-zinc-300"></div>
 				<div class="flex items-center align-middle gap-1">
-					<img alt="ico" class="block w-5 h-5" src={comment_icon}/>
+					<img alt="" class="block w-5 h-5" src={comment_icon}/>
 					<h1 class="font-bold py-2">0</h1>
 				</div>
 			</div>
@@ -143,7 +143,7 @@
 					cursor-pointer peer-checked:border-amber-600 peer-checked:text-amber-600
 					hover:text-amber-600 hover:bg-amber-100" for="small">
 						<span>
-							<img alt="ico" class="w-3 h-3" src={forum_text_size_icon}/>
+							<img alt="" class="w-3 h-3" src={forum_text_size_icon}/>
 						</span>
 					</label>
 				</div>
@@ -159,7 +159,7 @@
 					cursor-pointer peer-checked:border-amber-600 peer-checked:text-amber-600
 					hover:text-amber-600 hover:bg-amber-100" for="medium">
 						<span>
-							<img alt="ico" class="w-4 h-4" src={forum_text_size_icon}/>
+							<img alt="" class="w-4 h-4" src={forum_text_size_icon}/>
 						</span>
 					</label>
 				</div>
@@ -176,7 +176,7 @@
 					cursor-pointer peer-checked:border-amber-600 peer-checked:text-amber-600
 					hover:text-amber-600 hover:bg-amber-100" for="large">
 						<span>
-							<img alt="ico" class="w-5 h-5" src={forum_text_size_icon}/>
+							<img alt="" class="w-5 h-5" src={forum_text_size_icon}/>
 						</span>
 					</label>
 				</div>
@@ -187,13 +187,13 @@
 	<div class="flex justify-end gap-2  text-sm items-center">
 		<a class="flex gap-1 px-3 rounded-full align-middle border-yellow-800/20 border justify-center items-center font-semibold text-yellow-950 hover:bg-yellow-300 hover:border-yellow-800 transition-all duration-300" href="/{username}"
 		   in:fade>
-			<img alt="ico" class="block w-5 h-5" src={report_icon}/>
+			<img alt="" class="block w-5 h-5" src={report_icon}/>
 			<h1 class="font-bold py-2">Report Post</h1>
 		</a>
 		<a class="flex gap1 px-3 rounded-full align-middle border-yellow-800/20 border justify-center items-center font-semibold text-yellow-950 hover:bg-yellow-300 hover:border-yellow-800 transition-all duration-300"
 		   href="/{username}"
 		   in:fade>
-			<img alt="ico" class="block w-5 h-5" src={save_icon}/>
+			<img alt="" class="block w-5 h-5" src={save_icon}/>
 			<h1 class="font-bold py-2">Save Post</h1>
 		</a>
 		<a class="flex gap-4 rounded-full align-middle border-yellow-800/20 border justify-center items-center font-semibold text-yellow-950  hover:bg-yellow-300 hover:border-yellow-800 transition-all duration-300" href="/{username}"
