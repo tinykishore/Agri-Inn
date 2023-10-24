@@ -66,7 +66,7 @@ export const POST = async ({request}: any) => {
     if (successInsertion) {
         consoleLog("ForgotPasswordAPI API REQUEST: Database updated", LEVEL.OK);
         // TODO: Change the link to the actual link
-        const link = 'https://localhost:5174/sign-in/forgot-password/' + reset_token;
+        const link = 'https://agriinn.vercel.app/sign-in/forgot-password/' + reset_token;
         await sendMail(email, link);
         return new Response(null, {status: 200});
     } else {
