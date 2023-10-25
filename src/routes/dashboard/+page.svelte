@@ -1,7 +1,6 @@
 <script lang="ts">
     import DynamicNavigation from "$lib/stores/DynamicNavigation";
     import DashboardNavigation from "$lib/components/dynamicNavigations/DashboardNavigation.svelte";
-    import {USER_ROLE} from "$lib/client/utility";
     import {onMount} from "svelte";
     import type {TypeUserCache} from "$lib/stores/UserCache";
     import UserCache from "$lib/stores/UserCache";
@@ -67,11 +66,6 @@
 	</div>
 	<h1>Sitemap</h1>
 	<div class="flex gap-4 bg-amber-100 rounded-xl">
-
-	<!--		FIXME: Sketchy-->
-		{#if userCache?.user_role === USER_ROLE.OWNER}
-			<a href="/loan">Loan</a>
-		{/if}
 		<a href="/marketplace">Marketplace</a>
 	</div>
 </main>
