@@ -10,7 +10,6 @@ declare global {
 		// interface Platform {}
 	}
 
-
 	interface SignInCredentials {
 		key: string
 		password: string

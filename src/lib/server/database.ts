@@ -148,7 +148,7 @@ export class Database {
     /**
      * Inserts a reset password token for a user by their unique ObjectID.
      *
-     * @param email - The ObjectID of the user for whom the reset token is inserted.
+     * @param email - The email of the user for whom the reset token is inserted.
      * @param token - The reset password token to be inserted.
      * @returns A boolean indicating whether the reset token insertion was successful.
      */
@@ -165,7 +165,14 @@ export class Database {
         return false;
     }
 
-    public static async getResetPasswordToken(token: string) {
+    /**
+     * Get a reset password token from the database.
+     *
+     * @param {string} token - The reset password token to search for.
+     * @returns {Promise<{ _id?: string, success: boolean }>} A Promise that resolves with an object containing the user's ID (if found) and a success flag.
+     * @throws {Error} Throws an error if there's an issue with the database operation.
+     */
+    public static async getResetPasswordToken(token: string): Promise<{ _id?: string; success: boolean; }> {
         consoleLog("DATABASE LOG: Getting reset password token...", LEVEL.OK)
         const result = await collections["user-account"].findOne({"credentials.password_reset_token": token});
         if (result !== null) {
@@ -179,7 +186,14 @@ export class Database {
         return {success: false}
     }
 
-    public static async deleteResetPasswordToken(_id: ObjectId) {
+    /**
+     * Delete a reset password token from the database for a specific user.
+     *
+     * @param {ObjectId} _id - The unique identifier of the user to remove the reset password token from.
+     * @returns {Promise<boolean>} A Promise that resolves with a boolean value indicating the success of the deletion.
+     * @throws {Error} Throws an error if there's an issue with the database operation.
+     */
+    public static async deleteResetPasswordToken(_id: ObjectId): Promise<boolean> {
         consoleLog("DATABASE LOG: Deleting reset password token...", LEVEL.OK)
         const result = await collections["user-account"].updateOne(
             {_id: _id},
@@ -189,13 +203,19 @@ export class Database {
             consoleLog("DATABASE LOG: Reset token deleted successfully", LEVEL.OK);
             return true;
         }
-
         consoleLog("DATABASE LOG: Reset token deletion failed", LEVEL.ERROR);
         return false;
-
     }
 
-    public static async updatePassword(_id: ObjectId, password: string) {
+    /**
+     * Update the password for a specific user in the database.
+     *
+     * @param {ObjectId} _id - The unique identifier of the user to update the password for.
+     * @param {string} password - The new password to set for the user.
+     * @returns {Promise<boolean>} A Promise that resolves with a boolean value indicating the success of the password update.
+     * @throws {Error} Throws an error if there's an issue with the database operation.
+     */
+    public static async updatePassword(_id: ObjectId, password: string): Promise<boolean> {
         consoleLog("DATABASE LOG: Updating password...", LEVEL.OK)
         const result = await collections["user-account"].updateOne(
             {_id: _id},
@@ -209,7 +229,15 @@ export class Database {
         return false;
     }
 
-    public static async updateGoogleID(email: string, google_id: string) {
+    /**
+     * Update the Google ID for a user in the database based on their email.
+     *
+     * @param {string} email - The email of the user for whom to update the Google ID.
+     * @param {string} google_id - The new Google ID to set for the user.
+     * @returns {Promise<boolean>} A Promise that resolves with a boolean value indicating the success of the Google ID update.
+     * @throws {Error} Throws an error if there's an issue with the database operation.
+     */
+    public static async updateGoogleID(email: string, google_id: string): Promise<boolean> {
         consoleLog("DATABASE LOG: Updating Google ID...", LEVEL.OK)
         const result = await collections["user-account"].updateOne(
             {"credentials.email": email},
@@ -223,13 +251,28 @@ export class Database {
         return false;
     }
 
+    /**
+     * Insert a new user into the database.
+     *
+     * @param {UserObject} userObject - The user object to insert into the database.
+     * @returns {Promise<any>} A Promise that resolves with the result of the insertion operation.
+     * @throws {Error} Throws an error if there's an issue with the database operation.
+     */
     public static async insertUser(userObject: UserObject): Promise<any> {
         consoleLog("DATABASE LOG: Inserting user...", LEVEL.OK)
         return await collections["user-account"].insertOne(userObject);
     }
 
-    public static async completeGoogleSignUp(_id: ObjectId, username: string, password_hash: string) {
-        // insert username and password_hash into database for user with _id
+    /**
+     * Complete a Google Sign Up process for a user in the database.
+     *
+     * @param {ObjectId} _id - The unique identifier of the user who is completing the Google Sign Up.
+     * @param {string} username - The username to set for the user.
+     * @param {string} password_hash - The password hash to set for the user.
+     * @returns {Promise<boolean>} A Promise that resolves with a boolean value indicating the success of the Google Sign Up completion.
+     * @throws {Error} Throws an error if there's an issue with the database operation.
+     */
+    public static async completeGoogleSignUp(_id: ObjectId, username: string, password_hash: string): Promise<boolean> {
         consoleLog("DATABASE LOG: Completing Google Sign Up...", LEVEL.OK)
         const result = await collections["user-account"].updateOne(
             {_id: _id},
