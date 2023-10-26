@@ -10,7 +10,7 @@ export const POST = async ({request, cookies}: any) => {
         return new Response("Unauthorized", {status: 401});
     }
 
-    const reply = await request.json();
+    const reply: Comment = await request.json();
     const success = await Database.insertReplyInPost(reply);
     if (!success) {
         consoleLog("SendReplyAPI RESPONSE: status 404", LEVEL.ERROR);
