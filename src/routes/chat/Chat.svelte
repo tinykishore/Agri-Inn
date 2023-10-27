@@ -1,6 +1,6 @@
 <script lang="ts">
     import {supabase} from "$lib/client/supabase";
-    import {onMount} from "svelte";
+    import {afterUpdate, beforeUpdate, onMount} from "svelte";
     import UserCache from "$lib/stores/UserCache";
     import send_icon from "$lib/assets/icons/send-message.svg";
     import Message from "./Message.svelte";
@@ -11,14 +11,30 @@
 
     let messages: any = [];
     let responseOK = false;
-    let initTextLoad: number = 8;
+    let initTextLoad: number = 16;
     let userCache: any = null;
     let newMessage: string = '';
     let sending: boolean = false;
+    let chatWindow: any;
 
     UserCache.subscribe((value) => {
         userCache = value;
     });
+
+    beforeUpdate(() => {
+        if (responseOK) {
+            chatWindow && chatWindow.offsetHeight + chatWindow.scrollTop > chatWindow.scrollHeight - 20
+        }
+    })
+
+    afterUpdate(() => {
+        if (responseOK) {
+            chatWindow.scrollTo({
+                top: chatWindow.scrollHeight,
+                behavior: "smooth"
+            })
+        }
+    })
 
     onMount(async () => {
         const resultList = await supabase
@@ -31,17 +47,36 @@
         responseOK = true;
 
         supabase.channel('schema-db-changes').on(
-                'postgres_changes',
-                {schema: 'public', event: '*'},
-                (payload: any) => {
-                    messages = [payload.new, ...messages];
-                    messages = messages.filter((message: any) => message.id !== payload.old.id);
-                    messages.sort((a: any, b: any) => {
-                        return new Date(a.created_at).getTime() - new Date(b.created_at).getTime();
-                    });
-                }
-            )
+            'postgres_changes',
+            {schema: 'public', event: '*'},
+            (payload: any) => {
+                messages = [payload.new, ...messages];
+                messages = messages.filter((message: any) => message.id !== payload.old.id);
+                messages.sort((a: any, b: any) => {
+                    return new Date(a.created_at).getTime() - new Date(b.created_at).getTime();
+                });
+            }
+        )
             .subscribe()
+
+        const textarea = document.getElementById('message') as HTMLTextAreaElement;
+        textarea.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
+                sendMessage();
+            }
+        })
+
+        textarea.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' && e.shiftKey) {
+                e.preventDefault();
+                const start = textarea.selectionStart;
+                const end = textarea.selectionEnd;
+                const value = textarea.value;
+                textarea.value = value.substring(0, start) + "\n" + value.substring(end);
+                textarea.selectionStart = textarea.selectionEnd = start + 1;
+            }
+        })
 
     });
 
@@ -74,7 +109,7 @@
         {#if !responseOK}
             <p>Loading...</p>
         {:else}
-            <div class="flex flex-col gap-2 my-3">
+            <div bind:this={chatWindow} class="flex flex-col gap-2 my-3 h-96 overflow-y-hidden">
                 {#each messages as message (message.id)}
                     <Message sender={message.sender}
                              receiver={message.receiver}
