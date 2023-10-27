@@ -6,8 +6,8 @@
     import Message from "./Message.svelte";
 
     // Define Receiver Object ID
-    export let receiverObjectID: string;
-    const receiver: any = {};
+    // export let receiverObjectID: string;
+    // const receiver: any = {};
 
     let messages: any = [];
     let responseOK = false;
@@ -16,6 +16,8 @@
     let newMessage: string = '';
     let sending: boolean = false;
     let chatWindow: any;
+
+    let moreMessagesLoading: boolean = false;
 
     UserCache.subscribe((value) => {
         userCache = value;
@@ -113,6 +115,7 @@
     }
 
     const loadMore = async () => {
+        moreMessagesLoading = true;
         const resultList = await supabase
             .from('chat')
             .select('*')
@@ -120,6 +123,7 @@
             .limit(initTextLoad += 16)
         messages = resultList.data;
         messages.reverse();
+        moreMessagesLoading = false;
     }
 
 </script>
@@ -129,14 +133,11 @@
         {#if !responseOK}
             <p>Loading...</p>
         {:else}
-            <div on:scroll={backRead} bind:this={chatWindow} class="flex flex-col gap-2 my-3 h-96 overflow-y-auto">
+            <div on:scroll={backRead} bind:this={chatWindow}
+                 class="flex flex-col gap-2 my-3 h-96 overflow-y-auto hide-scrollbar">
                 {#each messages as message (message.id)}
-                    <Message sender={message.sender}
-                             receiver={message.receiver}
-                             message={message.body}
+                    <Message message={message.body}
                              sender_avatar={message.sender_avatar}
-                             receiver_avatar="https://avatars.githubusercontent.com/u/68551678?v=4"
-                             timestamp={message.created_at}
                              is_sender_me={message.sender === userCache.username}
                     />
                 {/each}
@@ -145,16 +146,20 @@
     </div>
 
 
-    <form class="flex gap-2 align-middle items-center justify-center"
+    <form class="flex gap-2 align-middle items-center justify-between"
           on:submit|preventDefault={sendMessage}>
-        <textarea autocomplete="off"
-                  bind:value={newMessage} class="bg-gray-50 border border-gray-300 text-gray-900 text-sm
+        {#if moreMessagesLoading}
+            <h1 class="py-2.5 px-3 text-xl font-bold text-zinc-400">Loading More Messages...</h1>
+        {:else}
+            <textarea autocomplete="off"
+                      bind:value={newMessage} class="bg-gray-50 border border-gray-300 text-gray-900 text-sm
         rounded-2xl outline-none focus:shadow-md block w-full py-2.5 px-3 transition-all
         duration-300 antialiased resize-none"
-                  id="message"
-                  name="message"
-                  placeholder="Message"
-                  rows="1"/>
+                      id="message"
+                      name="message"
+                      placeholder="Message"
+                      rows="1"/>
+        {/if}
 
         <button type="submit">
             {#if sending}
@@ -173,3 +178,16 @@
         </button>
     </form>
 </main>
+
+<style>
+    /* Hide scrollbar for Chrome, Safari and Opera */
+    .hide-scrollbar::-webkit-scrollbar {
+        display: none;
+    }
+
+    /* Hide scrollbar for IE, Edge and Firefox */
+    .hide-scrollbar {
+        -ms-overflow-style: none; /* IE and Edge */
+        scrollbar-width: none; /* Firefox */
+    }
+</style>
