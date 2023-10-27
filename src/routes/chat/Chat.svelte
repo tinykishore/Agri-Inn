@@ -1,22 +1,26 @@
 <script lang="ts">
-
     import {supabase} from "$lib/client/supabase";
     import {onMount} from "svelte";
     import UserCache from "$lib/stores/UserCache";
+    import send_icon from "$lib/assets/icons/send-message.svg";
+    import Message from "./Message.svelte";
+
+    // Define Receiver Object ID
+    export let receiverObjectID: string;
+    const receiver: any = {};
 
     let messages: any = [];
     let responseOK = false;
-    let initTextLoad: number = 16;
-    let userInfo: any = null;
+    let initTextLoad: number = 8;
+    let userCache: any = null;
     let newMessage: string = '';
     let sending: boolean = false;
 
     UserCache.subscribe((value) => {
-        userInfo = value;
+        userCache = value;
     });
 
     onMount(async () => {
-
         const resultList = await supabase
             .from('chat')
             .select('*')
@@ -26,17 +30,11 @@
         messages.reverse();
         responseOK = true;
 
-        supabase
-            .channel('schema-db-changes')
-            .on(
+        supabase.channel('schema-db-changes').on(
                 'postgres_changes',
-                {
-                    schema: 'public', // Subscribes to the "public" schema in Postgres
-                    event: '*',       // Listen to all changes
-                },
-                (payload) => {
+                {schema: 'public', event: '*'},
+                (payload: any) => {
                     messages = [payload.new, ...messages];
-                    // @ts-ignore
                     messages = messages.filter((message: any) => message.id !== payload.old.id);
                     messages.sort((a: any, b: any) => {
                         return new Date(a.created_at).getTime() - new Date(b.created_at).getTime();
@@ -48,52 +46,75 @@
     });
 
     const sendMessage = async () => {
-
         if (!newMessage) return;
-
         sending = true;
 
-        const {error} = await supabase.from('chat').insert([
-            {
-                body: newMessage,
-                sender: userInfo.username,
-                receiver: 'all'
-            },
-        ]);
-        if (error) console.log(error);
+        // FIXME: add receiver and receiver_avatar
+        const response = await supabase.from('chat').insert([{
+            body: newMessage,
+            sender: userCache.username,
+            receiver: 'edit later',
+            sender_avatar: userCache.profile_picture,
+            receiver_avatar: 'edit later'
+        },]);
 
-        newMessage = '';
-        sending = false;
-        return;
+        if (response.status === 201) {
+            newMessage = '';
+            sending = false;
+            return Promise.resolve();
+        }
+
+        return Promise.reject();
     }
 
 </script>
 
-<main class="mt-16 ml-8">
-
-    {#if !responseOK}
-        <p>Loading...</p>
-    {:else}
-        {#each messages as message (message.id)}
-            <div class="flex flex-col">
-                <div class="flex flex-row">
-                    {#if message.sender === userInfo.username}
-                        <p class="font-bold text-blue-600">{message.sender}</p>
-                    {:else}
-                        <p class="font-bold">{message.sender}</p>
-                    {/if}
-                </div>
-                <p>{message.body}</p>
+<main class="w-fit mb-24 mt-16">
+    <div class="px-2">
+        {#if !responseOK}
+            <p>Loading...</p>
+        {:else}
+            <div class="flex flex-col gap-2 my-3">
+                {#each messages as message (message.id)}
+                    <Message sender={message.sender}
+                             receiver={message.receiver}
+                             message={message.body}
+                             sender_avatar={message.sender_avatar}
+                             receiver_avatar="https://avatars.githubusercontent.com/u/68551678?v=4"
+                             timestamp={message.created_at}
+                             is_sender_me={message.sender === userCache.username}
+                    />
+                {/each}
             </div>
-        {/each}
-    {/if}
+        {/if}
+    </div>
 
-    <form on:submit|preventDefault={sendMessage}>
 
-        <input id="message" name="message" bind:value={newMessage} autofocus autocomplete="off"
-               placeholder="Your message..."/>
-        <button type="submit">Send meagaes
+    <form class="flex gap-2 align-middle items-center justify-center"
+          on:submit|preventDefault={sendMessage}>
+        <textarea autocomplete="off"
+                  bind:value={newMessage} class="bg-gray-50 border border-gray-300 text-gray-900 text-sm
+        rounded-2xl outline-none focus:shadow-md block w-full py-2.5 px-3 transition-all
+        duration-300 antialiased resize-none"
+                  id="message"
+                  name="message"
+                  placeholder="Message"
+                  rows="1"/>
+
+        <button type="submit">
+            {#if sending}
+                <svg class="animate-spin h-6 w-6 text-amber-800 ml-3" xmlns="http://www.w3.org/2000/svg"
+                     fill="none" viewBox="0 0 24 24">
+                    <circle class="opacity-25" cx="12" cy="12" r="10"
+                            stroke="currentColor" stroke-width="4"/>
+                    <path class="opacity-75" fill="currentColor"
+                          d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0
+                   12h4zm2 5.291A7.962 7.962 0 014 12H0c0
+                   3.042 1.135 5.824 3 7.938l3-2.647z"/>
+                </svg>
+            {:else}
+                <img class="h-6 w-6 ml-2" src={send_icon} alt="send message"/>
+            {/if}
         </button>
-
     </form>
 </main>
