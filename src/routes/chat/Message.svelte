@@ -27,7 +27,7 @@
     </main>
 {:else }
     <main class="mr-20 w-96 gap-2 flex justify-start place-self-end items-end align-middle">
-        <img class="w-8 h-8 rounded-full" src={receiver_avatar} alt=""/>
+        <img class="w-8 h-8 rounded-full" src={sender_avatar} alt=""/>
         {#if isValidURL(message)}
             <a href={URLify(message)} class="min-w-fit max-w-[80%] bg-zinc-300 shadow-xl rounded-2xl
             px-4 py-2 underline">

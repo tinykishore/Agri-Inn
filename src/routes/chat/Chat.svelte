@@ -81,7 +81,7 @@
     });
 
     const sendMessage = async () => {
-        if (!newMessage) return;
+        if (!newMessage || !/\S/.test(newMessage)) return;
         sending = true;
 
         // FIXME: add receiver and receiver_avatar
@@ -102,6 +102,26 @@
         return Promise.reject();
     }
 
+    const backRead = async (e: any) => {
+        let clientHeight = e.srcElement.scrollTop
+        if (clientHeight == 0) {
+            chatWindow.classList.add('blur-sm')
+            await loadMore()
+            chatWindow.classList.remove('blur-sm')
+            chatWindow.scrollTo(0, clientHeight + 700)
+        }
+    }
+
+    const loadMore = async () => {
+        const resultList = await supabase
+            .from('chat')
+            .select('*')
+            .order('created_at', {ascending: false})
+            .limit(initTextLoad += 16)
+        messages = resultList.data;
+        messages.reverse();
+    }
+
 </script>
 
 <main class="w-fit mb-24 mt-16">
@@ -109,7 +129,7 @@
         {#if !responseOK}
             <p>Loading...</p>
         {:else}
-            <div bind:this={chatWindow} class="flex flex-col gap-2 my-3 h-96 overflow-y-hidden">
+            <div on:scroll={backRead} bind:this={chatWindow} class="flex flex-col gap-2 my-3 h-96 overflow-y-auto">
                 {#each messages as message (message.id)}
                     <Message sender={message.sender}
                              receiver={message.receiver}
