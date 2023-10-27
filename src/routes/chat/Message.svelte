@@ -19,7 +19,7 @@
                 {message}
             </a>
         {:else}
-            <h1 class="min-w-fit max-w-[80%] bg-amber-950 shadow-xl rounded-2xl px-4 py-2 text-white">
+            <h1 class="min-w-fit max-w-[80%] whitespace-pre-line bg-amber-950 shadow-xl rounded-2xl px-4 py-2 text-white">
                 {message}
             </h1>
         {/if}
@@ -34,7 +34,7 @@
                 {message}
             </a>
         {:else}
-            <h1 class="min-w-fit max-w-[80%] bg-zinc-300 shadow-xl rounded-2xl px-4 py-2">
+            <h1 class="min-w-fit max-w-[80%] whitespace-pre-line bg-zinc-300 shadow-xl rounded-2xl px-4 py-2">
                 {message}
             </h1>
         {/if}
