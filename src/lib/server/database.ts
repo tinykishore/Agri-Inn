@@ -4,7 +4,6 @@
 import {Db, MongoClient, ObjectId} from "mongodb";
 import {MONGO_DATABASE, MONGO_URL} from "$env/static/private";
 import consoleLog, {LEVEL} from "$lib/server/log";
-import type {TypeUserCache} from "$lib/stores/UserCache";
 
 /**
  * The database connection object used to interact with the MongoDB database.
@@ -121,10 +120,11 @@ export class Database {
      * @param _id - The ObjectID of the user to retrieve cache information for.
      * @returns A Promise that resolves to a TypeUserCache object.
      */
-    public static async getUserCache(_id: ObjectId): Promise<TypeUserCache> {
+    public static async getUserCache(_id: ObjectId) {
         consoleLog(`DATABASE LOG: Getting {` + _id + `} cache information...`, LEVEL.OK)
         const result = await collections["user-account"].findOne({_id: _id});
         return {
+            _id: result._id,
             full_name: result.full_name,
             email: result.credentials.email,
             username: result.credentials.username,
@@ -286,14 +286,14 @@ export class Database {
         return await collections["farm-info"].findOne({"uid": farm_uid});
     }
 
-    /**
-     * Retrieves information about all farm products from the database.
-     *
-     * @returns A Promise that will eventually contain the data once the implementation is completed.
-     */
-    public static async getAllFarmProducts(): Promise<any> {
-        // TODO: Implement this
-    }
+    // /**
+    //  * Retrieves information about all farm products from the database.
+    //  *
+    //  * @returns A Promise that will eventually contain the data once the implementation is completed.
+    //  */
+    // public static async getAllFarmProducts(): Promise<any> {
+    //
+    // }
 
     /**
      * Retrieves information about farm products associated with a single farm by its unique identifier (UID).
@@ -343,23 +343,23 @@ export class Database {
         return await collections["forum"].insertOne(post);
     }
 
-    /**
-     * Edits an existing post in the forum.
-     *
-     * @returns A Promise that will eventually contain the result of the edit operation once the implementation is completed.
-     */
-    public static async editPost(): Promise<any> {
-        // TODO: Implement this
-    }
-
-    /**
-     * Deletes an existing post from the forum.
-     *
-     * @returns A Promise that will eventually contain the result of the delete operation once the implementation is completed.
-     */
-    public static async deletePost(): Promise<any> {
-        // TODO: Implement this
-    }
+    // /**
+    //  * Edits an existing post in the forum.
+    //  *
+    //  * @returns A Promise that will eventually contain the result of the edit operation once the implementation is completed.
+    //  */
+    // public static async editPost(): Promise<any> {
+    //     //
+    // }
+    //
+    // /**
+    //  * Deletes an existing post from the forum.
+    //  *
+    //  * @returns A Promise that will eventually contain the result of the delete operation once the implementation is completed.
+    //  */
+    // public static async deletePost(): Promise<any> {
+    //     //
+    // }
 
     /**
      * Retrieves information about a single post from the forum by its unique ObjectID.
@@ -418,10 +418,6 @@ export class Database {
                 {$addToSet: {likes: likerObjectID}}
             );
         }
-    }
-
-    public static async downVotePost(): Promise<any> {
-        // TODO: Implement this
     }
 
     /**

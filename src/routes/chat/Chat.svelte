@@ -5,10 +5,7 @@
     import send_icon from "$lib/assets/icons/send-message.svg";
     import Message from "./Message.svelte";
 
-    // Define Receiver Object ID
-    // export let receiverObjectID: string;
-    // const receiver: any = {};
-
+    export let receiverObjectID: string = "__ALL__";
     let messages: any = [];
     let responseOK = false;
     let initTextLoad: number = 16;
@@ -41,7 +38,7 @@
     onMount(async () => {
         const resultList = await supabase
             .from('chat')
-            .select('*')
+            .select()
             .order('created_at', {ascending: false})
             .limit(initTextLoad)
         messages = resultList.data;
@@ -86,13 +83,11 @@
         if (!newMessage || !/\S/.test(newMessage)) return;
         sending = true;
 
-        // FIXME: add receiver and receiver_avatar
         const response = await supabase.from('chat').insert([{
             body: newMessage,
-            sender: userCache.username,
-            receiver: 'edit later',
+            sender: userCache._id,
+            receiver: receiverObjectID,
             sender_avatar: userCache.profile_picture,
-            receiver_avatar: 'edit later'
         },]);
 
         if (response.status === 201) {
@@ -138,7 +133,7 @@
                 {#each messages as message (message.id)}
                     <Message message={message.body}
                              sender_avatar={message.sender_avatar}
-                             is_sender_me={message.sender === userCache.username}
+                             is_sender_me={message.sender === userCache._id}
                     />
                 {/each}
             </div>
