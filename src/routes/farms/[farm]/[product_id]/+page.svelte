@@ -51,7 +51,7 @@
 
 
 <main class="min-h-screen container mx-auto p-4 my-24 px-20 grid grid-cols-3 gap-4 ">
-	<div id="main-section" class="col-span-3 bg-blue-300 rounded-2xl p-4 ">
+	<div id="main-section" class="col-span-2 bg-blue-300 rounded-2xl p-4 ">
 		{#if product_info === undefined}
 			<p>Loading...</p>
 		{:else}
