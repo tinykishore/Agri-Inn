@@ -38,10 +38,9 @@ const client: MongoClient = new MongoClient(MONGO_URL, {
  * @returns A Promise that resolves when the initialization is complete.
  */
 export const initializeDatabaseConnection = async (): Promise<void> => {
-    consoleLog("DATABASE LOG: Initializing database connection...", LEVEL.INFO);
-    const t_0: number = performance.now();
     try {
         await client.connect();
+        consoleLog("DATABASE LOG: Connected to MongoDB Server", LEVEL.OK)
         databaseConnection = client.db(MONGO_DATABASE);
         collections["user-account"] = databaseConnection.collection("user-account");
         collections["farm-info"] = databaseConnection.collection("farm-info");
@@ -50,9 +49,6 @@ export const initializeDatabaseConnection = async (): Promise<void> => {
         collections["comment"] = databaseConnection.collection("comment");
         collections["news"] = databaseConnection.collection("news");
         // More to add here
-
-        const t_1: number = performance.now();
-        consoleLog(`DATABASE LOG: Connected to MongoDB Server (took ${Math.round(t_1 - t_0)} ms)`, LEVEL.OK);
     } catch (error: any) {
         consoleLog(`DATABASE ERROR: ${error.message}`, LEVEL.ERROR);
         databaseConnection = null;
@@ -65,12 +61,7 @@ export const initializeDatabaseConnection = async (): Promise<void> => {
  * @returns `true` if the database connection is initialized, `false` otherwise.
  */
 export const isDatabaseConnectionInitialized = (): boolean => {
-    if (databaseConnection === null) {
-        consoleLog("DATABASE LOG: Database connection not initialized", LEVEL.WARN);
-        return false;
-    }
-    consoleLog("DATABASE LOG: Database connection initialized", LEVEL.INFO);
-    return true;
+    return databaseConnection !== null;
 }
 
 /**
@@ -79,15 +70,12 @@ export const isDatabaseConnectionInitialized = (): boolean => {
  * @returns A Promise that resolves when the connection is successfully closed.
  */
 export const terminateDatabaseConnection = async (): Promise<void> => {
-    consoleLog("DATABASE LOG: Terminating database connection...", LEVEL.INFO);
-    const t_0: number = performance.now();
     for (let key in collections) {
         collections[key] = null;
     }
     databaseConnection = null;
     await client.close();
-    const t_1: number = performance.now();
-    consoleLog("DATABASE LOG: Connection to MongoDB Server closed (took " + Math.round(t_1 - t_0) + " ms)", LEVEL.OK);
+    consoleLog("DATABASE LOG: Connection to MongoDB Server closed", LEVEL.OK)
 }
 
 /**
@@ -101,16 +89,8 @@ export class Database {
      * @returns A Promise that resolves to the user object or null if not found.
      */
     public static async getUserByEmail(email: string): Promise<any> {
-        consoleLog("DATABASE LOG: Getting user by email...", LEVEL.INFO);
-        const t_0: number = performance.now();
-        const response = await collections["user-account"].findOne({"credentials.email": email});
-        if (response) {
-            const t_1: number = performance.now();
-            consoleLog(`DATABASE LOG: User found by email: ${email} (took ${Math.round(t_1 - t_0)} ms)`, LEVEL.OK);
-            return response;
-        }
-        consoleLog(`DATABASE LOG: User not found by email: ${email}`, LEVEL.ERROR);
-        return Promise.reject("User not found");
+        consoleLog("DATABASE LOG: Getting user by email...", LEVEL.OK)
+        return await collections["user-account"].findOne({"credentials.email": email});
     }
 
     /**
@@ -120,16 +100,8 @@ export class Database {
      * @returns A Promise that resolves to the user object or null if not found.
      */
     public static async getUserByUsername(username: string): Promise<any> {
-        consoleLog("DATABASE LOG: Getting user by username...", LEVEL.INFO);
-        const t_0: number = performance.now();
-        const response = await collections["user-account"].findOne({"credentials.username": username});
-        if (response) {
-            const t_1: number = performance.now();
-            consoleLog(`DATABASE LOG: User found by username: ${username} (took ${Math.round(t_1 - t_0)} ms)`, LEVEL.OK);
-            return response;
-        }
-        consoleLog(`DATABASE LOG: User not found by username: ${username}`, LEVEL.ERROR);
-        return Promise.reject("User not found");
+        consoleLog("DATABASE LOG: Getting user by username...", LEVEL.OK)
+        return await collections["user-account"].findOne({"credentials.username": username});
     }
 
     /**
@@ -139,16 +111,8 @@ export class Database {
      * @returns A Promise that resolves to the user object or null if not found.
      */
     public static async getUserByObjectID(_id: ObjectId): Promise<any> {
-        consoleLog("DATABASE LOG: Getting user by ObjectID...", LEVEL.INFO);
-        const t0: number = performance.now();
-        const response = await collections["user-account"].findOne({_id: _id});
-        if (response) {
-            const t1: number = performance.now();
-            consoleLog(`DATABASE LOG: User found by ObjectID: ${_id} (took ${Math.round(t1 - t0)} ms)`, LEVEL.OK);
-            return response;
-        }
-        consoleLog(`DATABASE LOG: User not found by ObjectID: ${_id}`, LEVEL.ERROR);
-        return Promise.reject("User not found");
+        consoleLog("DATABASE LOG: Getting user by ObjectID...", LEVEL.OK)
+        return await collections["user-account"].findOne({_id: _id});
     }
 
     /**
@@ -158,24 +122,16 @@ export class Database {
      * @returns A Promise that resolves to a TypeUserCache object.
      */
     public static async getUserCache(_id: ObjectId): Promise<TypeUserCache> {
-        consoleLog(`DATABASE LOG: Getting {` + _id + `} cache information...`, LEVEL.INFO);
-        const t0: number = performance.now();
+        consoleLog(`DATABASE LOG: Getting {` + _id + `} cache information...`, LEVEL.OK)
         const result = await collections["user-account"].findOne({_id: _id});
-        if (result) {
-            const t1: number = performance.now();
-            consoleLog(`DATABASE LOG: Cache found for {` + _id + `} (took ${Math.round(t1 - t0)} ms)`, LEVEL.OK);
-            return {
-                full_name: result.full_name,
-                email: result.credentials.email,
-                username: result.credentials.username,
-                profile_picture: result.profile_picture,
-                user_role: result.role,
-            };
-        }
-        consoleLog(`DATABASE LOG: Cache not found for {` + _id + `}`, LEVEL.ERROR);
-        return Promise.reject("Cache not found");
+        return {
+            full_name: result.full_name,
+            email: result.credentials.email,
+            username: result.credentials.username,
+            profile_picture: result.profile_picture,
+            user_role: result.role,
+        };
     }
-
 
     /**
      * Retrieves user credentials from the database by their unique ObjectID.
@@ -183,178 +139,121 @@ export class Database {
      * @param _id - The ObjectID of the user to retrieve credentials for.
      * @returns A Promise that resolves to a Credentials object.
      */
-    public static async getUserCredentialsByObjectID(_id: ObjectId): Promise<any> {
-        consoleLog("DATABASE LOG: Getting user credentials by ObjectID...", LEVEL.INFO);
-        const t0: number = performance.now();
-        const response = await collections["user-account"].findOne({_id: _id});
-        if (response) {
-            const t1: number = performance.now();
-            consoleLog(`DATABASE LOG: User credentials found by ObjectID: ${_id} (took ${Math.round(t1 - t0)} ms)`, LEVEL.OK);
-            return response.credentials;
-        }
-        consoleLog(`DATABASE LOG: User credentials not found by ObjectID: ${_id}`, LEVEL.ERROR);
-        return Promise.reject("User credentials not found");
+    public static async getUserCredentialsByObjectID(_id: ObjectId): Promise<Credentials> {
+        consoleLog("DATABASE LOG: Getting user credentials by ObjectID...", LEVEL.OK)
+        const result = await collections["user-account"].findOne({_id: _id});
+        return result.credentials;
     }
 
     /**
      * Inserts a reset password token for a user by their unique ObjectID.
      *
-     * @param email - The email of the user for whom the reset token is inserted.
+     * @param email - The ObjectID of the user for whom the reset token is inserted.
      * @param token - The reset password token to be inserted.
      * @returns A boolean indicating whether the reset token insertion was successful.
      */
     public static async insertResetPasswordToken(email: string, token: string): Promise<boolean> {
-        consoleLog(`DATABASE LOG: Inserting reset password token for {` + email + `}...`, LEVEL.INFO);
-        const t0: number = performance.now();
         const result = await collections["user-account"].updateOne(
             {"credentials.email": email},
             {$set: {"credentials.password_reset_token": token}}
         );
         if (result.modifiedCount === 1) {
-            const t1: number = performance.now();
-            consoleLog(`DATABASE LOG: Reset token inserted successfully for {` + email + `} (took ${Math.round(t1 - t0)} ms)`, LEVEL.OK);
+            consoleLog("DATABASE LOG: Reset token inserted successfully", LEVEL.OK);
             return true;
         }
-        consoleLog(`DATABASE LOG: Reset token insertion failed for {` + email + `}`, LEVEL.ERROR);
+        consoleLog("DATABASE LOG: Reset token insertion failed", LEVEL.ERROR);
         return false;
     }
 
-    /**
-     * Get a reset password token from the database.
-     *
-     * @param {string} token - The reset password token to search for.
-     * @returns {Promise<{ _id?: string, success: boolean }>} A Promise that resolves with an object containing the user's ID (if found) and a success flag.
-     * @throws {Error} Throws an error if there's an issue with the database operation.
-     */
-    public static async getResetPasswordToken(token: string): Promise<{ _id?: string; success: boolean; }> {
-        consoleLog("DATABASE LOG: Getting reset password token...", LEVEL.INFO);
-        const t0: number = performance.now();
+    public static async getResetPasswordToken(token: string) {
+        consoleLog("DATABASE LOG: Getting reset password token...", LEVEL.OK)
         const result = await collections["user-account"].findOne({"credentials.password_reset_token": token});
         if (result !== null) {
-            const t1: number = performance.now();
-            consoleLog(`DATABASE LOG: Reset token found for {` + result.credentials.username + `} (took ${Math.round(t1 - t0)} ms)`, LEVEL.OK);
+            consoleLog("DATABASE LOG: Reset token found", LEVEL.OK);
             return {
                 _id: result._id,
                 success: true
             }
         }
-        consoleLog(`DATABASE LOG: Reset token not found`, LEVEL.ERROR);
+        consoleLog("DATABASE LOG: Reset token not found", LEVEL.ERROR);
         return {success: false}
     }
 
-    /**
-     * Delete a reset password token from the database for a specific user.
-     *
-     * @param {ObjectId} _id - The unique identifier of the user to remove the reset password token from.
-     * @returns {Promise<boolean>} A Promise that resolves with a boolean value indicating the success of the deletion.
-     * @throws {Error} Throws an error if there's an issue with the database operation.
-     */
-    public static async deleteResetPasswordToken(_id: ObjectId): Promise<boolean> {
-        consoleLog("DATABASE LOG: Deleting reset password token...", LEVEL.OK);
-        const t0: number = performance.now();
+    public static async deleteResetPasswordToken(_id: ObjectId) {
+        consoleLog("DATABASE LOG: Deleting reset password token...", LEVEL.OK)
         const result = await collections["user-account"].updateOne(
             {_id: _id},
             {$unset: {"credentials.password_reset_token": ""}}
         );
         if (result.modifiedCount === 1) {
-            const t1: number = performance.now();
-            consoleLog("DATABASE LOG: Reset token deleted successfully (took " + Math.round(t1 - t0) + " ms)", LEVEL.OK);
+            consoleLog("DATABASE LOG: Reset token deleted successfully", LEVEL.OK);
             return true;
         }
+
         consoleLog("DATABASE LOG: Reset token deletion failed", LEVEL.ERROR);
         return false;
+
     }
 
-    /**
-     * Update the password for a specific user in the database.
-     *
-     * @param {ObjectId} _id - The unique identifier of the user to update the password for.
-     * @param {string} password - The new password to set for the user.
-     * @returns {Promise<boolean>} A Promise that resolves with a boolean value indicating the success of the password update.
-     * @throws {Error} Throws an error if there's an issue with the database operation.
-     */
-    public static async updatePassword(_id: ObjectId, password: string): Promise<boolean> {
-        consoleLog("DATABASE LOG: Updating password...", LEVEL.OK);
-        const t0: number = performance.now();
+    public static async updatePassword(_id: ObjectId, password: string) {
+        consoleLog("DATABASE LOG: Updating password...", LEVEL.OK)
         const result = await collections["user-account"].updateOne(
             {_id: _id},
             {$set: {"credentials.password_hash": password}}
         );
         if (result.modifiedCount === 1) {
-            const t1: number = performance.now();
-            consoleLog("DATABASE LOG: Password updated successfully (took " + Math.round(t1 - t0) + " ms)", LEVEL.OK);
+            consoleLog("DATABASE LOG: Password updated successfully", LEVEL.OK);
             return true;
         }
         consoleLog("DATABASE LOG: Password update failed", LEVEL.ERROR);
         return false;
     }
 
-    /**
-     * Update the Google ID for a user in the database based on their email.
-     *
-     * @param {string} email - The email of the user for whom to update the Google ID.
-     * @param {string} google_id - The new Google ID to set for the user.
-     * @returns {Promise<boolean>} A Promise that resolves with a boolean value indicating the success of the Google ID update.
-     * @throws {Error} Throws an error if there's an issue with the database operation.
-     */
-    public static async updateGoogleID(email: string, google_id: string): Promise<boolean> {
-        consoleLog("DATABASE LOG: Updating Google ID...", LEVEL.OK);
-        const t0: number = performance.now();
+    public static async updateGoogleID(email: string, google_id: string) {
+        consoleLog("DATABASE LOG: Updating Google ID...", LEVEL.OK)
         const result = await collections["user-account"].updateOne(
             {"credentials.email": email},
             {$set: {"credentials.google_id": google_id}}
         );
         if (result.modifiedCount === 1) {
-            const t1: number = performance.now();
-            consoleLog("DATABASE LOG: Google ID updated successfully (took " + Math.round(t1 - t0) + " ms)", LEVEL.OK);
+            consoleLog("DATABASE LOG: Google ID updated successfully", LEVEL.OK);
             return true;
         }
         consoleLog("DATABASE LOG: Google ID update failed", LEVEL.ERROR);
         return false;
     }
 
-    /**
-     * Insert a new user into the database.
-     *
-     * @param {UserObject} userObject - The user object to insert into the database.
-     * @returns {Promise<any>} A Promise that resolves with the result of the insertion operation.
-     * @throws {Error} Throws an error if there's an issue with the database operation.
-     */
     public static async insertUser(userObject: UserObject): Promise<any> {
         consoleLog("DATABASE LOG: Inserting user...", LEVEL.OK)
-        const t0: number = performance.now();
-        const response = await collections["user-account"].insertOne(userObject);
-        if (response.insertedCount === 1) {
-            const t1: number = performance.now();
-            consoleLog("DATABASE LOG: User inserted successfully (took " + Math.round(t1 - t0) + " ms)", LEVEL.OK);
-            return response;
-        }
-        consoleLog("DATABASE LOG: User insertion failed", LEVEL.ERROR);
-        return Promise.reject("User insertion failed");
+        return await collections["user-account"].insertOne(userObject);
     }
 
-    /**
-     * Complete a Google Sign Up process for a user in the database.
-     *
-     * @param {ObjectId} _id - The unique identifier of the user who is completing the Google Sign Up.
-     * @param {string} username - The username to set for the user.
-     * @param {string} password_hash - The password hash to set for the user.
-     * @returns {Promise<boolean>} A Promise that resolves with a boolean value indicating the success of the Google Sign Up completion.
-     * @throws {Error} Throws an error if there's an issue with the database operation.
-     */
-    public static async completeGoogleSignUp(_id: ObjectId, username: string, password_hash: string): Promise<boolean> {
+    public static async completeGoogleSignUp(_id: ObjectId, username: string, password_hash: string) {
+        // insert username and password_hash into database for user with _id
         consoleLog("DATABASE LOG: Completing Google Sign Up...", LEVEL.OK)
-        const t0: number = performance.now();
         const result = await collections["user-account"].updateOne(
             {_id: _id},
             {$set: {"credentials.username": username, "credentials.password_hash": password_hash}}
         );
         if (result.modifiedCount === 1) {
-            const t1: number = performance.now();
-            consoleLog("DATABASE LOG: Google Sign Up completed successfully (took " + Math.round(t1 - t0) + " ms)", LEVEL.OK);
+            consoleLog("DATABASE LOG: Google Sign Up completed successfully", LEVEL.OK);
             return true;
         }
         consoleLog("DATABASE LOG: Google Sign Up failed", LEVEL.ERROR);
+        return false;
+    }
+
+    public static async updateProfilePicture(_id: ObjectId, profile_picture: string) {
+        consoleLog("DATABASE LOG: Updating profile picture...", LEVEL.OK)
+        const result = await collections["user-account"].updateOne(
+            {_id: _id},
+            {$set: {"profile_picture": profile_picture}}
+        );
+        if (result.modifiedCount === 1) {
+            consoleLog("DATABASE LOG: Profile picture updated successfully", LEVEL.OK);
+            return true;
+        }
+        consoleLog("DATABASE LOG: Profile picture update failed", LEVEL.ERROR);
         return false;
     }
 
@@ -499,7 +398,7 @@ export class Database {
      * @param reply - The reply to be inserted.
      * @returns A Promise that resolves to the result of the insertion operation.
      */
-    public static async insertReplyInPost(reply: Comment): Promise<any> {
+    public static async insertReplyInPost(reply: any): Promise<any> {
         consoleLog(`DATABASE LOG: Sending reply {` + reply + `} information...`, LEVEL.OK)
         return await collections["comment"].insertOne(reply);
     }
@@ -519,6 +418,10 @@ export class Database {
                 {$addToSet: {likes: likerObjectID}}
             );
         }
+    }
+
+    public static async downVotePost(): Promise<any> {
+        // TODO: Implement this
     }
 
     /**
