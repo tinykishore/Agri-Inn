@@ -243,6 +243,20 @@ export class Database {
         return false;
     }
 
+    public static async updateProfilePicture(_id: ObjectId, profile_picture: string) {
+        consoleLog("DATABASE LOG: Updating profile picture...", LEVEL.OK)
+        const result = await collections["user-account"].updateOne(
+            {_id: _id},
+            {$set: {"profile_picture": profile_picture}}
+        );
+        if (result.modifiedCount === 1) {
+            consoleLog("DATABASE LOG: Profile picture updated successfully", LEVEL.OK);
+            return true;
+        }
+        consoleLog("DATABASE LOG: Profile picture update failed", LEVEL.ERROR);
+        return false;
+    }
+
     // ##############################################################################################################
     // ##############################################################################################################
     // ##############################################################################################################

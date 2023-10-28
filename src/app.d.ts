@@ -10,7 +10,6 @@ declare global {
 		// interface Platform {}
 	}
 
-
 	interface SignInCredentials {
 		key: string
 		password: string
@@ -57,5 +56,15 @@ declare global {
 		},
 		profile_picture: string,
 		role: USER_ROLE,
+	}
+
+	interface comment {
+		author: string | undefined,
+		body: string,
+		timestamp: number,
+		likes: [],
+		replies: []
+		parent_comment: string
+		profilePicture: string
 	}
 }

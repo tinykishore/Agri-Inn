@@ -6,6 +6,8 @@ import {Database} from "$lib/server/database";
 import {USER_ROLE} from "$lib/client/utility";
 import jwt from "jsonwebtoken";
 import {generateToken} from "$lib/server/utility";
+import {supabase} from "$lib/client/supabase";
+import {ObjectId} from "mongodb";
 
 export const GET = async ({url, cookies}: any) => {
     consoleLog("Oauth: Google OAuth2.0 Request Received", LEVEL.OK);
@@ -91,6 +93,25 @@ export const GET = async ({url, cookies}: any) => {
         if (success) {
             consoleLog("User created", LEVEL.OK);
             const new_user_id = success.insertedId.toString();
+
+            // Download profile picture
+            const response = await fetch(profile_picture);
+            const file = await response.blob();
+            const file_name = new_user_id + ".jpg";
+
+            // Upload profile picture to Supabase Storage
+            const data = await supabase.storage.from('Agri-Inn').upload(file_name, file, {
+                upsert: true,
+            })
+
+            // Get profile picture URL
+            const URL = supabase.storage.from('Agri-Inn').getPublicUrl(file_name);
+            const profile_picture_url = URL.data.publicUrl;
+
+            // Update profile picture URL in database
+            const new_user_objectID = new ObjectId(new_user_id);
+            await Database.updateProfilePicture(new_user_objectID, profile_picture_url);
+
             consoleLog("New insertedID: " + new_user_id, LEVEL.OK);
             const encrypted_id = jwt.sign(
                 {

@@ -62,7 +62,12 @@
 
 
     const votePost = async () => {
-        likedByThisUser = !likedByThisUser;
+        forum_id_navigation.update((value) => {
+            return {
+                ...value,
+                alreadyUpvoted: !value.alreadyUpvoted,
+            }
+        });
         totalLikes += likedByThisUser ? 1 : -1;
         await fetch('/API/v1/forum/UpvotePostAPI', {
             method: 'POST',

@@ -77,3 +77,38 @@ export function truncateSentence(sentence: string): string {
         return sentence;
     }
 }
+
+export function isValidURL(str: any) {
+    const pattern = new RegExp('^(https?:\\/\\/)?' + // protocol
+        '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|' + // domain name
+        '((\\d{1,3}\\.){3}\\d{1,3}))' + // OR ip (v4) address
+        '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*' + // port and path
+        '(\\?[;&a-z\\d%_.~+=-]*)?' + // query string
+        '(\\#[-a-z\\d_]*)?$', 'i'); // fragment locator
+    return pattern.test(str);
+}
+
+export function isSecureURL(str: string) {
+    const pattern = new RegExp('^(https:\\/\\/)');
+    return pattern.test(str);
+}
+
+export function isInsecureURL(str: string) {
+    const pattern = new RegExp('^(http:\\/\\/)');
+    return pattern.test(str);
+}
+
+export function URLify(text: string) {
+    if (isSecureURL(text)) {
+        return text;
+    }
+    if (isInsecureURL(text)) {
+        return text.replace('http://', 'https://');
+    }
+    const urlRegex = /(?<!https?:\/\/)(?<!www\.)(\S+)/g;
+    if (urlRegex.test(text)) {
+        return text.replace(urlRegex, function (url: string) {
+            return 'https://' + url;
+        });
+    }
+}
