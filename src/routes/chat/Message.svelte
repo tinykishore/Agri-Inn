@@ -1,9 +1,7 @@
 <script lang="ts">
     import {isValidURL, URLify} from "$lib/client/utility";
 
-    // export let sender: string;
     export let sender_avatar: string;
-    // export let receiver_avatar: string;
     // export let timestamp: string;
     // export let receiver: string;
     export let message: string;
