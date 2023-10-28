@@ -60,6 +60,7 @@
 			<p>{price}</p>
 			<h1 class="text-4xl">Payment --------</h1>
 			<button on:click={showPaymentSection}>Buy Now</button>
+
 		{/if}
 	</div>
 	{#if showPayment}
@@ -77,7 +78,7 @@
 		</div>
 
 
-		<PaymentSection price={price} installments={installments}/>
+		<PaymentSection total_amount={price} user_id={data._id} product_id={data.product_id}/>
 
 	</div>
 	{/if}

@@ -22,7 +22,7 @@ export const load = async ({cookies, params}: any) => {
 
     // If the JWT is valid, return the username
     return {
-        _id: authenticated._id,
+        _id: authenticated.userObjectID,
         product_id: params.product_id,
         farm_id: params.farm,
     }

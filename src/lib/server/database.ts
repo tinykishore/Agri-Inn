@@ -20,7 +20,8 @@ let collections: any = {
     "farm-products": null,
     "forum": null,
     "comment": null,
-    "news": null
+    "news": null,
+    "order": null
 }
 
 /**
@@ -47,6 +48,7 @@ export const initializeDatabaseConnection = async (): Promise<void> => {
         collections["forum"] = databaseConnection.collection("forum");
         collections["comment"] = databaseConnection.collection("comment");
         collections["news"] = databaseConnection.collection("news");
+        collections["order"] = databaseConnection.collection("order");
         // More to add here
     } catch (error: any) {
         consoleLog(`DATABASE ERROR: ${error.message}`, LEVEL.ERROR);
@@ -460,5 +462,11 @@ export class Database {
         return await collections["news"].find({}).toArray();
     }
 
+    public static async placeOrder(order: Order): Promise<any> {
+        consoleLog(`DATABASE LOG:  payment details {` + order + `} ...`, LEVEL.OK)
+        const ordered = await collections["order"].insertOne(order);
+        console.log(ordered)
+        return ordered;
+    }
 
 }
