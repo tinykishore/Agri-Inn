@@ -10,6 +10,7 @@ export default writable({
 });
 
 export interface TypeUserCache {
+    _id: string | undefined
     full_name: string | undefined
     email: string | undefined
     username: string | undefined
