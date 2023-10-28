@@ -257,6 +257,19 @@ export class Database {
         return false;
     }
 
+    public static async crosscheckUsernameAndObjectID(username: string, _id: ObjectId) {
+        consoleLog("DATABASE LOG: Crosschecking username and ObjectID...", LEVEL.OK)
+        const result = await collections["user-account"].findOne({"credentials.username": username});
+        if (result !== null) {
+            if (result._id.equals(_id)) {
+                consoleLog("DATABASE LOG: Username and ObjectID match", LEVEL.OK);
+                return true;
+            }
+        }
+        consoleLog("DATABASE LOG: Username and ObjectID do not match", LEVEL.ERROR);
+        return false;
+    }
+
     // ##############################################################################################################
     // ##############################################################################################################
     // ##############################################################################################################
