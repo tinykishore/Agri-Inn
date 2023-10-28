@@ -5,12 +5,17 @@
     import {onMount} from "svelte";
     import Persons from "./Persons.svelte";
     import {fade} from "svelte/transition";
+    import svelte from "$lib/assets/icons/svelte-horizontal.svg";
+    import MongoDB from "$lib/assets/icons/MongoDB_Fores-Green.svg";
+    import supabase from "$lib/assets/icons/supabase-logo-wordmark--light.svg";
+    import tailwindcss from "$lib/assets/icons/tailwindcss-logotype.svg";
+    import vercel from "$lib/assets/icons/vercel-logotype-dark.svg";
+    import tensorflow from "$lib/assets/icons/TF_FullColor_Horizontal.svg";
 
     DynamicNavigation.set(AboutNavigation);
 
     const section = {
         introduction: "Discover the future of livestock farming with our innovative platform, “Agri-Inn”. Tailored for farm owners, enthusiasts, our website streamlines operations, facilitates livestock sales and fosters community collaboration. Whether managing farms, participating in forums or staying updated on industry news and events, our platform seamlessly connects users. Join us in redefining agriculture — a space where technology harmonizes with tradition to build a sustainable and closely knit farming community.",
-        motivation: "Our motivation arises from a deep commitment to revolutionize the landscape of livestock farming. We envision a platform that not only streamlines farm management but also nurtures a thriving community of farmers, enthusiasts and experts. By integrating technology, information and collaboration, we aim to empower individuals in the livestock industry, fostering sustainable practices and facilitating growth. Our goal is to bridge the gap between traditional farming and modern tools by creating a space where knowledge flows freely, commerce thrives and the future of livestock farming is shaped collectively. Join us on this transformative journey towards a more connected, informed, and sustainable agricultural future.",
     }
 
     let contributors: any;
@@ -43,10 +48,46 @@
 			</section>
 
 			<section class="flex flex-col gap-2">
-				<h1 class="text-4xl font-black">Motivation</h1>
-				<h1 class="text-zinc-700 text-sm">
-					{section.motivation}
-				</h1>
+				<h1 class="text-4xl font-black">System Architecture</h1>
+				<div class="grid gap-x-4 grid-cols-2">
+					<a href="https://kit.svelte.dev/"
+					   class="flex gap-2 px-4 py-2 justify-start align-middle
+					   items-center w-fit">
+						<img class="w-[50%]" src={svelte} alt=""/>
+					</a>
+					<a href="https://kit.svelte.dev/"
+					   class="flex gap-2 px-4 py-2 justify-start align-middle
+					   items-center w-fit">
+						<img class="w-[50%]" src={MongoDB} alt=""/>
+					</a>
+					<a href="https://kit.svelte.dev/"
+					   class="flex gap-2 px-4 py-2 justify-start align-middle
+					   items-center w-fit">
+						<img class="w-[50%]" src={supabase} alt="NextJS"/>
+					</a>
+					<a href="https://kit.svelte.dev/"
+					   class="flex gap-2 px-4 py-2 justify-start align-middle
+					   items-center w-fit">
+						<img class="w-[50%]" src={vercel} alt=""/>
+					</a>
+					<a href="https://kit.svelte.dev/"
+					   class="flex gap-2 px-4 py-2 justify-start align-middle
+					   items-center w-fit">
+						<img class="w-40" src={tailwindcss} alt=""/>
+					</a>
+					<a href="https://kit.svelte.dev/"
+					   class="flex gap-2 px-4 py-2 justify-start align-middle
+					   items-center w-fit">
+						<img class="h-8" src="https://wiki.postgresql.org/images/a/a4/PostgreSQL_logo.3colors.svg" alt="NextJS"/>
+						<h1 class=" text-xl font-bold text-zinc-700">PostgreSQL</h1>
+					</a>
+					<a href="https://kit.svelte.dev/"
+					   class="flex gap-2 px-4 py-2 justify-start align-middle
+					   items-center w-fit">
+						<img class="w-44 -translate-x-4 -translate-y-4" src={tensorflow} alt="NextJS"/>
+					</a>
+				</div>
+
 			</section>
 		</div>
 
@@ -65,7 +106,6 @@
 					</div>
 				{/key}
 			</section>
-
 		</div>
 	</div>
 </main>
