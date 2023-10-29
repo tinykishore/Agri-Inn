@@ -13,3 +13,8 @@ export let forum_id_navigation = writable({
     totalViews: 0,
     fontSize: 14,
 });
+
+export let search_navigation = writable({
+    query: "",
+    search_results: {}
+});

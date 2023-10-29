@@ -2,6 +2,46 @@
     import back_icon from "$lib/assets/icons/all-back-icon.svg";
     import category_icon from "$lib/assets/icons/search-page-category-icon.svg";
     import search_icon from "$lib/assets/icons/landing-page-search-icon.svg";
+    import {search_navigation} from "$lib/stores/DynamicNavigation";
+
+    let query = "";
+
+    async function search() {
+        if (query.length > 0) {
+            const response = await fetch("/API/v1/SearchAllAPI", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    query: query
+                })
+            });
+
+            const search_results = await response.json();
+
+            search_navigation.update(() => {
+                return {
+                    search_results: search_results,
+                    query: query
+                }
+            });
+
+            console.log(search_results)
+        }
+    }
+
+    $: {
+        if (query.length == 0) {
+            search_navigation.update(() => {
+                return {
+                    search_results: [],
+                    query: ""
+                }
+            });
+        }
+    }
+
 </script>
 <div class="grid grid-cols-3 justify-center items-center align-middle">
 	<div class="flex justify-start gap-2">
@@ -29,7 +69,8 @@
 			<img alt="search_icon" src={search_icon}>
 		</span>
 
-		<input class="bg-transparent font-mono focus:outline-none font-light w-full placeholder-yellow-500"
+		<input bind:value={query} on:input={search} type="text"
+			   class="bg-transparent font-mono focus:outline-none font-light w-full placeholder-yellow-500"
 			   placeholder="Type anything to search"/>
 
 		<button class="rounded-full font-bold text-yellow-950 pr-2">
