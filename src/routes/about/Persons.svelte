@@ -37,5 +37,5 @@ hover:drop-shadow-sm transition-all duration-300 items-center justify-start alig
 			{/if}
 		{/await}
 	</div>
-
 </a>
+
