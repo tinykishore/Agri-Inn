@@ -21,7 +21,8 @@ let collections: any = {
     "forum": null,
     "comment": null,
     "news": null,
-    "order": null
+    "order": null,
+    "animal-health-details": null,
 }
 
 /**
@@ -49,6 +50,9 @@ export const initializeDatabaseConnection = async (): Promise<void> => {
         collections["comment"] = databaseConnection.collection("comment");
         collections["news"] = databaseConnection.collection("news");
         collections["order"] = databaseConnection.collection("order");
+        collections["animal-health-details"] = databaseConnection.collection("animal-health-details");
+
+
         // More to add here
     } catch (error: any) {
         consoleLog(`DATABASE ERROR: ${error.message}`, LEVEL.ERROR);
@@ -467,6 +471,11 @@ export class Database {
         const ordered = await collections["order"].insertOne(order);
         console.log(ordered)
         return ordered;
+    }
+
+    public static async getHealthTrack() {
+        consoleLog("DATABASE LOG: Getting all health track information...", LEVEL.OK)
+        return await collections["animal-health-details"].find({}).toArray();
     }
 
 }

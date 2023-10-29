@@ -85,4 +85,21 @@ declare global {
 		"order_date": Date,
 		"delivery_date": Date
 	}
+
+	interface health_track_animal {
+		"farm_id": string,
+		"animal_list": {
+			"animal_id": string
+		},
+		"vet_list": {
+			"vet_id": string
+		},
+		"vaccine_list": [
+			"Rabies",
+			"Distemper",
+			"Parvo"
+		],
+		"selected_vaccine":[],
+		"booked_vet":[]
+	}
 }
