@@ -11,7 +11,7 @@ export const POST = async ({request, cookies}: any): Promise<Response> => {
     }
     // Extract the post_uid from request
     const post_uid = await request.json();
-    //convert post_id into object id
+    //convert post_id into object [id]
     const post_id = new ObjectId(post_uid);
 
     const post_detail = await Database.getOnePost(post_id);

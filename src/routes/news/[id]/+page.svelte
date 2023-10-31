@@ -1,4 +1,3 @@
-<script src="+page.server.ts"></script>
 <script lang="ts">
     import {afterUpdate, onMount} from "svelte";
     import DynamicNavigation from "$lib/stores/DynamicNavigation";
@@ -27,9 +26,11 @@
         });
         news_detail = await news_response.json();
         console.log(news_detail)
+
+        news_data= true;
     })
 
-    news_data= true;
+
 
 </script>
 
@@ -37,11 +38,14 @@
 <main class="my-28 mx-64">
     {#if news_data}
         <div class="flex flex-col gap-4">
+<!--            <img alt="" class="rounded-2xl object-cover w-full h-full" src={news.image_url} />-->
             <h1 class="text-5xl font-bold">{news_detail.title}</h1>
 
                 <p in:fade id="post_body" class="whitespace-pre-line hover:antialiased p-1">{news_detail.content}</p>
 
+
             <hr class="border-2 rounded-full w-full">
+            {news_detail._id}
         </div>
 
     {:else}

@@ -9,7 +9,7 @@ export const POST = async ({request, cookies}: any): Promise<Response> => {
     // Protect API from unauthorized access.
     if (!verifyRequest(cookies)) return new Response("Unauthorized", {status: 401});
 
-    // Extract the id from request and convert it to ObjectId (userObjectID)
+    // Extract the [id] from request and convert it to ObjectId (userObjectID)
     const id: any = await request.json();
     const userObjectID: ObjectId = new ObjectId(id);
 

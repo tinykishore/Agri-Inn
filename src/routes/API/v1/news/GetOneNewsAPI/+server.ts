@@ -8,7 +8,7 @@ export const POST = async ({request, cookies}: any): Promise<Response> => {
     if (!verifyRequest(cookies)) {
         return new Response("Unauthorized", {status: 401});
     }
-    // Extract the farm_uid from request
+    // Extract the news_uid from request
     const news_uid = await request.json();
 
     const news_info = await Database.getOneNews(news_uid);

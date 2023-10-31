@@ -479,7 +479,7 @@ export class Database {
     }
     public static async getOneNews(news_uid: string): Promise<any> {
         consoleLog(`DATABASE LOG: Getting farm {` + news_uid + `} information...`, LEVEL.OK)
-        const allNews = await collections["news"].findOne({"uid": news_uid});
+        const allNews = await collections["news"].findOne({"u_id": news_uid});
         console.log("kdkdkdkdkdk" + allNews)
         return allNews
 
