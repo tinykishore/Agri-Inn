@@ -58,6 +58,18 @@
 				<h1 class="text-sm font-bold antialiased text-amber-900">Buy and sell your crops</h1>
 			</a>
 
+			<a class="rounded-2xl bg-zinc-50 p-4" href="/news">
+				<h1 class="text-xl font-bold antialiased text-amber-900">News</h1>
+				<h1 class="text-sm font-bold antialiased text-amber-900">Stay updated with latest livestock news</h1>
+			</a>
+
+			<a class="rounded-2xl bg-zinc-50 p-4" href="/events">
+				<h1 class="text-xl font-bold antialiased text-amber-900">Events</h1>
+				<h1 class="text-sm font-bold antialiased text-amber-900">View recent livestock events</h1>
+			</a>
+
+
+
 
 		</div>
 	</div>

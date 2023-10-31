@@ -73,6 +73,7 @@
         await incrementViewCount();
     })
 
+
     async function incrementViewCount() {
         setTimeout(async () => {
             await fetch('/API/v1/forum/IncrementViewCountAPI', {

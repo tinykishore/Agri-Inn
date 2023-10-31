@@ -477,5 +477,11 @@ export class Database {
         consoleLog("DATABASE LOG: Getting all health track information...", LEVEL.OK)
         return await collections["animal-health-details"].find({}).toArray();
     }
+    public static async getOneNews(news_uid: string): Promise<any> {
+        consoleLog(`DATABASE LOG: Getting farm {` + news_uid + `} information...`, LEVEL.OK)
+        const allNews = await collections["news"].findOne({"uid": news_uid});
+        console.log("kdkdkdkdkdk" + allNews)
+        return allNews
 
+    }
 }
