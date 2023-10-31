@@ -67,4 +67,39 @@ declare global {
 		parent_comment: string
 		profilePicture: string
 	}
+
+	interface Order {
+		"user_id": string,
+		"product_id": string,
+		"total_amount": number,
+		"shipping_address":string,
+		"phone_number": string,
+		"payment_method": string,
+		"isInstallment"?: {
+			"status": boolean,
+			"paid": number,
+			"due": number,
+			"installment_remaining": number,
+			"installment_deadline": Date
+		},
+		"order_date": Date,
+		"delivery_date": Date
+	}
+
+	interface health_track_animal {
+		"farm_id": string,
+		"animal_list": {
+			"animal_id": string
+		},
+		"vet_list": {
+			"vet_id": string
+		},
+		"vaccine_list": [
+			"Rabies",
+			"Distemper",
+			"Parvo"
+		],
+		"selected_vaccine":[],
+		"booked_vet":[]
+	}
 }

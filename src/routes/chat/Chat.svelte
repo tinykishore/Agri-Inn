@@ -5,7 +5,7 @@
     import send_icon from "$lib/assets/icons/send-message.svg";
     import Message from "./Message.svelte";
 
-    export let receiverObjectID: string = "__ALL__";
+    export let receiverObjectID: string | null = null;
     let messages: any = [];
     let responseOK = false;
     let initTextLoad: number = 16;
@@ -36,11 +36,17 @@
     })
 
     onMount(async () => {
+        // filter messages where (sender = userCache._id and receiver = receiverObjectID) or (sender = receiverObjectID and receiver = userCache._id)
         const resultList = await supabase
-            .from('chat')
-            .select()
-            .order('created_at', {ascending: false})
-            .limit(initTextLoad)
+                .from('chat')
+                .select()
+                .order('created_at', {ascending: false})
+                .limit(initTextLoad)
+                .or('sender.eq.' + userCache._id + ',receiver.eq.' + receiverObjectID,)
+                .or('sender.eq.' + receiverObjectID + ',receiver.eq.' + userCache._id,)
+
+
+
         messages = resultList.data;
         messages.reverse();
         responseOK = true;

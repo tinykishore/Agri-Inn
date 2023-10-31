@@ -51,7 +51,7 @@
 
 
 <main class="min-h-screen container mx-auto p-4 my-24 px-20 grid grid-cols-3 gap-4 ">
-	<div id="main-section" class="col-span-3 bg-blue-300 rounded-2xl p-4 ">
+	<div id="main-section" class="col-span-2 bg-blue-300 rounded-2xl p-4 ">
 		{#if product_info === undefined}
 			<p>Loading...</p>
 		{:else}
@@ -60,6 +60,7 @@
 			<p>{price}</p>
 			<h1 class="text-4xl">Payment --------</h1>
 			<button on:click={showPaymentSection}>Buy Now</button>
+
 		{/if}
 	</div>
 	{#if showPayment}
@@ -77,7 +78,7 @@
 		</div>
 
 
-		<PaymentSection price={price} installments={installments}/>
+		<PaymentSection total_amount={price} user_id={data._id} product_id={data.product_id}/>
 
 	</div>
 	{/if}
