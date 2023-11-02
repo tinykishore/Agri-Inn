@@ -95,7 +95,6 @@
     <img alt="sign-in-bg" class="w-full h-full bg-fixed object-cover" src="{forum_bg}">
 </section>
 
-
 <main class="my-20 mx-32">
     <div class="grid grid-cols-3 gap-6 h-full">
         <div class="flex flex-col col-span-2 bg-white/70 hover:bg-white/90 hover:shadow-xl transition-all duration-300

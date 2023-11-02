@@ -1,6 +1,6 @@
 import consoleLog, {LEVEL} from "$lib/server/log";
 import {verifyRequest} from "$lib/server/utility";
-import {Database} from "$lib/server/database";
+import DatabaseFarm from "$lib/server/databaseObjects/DatabaseFarm";
 
 export const POST = async ({request, cookies}: any): Promise<Response> => {
     consoleLog("GetProductInfoAPI REQUEST Received", LEVEL.OK);
@@ -11,7 +11,7 @@ export const POST = async ({request, cookies}: any): Promise<Response> => {
     // Extract the farm_uid from request
     const product_id = await request.json();
 
-    const product_info = await Database.getOneProduct(product_id);
+    const product_info = await DatabaseFarm.getOneProduct(product_id);
     if (!product_info) {
         consoleLog("GetProductInfoAPI RESPONSE: status 404", LEVEL.ERROR);
         return new Response(null, {status: 404})

@@ -1,7 +1,7 @@
 import consoleLog, {LEVEL} from "$lib/server/log";
 import {verifyRequest} from "$lib/server/utility";
-import {Database} from "$lib/server/database";
 import {ObjectId} from "mongodb";
+import DatabaseForum from "$lib/server/databaseObjects/DatabaseForum";
 
 export const POST = async ({request, cookies}: any): Promise<Response> => {
     consoleLog("UpvotePostAPI REQUEST Received", LEVEL.OK);
@@ -16,7 +16,7 @@ export const POST = async ({request, cookies}: any): Promise<Response> => {
     console.log(postObjectID, likerObjectID, alreadyLiked);
 
     const p_id: ObjectId = new ObjectId(postObjectID);
-    const success = await Database.votePost(p_id, likerObjectID, alreadyLiked);
+    const success = await DatabaseForum.votePost(p_id, likerObjectID, alreadyLiked);
 
     if (!success) {
         consoleLog("UpvotePostAPI RESPONSE: status 404", LEVEL.ERROR);

@@ -2,7 +2,7 @@ import consoleLog, {LEVEL} from "$lib/server/log";
 import {verifyRequest} from "$lib/server/utility";
 import {ObjectId} from "mongodb";
 import type {TypeUserCache} from "$lib/stores/UserCache";
-import {Database} from "$lib/server/database";
+import DatabaseAccount from "$lib/server/databaseObjects/DatabaseAccount";
 
 export const POST = async ({request, cookies}: any): Promise<Response> => {
     consoleLog("RetrieveCache REQUEST Received", LEVEL.OK);
@@ -14,7 +14,7 @@ export const POST = async ({request, cookies}: any): Promise<Response> => {
     const userObjectID: ObjectId = new ObjectId(id);
 
     // Retrieve the cacheData from database
-    const cacheData: TypeUserCache = await Database.getUserCache(userObjectID);
+    const cacheData: TypeUserCache = await DatabaseAccount.getUserCache(userObjectID);
 
     if (!cacheData) {
         consoleLog("RetrieveCache RESPONSE: status 404", LEVEL.ERROR);

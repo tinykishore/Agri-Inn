@@ -2,12 +2,12 @@ import {OAuth2Client} from "google-auth-library";
 import {GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET, JWT_SECRET} from "$env/static/private";
 import {redirect} from "@sveltejs/kit";
 import consoleLog, {LEVEL} from "$lib/server/log";
-import {Database} from "$lib/server/database";
 import {USER_ROLE} from "$lib/client/utility";
 import jwt from "jsonwebtoken";
 import {generateToken} from "$lib/server/utility";
 import {supabase} from "$lib/client/supabase";
 import {ObjectId} from "mongodb";
+import DatabaseAccount from "$lib/server/databaseObjects/DatabaseAccount";
 
 export const GET = async ({url, cookies}: any) => {
     consoleLog("Oauth: Google OAuth2.0 Request Received", LEVEL.OK);
@@ -36,12 +36,12 @@ export const GET = async ({url, cookies}: any) => {
     const profile_picture = data.picture;
     const google_id = data.sub;
 
-    const result = await Database.getUserByEmail(email)
+    const result = await DatabaseAccount.getUserByEmail(email)
     if (result) {
         consoleLog("User found", LEVEL.OK);
         if (result.credentials.google_id === "" || result.credentials.google_id !== google_id) {
             consoleLog("Google ID not set", LEVEL.WARN);
-            await Database.updateGoogleID(email, google_id);
+            await DatabaseAccount.updateGoogleID(email, google_id);
         }
 
         consoleLog("Google ID set", LEVEL.OK);
@@ -89,7 +89,7 @@ export const GET = async ({url, cookies}: any) => {
         }
 
         // Insert new user object into database
-        const success = await Database.insertUser(userObject);
+        const success = await DatabaseAccount.insertUser(userObject);
         if (success) {
             consoleLog("User created", LEVEL.OK);
             const new_user_id = success.insertedId.toString();
@@ -110,7 +110,7 @@ export const GET = async ({url, cookies}: any) => {
 
             // Update profile picture URL in database
             const new_user_objectID = new ObjectId(new_user_id);
-            await Database.updateProfilePicture(new_user_objectID, profile_picture_url);
+            await DatabaseAccount.updateProfilePicture(new_user_objectID, profile_picture_url);
 
             consoleLog("New insertedID: " + new_user_id, LEVEL.OK);
             const encrypted_id = jwt.sign(
