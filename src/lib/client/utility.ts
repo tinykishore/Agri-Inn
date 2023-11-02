@@ -99,17 +99,10 @@ export function isInsecureURL(str: string) {
 }
 
 export function URLify(text: string) {
-    if (isSecureURL(text)) {
+    try {
+        return new URL(text);
+    } catch (error) {
         return text;
-    }
-    if (isInsecureURL(text)) {
-        return text.replace('http://', 'https://');
-    }
-    const urlRegex = /(?<!https?:\/\/)(?<!www\.)(\S+)/g;
-    if (urlRegex.test(text)) {
-        return text.replace(urlRegex, function (url: string) {
-            return 'https://' + url;
-        });
     }
 }
 
