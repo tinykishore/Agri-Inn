@@ -1,46 +1,46 @@
 <script lang="ts">
-    import {onMount} from "svelte";
-    import DynamicNavigation from "$lib/stores/DynamicNavigation";
-    import DashboardNavigation from "$lib/components/dynamicNavigations/DashboardNavigation.svelte";
+	import {onMount} from "svelte";
+	import DynamicNavigation from "$lib/stores/DynamicNavigation";
+	import DashboardNavigation from "$lib/components/dynamicNavigations/DashboardNavigation.svelte";
 
-    export let data
-    DynamicNavigation.set(DashboardNavigation);
-
-
-    const farm_uid = data.farm_uid;
-
-    let farm_info: any;
-    let farm_products: any;
-
-    onMount(async () => {
-        // Call API to get farm info
-        const farm_info_response = await fetch('/API/v1/farms/GetOneFarmAPI', {
-            method: 'POST',
-            body: JSON.stringify(farm_uid),
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        });
-        farm_info = await farm_info_response.json();
+	export let data
+	DynamicNavigation.set(DashboardNavigation);
 
 
-        // Call API to get farm products
-        const farm_products_response = await fetch('/API/v1/farms/GetOneFarmProductsAPI', {
-            method: 'POST',
-            body: JSON.stringify(farm_uid),
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        });
-        farm_products = await farm_products_response.json();
-        const installments = farm_products["installments"]
-        console.log(installments)
-    })
+	const farm_uid = data.farm_uid;
+
+	let farm_info: any;
+	let farm_products: any;
+
+	onMount(async () => {
+		// Call API to get farm info
+		const farm_info_response = await fetch('/API/v1/farms/GetOneFarmAPI', {
+			method: 'POST',
+			body: JSON.stringify(farm_uid),
+			headers: {
+				'Content-Type': 'application/json'
+			}
+		});
+		farm_info = await farm_info_response.json();
+
+
+		// Call API to get farm products
+		const farm_products_response = await fetch('/API/v1/farms/GetOneFarmProductsAPI', {
+			method: 'POST',
+			body: JSON.stringify(farm_uid),
+			headers: {
+				'Content-Type': 'application/json'
+			}
+		});
+		farm_products = await farm_products_response.json();
+		const installments = farm_products["installments"]
+		console.log(installments)
+	})
 
 
 </script>
 
-<main class="mt-24 mx-24 px-12">
+<main class="my-20 mx-32">
 	{#if farm_info === undefined}
 		<h1>
 			Farm info loading

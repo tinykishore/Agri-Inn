@@ -18,7 +18,7 @@
     let fontSize: number;
 
     let wordCount: number;
-    // check if like array contains user id
+    // check if like array contains user [id]
 
     let likedByThisUser: boolean = false;
     let loggedInUser: string | undefined = undefined;
@@ -76,6 +76,7 @@
         post_data = true;
         await incrementViewCount();
     })
+
 
     async function incrementViewCount() {
         setTimeout(async () => {

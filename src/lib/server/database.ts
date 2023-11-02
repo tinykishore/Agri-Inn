@@ -101,7 +101,11 @@ export default class Database {
         return await collections["animal-health-details"].find({}).toArray();
     }
 
-
+    public static async getOneNews(news_uid: string): Promise<any> {
+        consoleLog(`DATABASE LOG: Getting farm {` + news_uid + `} information...`, LEVEL.OK)
+        const allNews = await collections["news"].findOne({"u_id": news_uid});
+        console.log("kdkdkdkdkdk" + allNews)
+        return allNews
 
 
 }
