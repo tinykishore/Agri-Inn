@@ -14,3 +14,8 @@ export let forum_id_navigation = writable({
     fontSize: 14,
     self: false,
 });
+
+export let search_navigation = writable({
+    query: "",
+    search_results: {}
+});

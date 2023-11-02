@@ -11,6 +11,7 @@
     import tailwindcss from "$lib/assets/icons/tailwindcss-logotype.svg";
     import vercel from "$lib/assets/icons/vercel-logotype-dark.svg";
     import tensorflow from "$lib/assets/icons/TF_FullColor_Horizontal.svg";
+    import about_bg from "$lib/assets/images/about_bg.jpg";
 
     DynamicNavigation.set(AboutNavigation);
 
@@ -32,6 +33,10 @@
 	<title>About Us</title>
 	<meta name="description" content="About Us">
 </svelte:head>
+
+<section class="fixed bg-fixed top-0 left-0 h-screen w-screen -z-50">
+	<img alt="sign-in-bg" class="w-full h-full bg-fixed object-cover" src="{about_bg}">
+</section>
 
 <main class="my-20 mx-32">
 	<div class="grid grid-cols-2 gap-6 h-full">
