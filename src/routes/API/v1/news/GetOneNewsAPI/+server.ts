@@ -1,6 +1,6 @@
 import consoleLog, {LEVEL} from "$lib/server/log";
 import {verifyRequest} from "$lib/server/utility";
-import {Database} from "$lib/server/database";
+import DatabaseNews from "$lib/server/databaseObjects/DatabaseNews";
 
 export const POST = async ({request, cookies}: any): Promise<Response> => {
     consoleLog("GetOneNewsAPI REQUEST Received", LEVEL.OK);
@@ -11,7 +11,7 @@ export const POST = async ({request, cookies}: any): Promise<Response> => {
     // Extract the news_uid from request
     const news_uid = await request.json();
 
-    const news_info = await Database.getOneNews(news_uid);
+    const news_info = await DatabaseNews.getOneNews(news_uid);
     if (!news_info) {
         consoleLog("GetOneNewsAPI RESPONSE: status 404", LEVEL.ERROR);
         return new Response(null, {status: 404})

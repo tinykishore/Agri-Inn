@@ -84,28 +84,11 @@ export default class Database {
     // Declare private static variables
     protected static collections = collections;
 
-    public static async getAllNews() {
-        consoleLog("DATABASE LOG: Getting all news information...", LEVEL.OK)
-        return await collections["news"].find({}).toArray();
-    }
 
-    public static async placeOrder(order: Order): Promise<any> {
-        consoleLog(`DATABASE LOG:  payment details {` + order + `} ...`, LEVEL.OK)
-        const ordered = await collections["order"].insertOne(order);
-        console.log(ordered)
-        return ordered;
-    }
 
     public static async getHealthTrack() {
         consoleLog("DATABASE LOG: Getting all health track information...", LEVEL.OK)
         return await collections["animal-health-details"].find({}).toArray();
     }
-
-    public static async getOneNews(news_uid: string): Promise<any> {
-        consoleLog(`DATABASE LOG: Getting farm {` + news_uid + `} information...`, LEVEL.OK)
-        const allNews = await collections["news"].findOne({"u_id": news_uid});
-        console.log("kdkdkdkdkdk" + allNews)
-        return allNews
-
 
 }
