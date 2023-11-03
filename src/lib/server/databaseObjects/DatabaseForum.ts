@@ -75,4 +75,15 @@ export default class DatabaseForum extends Database {
             {$inc: {viewCount: 1}}
         );
     }
+
+    /**
+     * Inserts a new post into the forum.
+     *
+     * @param post - The post to be inserted.
+     * @returns A Promise that resolves to the result of the insertion operation.
+     */
+    public static async insertPost(post: Post): Promise<any> {
+        consoleLog(`DATABASE LOG: Inserting post {` + post + `} information...`, LEVEL.OK)
+        return await super.collections["forum"].insertOne(post);
+    }
 }
