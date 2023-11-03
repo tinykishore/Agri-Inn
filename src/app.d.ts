@@ -102,4 +102,15 @@ declare global {
 		"selected_vaccine":[],
 		"booked_vet":[]
 	}
+
+	interface PublicProfile {
+		full_name: string,
+		username: string,
+		email: string,
+		gender: string,
+		phone: string,
+		occupation: string,
+		social_connections?: [],
+		profile_picture: string
+	}
 }
