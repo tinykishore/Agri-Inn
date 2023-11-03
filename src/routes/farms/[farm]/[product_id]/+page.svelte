@@ -1,11 +1,14 @@
 <script lang="ts">
     import {onMount} from "svelte";
     import PaymentSection from "./PaymentSection.svelte";
-    import DynamicNavigation from "$lib/stores/DynamicNavigation";
-    import DashboardNavigation from "$lib/components/dynamicNavigations/DashboardNavigation.svelte";
+    import DynamicNavigation, {farm_productID_navigation} from "$lib/stores/DynamicNavigation";
+    import Farm_Product_ID_Navigation from "$lib/components/dynamicNavigations/farm/Farm_Product_ID_Navigation.svelte";
+    import Modal from "./Modal.svelte";
+    import {modals} from "$lib/stores/Modals";
+    import DefaultNavigation from "$lib/components/dynamicNavigations/DefaultNavigation.svelte";
 
     export let data;
-    DynamicNavigation.set(DashboardNavigation);
+    DynamicNavigation.set(DefaultNavigation);
     const product_id = data.product_id;
 
     let product_info: any;
@@ -17,6 +20,12 @@
     const showPaymentSection = () => {
         showPayment = !showPayment;
     }
+
+    let isModalVisible = false;
+
+    modals.subscribe((value) => {
+        isModalVisible = value.farms_farm_product_modal;
+    });
 
     onMount(async () => {
         // Call api to get product data
@@ -43,12 +52,22 @@
         let dollarAmount = product_info.price;
         price = parseFloat(dollarAmount.replace(/[$,]/g, ''));
 
+        farm_productID_navigation.set({
+			productID: product_id,
+			farm_name: farm_info.farm_name,
+			product_price: price,
+			availability: product_info.availability,
+		});
 
-	});
+        DynamicNavigation.set(Farm_Product_ID_Navigation);
+    });
 
 
 </script>
 
+{#if isModalVisible}
+	<Modal/>
+{/if}
 
 <main class="min-h-screen container mx-auto p-4 my-24 px-20 grid grid-cols-3 gap-4 ">
 	<div id="main-section" class="col-span-2 bg-blue-300 rounded-2xl p-4 ">
