@@ -1,13 +1,52 @@
-<script>
-	import {modals} from "$lib/stores/Modals";
-	import {fade, fly} from "svelte/transition";
-	import close_icon from "$lib/assets/icons/farms_farm_product_id_modal_close_icon.svg";
+<script lang="ts">
+    import {modals} from "$lib/stores/Modals";
+    import {fade, fly} from "svelte/transition";
+    import close_icon from "$lib/assets/icons/farms_farm_product_id_modal_close_icon.svg";
+    import {onMount} from "svelte";
+    import UserCache from "$lib/stores/UserCache";
+
+    let username: string | undefined;
+    let userID: string | undefined;
+    let userEmail: string | undefined;
+    let public_profile: PublicProfile;
 
 	const modalCloseAction = () => {
 		modals.set({
 			farms_farm_product_modal: false,
 		})
 	}
+
+    let PaymentMethodOpacity = "opacity-30 select-none";
+    let InstallmentOpacity = "opacity-30 select-none";
+    let ConfirmationOpacity = "opacity-30 select-none";
+
+
+    onMount(async () => {
+
+        UserCache.subscribe(value => {
+            username = value.username;
+            userID = value._id;
+            userEmail = value.email
+        })
+
+        const response = await fetch('/API/v1/auth/GetPublicProfile', {
+            method: 'POST',
+            body: JSON.stringify({
+                "username": username,
+                "_id": userID,
+                "email": userEmail,
+            }),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+
+        public_profile = await response.json();
+
+        console.log(public_profile.full_name);
+        console.log(public_profile.phone);
+    });
+
 
 </script>
 
@@ -31,27 +70,43 @@
 			</div>
 		</div>
 
-		<div class="w-full  h-full grid-cols-4 grid">
-			<div class="p-2 flex-col flex gap-4 border-r-2 border-amber-950/40">
+		<div class="w-full h-full grid-cols-4 grid">
+
+			{#if public_profile}
+				<div class="py-2 px-6 flex-col flex gap-4 border-r-2 border-amber-950/40">
 				<h1 class="text-center">
 					Personal Information
 				</h1>
+
+					<div class="mb-1">
+						<label class="block font-bold text-gray-600 ml-3" for="full_name">Full Name</label>
+						<label class="block font-light text-xs text-gray-600 ml-3" for="full_name">Collected From your
+							account</label>
+						<input required value={public_profile.full_name} disabled
+							   type="text" id="full_name" name="full_name"
+							   class="mt-2 font-mono bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-full outline-none
+                       focus:shadow-md block w-full py-2.5 px-3 transition-all duration-300 antialiased disabled:opacity-60"/>
+                       </div>
 
 				<button>
 					Next
 				</button>
 			</div>
-			<div class="p-2 flex-col flex gap-4 border-r-2 border-amber-950/40">
+			{/if}
+
+			<div class="p-2 flex-col flex gap-4 border-r-2 border-amber-950/40 {PaymentMethodOpacity}">
 				<h1 class="text-center">
 					Payment Method
 				</h1>
 			</div>
-			<div class="p-2 flex-col flex gap-4 border-r-2 border-amber-950/40">
+
+			<div class="p-2 flex-col flex gap-4 border-r-2 border-amber-950/40 {InstallmentOpacity}">
 				<h1 class="text-center">
 					Installment Settings
 				</h1>
 			</div>
-			<div class="p-2 flex-col flex gap-4">
+
+			<div class="p-2 flex-col flex gap-4 {ConfirmationOpacity}">
 				<h1 class="text-center">
 					Confirmation
 				</h1>
