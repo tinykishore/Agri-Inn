@@ -214,7 +214,7 @@
 		</a>
 		<a class="flex gap-4 rounded-full align-middle border-yellow-800/20 border justify-center items-center font-semibold text-yellow-950  hover:bg-yellow-300 hover:border-yellow-800 transition-all duration-300" href="/{username}"
 		   in:fade>
-			<h1 class=" pl-4 font-bold py-2">{full_name}</h1>
+			<h1 class=" pl-4 font-bold py-2">{full_name?.split(" ")[0]}</h1>
 			<img alt="" class="h-9 w-9 rounded-full" src={profile_picture}>
 		</a>
 	</div>
