@@ -14,7 +14,7 @@ export const POST = async ({request, cookies}: any): Promise<Response> => {
     const userObjectID: ObjectId = new ObjectId(id);
 
     // Retrieve the cacheData from database
-    const cacheData: TypeUserCache = await DatabaseAccount.getUserCache(userObjectID);
+    const cacheData: TypeUserCache | undefined = await DatabaseAccount.getUserCache(userObjectID);
 
     if (!cacheData) {
         consoleLog("RetrieveCache RESPONSE: status 404", LEVEL.ERROR);

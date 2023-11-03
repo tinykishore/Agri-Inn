@@ -46,7 +46,6 @@ export const initializeDatabaseConnection = async (): Promise<void> => {
             // consoleLog(`DATABASE LOG: Created collection {` + collectionInfo.name + `}`, LEVEL.INFO)
         }
         consoleLog("DATABASE LOG: Collections created successfully", LEVEL.OK)
-        console.log(collections)
     } catch (error: any) {
         consoleLog(`DATABASE ERROR: ${error.message}`, LEVEL.ERROR);
         databaseConnection = null;

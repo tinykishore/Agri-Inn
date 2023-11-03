@@ -23,8 +23,7 @@ export default class DatabaseOthers extends Database {
                     role: 1,
                 }
             }
-        )
-            .toArray();
+        ).toArray();
 
         const forum_result = await super.collections["forum"].find(
             {
