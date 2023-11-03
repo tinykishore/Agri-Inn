@@ -28,7 +28,7 @@
             {#each news as newss}
                 <div class="bg-white p-4 rounded-lg shadow-md">
                     {#if newss.image_url}
-                        <img src={newss.image_url} alt="News Image" class="w-full h-32 object-cover mb-4 rounded-lg">
+                        <img src={newss.image_url} alt="" class="w-full h-32 object-cover mb-4 rounded-lg">
                     {/if}
                     <h2 class="text-xl font-bold mb-2 hover:underline">{newss.title}</h2>
                     <p class="text-gray-600">
