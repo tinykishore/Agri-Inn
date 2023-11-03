@@ -220,4 +220,46 @@ export default class DatabaseAccount extends Database {
         consoleLog(`DATABASE LOG: Username and ObjectID do not match`, LEVEL.ERROR);
         return false;
     }
+
+    public static async getPublicProfile(_id?: ObjectId | null, username?: string, email?: string): Promise<PublicProfile | null> {
+        consoleLog(`DATABASE LOG: Retrieving public profile for username: ${username} || _id: ${_id} || email: ${email}`, LEVEL.INFO);
+        const result = await super.collections["user-account"].findOne(
+            {
+                $or: [
+                    {"credentials.username": username},
+                    {"_id": _id},
+                    {"credentials.email": email}
+                ]
+            },
+            {
+                projection: {
+                    full_name: 1,
+                    "credentials.username": 1,
+                    "credentials.email": 1,
+                    gender: 1,
+                    phone: 1,
+                    occupation: 1,
+                    social_connections: 1,
+                    profile_picture: 1,
+                }
+            }
+        );
+
+        if (result !== null) {
+            consoleLog(`DATABASE LOG: Public profile retrieved successfully for username: ${username} || _id: ${_id} || email: ${email}`, LEVEL.OK);
+            return {
+                full_name: result.full_name,
+                username: result.credentials.username,
+                email: result.credentials.email,
+                gender: result.gender,
+                phone: result.phone,
+                occupation: result.occupation,
+                social_connections: result.social_connections,
+                profile_picture: result.profile_picture,
+            };
+        }
+        consoleLog(`DATABASE LOG: Public profile retrieval failed for username: ${username} || _id: ${_id} || email: ${email}`, LEVEL.ERROR);
+        return null;
+    }
+
 }
