@@ -1,7 +1,6 @@
 import consoleLog, {LEVEL} from "$lib/server/log";
 import {verifyRequest} from "$lib/server/utility";
 import {ObjectId} from "mongodb";
-import type {TypeUserCache} from "$lib/stores/UserCache";
 import DatabaseAccount from "$lib/server/databaseObjects/DatabaseAccount";
 
 export const POST = async ({request, cookies}: any): Promise<Response> => {

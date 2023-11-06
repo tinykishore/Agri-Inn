@@ -15,6 +15,15 @@ declare global {
 		password: string
 	}
 
+	export interface TypeUserCache {
+		_id: string | undefined
+		full_name: string | undefined
+		email: string | undefined
+		username: string | undefined
+		profile_picture: string | undefined
+		user_role: USER_ROLE | undefined
+	}
+
 	interface Post {
 		title: string
 		post: string
@@ -84,23 +93,6 @@ declare global {
 		},
 		"order_date": Date,
 		"delivery_date": Date
-	}
-
-	interface health_track_animal {
-		"farm_id": string,
-		"animal_list": {
-			"animal_id": string
-		},
-		"vet_list": {
-			"vet_id": string
-		},
-		"vaccine_list": [
-			"Rabies",
-			"Distemper",
-			"Parvo"
-		],
-		"selected_vaccine":[],
-		"booked_vet":[]
 	}
 
 	interface PublicProfile {
