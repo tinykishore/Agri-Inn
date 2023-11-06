@@ -90,12 +90,18 @@
         cardExpiry: "",
         cardCvv: ""
     };
+
     let bkashInfo = {trxId: ""};
 
-    let selectedOption = "";
+    let selectedPaymentOption = "";
+    let selectedInstallmentOption = "";
 
-    const onchange = (event: any) => {
-        selectedOption = event.currentTarget.value;
+    const onPaymentChange = (event: any) => {
+        selectedPaymentOption = event.currentTarget.value;
+    }
+
+    const onInstallmentChange = (event: any) => {
+        selectedInstallmentOption = event.currentTarget.value;
     }
 
 
@@ -108,7 +114,6 @@
 		<div class="font-black text-3xl text-amber-900 flex justify-between mx-6 my-4">
 			<h1>Payment Process</h1>
 			<div class="flex gap-4 align-middle items-center">
-
 				<h1 class="text-sm font-bold text-zinc-400">
 					Closing this window erases all payment data
 				</h1>
@@ -120,27 +125,25 @@
 				</button>
 			</div>
 		</div>
-
 		<div class="w-full h-full grid-cols-4 grid">
 			{#if public_profile}
-				<div class="py-2 px-6 flex-col flex gap-1 border-r-2 border-amber-950/40 {PersonalInfoOpacity}">
-					<h1 class="text-center text-xl font-bold text-amber-700 mb-4">
-						Personal Information</h1>
+				<div class="py-4 px-6 flex-col flex gap-1 border-r-2 border-amber-950/40 {PersonalInfoOpacity}">
+					<div>
+						<h1 class="text-center text-xl font-bold text-amber-700 mb-4">
+							Personal Information</h1>
 
-					<div class="mb-1">
-						<label class="block font-bold text-gray-600 mb-1" for="full_name">Full Name</label>
-						<h1 class="font-bold text-amber-900">{public_profile.full_name} </h1>
+						<div class="mb-2">
+							<label class="block font-bold text-gray-600" for="full_name">Full Name</label>
+							<h1 class="font-bold text-amber-900">{public_profile.full_name} </h1>
+						</div>
+
+						<div class="mb-2">
+							<label class="block font-bold text-gray-600" for="phone_number">Phone Number</label>
+							<h1 class="font-bold text-amber-900">{public_profile.phone} </h1>
+						</div>
 					</div>
-
 					<div class="mb-1">
-						<label class="block font-bold text-gray-600 mb-1" for="phone_number">Phone Number</label>
-						<h1 class="font-bold text-amber-900">{public_profile.phone} </h1>
-					</div>
-
-					<hr class="mx-4">
-
-					<div class="mb-1">
-						<label class="block font-bold text-gray-600 mt-4" for="address">Address</label>
+						<label class="block font-bold text-gray-600 mt-1.5" for="address">Address</label>
 						<label class="block font-light text-xs text-gray-600 mb-4" for="address">Product will be shipped
 							in this Address</label>
 
@@ -186,6 +189,7 @@
 									   type="text"
 									   class="mt-2 font-mono bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-full outline-none focus:shadow-md block w-full py-2.5 px-3 transition-all duration-300 antialiased disabled:opacity-60"/>
 							</div>
+
 						</div>
 
 					</div>
@@ -219,71 +223,82 @@
 				</div>
 			{/if}
 
-			<div class="p-2 flex-col flex gap-4 border-r-2 border-amber-950/40 {PaymentMethodOpacity}">
-				<h1 class="text-center text-xl font-bold text-amber-700 mb-4">
-					Payment Method</h1>
-				<div class="flex-col flex gap-1">
-					<ul class="grid grid-cols-3 gap-1">
-						<li>
-							<input checked={selectedOption === "card"} class="hidden peer" id="card" name="payment"
-								   on:change={onchange} required type="radio"
-								   value="card">
-							<label class="flex text-sm text-amber-900 font-bold flex-col items-center justify-between
+			<div class="px-6 py-4 flex-col flex gap-4 border-r-2 border-amber-950/40 {PaymentMethodOpacity}">
+				<div>
+					<h1 class="text-center text-xl font-bold text-amber-700 mb-4">
+						Payment Method
+					</h1>
+					<div class="flex-col flex gap-1">
+						<ul class="grid grid-cols-3 gap-1 py-4">
+							<li>
+								<input checked={selectedPaymentOption === "card"} class="hidden peer" id="card"
+									   name="payment"
+									   on:change={onPaymentChange} required type="radio"
+									   value="card">
+								<label class="flex text-sm text-amber-900 font-bold flex-col items-center justify-between
 							py-2 w-full border border-amber-300 rounded-lg cursor-pointer peer-checked:border-amber-600
 							peer-checked:text-amber-600 hover:text-amber-600 hover:bg-amber-200 transition-all duration-300"
-								   for="card">
+									   for="card">
 								<span>
 									<img class="w-6 h-6 mb-2" src={card_icon} alt="" />
 								</span>
-								Card
-							</label>
-						</li>
-						<li>
-							<input checked={selectedOption === "bkash"} class="hidden peer" id="bkash" name="payment"
-								   on:change={onchange} type="radio" value="bkash">
-							<label class="flex text-sm text-amber-900 font-bold flex-col items-center justify-between
+									Card
+								</label>
+							</li>
+							<li>
+								<input checked={selectedPaymentOption === "bkash"} class="hidden peer" id="bkash"
+									   name="payment"
+									   on:change={onPaymentChange} type="radio" value="bkash">
+								<label class="flex text-sm text-amber-900 font-bold flex-col items-center justify-between
 							py-2 w-full border border-amber-300 rounded-lg cursor-pointer peer-checked:border-amber-600
 							peer-checked:text-amber-600 hover:text-amber-600 hover:bg-amber-200 transition-all duration-300"
-								   for="bkash">
+									   for="bkash">
 								<span>
 									<img class="w-6 h-6 mb-2" src={bkash_icon} alt="" />
 								</span>
-								BKash
-							</label>
-						</li>
-						<li>
-							<input checked={selectedOption === "cod"} class="hidden peer" id="cod" name="payment" on:change={onchange}
-								   required type="radio"
-								   value="cod">
-							<label class="flex text-sm text-amber-900 font-bold flex-col items-center justify-between
+									BKash
+								</label>
+							</li>
+							<li>
+								<input checked={selectedPaymentOption === "cod"} class="hidden peer" id="cod"
+									   name="payment"
+									   on:change={onPaymentChange}
+									   required type="radio"
+									   value="cod">
+								<label class="flex text-sm text-amber-900 font-bold flex-col items-center justify-between
 							py-2 w-full border border-amber-300 rounded-lg cursor-pointer peer-checked:border-amber-600
 							peer-checked:text-amber-600 hover:text-amber-600 hover:bg-amber-200 transition-all duration-300"
-								   for="cod">
+									   for="cod">
 								<span>
 									<img class="w-6 h-6 mb-2" src={cod_icon} alt="" />
 								</span>
-								COD
-							</label>
-						</li>
-					</ul>
-
-					<hr class="my-2">
+									COD
+								</label>
+							</li>
+						</ul>
 
 
-					{#if selectedOption === 'card'}
+					</div>
+
+					{#if selectedPaymentOption === 'card'}
+						<label class="block font-bold text-gray-600 mt-5" for="address">Your Card Information</label>
+						<label class="block font-light text-xs text-gray-600 mb-4" for="address">
+							We do not store this information
+						</label>
+
 						<input required
 							   type="text"
 							   placeholder="Card Number"
-							   class="mt-1 font-mono bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-full outline-none
+							   class="font-mono bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-full outline-none
                        focus:shadow-md block w-full py-2.5 px-3 transition-all duration-300 antialiased disabled:opacity-60"/>
 
 						<input required
 							   type="text"
 							   placeholder="Card Name"
-							   class="font-mono bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-full outline-none
+							   class="font-mono mt-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-full outline-none
                        focus:shadow-md block w-full py-2.5 px-3 transition-all duration-300 antialiased disabled:opacity-60"/>
 
-						<div class="flex gap-2">
+						<div class="flex gap-2  mt-2">
 							<div>
 								<input required
 
@@ -303,48 +318,111 @@
 
 					{/if}
 
-					{#if selectedOption === 'bkash'}
-						<div class="max-w-md mx-auto p-6 bg-white rounded-lg shadow-md">
-							<div class="mt-4">
-								<label for="trxId" class="block text-gray-600 font-semibold mb-1">Transaction ID</label>
-								<input type="text" id="trxId" bind:value={bkashInfo.trxId}
-									   class="border border-gray-300 rounded py-2 px-3 w-full focus:outline-none focus:border-blue-500"/>
-							</div>
-						</div>
+					{#if selectedPaymentOption === 'bkash'}
+						<label class="block font-bold text-gray-600 mt-5" for="address">Your BKash Information</label>
+						<label class="block font-light text-xs text-gray-600 mb-4" for="address">
+							We do not store this information
+						</label>
+
+						<input required
+							   type="text"
+							   placeholder="BKash Agent Number"
+							   class="font-mono bg-gray-50 border mb-4 border-gray-300 text-gray-900 text-sm rounded-full outline-none
+                       focus:shadow-md block w-full py-2.5 px-3 transition-all duration-300 antialiased disabled:opacity-60"/>
+
+						<h1 class="block font-bold text-xs text-gray-600 mb-4">
+							We will email you our Agent number Blah blah some things
+						</h1>
 
 					{/if}
 
-					{#if selectedOption === 'cod'}
-						<div class="max-w-md mx-auto p-6 bg-white rounded-lg shadow-md">
-							<div class="mt-4">
-								<label for="address" class="block text-gray-600 font-semibold mb-1">Delivery Address</label>
-								<input type="text" id="address"
-									   class="border border-gray-300 rounded py-2 px-3 w-full focus:outline-none focus:border-blue-500"/>
-							</div>
+					{#if selectedPaymentOption === 'cod'}
+						<label class="block font-bold text-gray-600 mt-5" for="address">Cash On Delivery (COD)</label>
+						<label class="block font-light text-xs text-gray-600 mb-4" for="address">
+							Installment option is not available for COD
+						</label>
 
-							<div class="mt-4">
-								<label for="phoneNumber" class="block text-gray-600 font-semibold mb-1">Phone Number</label>
-								<input type="tel" id="phoneNumber"
-									   class="border border-gray-300 rounded py-2 px-3 w-full focus:outline-none focus:border-blue-500"/>
-							</div>
-
-						</div>
-
+						<h1 class="block font-bold text-xs text-gray-600 mb-4">
+							Some talk, product will reach
+						</h1>
 					{/if}
 
 
 
-					<button
-							class="bg-green-500 hover:bg-green-600 text-white font-semibold px-4 py-2 rounded-xl focus:outline-none transition duration-300">
-						Next
-					</button>
+
 				</div>
+				<button type="submit" id="submit"
+						on:click={onFirstNextClick}
+						class="mt-auto px-12 bg-amber-700 w-full font-bold text-white py-2 rounded-full hover:bg-amber-900 focus:outline-none transition-all duration-300">
+					Next
+				</button>
+
 			</div>
 
-			<div class="p-2 flex-col flex gap-4 border-r-2 border-amber-950/40 {InstallmentOpacity}">
+			<div class="px-6 py-4 flex-col flex gap-4 border-r-2 border-amber-950/40 {InstallmentOpacity}">
 				<h1 class="text-center text-xl font-bold text-amber-700 mb-4">
 					Installment Settings</h1>
+
+				<div class="mb-2">
+					<label class="block font-bold text-gray-600" for="full_name">Full Name</label>
+				</div>
+
+				<ul class="grid grid-rows-3 gap-1 py-4 ">
+					<li>
+						<input checked={selectedInstallmentOption === "2"} class="hidden peer" id="installment"
+							   name="installment"
+							   on:change={onInstallmentChange} required type="radio"
+							   value="2">
+						<label class="flex text-sm text-amber-900 font-bold flex-col items-center justify-between
+							py-2 w-full border border-amber-300 rounded-lg cursor-pointer peer-checked:border-amber-600
+							peer-checked:text-amber-600 hover:text-amber-600 hover:bg-amber-200 transition-all duration-300"
+							   for="installment">
+								<span>
+									<img class="w-6 h-6 mb-2" src={card_icon} alt=""/>
+								</span>
+							2 Months
+						</label>
+					</li>
+					<li>
+						<input checked={selectedInstallmentOption === "4"} class="hidden peer" id="installment"
+							   name="installment"
+							   on:change={onInstallmentChange} required type="radio"
+							   value="4">
+						<label class="flex text-sm text-amber-900 font-bold flex-col items-center justify-between
+							py-2 w-full border border-amber-300 rounded-lg cursor-pointer peer-checked:border-amber-600
+							peer-checked:text-amber-600 hover:text-amber-600 hover:bg-amber-200 transition-all duration-300"
+							   for="installment">
+								<span>
+									<img class="w-6 h-6 mb-2" src={card_icon} alt=""/>
+								</span>
+							4 Months
+						</label>
+					</li>
+					<li>
+						<input checked={selectedInstallmentOption === "6"} class="hidden peer" id="installment"
+							   name="installment"
+							   on:change={onInstallmentChange} required type="radio"
+							   value="6">
+						<label class="flex text-sm text-amber-900 font-bold flex-col items-center justify-between
+							py-2 w-full border border-amber-300 rounded-lg cursor-pointer peer-checked:border-amber-600
+							peer-checked:text-amber-600 hover:text-amber-600 hover:bg-amber-200 transition-all duration-300"
+							   for="installment">
+								<span>
+									<img class="w-6 h-6 mb-2" src={card_icon} alt=""/>
+								</span>
+							6 Months
+						</label>
+					</li>
+				</ul>
+
+
+				<button type="submit" id="submit"
+						on:click={onFirstNextClick}
+						class="mt-auto  px-12 bg-amber-700 w-full font-bold text-white py-2 rounded-full hover:bg-amber-900 focus:outline-none transition-all duration-300">
+					Next
+				</button>
 			</div>
+
 
 			<div class="p-2 flex-col flex gap-4 {ConfirmationOpacity}">
 				<h1 class="text-center text-xl font-bold text-amber-700 mb-4">
