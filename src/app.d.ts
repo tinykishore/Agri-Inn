@@ -15,7 +15,7 @@ declare global {
 		password: string
 	}
 
-	export interface TypeUserCache {
+	interface TypeUserCache {
 		_id: string | undefined
 		full_name: string | undefined
 		email: string | undefined
@@ -42,27 +42,23 @@ declare global {
 		google_id: string
 	}
 
+	interface Address {
+		street: string,
+		city: string,
+		state: string,
+		zip: string,
+		country: string
+	}
+
 	interface UserObject {
 		full_name: string,
 		date_of_birth: string,
 		gender: string,
-		address: {
-			street: string,
-			city: string,
-			state: string,
-			zip: string,
-			country: string
-		},
+		address: Address,
 		phone: string,
 		occupation: string,
 		social_connections: null,
-		credentials: {
-			email: string,
-			username: string,
-			password_hash: string,
-			password_reset_token: string,
-			google_id: string
-		},
+		credentials: Credentials,
 		profile_picture: string,
 		role: USER_ROLE,
 	}
