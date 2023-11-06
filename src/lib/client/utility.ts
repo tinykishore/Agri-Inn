@@ -5,9 +5,15 @@ import UserCache from "$lib/stores/UserCache";
  * @enum {number}
  */
 export enum USER_ROLE {
-    ADMIN = 0,
-    USER = 1,
-    OWNER = 2
+    ADMIN,
+    USER,
+    OWNER
+}
+
+export enum PAYMENT_METHOD {
+    CARD_PAYMENT,
+    BKASH,
+    COD
 }
 
 export function isUserCacheValid(): boolean {
@@ -36,7 +42,6 @@ export function invalidateUserCache(): void {
         user_role: undefined,
     });
 }
-
 
 export function formatEpochToCustom(epoch: number): string {
     const date: Date = new Date(epoch * 1000); // Convert epoch to milliseconds
