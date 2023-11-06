@@ -101,4 +101,20 @@ declare global {
 		social_connections?: [],
 		profile_picture: string
 	}
+
+	interface PaymentObject {
+		user_id: string,
+		product_id: string,
+		farm_id: string,
+		shipping_address: Address,
+		payment: {
+			method: number,
+			card_number: string,
+			card_holder: string,
+			card_expiration: string,
+			card_cvv: string,
+			bkash_number: string,
+		},
+		installment: number
+	}
 }

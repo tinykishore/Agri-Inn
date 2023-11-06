@@ -119,3 +119,9 @@ export function makeURL(text: string) {
     }
 }
 
+export function verifyPaymentObject(paymentObject: PaymentObject) {
+
+
+
+}
+
