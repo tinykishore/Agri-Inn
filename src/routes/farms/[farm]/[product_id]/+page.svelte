@@ -66,7 +66,7 @@
 </script>
 
 {#if isPaymentSectionVisible}
-	<PaymentSection/>
+	<PaymentSection user_id={data._id} product_id={data.product_id} farm_id={data.farm_id}/>
 {/if}
 
 <main class="min-h-screen container mx-auto p-4 my-24 px-20 gap-4">
