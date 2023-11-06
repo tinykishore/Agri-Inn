@@ -1,64 +1,79 @@
 <script lang="ts">
-    import {fade} from "svelte/transition";
-	import {onMount} from "svelte";
+    import {modals} from "$lib/stores/Modals";
+    import {fade, fly} from "svelte/transition";
+    import close_icon from "$lib/assets/icons/farms_farm_product_id_modal_close_icon.svg";
+    import card_icon from "$lib/assets/icons/farms_farm_product_id_modal_card_icon.svg";
+    import bkash_icon from "$lib/assets/icons/farms_farm_product_id_modal_bkash_icon.svg";
+    import cod_icon from "$lib/assets/icons/farms_farm_product_id_modal_cod_icon.svg";
+    import {onMount} from "svelte";
+    import UserCache from "$lib/stores/UserCache";
 
-	export let user_id: any;
-	export let product_id: any;
-    export let total_amount: any;
-	let shipping_address: any;
-	let phone_number: any;
-	let selectedOption = "";
-	let status: any;
-	let paid: any;
-	let due: any;
-	let installment_remaining: any = new Date();
-	let installment_deadline: any = new Date();
-	let order_date: any = new Date();
-	let delivery_date: any = new Date();
+    // User variable
+    let username: string | undefined;
+    let userID: string | undefined;
+    let userEmail: string | undefined;
+    let public_profile: PublicProfile;
 
+    // UI variable
+    let PersonalInfoOpacity = "";
+    let PaymentMethodOpacity = "";
+    let InstallmentOpacity = "";
+    let ConfirmationOpacity = "";
+    let FIRST_SECTION_OK: boolean = false;
 
-    let pageCount = 1;
-
-
-    $:console.log(pageCount)
-
-
-    // price is string, convert it to int, price stored in product_info.price
-
-    const installmentThreshold = 1000;
-
-    const onchange = (event: any) => {
-        selectedOption = event.currentTarget.value;
+    // Payment Process Variable
+    let address = {
+        street: "",
+        state: "",
+        city: "",
+        zip_code: "",
+        country: "",
     }
 
-	const handleConfirmOrder = async (event: any) => {
-		console.log(user_id);
-		const order: Order = {
-			user_id,
-			product_id,
-			total_amount,
-			shipping_address,
-			phone_number,
-			payment_method: selectedOption,
-			isInstallment: {
-				status, paid, due, installment_remaining, installment_deadline
-			},
-			order_date,
-			delivery_date
-		}
-		// Call api to get product data
-		const productResponse = await fetch('/API/v1/farms/PlaceOrderAPI', {
-			method: 'POST',
-			body: JSON.stringify(order),
-			headers: {
-				'Content-Type': 'application/json'
-			}
-		});
+    $: {
+        FIRST_SECTION_OK = address.street !== "" && address.state !== "" && address.city !== "" && address.zip_code !== "" && address.country !== "";
+    }
+
+	const modalCloseAction = () => {
+		modals.set({
+			farms_farm_product_modal: false,
+		})
 	}
 
+	onMount(async () => {
 
-    let reducedPrice = total_amount;
-    let isInstallment = false;
+        UserCache.subscribe(value => {
+            username = value.username;
+            userID = value._id;
+            userEmail = value.email
+        })
+
+        const response = await fetch('/API/v1/auth/GetPublicProfile', {
+            method: 'POST',
+            body: JSON.stringify({
+                "username": username,
+                "_id": userID,
+                "email": userEmail,
+            }),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+
+        public_profile = await response.json();
+    });
+
+    const onFirstNextClick = () => {
+
+    }
+
+
+
+
+
+
+
+
 
     const options = [
         {value: "card", label: "Card"},
@@ -72,180 +87,365 @@
         cardExpiry: "",
         cardCvv: ""
     };
+
     let bkashInfo = {trxId: ""};
+
+    let selectedPaymentOption = "";
+    let selectedInstallmentOption = "";
+
+    const onPaymentChange = (event: any) => {
+        selectedPaymentOption = event.currentTarget.value;
+    }
+
+    const onInstallmentChange = (event: any) => {
+        selectedInstallmentOption = event.currentTarget.value;
+    }
 
 
 </script>
 
-{#key pageCount}
-	<div in:fade={{ duration: 200, delay: 500 }}>
-		{#if pageCount === 1}
-			<h1>Shipping Address</h1>
-			<div class="flex gap-2 flex-col">
-				<input bind:value={shipping_address} type="text" placeholder="Enter Shipping address"/>
-				<input bind:value={phone_number} type="text" placeholder="Enter Phone Number"/>
-				<button on:click={()=>{pageCount = pageCount + 2}}
-						class="bg-green-500 hover:bg-green-600 text-white font-semibold px-4 py-2 rounded-xl focus:outline-none transition duration-300">
-					Next
+<section in:fade={{ duration: 200, delay: 200 }}
+		 class="fixed bg-fixed grid grid-cols-1 top-0 left-0 h-screen w-screen z-[10000] bg-black/30 backdrop-blur-sm">
+	<main in:fly={{ duration: 200, delay: 400 }} class=" h-[90%] flex flex-col w-[90%] place-self-center px-8  py-6 bg-gradient-to-bl
+	from-white via-yellow-50 to-amber-100 rounded-2xl shadow-2xl background-animate">
+		<div class="font-black text-3xl text-amber-900 flex justify-between mx-6 my-4">
+			<h1>Payment Process</h1>
+			<div class="flex gap-4 align-middle items-center">
+				<h1 class="text-sm font-bold text-zinc-400">
+					Closing this window erases all payment data
+				</h1>
+
+				<button on:click={modalCloseAction}>
+						<span>
+							<img class="w-8 h-8" src={close_icon} alt=""/>
+						</span>
 				</button>
 			</div>
-		{:else if pageCount === 3}
-			<h1>Payment Method</h1>
-			<div class="flex-col flex gap-2">
+		</div>
+		<div class="w-full h-full grid-cols-4 grid">
+			{#if public_profile}
+				<div class="py-4 px-6 flex-col flex gap-1 border-r-2 border-amber-950/40 {PersonalInfoOpacity}">
+					<div>
+						<h1 class="text-center text-xl font-bold text-amber-700 mb-4">
+							Personal Information</h1>
 
-				<input type="text" placeholder="payment method"/>
-				<ul class="flex flex-col w-full gap-6">
-					<li>
-						<input checked={selectedOption === "card"} class="hidden peer" id="card" name="payment"
-							   on:change={onchange} required type="radio"
-							   value="card">
-						<label class="inline-flex items-center justify-between w-full p-5 text-gray-500 bg-white border border-gray-200 rounded-lg cursor-pointer peer-checked:border-blue-600 peer-checked:text-blue-600 hover:text-gray-600 hover:bg-gray-100"
-							   for="card">
-							<div class="block">
-								<div class="w-full">Card Payment</div>
+						<div class="mb-2">
+							<label class="block font-bold text-gray-600" for="full_name">Full Name</label>
+							<h1 class="font-bold text-amber-900">{public_profile.full_name} </h1>
+						</div>
+
+						<div class="mb-2">
+							<label class="block font-bold text-gray-600" for="phone_number">Phone Number</label>
+							<h1 class="font-bold text-amber-900">{public_profile.phone} </h1>
+						</div>
+					</div>
+					<div class="mb-1">
+						<label class="block font-bold text-gray-600 mt-1.5" for="address">Address</label>
+						<label class="block font-light text-xs text-gray-600 mb-4" for="address">Product will be shipped
+							in this Address</label>
+
+						<input required
+							   bind:value={address.street}
+							   type="text"
+							   placeholder="Street Address"
+							   class="mt-1 mb-1 font-mono bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-full outline-none
+                       focus:shadow-md block w-full py-2.5 px-3 transition-all duration-300 antialiased disabled:opacity-60"/>
+
+						<div class="flex gap-2">
+							<div>
+								<input required
+									   bind:value={address.state}
+									   placeholder="State"
+									   type="text"
+									   class="mt-2 font-mono bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-full outline-none focus:shadow-md block w-full py-2.5 px-3 transition-all duration-300 antialiased disabled:opacity-60"/>
 							</div>
-							<svg aria-hidden="true" class="w-5 h-5 ml-3" fill="none" viewBox="0 0 14 10"
-								 xmlns="http://www.w3.org/2000/svg">
-								<path d="M1 5h12m0 0L9 1m4 4L9 9" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-									  stroke-width="2"/>
-							</svg>
+
+							<div>
+								<input required
+									   bind:value={address.city}
+									   placeholder="City"
+									   type="text"
+									   class="mt-2 font-mono bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-full outline-none focus:shadow-md block w-full py-2.5 px-3 transition-all duration-300 antialiased disabled:opacity-60"/>
+
+							</div>
+						</div>
+
+						<div class="flex gap-2">
+							<div>
+								<input required
+									   bind:value={address.zip_code}
+									   placeholder="Zip Code"
+									   type="text"
+									   class="mt-2 font-mono bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-full outline-none focus:shadow-md block w-full py-2.5 px-3 transition-all duration-300 antialiased disabled:opacity-60"/>
+							</div>
+
+							<div>
+								<input required
+									   bind:value={address.country}
+									   placeholder="Country"
+									   type="text"
+									   class="mt-2 font-mono bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-full outline-none focus:shadow-md block w-full py-2.5 px-3 transition-all duration-300 antialiased disabled:opacity-60"/>
+							</div>
+
+						</div>
+
+					</div>
+
+					{#if FIRST_SECTION_OK}
+						<button type="submit" id="submit"
+								on:click={onFirstNextClick}
+								class="mt-auto px-12 bg-amber-700 w-full font-bold text-white py-2 rounded-full hover:bg-amber-900 focus:outline-none transition-all duration-300">
+							Next
+						</button>
+					{:else}
+						<button disabled
+								class="w-full px-12 bg-zinc-400 opacity-70 font-bold text-white py-2 rounded-full mt-auto">
+							Next
+						</button>
+					{/if}
+			</div>
+
+			{:else}
+				<div class="w-full h-full grid grid-cols-1  border-r-2 border-amber-950/40">
+					<svg class="animate-spin h-[2.35rem] w-[2.35rem] place-self-center text-yellow-800"
+						 xmlns="http://www.w3.org/2000/svg"
+						 fill="none"
+						 viewBox="0 0 24 24">
+						<circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor"
+								stroke-width="4"></circle>
+						<path class="opacity-75" fill="currentColor"
+							  d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
+						</path>
+					</svg>
+				</div>
+			{/if}
+
+			<div class="px-6 py-4 flex-col flex gap-4 border-r-2 border-amber-950/40 {PaymentMethodOpacity}">
+				<div>
+					<h1 class="text-center text-xl font-bold text-amber-700 mb-4">
+						Payment Method
+					</h1>
+					<div class="flex-col flex gap-1">
+						<ul class="grid grid-cols-3 gap-1 py-4">
+							<li>
+								<input checked={selectedPaymentOption === "card"} class="hidden peer" id="card"
+									   name="payment"
+									   on:change={onPaymentChange} required type="radio"
+									   value="card">
+								<label class="flex text-sm text-amber-900 font-bold flex-col items-center justify-between
+							py-2 w-full border border-amber-300 rounded-lg cursor-pointer peer-checked:border-amber-600
+							peer-checked:text-amber-600 hover:text-amber-600 hover:bg-amber-200 transition-all duration-300"
+									   for="card">
+								<span>
+									<img class="w-6 h-6 mb-2" src={card_icon} alt="" />
+								</span>
+									Card
+								</label>
+							</li>
+							<li>
+								<input checked={selectedPaymentOption === "bkash"} class="hidden peer" id="bkash"
+									   name="payment"
+									   on:change={onPaymentChange} type="radio" value="bkash">
+								<label class="flex text-sm text-amber-900 font-bold flex-col items-center justify-between
+							py-2 w-full border border-amber-300 rounded-lg cursor-pointer peer-checked:border-amber-600
+							peer-checked:text-amber-600 hover:text-amber-600 hover:bg-amber-200 transition-all duration-300"
+									   for="bkash">
+								<span>
+									<img class="w-6 h-6 mb-2" src={bkash_icon} alt="" />
+								</span>
+									BKash
+								</label>
+							</li>
+							<li>
+								<input checked={selectedPaymentOption === "cod"} class="hidden peer" id="cod"
+									   name="payment"
+									   on:change={onPaymentChange}
+									   required type="radio"
+									   value="cod">
+								<label class="flex text-sm text-amber-900 font-bold flex-col items-center justify-between
+							py-2 w-full border border-amber-300 rounded-lg cursor-pointer peer-checked:border-amber-600
+							peer-checked:text-amber-600 hover:text-amber-600 hover:bg-amber-200 transition-all duration-300"
+									   for="cod">
+								<span>
+									<img class="w-6 h-6 mb-2" src={cod_icon} alt="" />
+								</span>
+									COD
+								</label>
+							</li>
+						</ul>
+
+
+					</div>
+
+					{#if selectedPaymentOption === 'card'}
+						<label class="block font-bold text-gray-600 mt-5" for="address">Your Card Information</label>
+						<label class="block font-light text-xs text-gray-600 mb-4" for="address">
+							We do not store this information
+						</label>
+
+						<input required
+							   type="text"
+							   placeholder="Card Number"
+							   class="font-mono bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-full outline-none
+                       focus:shadow-md block w-full py-2.5 px-3 transition-all duration-300 antialiased disabled:opacity-60"/>
+
+						<input required
+							   type="text"
+							   placeholder="Card Name"
+							   class="font-mono mt-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-full outline-none
+                       focus:shadow-md block w-full py-2.5 px-3 transition-all duration-300 antialiased disabled:opacity-60"/>
+
+						<div class="flex gap-2  mt-2">
+							<div>
+								<input required
+
+									   placeholder="CVV"
+									   type="text"
+									   class="font-mono bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-full outline-none focus:shadow-md block w-full py-2.5 px-3 transition-all duration-300 antialiased disabled:opacity-60"/>
+							</div>
+
+							<div>
+								<input required
+
+									   placeholder="Expiry"
+									   type="text"
+									   class="font-mono bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-full outline-none focus:shadow-md block w-full py-2.5 px-3 transition-all duration-300 antialiased disabled:opacity-60"/>
+							</div>
+						</div>
+
+					{/if}
+
+					{#if selectedPaymentOption === 'bkash'}
+						<label class="block font-bold text-gray-600 mt-5" for="address">Your BKash Information</label>
+						<label class="block font-light text-xs text-gray-600 mb-4" for="address">
+							We do not store this information
+						</label>
+
+						<input required
+							   type="text"
+							   placeholder="BKash Agent Number"
+							   class="font-mono bg-gray-50 border mb-4 border-gray-300 text-gray-900 text-sm rounded-full outline-none
+                       focus:shadow-md block w-full py-2.5 px-3 transition-all duration-300 antialiased disabled:opacity-60"/>
+
+						<h1 class="block font-bold text-xs text-gray-600 mb-4">
+							We will email you our Agent number Blah blah some things
+						</h1>
+
+					{/if}
+
+					{#if selectedPaymentOption === 'cod'}
+						<label class="block font-bold text-gray-600 mt-5" for="address">Cash On Delivery (COD)</label>
+						<label class="block font-light text-xs text-gray-600 mb-4" for="address">
+							Installment option is not available for COD
+						</label>
+
+						<h1 class="block font-bold text-xs text-gray-600 mb-4">
+							Some talk, product will reach
+						</h1>
+					{/if}
+
+
+
+
+				</div>
+				<button type="submit" id="submit"
+						on:click={onFirstNextClick}
+						class="mt-auto px-12 bg-amber-700 w-full font-bold text-white py-2 rounded-full hover:bg-amber-900 focus:outline-none transition-all duration-300">
+					Next
+				</button>
+
+			</div>
+
+			<div class="px-6 py-4 flex-col flex gap-4 border-r-2 border-amber-950/40 {InstallmentOpacity}">
+				<h1 class="text-center text-xl font-bold text-amber-700 mb-4">
+					Installment Settings</h1>
+
+				<div class="mb-2">
+					<label class="block font-bold text-gray-600" for="full_name">Full Name</label>
+				</div>
+
+				<ul class="grid grid-rows-3 gap-1 py-4 ">
+					<li>
+						<input checked={selectedInstallmentOption === "2"} class="hidden peer" id="installment"
+							   name="installment"
+							   on:change={onInstallmentChange} required type="radio"
+							   value="2">
+						<label class="flex text-sm text-amber-900 font-bold flex-col items-center justify-between
+							py-2 w-full border border-amber-300 rounded-lg cursor-pointer peer-checked:border-amber-600
+							peer-checked:text-amber-600 hover:text-amber-600 hover:bg-amber-200 transition-all duration-300"
+							   for="installment">
+								<span>
+									<img class="w-6 h-6 mb-2" src={card_icon} alt=""/>
+								</span>
+							2 Months
 						</label>
 					</li>
 					<li>
-						<input checked={selectedOption === "bkash"} class="hidden peer" id="bkash" name="payment"
-							   on:change={onchange} type="radio" value="bkash">
-						<label class="inline-flex items-center justify-between w-full p-5 text-gray-500 bg-white border border-gray-200 rounded-lg cursor-pointer  peer-checked:border-blue-600 peer-checked:text-blue-600 hover:text-gray-600 hover:bg-gray-100"
-							   for="bkash">
-							<div class="block">
-								<div class="w-full">Bkash</div>
-							</div>
-							<svg aria-hidden="true" class="w-5 h-5 ml-3" fill="none" viewBox="0 0 14 10"
-								 xmlns="http://www.w3.org/2000/svg">
-								<path d="M1 5h12m0 0L9 1m4 4L9 9" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-									  stroke-width="2"/>
-							</svg>
+						<input checked={selectedInstallmentOption === "4"} class="hidden peer" id="installment"
+							   name="installment"
+							   on:change={onInstallmentChange} required type="radio"
+							   value="4">
+						<label class="flex text-sm text-amber-900 font-bold flex-col items-center justify-between
+							py-2 w-full border border-amber-300 rounded-lg cursor-pointer peer-checked:border-amber-600
+							peer-checked:text-amber-600 hover:text-amber-600 hover:bg-amber-200 transition-all duration-300"
+							   for="installment">
+								<span>
+									<img class="w-6 h-6 mb-2" src={card_icon} alt=""/>
+								</span>
+							4 Months
 						</label>
 					</li>
-
 					<li>
-						<input checked={selectedOption === "cod"} class="hidden peer" id="cod" name="payment" on:change={onchange}
-							   required type="radio"
-							   value="cod">
-						<label class="inline-flex items-center justify-between w-full p-5 text-gray-500 bg-white border border-gray-200 rounded-lg cursor-pointer peer-checked:border-blue-600 peer-checked:text-blue-600 hover:text-gray-600 hover:bg-gray-100"
-							   for="cod">
-							<div class="block">
-								<div class="w-full">Cash on Delivery (COD)</div>
-							</div>
-							<svg aria-hidden="true" class="w-5 h-5 ml-3" fill="none" viewBox="0 0 14 10"
-								 xmlns="http://www.w3.org/2000/svg">
-								<path d="M1 5h12m0 0L9 1m4 4L9 9" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-									  stroke-width="2"/>
-							</svg>
+						<input checked={selectedInstallmentOption === "6"} class="hidden peer" id="installment"
+							   name="installment"
+							   on:change={onInstallmentChange} required type="radio"
+							   value="6">
+						<label class="flex text-sm text-amber-900 font-bold flex-col items-center justify-between
+							py-2 w-full border border-amber-300 rounded-lg cursor-pointer peer-checked:border-amber-600
+							peer-checked:text-amber-600 hover:text-amber-600 hover:bg-amber-200 transition-all duration-300"
+							   for="installment">
+								<span>
+									<img class="w-6 h-6 mb-2" src={card_icon} alt=""/>
+								</span>
+							6 Months
 						</label>
 					</li>
 				</ul>
 
-				{#if selectedOption === 'card'}
-					<div class="max-w-md mx-auto p-6 bg-white rounded-lg shadow-md">
-						<div class="flex flex-col gap-4">
-							<div class="flex flex-col gap-1">
-								<label for="cardNumber" class="text-gray-600 font-semibold">Card Number</label>
-								<input class="border border-gray-300 rounded py-2 px-3 focus:outline-none focus:border-blue-500"
-									   type="text" id="cardNumber" bind:value={cardInfo.cardNumber}
-									   placeholder="**** **** **** ****"/>
-							</div>
 
-							<div class="flex flex-col gap-1">
-								<label for="cardName" class="text-gray-600 font-semibold">Card Name</label>
-								<input class="border border-gray-300 rounded py-2 px-3 focus:outline-none focus:border-blue-500"
-									   type="text" id="cardName" bind:value={cardInfo.cardName} placeholder="John Doe"/>
-							</div>
-
-							<div class="flex gap-1">
-								<div class="flex flex-col w-1/2 gap-1">
-									<label for="cardExpiry" class="text-gray-600 font-semibold">Card Expiry</label>
-									<input class="border border-gray-300 rounded py-2 px-3 focus:outline-none focus:border-blue-500"
-										   type="text" id="cardExpiry" bind:value={cardInfo.cardExpiry}
-										   placeholder="MM/YY"/>
-								</div>
-
-								<div class="flex flex-col w-1/2 gap-1">
-									<label for="cardCvv" class="text-gray-600 font-semibold">Card CVV</label>
-									<input class="border border-gray-300 rounded py-2 px-3 focus:outline-none focus:border-blue-500"
-										   type="text" id="cardCvv" bind:value={cardInfo.cardCvv} placeholder="CVV"/>
-								</div>
-							</div>
-						</div>
-					</div>
-
-				{/if}
-
-				{#if selectedOption === 'bkash'}
-					<div class="max-w-md mx-auto p-6 bg-white rounded-lg shadow-md">
-						<div class="mt-4">
-							<label for="trxId" class="block text-gray-600 font-semibold mb-1">Transaction ID</label>
-							<input type="text" id="trxId" bind:value={bkashInfo.trxId}
-								   class="border border-gray-300 rounded py-2 px-3 w-full focus:outline-none focus:border-blue-500"/>
-						</div>
-					</div>
-
-				{/if}
-
-				{#if selectedOption === 'cod'}
-					<div class="max-w-md mx-auto p-6 bg-white rounded-lg shadow-md">
-						<div class="mt-4">
-							<label for="address" class="block text-gray-600 font-semibold mb-1">Delivery Address</label>
-							<input type="text" id="address"
-								   class="border border-gray-300 rounded py-2 px-3 w-full focus:outline-none focus:border-blue-500"/>
-						</div>
-
-						<div class="mt-4">
-							<label for="phoneNumber" class="block text-gray-600 font-semibold mb-1">Phone Number</label>
-							<input type="tel" id="phoneNumber"
-								   class="border border-gray-300 rounded py-2 px-3 w-full focus:outline-none focus:border-blue-500"/>
-						</div>
-
-					</div>
-
-				{/if}
-
-				<button on:click={()=>{pageCount = pageCount - 2}}
-						class="bg-green-500 hover:bg-green-600 text-white font-semibold px-4 py-2 rounded-xl focus:outline-none transition duration-300">
-					Back
-			</button>
-				<button on:click={()=>{pageCount = pageCount + 1}}
-						class="bg-green-500 hover:bg-green-600 text-white font-semibold px-4 py-2 rounded-xl focus:outline-none transition duration-300">
-					Installment Option
-				</button>
-
-				<button on:click={()=>{pageCount = pageCount + 2}}
-						class="bg-green-500 hover:bg-green-600 text-white font-semibold px-4 py-2 rounded-xl focus:outline-none transition duration-300">
+				<button type="submit" id="submit"
+						on:click={onFirstNextClick}
+						class="mt-auto  px-12 bg-amber-700 w-full font-bold text-white py-2 rounded-full hover:bg-amber-900 focus:outline-none transition-all duration-300">
 					Next
 				</button>
 			</div>
-		{:else if pageCount === 4}
-			<h1>Select installment</h1>
-			<h1>select 2 or 3 months</h1>
-			<button on:click={()=>{pageCount = pageCount - 1}}
-					class="bg-green-500 hover:bg-green-600 text-white font-semibold px-4 py-2 rounded-xl focus:outline-none transition duration-300">
-				back
-			</button>
-			<button on:click={()=>{pageCount = pageCount + 1}}
-					class="bg-green-500 hover:bg-green-600 text-white font-semibold px-4 py-2 rounded-xl focus:outline-none transition duration-300">
-				Next
-			</button>
-		{:else if pageCount === 5}
-			<h1>Confirm Order</h1>
-			<h1>Show details of payment</h1>
-			<button on:click={()=>{pageCount = pageCount - 2}}
-					class="bg-green-500 hover:bg-green-600 text-white font-semibold px-4 py-2 rounded-xl focus:outline-none transition duration-300">
-				Back
-			</button>
-			<button on:click={handleConfirmOrder}
-					class="bg-green-500 hover:bg-green-600 text-white font-semibold px-4 py-2 rounded-xl focus:outline-none transition duration-300">
-				Confirm
-			</button>
-		{/if}
-	</div>
 
-{/key}
+
+			<div class="p-2 flex-col flex gap-4 {ConfirmationOpacity}">
+				<h1 class="text-center text-xl font-bold text-amber-700 mb-4">
+					Confirmation</h1>
+			</div>
+
+		</div>
+	</main>
+</section>
+
+
+<style>
+    .background-animate {
+        background-size: 200%;
+        -webkit-animation: AnimationName 3s ease infinite;
+        -moz-animation: AnimationName 3s ease infinite;
+        animation: AnimationName 3s ease infinite;
+    }
+
+    @keyframes AnimationName {
+        0%,
+        100% {
+            background-position: 0 50%;
+        }
+        50% {
+            background-position: 100% 50%;
+        }
+    }
+</style>
