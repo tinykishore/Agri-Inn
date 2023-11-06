@@ -2,7 +2,6 @@
     import DynamicNavigation from "$lib/stores/DynamicNavigation";
     import DashboardNavigation from "$lib/components/dynamicNavigations/DashboardNavigation.svelte";
     import {onMount} from "svelte";
-    import type {TypeUserCache} from "$lib/stores/UserCache";
     import UserCache from "$lib/stores/UserCache";
 
     DynamicNavigation.set(DashboardNavigation);
