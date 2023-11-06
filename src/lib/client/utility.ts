@@ -28,6 +28,7 @@ export function isUserCacheValid(): boolean {
 
 export function invalidateUserCache(): void {
     UserCache.set({
+        _id: undefined,
         username: undefined,
         email: undefined,
         full_name: undefined,
@@ -98,7 +99,7 @@ export function isInsecureURL(str: string) {
     return pattern.test(str);
 }
 
-export function URLify(text: string) {
+export function makeURL(text: string) {
     if (isSecureURL(text)) {
         return text;
     }
@@ -112,6 +113,4 @@ export function URLify(text: string) {
         });
     }
 }
-
-export let vaccineData = ["Vaccine_A","Vaccine_B","Vaccine_C"]
 
