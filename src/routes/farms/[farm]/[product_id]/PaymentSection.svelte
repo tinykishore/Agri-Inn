@@ -6,9 +6,9 @@
     import UserCache from "$lib/stores/UserCache";
     import FirstSection from "$lib/components/payment-section/FirstSection.svelte";
     import Payment from "$lib/stores/Payment";
+    import payment from "$lib/stores/Payment";
     import SecondSection from "$lib/components/payment-section/SecondSection.svelte";
     import ThirdSection from "$lib/components/payment-section/ThirdSection.svelte";
-    import payment from "$lib/stores/Payment";
 
     export let user_id: string;
     export let product_id: string;
@@ -79,12 +79,15 @@
 		if(paymentInformation.installment!=undefined){
 
 			const installmentInformation: InstallmentObject = {
+                user_id: paymentInformation.user_id,
 				payment_id: orderInfo.insertedId,
+				product_id: paymentInformation.product_id,
 				installment_no: paymentInformation.installment,
 				next_installment_date: next_month_date,
 				remaining_installment: paymentInformation.installment-1,
 				paid_amount: total_price/paymentInformation.installment,
-				due_amount: total_price- (total_price/paymentInformation.installment)
+                due_amount: total_price - (total_price / paymentInformation.installment),
+                monthly_fee: total_price/paymentInformation.installment,
 			}
 
 			total_price = total_price/paymentInformation.installment;

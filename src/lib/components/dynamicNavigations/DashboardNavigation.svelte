@@ -52,6 +52,12 @@
 				Hello
 			</button>
 		</form>
+
+		<a href="/installments" class="px-3 py-2 text-sm flex bg-white items-center gap-2 align-middle rounded-full font-bold hover:bg-zinc-100
+               transition-all duration-300"
+				type="submit">
+			Installments
+		</a>
 	</div>
 
 	<div class="gap-x-4 text-xl font-bold text-amber-800 text-center">

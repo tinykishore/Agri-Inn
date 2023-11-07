@@ -71,8 +71,10 @@ export default class DatabaseFarm extends Database {
         return await super.collections["installment"].insertOne(installment);
     }
 
-    // public static async getInstallment(payment_id: string): Promise<any> {
-    //     consoleLog(`DATABASE LOG:  payment details {` + payment_id + `} ...`, LEVEL.OK)
-    //     return await super.collections["installment"].findOne({"payment_id": payment_id});
-    // }
+    public static async getInstallments(user_id: string): Promise<any> {
+        consoleLog(`DATABASE LOG:  payment details {` + user_id + `} ...`, LEVEL.OK)
+        const x =  await super.collections["installment"].find({"user_id": user_id}).toArray();
+        console.log(x)
+        return x;
+    }
 }

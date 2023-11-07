@@ -5,8 +5,11 @@
     let installment: number;
 
     let payment_method: any;
+    let total_price: number;
+    const threshold = 500;
 
     Payment.subscribe((values) => {
+        total_price = values.total_price;
         payment_method = values.payment.method;
     });
 
@@ -25,12 +28,16 @@
 
 </script>
 
-{#if payment_method === 2}
+{#if payment_method === 2 || total_price < threshold}
 	<div class="px-6 py-4 flex-col flex gap-4 border-r-2 border-amber-950/40">
 		<h1 class="text-center text-xl font-bold text-amber-700 mb-6">
 			Installment Settings</h1>
 		<div class="grid grid-rows-1">
-			<h1> no cod no installment</h1>
+			{#if total_price < threshold}
+				<h1>Installment option is unavailable</h1>
+			{:else if payment_method === 2}
+				<h1>Installment option is unavailable for this payment method</h1>
+			{/if}
 		</div>
 	</div>
 {:else}

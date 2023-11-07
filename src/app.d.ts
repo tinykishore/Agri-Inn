@@ -120,12 +120,14 @@ declare global {
 	}
 
 	interface InstallmentObject {
+		user_id: string,
+		product_id: string,
 		payment_id: string,
 		installment_no: number,
-		next_installment_date: Date
-		remaining_installment: number
-		paid_amount: number;
-		due_amount: number;
-
+		next_installment_date: Date,
+		remaining_installment: number,
+		paid_amount: number,
+		due_amount: number,
+		monthly_fee:number,
 	}
 }
