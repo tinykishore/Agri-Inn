@@ -4,6 +4,7 @@ export default writable({
     user_id: "",
     product_id: "",
     farm_id: "",
+    total_price: 0,
     shipping_address: {
         street: "",
         city: "",

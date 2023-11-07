@@ -106,6 +106,7 @@ declare global {
 		user_id: string,
 		product_id: string,
 		farm_id: string,
+		total_price: number,
 		shipping_address: Address,
 		payment: {
 			method: number,
@@ -116,5 +117,15 @@ declare global {
 			bkash_number: string,
 		},
 		installment: number
+	}
+
+	interface InstallmentObject {
+		payment_id: string,
+		installment_no: number,
+		next_installment_date: Date
+		remaining_installment: number
+		paid_amount: number;
+		due_amount: number;
+
 	}
 }

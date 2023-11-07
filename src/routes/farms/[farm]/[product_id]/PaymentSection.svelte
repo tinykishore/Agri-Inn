@@ -13,10 +13,17 @@
     export let user_id: string;
     export let product_id: string;
     export let farm_id: string;
+	export let total_price: number;
+
+	let remaining_installment: number;
 
     let public_profile: PublicProfile;
 
-    let paymentInformation: any;
+    let paymentInformation: PaymentObject;
+
+	let next_month_date: Date = new Date();
+	next_month_date.setMonth(next_month_date.getMonth() + 1);
+
 
     Payment.update((values) => {
         return {
@@ -24,6 +31,7 @@
             user_id,
 			product_id,
 			farm_id,
+			total_price,
         }
     })
 
@@ -57,10 +65,41 @@
         public_profile = await response.json();
     });
 
-    const processPayment = () => {
-        console.log(paymentInformation);
-	}
+    const processPayment = async () => {
+		const response = await fetch('/API/v1/farms/PlaceOrderAPI', {
+			method: 'POST',
+			body: JSON.stringify(
+				paymentInformation
+			),
+			headers: {
+				'Content-Type': 'application/json'
+			}
+		});
+		const orderInfo = await response.json();
+		if(paymentInformation.installment!=undefined){
 
+			const installmentInformation: InstallmentObject = {
+				payment_id: orderInfo.insertedId,
+				installment_no: paymentInformation.installment,
+				next_installment_date: next_month_date,
+				remaining_installment: paymentInformation.installment-1,
+				paid_amount: total_price/paymentInformation.installment,
+				due_amount: total_price- (total_price/paymentInformation.installment)
+			}
+
+			total_price = total_price/paymentInformation.installment;
+
+			const response = await fetch('/API/v1/farms/PlaceInstallmentAPI', {
+				method: 'POST',
+				body: JSON.stringify(
+					installmentInformation
+				),
+				headers: {
+					'Content-Type': 'application/json'
+				}
+			});
+		}
+	}
 
 
 
@@ -94,6 +133,22 @@
 				<h1 class="text-center text-xl font-bold text-amber-700 mb-6">
 					Confirmation
 				</h1>
+				<h1> {paymentInformation.farm_id}</h1>
+				<h1> {paymentInformation.user_id}</h1>
+				<h1> {paymentInformation.total_price}</h1>
+				<h1> {paymentInformation.product_id}</h1>
+				<h1> {paymentInformation.shipping_address.street}</h1>
+				<h1> {paymentInformation.shipping_address.city}</h1>
+				<h1> {paymentInformation.shipping_address.state}</h1>
+				<h1> {paymentInformation.shipping_address.zip}</h1>
+				<h1> {paymentInformation.shipping_address.country}</h1>
+				<h1> {paymentInformation.payment.bkash_number}</h1>
+				<h1> {paymentInformation.payment.method}</h1>
+				<h1> {paymentInformation.payment.card_cvv}</h1>
+				<h1> {paymentInformation.payment.card_expiration}</h1>
+				<h1> {paymentInformation.payment.card_number}</h1>
+				<h1> {paymentInformation.payment.card_holder}</h1>
+				<h1> {paymentInformation.installment}</h1>
 
 				<button on:click={processPayment}>
 					<span class="text-center text-xl font-bold text-amber-700 mb-6">
