@@ -3,6 +3,7 @@ import {writable} from "svelte/store";
 export default writable({
     user_id: "",
     product_id: "",
+    product_breed: "",
     farm_id: "",
     total_price: 0,
     shipping_address: {
@@ -20,5 +21,12 @@ export default writable({
         card_cvv: "",
         bkash_number: "",
     },
-    installment: 0
+    installment: {
+        total_installment: 0,
+        remaining_installment: 0,
+        next_installment_date: new Date(),
+        paid_amount: 0,
+        due_amount: 0,
+        monthly_fee:0,
+    }
 });

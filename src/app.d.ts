@@ -105,6 +105,7 @@ declare global {
 	interface PaymentObject {
 		user_id: string,
 		product_id: string,
+		product_breed: string,
 		farm_id: string,
 		total_price: number,
 		shipping_address: Address,
@@ -116,18 +117,13 @@ declare global {
 			card_cvv: string,
 			bkash_number: string,
 		},
-		installment: number
-	}
-
-	interface InstallmentObject {
-		user_id: string,
-		product_id: string,
-		payment_id: string,
-		installment_no: number,
-		next_installment_date: Date,
-		remaining_installment: number,
-		paid_amount: number,
-		due_amount: number,
-		monthly_fee:number,
+		installment?: {
+			total_installment: number,
+			remaining_installment: number,
+			next_installment_date: Date,
+			paid_amount: number,
+			due_amount: number,
+			monthly_fee:number,
+		}
 	}
 }

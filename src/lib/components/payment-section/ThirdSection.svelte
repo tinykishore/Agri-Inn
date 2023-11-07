@@ -21,7 +21,10 @@
         Payment.update((values) => {
             return {
                 ...values,
-                installment
+                installment: {
+					...values.installment,
+					total_installment: installment,
+				}
             }
         })
     }
