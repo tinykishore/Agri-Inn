@@ -2,15 +2,11 @@
     import save_icon from "$lib/assets/icons/forum-post-save-icon.svg";
     import like_icon from "$lib/assets/icons/forum-post-like-icon.svg";
     import liked_icon from "$lib/assets/icons/forum-post-liked-icon.svg";
-    import comment_icon from "$lib/assets/icons/forum-post-comment-icon.svg";
-    import view_icon from "$lib/assets/icons/view-icon.svg";
-    import report_icon from "$lib/assets/icons/forum-post-report-icon.svg";
     import share_icon from "$lib/assets/icons/forum-post-share-icon.svg";
     import {fade} from "svelte/transition";
     import UserCache from "$lib/stores/UserCache";
     import {forum_id_navigation} from "$lib/stores/DynamicNavigation";
-    import forum_text_size_icon from "$lib/assets/icons/forum-text-font.svg";
-	import {news_ID_navigation} from "$lib/stores/DynamicNavigation.js";
+    import {news_ID_navigation} from "$lib/stores/DynamicNavigation.js";
 
     let username: string | undefined;
     let full_name: string | undefined;
@@ -83,7 +79,6 @@
     }
 
 	const onSaveNews = async()=> {
-		console.log(news_id,user_id)
 		const savePost = await fetch('/API/v1/news/saveNewsAPI', {
 			method: 'POST',
 			body: JSON.stringify({
@@ -94,7 +89,7 @@
 				'Content-Type': 'application/json'
 			}
 		});
-	}
+    }
 
 
 

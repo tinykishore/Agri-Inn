@@ -135,6 +135,5 @@ declare global {
 		news : [],
 		events : [],
 		products : []
-
 	}
 }

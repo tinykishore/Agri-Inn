@@ -18,12 +18,12 @@ export const POST = async ({request, cookies}: any): Promise<Response> => {
 
     // const p_id: ObjectId = new ObjectId(postObjectID);
 
-    const success = await DatabaseNews.saveNews(news_id, user_id);
+    const success = await DatabaseNews.saveNews(user_id, news_id);
 
     if (!success) {
-        consoleLog("UpvotePostAPI RESPONSE: status 404", LEVEL.ERROR);
+        consoleLog("saveNewsAPI RESPONSE: status 404", LEVEL.ERROR);
         return new Response(null, {status: 404});
     }
-    consoleLog("UpvotePostAPI RESPONSE: status 200", LEVEL.OK);
+    consoleLog("saveNewsAPI RESPONSE: status 200", LEVEL.OK);
     return new Response(JSON.stringify(success), {status: 200});
 }
