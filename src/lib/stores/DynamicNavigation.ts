@@ -27,3 +27,9 @@ export let farm_productID_navigation = writable({
     product_price: 0,
     availability: ""
 });
+
+export let news_ID_navigation = writable({
+    // userid : "",
+    news_id : ""
+
+});

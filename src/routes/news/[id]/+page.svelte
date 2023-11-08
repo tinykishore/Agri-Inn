@@ -4,9 +4,10 @@
     import {formatEpochToCustom} from "$lib/client/utility";
     import UserCache from "$lib/stores/UserCache";
     import Forum_ID_Navigation from "$lib/components/dynamicNavigations/forum/Forum_ID_Navigation.svelte";
-    import {forum_id_navigation} from "$lib/stores/DynamicNavigation.js";
+    import {forum_id_navigation, news_ID_navigation} from "$lib/stores/DynamicNavigation.js";
     import DefaultNavigation from "$lib/components/dynamicNavigations/DefaultNavigation.svelte";
     import {fade} from "svelte/transition";
+    import News_ID_Navigation from "$lib/components/dynamicNavigations/news/News_ID_Navigation.svelte";
 
     DynamicNavigation.set(DefaultNavigation);
 
@@ -26,6 +27,10 @@
         });
         news_detail = await news_response.json();
         console.log(news_detail)
+        news_ID_navigation.set({
+            news_id: news_detail._id
+        });
+        DynamicNavigation.set(News_ID_Navigation);
 
         news_data= true;
     })

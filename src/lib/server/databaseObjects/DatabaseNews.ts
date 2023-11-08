@@ -14,4 +14,17 @@ export default class DatabaseNews extends Database {
         console.log("kdkdkdkdkdk" + allNews)
         return allNews;
     }
+
+    public static async saveNews(news_id: string, user_id: string): Promise<any> {
+        consoleLog(`DATABASE LOG: Saving news {` + news_id + `} information...`, LEVEL.OK)
+
+        const x=  await super.collections["book-marked-item"].updateOne(
+            {user_id: user_id},
+            {$addToSet: {news: news_id}}
+        );
+        console.log(x);
+        return x;
+
+    }
+
 }

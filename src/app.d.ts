@@ -128,4 +128,13 @@ declare global {
 		due_amount: number;
 
 	}
+
+	interface bookmarkedItem {
+		userid : string,
+		post : [],
+		news : [],
+		events : [],
+		products : []
+
+	}
 }
