@@ -6,9 +6,19 @@
     //export let data
     DynamicNavigation.set(DashboardNavigation);
 
+    export let data: string;
+
     let healthInfo: any;
     onMount(async () => {
-        const response = await fetch('/API/v1/getHealthTrackAPI');
+        const response = await fetch('/API/v1/getProductCatalogAPI',{
+            method: "POST",
+            body: JSON.stringify({
+                owner_id: data._id
+            }),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
         healthInfo = await response.json();
         console.log(healthInfo);
     });
@@ -45,6 +55,7 @@
                         {#each healthInfo as info}
                             {#each info.vet_list as vet}
                                 <h1 class="text-2xl font-bold">{vet}</h1>
+                                <button>take an appointment</button>
                             {/each}
                         {/each}
                     </div>

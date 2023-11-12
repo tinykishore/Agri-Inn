@@ -14,4 +14,5 @@ export default class DatabaseNews extends Database {
         console.log("kdkdkdkdkdk" + allNews)
         return allNews;
     }
+
 }

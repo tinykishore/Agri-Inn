@@ -79,4 +79,18 @@ export default class DatabaseFarm extends Database {
         console.log(installments);
         return installments;
     }
+    public static async getSellingProductCatalog(owner_uid: string): Promise<any> {
+        consoleLog(`DATABASE LOG: Getting farm products {` + owner_uid + `} information...`, LEVEL.OK)
+        let products = await super.collections["farm-info"].findOne({
+            owner_id: owner_uid
+        }, {
+            projection: {
+                owner_name: 1,
+            }
+        });
+
+        console.log(products);
+        return products;
+    }
+
 }
