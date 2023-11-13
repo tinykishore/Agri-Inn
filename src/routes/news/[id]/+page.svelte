@@ -50,7 +50,7 @@
 
 
             <hr class="border-2 rounded-full w-full">
-            {news_detail._id}
+            <!--{news_detail._id}-->
         </div>
 
     {:else}
