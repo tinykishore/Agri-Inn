@@ -6,7 +6,7 @@
     //export let data
     DynamicNavigation.set(DashboardNavigation);
 
-    export let data: string;
+    export let data;
 
     let healthInfo: any;
     onMount(async () => {
@@ -14,6 +14,7 @@
             method: "POST",
             body: JSON.stringify({
                 owner_id: data._id
+
             }),
             headers: {
                 'Content-Type': 'application/json'
@@ -33,31 +34,30 @@
     {:else}
         <div class="grid grid-cols-3 gap-6">
                             <div class="flex flex-col gap-2">
-                                {#each healthInfo as info}
-                                    {#each info.animals as animal}
-                                        <h1 class="text-2xl font-bold">{animal}</h1>
-                                    {/each}
+                                {#each healthInfo.selling_products as product}
+                                    <p>{product}</p>
                                 {/each}
+<!--                                <p>{healthInfo.owner_name}</p>-->
                             </div>
                             <div class="flex flex-col gap-2">
-                                {#each healthInfo as info}
-                                    <h1>------Vaccine List-------</h1>
-                                    {#each info.vaccine_list as vaccine}
-                                        <h1 class="text-2xl font-bold">{vaccine}</h1>
-                                    {/each}
-                                    <h1>-------Disease list--------</h1>
-                                    {#each info.disease_list as disease}
-                                        <h1 class="text-2xl font-bold">{disease}</h1>
-                                    {/each}
-                                {/each}
+                                <!--{#each healthInfo as info}-->
+                                <!--    <h1>&#45;&#45;&#45;&#45;&#45;&#45;Vaccine List-&#45;&#45;&#45;&#45;&#45;&#45;</h1>-->
+                                <!--    {#each info.vaccine_list as vaccine}-->
+                                <!--        <h1 class="text-2xl font-bold">{vaccine}</h1>-->
+                                <!--    {/each}-->
+                                <!--    <h1>-&#45;&#45;&#45;&#45;&#45;&#45;Disease list&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;</h1>-->
+                                <!--    {#each info.disease_list as disease}-->
+                                <!--        <h1 class="text-2xl font-bold">{disease}</h1>-->
+                                <!--    {/each}-->
+                                <!--{/each}-->
                             </div>
                     <div class="flex flex-row gap-4">
-                        {#each healthInfo as info}
-                            {#each info.vet_list as vet}
-                                <h1 class="text-2xl font-bold">{vet}</h1>
-                                <button>take an appointment</button>
-                            {/each}
-                        {/each}
+                        <!--{#each healthInfo as info}-->
+                        <!--    {#each info.vet_list as vet}-->
+                        <!--        <h1 class="text-2xl font-bold">{vet}</h1>-->
+                        <!--        <button>take an appointment</button>-->
+                        <!--    {/each}-->
+                        <!--{/each}-->
                     </div>
         </div>
     {/if}
