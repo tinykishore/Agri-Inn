@@ -125,5 +125,14 @@ declare global {
 			due_amount: number,
 			monthly_fee:number,
 		}
+
+	}
+	interface vet{
+		username:string,
+		full_name: string,
+		address: Address,
+		phone: string,
+		profile_picture: string,
+		free_slots:[],
 	}
 }

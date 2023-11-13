@@ -13,6 +13,7 @@
     let selectedProduct = '';
 
     let healthInfo: any;
+    let vetsinfo: any;
     onMount(async () => {
         const response = await fetch('/API/v1/getProductCatalogAPI',{
             method: "POST",
@@ -23,9 +24,15 @@
                 'Content-Type': 'application/json'
             }
         });
+
         healthInfo = await response.json();
         console.log(healthInfo);
+        const abcd = await fetch('/API/v1/GetAllVetAPI')
+        vetsinfo = await abcd.json();
+        console.log(vetsinfo)
     });
+
+
 
 </script>
 
@@ -50,7 +57,21 @@
                 {/key}
             </div>
             <div class="flex flex-row gap-4">
-                <Chat receiverObjectID="All"/>
+                {#if vetsinfo }
+
+                {#each vetsinfo as vet}
+                    <div class="flex gap-4 rounded-2xl w-full p-3 hover:bg-amber-200 hover:drop-shadow-sm transition-all duration-300 items-center justify-start align-middle">
+                        <img alt="" class="w-12 h-12 rounded-full" src={vet.profile_picture}/>
+                        <div class="flex-col flex w-full justify-start align-middle items-start">
+                            <div class="flex-col flex w-full justify-start align-middle items-start">
+                                <div class="text-lg font-bold">{vet.full_name}</div>
+                                <div class="text-sm font-medium text-zinc-500">{vet.username}
+                                    &bull; {vet.phone}</div>
+                            </div>
+                        </div>
+                    </div>
+                {/each}
+                    {/if}
             </div>
         </div>
     {/if}
