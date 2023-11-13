@@ -92,4 +92,15 @@ export default class DatabaseFarm extends Database {
         return products;
     }
 
+
+    public static async getCategoryProduct(category: string, farm_id: string) {
+        console.log(category)
+        console.log(farm_id)
+        consoleLog(`DATABASE LOG: Getting farm products {` + category + `} information...`, LEVEL.OK);
+
+        return await super.collections["livestock-products"]
+            .find({category: category, farm_id: farm_id})
+            .toArray();
+    }
+
 }

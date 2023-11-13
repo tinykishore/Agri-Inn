@@ -2,11 +2,15 @@
     import DynamicNavigation from "$lib/stores/DynamicNavigation";
     import DashboardNavigation from "$lib/components/dynamicNavigations/DashboardNavigation.svelte";
     import {onMount} from "svelte";
+    import Temp from "./Temp.svelte";
+    import Chat from "../chat/Chat.svelte";
 
     //export let data
     DynamicNavigation.set(DashboardNavigation);
 
     export let data;
+
+    let selectedProduct = '';
 
     let healthInfo: any;
     onMount(async () => {
@@ -14,7 +18,6 @@
             method: "POST",
             body: JSON.stringify({
                 owner_id: data._id
-
             }),
             headers: {
                 'Content-Type': 'application/json'
@@ -33,32 +36,22 @@
         </div>
     {:else}
         <div class="grid grid-cols-3 gap-6">
-                            <div class="flex flex-col gap-2">
-                                {#each healthInfo.selling_products as product}
-                                    <p>{product}</p>
-                                {/each}
-<!--                                <p>{healthInfo.owner_name}</p>-->
-                            </div>
-                            <div class="flex flex-col gap-2">
-                                <!--{#each healthInfo as info}-->
-                                <!--    <h1>&#45;&#45;&#45;&#45;&#45;&#45;Vaccine List-&#45;&#45;&#45;&#45;&#45;&#45;</h1>-->
-                                <!--    {#each info.vaccine_list as vaccine}-->
-                                <!--        <h1 class="text-2xl font-bold">{vaccine}</h1>-->
-                                <!--    {/each}-->
-                                <!--    <h1>-&#45;&#45;&#45;&#45;&#45;&#45;Disease list&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;</h1>-->
-                                <!--    {#each info.disease_list as disease}-->
-                                <!--        <h1 class="text-2xl font-bold">{disease}</h1>-->
-                                <!--    {/each}-->
-                                <!--{/each}-->
-                            </div>
-                    <div class="flex flex-row gap-4">
-                        <!--{#each healthInfo as info}-->
-                        <!--    {#each info.vet_list as vet}-->
-                        <!--        <h1 class="text-2xl font-bold">{vet}</h1>-->
-                        <!--        <button>take an appointment</button>-->
-                        <!--    {/each}-->
-                        <!--{/each}-->
-                    </div>
+            <div class="flex flex-col gap-2">
+                {healthInfo._id}
+                {#each healthInfo.selling_products as product}
+                    <button value={product} on:click={() => selectedProduct = product}>
+                        {product}
+                    </button>
+                {/each}
+            </div>
+            <div class="flex flex-col gap-2">
+                {#key selectedProduct}
+                    <Temp farm_id={healthInfo._id} product_category={selectedProduct}/>
+                {/key}
+            </div>
+            <div class="flex flex-row gap-4">
+                <Chat receiverObjectID="All"/>
+            </div>
         </div>
     {/if}
 </main>
