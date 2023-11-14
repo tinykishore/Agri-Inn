@@ -3,7 +3,6 @@
     import DashboardNavigation from "$lib/components/dynamicNavigations/DashboardNavigation.svelte";
     import {onMount} from "svelte";
     import Temp from "./Temp.svelte";
-    import Chat from "../chat/Chat.svelte";
 
     //export let data
     DynamicNavigation.set(DashboardNavigation);

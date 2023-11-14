@@ -1,0 +1,16 @@
+import Database from "$lib/server/database";
+import consoleLog, {LEVEL} from "$lib/server/log";
+import type {ObjectId} from "mongodb";
+
+export class DatabaseEvent extends Database {
+
+    public static async getAllEvents(): Promise<any> {
+        consoleLog(`DATABASE LOG: Getting all events information...`, LEVEL.OK)
+        return await super.collections["event"].find({}).toArray();
+    }
+
+    public static async getOneEvent(_id: ObjectId) {
+        consoleLog(`DATABASE LOG: Getting event {` + _id + `} information...`, LEVEL.OK)
+        return await super.collections["event"].findOne({_id: _id});
+    }
+}

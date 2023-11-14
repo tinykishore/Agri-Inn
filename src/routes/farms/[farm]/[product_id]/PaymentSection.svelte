@@ -47,8 +47,11 @@
 	});
 
 	const modalCloseAction = () => {
-		modals.set({
-			farms_farm_product_modal: false,
+		modals.update((values) => {
+			return {
+				...values,
+				farms_farm_product_modal: false,
+			}
 		})
 	}
 
