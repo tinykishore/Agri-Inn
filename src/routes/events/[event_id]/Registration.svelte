@@ -16,6 +16,10 @@
             }
         })
     }
+	async function handleRegister() {
+	console.log("ok")
+	}
+
 
     onMount(async () => {
         let username: string | undefined;
@@ -74,13 +78,29 @@
 
 			<div id="input_section">
 				<div class="flex flex-col gap-2">
-					<label for="first_name">How much animal</label>
+					<label for="first_name">How many animal</label>
 					<input id="first_name" type="text" class="border-2 border-zinc-300 rounded-md"/>
 				</div>
 
 				<div class="flex flex-col gap-2">
-					<label for="last_name">Last Name</label>
+					<label for="last_name">Time Duration</label>
 					<input id="last_name" type="text" class="border-2 border-zinc-300 rounded-md"/>
+				</div>
+
+				<div class="flex flex-col gap-2">
+					<label for="last_name">Required Space</label>
+					<input id="last_name" type="text" class="border-2 border-zinc-300 rounded-md"/>
+				</div>
+
+				<div class="flex flex-col gap-2">
+					<label for="last_name">Required Equipments</label>
+					<input id="last_name" type="text" class="border-2 border-zinc-300 rounded-md"/>
+				</div>
+
+				<div class="flex flex-col gap-2">
+				<button class="bg-zinc-400 mt-1.5 text-white w-fit font-bold py-1 px-2.5 rounded-full " on:click={handleRegister}>
+					Register Now
+				</button>
 				</div>
 
 			</div>
