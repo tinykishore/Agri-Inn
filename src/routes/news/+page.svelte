@@ -27,7 +27,7 @@
     {:else}
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 my-12 mx-0">
             {#each news as newss}
-                <div class=" flex flex-col justify-between  bg-white p-4 rounded-lg shadow-md">
+                <div class="flex flex-col justify-between bg-white p-4 rounded-lg shadow-md transition duration-300 transform hover:scale-105 hover:bg-amber-100">
                     <div>
                         {#if newss.image_url}
                             <img src={newss.image_url} alt="" class="w-full h-52 object-cover mb-4 rounded-lg">
@@ -41,12 +41,11 @@
                         <p class="text-sm text-gray-500 mt-2">{newss.publish_date}</p>
                         <div class="flex mt-4">
                             {#each newss.tags as tag}
-                                <div class=" font-mono bg-gray-200 text-gray-800 px-3 py-1 text-sm rounded-2xl mr-2">#{tag}</div>
+                                <div class="font-mono bg-gray-200 text-gray-800 px-3 py-1 text-sm rounded-2xl mr-2">#{tag}</div>
                             {/each}
                         </div>
                         <div class="flex items-center mt-4">
                             <a href="/news/{newss.u_id}" class="text-blue-500 hover:underline mr-4">Read More</a>
-
                         </div>
                     </div>
                 </div>
@@ -54,6 +53,9 @@
         </div>
     {/if}
 </main>
+
+
+
 
 <!--<main class="my-20 mx-32">-->
 <!--    {#if news === undefined}-->

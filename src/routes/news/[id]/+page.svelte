@@ -43,20 +43,19 @@
 <main class="my-28 mx-64">
     {#if news_data}
         <div class="flex flex-col gap-4">
-<!--            <img alt="" class="rounded-2xl object-cover w-full h-full" src={news.image_url} />-->
-            <h1 class="text-5xl font-bold">{news_detail.title}</h1>
-
+            <div class="rounded-lg p-6 bg-yellow-100 shadow-md">
+                <!-- <img alt="" class="rounded-2xl object-cover w-full h-full" src={news_detail.image_url} /> -->
+                <h1 class="text-5xl font-bold">{news_detail.title}</h1>
+                <!-- <img alt="" class="rounded-2xl object-cover w-full h-full" src={news_detail.image_url} /> -->
                 <p in:fade id="post_body" class="whitespace-pre-line hover:antialiased p-1">{news_detail.content}</p>
-
-
+            </div>
             <hr class="border-2 rounded-full w-full">
-            <!--{news_detail._id}-->
+            <!-- {news_detail._id} -->
         </div>
-
     {:else}
         <div>
             <h1>Loading Story</h1>
         </div>
     {/if}
-
 </main>
+
