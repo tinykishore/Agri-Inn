@@ -119,9 +119,9 @@ export function makeURL(text: string) {
     }
 }
 
-export function verifyPaymentObject(paymentObject: PaymentObject) {
-
-
-
+export function isUnseenNotification(notification: any[]) {
+    return notification.some((value) => {
+        return !value.seen;
+    });
 }
 

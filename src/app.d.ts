@@ -135,4 +135,17 @@ declare global {
 		profile_picture: string,
 		free_slots:[],
 	}
+
+	interface notification{
+		id:string,
+		baseCount:number,
+		notifications:notificationObject[]
+	}
+
+	interface notificationObject{
+		date:Date,
+		body:string,
+		type:string,
+		seen:boolean
+	}
 }

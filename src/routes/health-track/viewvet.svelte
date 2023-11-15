@@ -7,7 +7,7 @@
             <h1 class="text-2xl font-bold">Dr. Muna</h1>
             <p class="text-gray-600">Username: munavet</p>
             <p class="text-gray-600">Address: Maniknagar</p>
-            <p class="text-gray-600">Phone: 0190624461</p>
+            <p class="text-gray-600">Phone: 262736287</p>
         </div>
     </div>
 
