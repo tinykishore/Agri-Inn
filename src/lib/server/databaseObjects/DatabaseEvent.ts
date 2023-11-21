@@ -13,4 +13,12 @@ export class DatabaseEvent extends Database {
         consoleLog(`DATABASE LOG: Getting event {` + _id + `} information...`, LEVEL.OK)
         return await super.collections["event"].findOne({_id: _id});
     }
+
+    public static async updateOneEvent(_id: ObjectId, farm_id: any) {
+        consoleLog(`DATABASE LOG: Updating event {` + _id + `} information...`, LEVEL.OK)
+        return await super.collections.updateOne(
+            { "_id": _id },
+            { $push: { "registered_farms": farm_id } }
+        );
+    }
 }
