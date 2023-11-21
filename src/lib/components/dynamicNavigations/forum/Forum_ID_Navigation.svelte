@@ -21,6 +21,7 @@
     let totalLikes: number = 0;
     let totalViews: number = 0;
     let font_size: number = 18;
+    let self: boolean = false;
 
     $: {
         forum_id_navigation.update((value) => {
@@ -38,6 +39,7 @@
         currentURL = value.currentURL;
         totalLikes = value.totalLikes;
         totalViews = value.totalViews;
+        self = value.self;
     });
 
     UserCache.subscribe((value) => {
@@ -190,11 +192,20 @@
 	</div>
 
 	<div class="flex justify-end gap-2  text-sm items-center">
+		{#if self}
+			<a class="flex gap-1 px-3 rounded-full align-middle border-yellow-800/20 border justify-center items-center font-semibold text-yellow-950 hover:bg-yellow-300 hover:border-yellow-800 transition-all duration-300"
+			   href="/{username}"
+			   in:fade>
+				<img alt="" class="block w-5 h-5" src={report_icon}/>
+				<h1 class="font-bold py-2">Edit Post</h1>
+			</a>
+		{:else}
 		<a class="flex gap-1 px-3 rounded-full align-middle border-yellow-800/20 border justify-center items-center font-semibold text-yellow-950 hover:bg-yellow-300 hover:border-yellow-800 transition-all duration-300" href="/{username}"
 		   in:fade>
 			<img alt="" class="block w-5 h-5" src={report_icon}/>
 			<h1 class="font-bold py-2">Report Post</h1>
 		</a>
+		{/if}
 		<a class="flex gap1 px-3 rounded-full align-middle border-yellow-800/20 border justify-center items-center font-semibold text-yellow-950 hover:bg-yellow-300 hover:border-yellow-800 transition-all duration-300"
 		   href="/{username}"
 		   in:fade>
@@ -203,7 +214,7 @@
 		</a>
 		<a class="flex gap-4 rounded-full align-middle border-yellow-800/20 border justify-center items-center font-semibold text-yellow-950  hover:bg-yellow-300 hover:border-yellow-800 transition-all duration-300" href="/{username}"
 		   in:fade>
-			<h1 class=" pl-4 font-bold py-2">{full_name}</h1>
+			<h1 class=" pl-4 font-bold py-2">{full_name?.split(" ")[0]}</h1>
 			<img alt="" class="h-9 w-9 rounded-full" src={profile_picture}>
 		</a>
 	</div>

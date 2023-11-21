@@ -1,6 +1,6 @@
 import consoleLog, {LEVEL} from "$lib/server/log";
 import {verifyRequest} from "$lib/server/utility";
-import {Database} from "$lib/server/database";
+import DatabaseForum from "$lib/server/databaseObjects/DatabaseForum";
 
 export const POST = async ({request, cookies}: any) => {
     consoleLog("InsertPostAPI REQUEST Received", LEVEL.OK);
@@ -11,7 +11,7 @@ export const POST = async ({request, cookies}: any) => {
     }
 
     const post = await request.json();
-    const success = await Database.insertPost(post);
+    const success = await DatabaseForum.insertPost(post);
     if (!success) {
         consoleLog("InsertPostAPI RESPONSE: status 404", LEVEL.ERROR);
         return new Response(null, {status: 404});

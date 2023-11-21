@@ -1,7 +1,7 @@
 import consoleLog, {LEVEL} from "$lib/server/log";
 import {verifyRequest} from "$lib/server/utility";
 import {ObjectId} from "mongodb";
-import {Database} from "$lib/server/database";
+import DatabaseForum from "$lib/server/databaseObjects/DatabaseForum";
 
 export const POST = async ({request, cookies}: any): Promise<Response> => {
     consoleLog("GetOnePostAPI REQUEST Received", LEVEL.OK);
@@ -11,10 +11,10 @@ export const POST = async ({request, cookies}: any): Promise<Response> => {
     }
     // Extract the post_uid from request
     const post_uid = await request.json();
-    //convert post_id into object id
+    //convert post_id into object [id]
     const post_id = new ObjectId(post_uid);
 
-    const post_detail = await Database.getOnePost(post_id);
+    const post_detail = await DatabaseForum.getOnePost(post_id);
     if (!post_detail) {
         consoleLog("GetOnePostAPI RESPONSE: status 404", LEVEL.ERROR);
         return new Response(null, {status: 404})

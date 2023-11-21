@@ -1,5 +1,4 @@
-import consoleLog, {LEVEL} from "$lib/server/log";
-import {Database} from "$lib/server/database";
+import consoleLog, {LEVEL} from "$lib/server/log";import DatabaseOthers from "$lib/server/databaseObjects/DatabaseOthers";
 
 export const POST = async ({request}: any) => {
     consoleLog("GetOnePostAPI REQUEST Received", LEVEL.OK);
@@ -7,7 +6,7 @@ export const POST = async ({request}: any) => {
     // Extract the post_uid from request
     const {query} = await request.json();
 
-    const search_results = await Database.getGlobalSearchResult(query);
+    const search_results = await DatabaseOthers.getGlobalSearchResult(query);
 
     if (!search_results) {
         consoleLog("GetOnePostAPI RESPONSE: status 404", LEVEL.ERROR);

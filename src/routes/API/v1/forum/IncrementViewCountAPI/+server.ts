@@ -1,7 +1,7 @@
 import consoleLog, {LEVEL} from "$lib/server/log";
 import {verifyRequest} from "$lib/server/utility";
-import {Database} from "$lib/server/database";
 import {ObjectId} from "mongodb";
+import DatabaseForum from "$lib/server/databaseObjects/DatabaseForum";
 
 export const POST = async ({request, cookies}: any): Promise<Response> => {
     consoleLog("IncrementViewCountAPI REQUEST Received", LEVEL.OK);
@@ -13,7 +13,7 @@ export const POST = async ({request, cookies}: any): Promise<Response> => {
 
     const postObjectID = await request.json();
     const _id = new ObjectId(postObjectID);
-    const success = await Database.incrementViewCount(_id);
+    const success = await DatabaseForum.incrementViewCount(_id);
 
 
     if (!success) {

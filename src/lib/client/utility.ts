@@ -5,9 +5,15 @@ import UserCache from "$lib/stores/UserCache";
  * @enum {number}
  */
 export enum USER_ROLE {
-    ADMIN = 0,
-    USER = 1,
-    OWNER = 2
+    ADMIN,
+    USER,
+    OWNER
+}
+
+export enum PAYMENT_METHOD {
+    CARD_PAYMENT,
+    BKASH,
+    COD
 }
 
 export function isUserCacheValid(): boolean {
@@ -28,6 +34,7 @@ export function isUserCacheValid(): boolean {
 
 export function invalidateUserCache(): void {
     UserCache.set({
+        _id: undefined,
         username: undefined,
         email: undefined,
         full_name: undefined,
@@ -35,7 +42,6 @@ export function invalidateUserCache(): void {
         user_role: undefined,
     });
 }
-
 
 export function formatEpochToCustom(epoch: number): string {
     const date: Date = new Date(epoch * 1000); // Convert epoch to milliseconds
@@ -98,13 +104,15 @@ export function isInsecureURL(str: string) {
     return pattern.test(str);
 }
 
-export function URLify(text: string) {
-    try {
-        return new URL(text);
-    } catch (error) {
+export function makeURL(text: string) {
+    if (isSecureURL(text)) {
         return text;
     }
 }
 
-export let vaccineData = ["Vaccine_A","Vaccine_B","Vaccine_C"]
+export function isUnseenNotification(notification: any[]) {
+    return notification.some((value) => {
+        return !value.seen;
+    });
+}
 

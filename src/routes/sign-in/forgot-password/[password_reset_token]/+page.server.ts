@@ -1,7 +1,7 @@
-import {Database} from "$lib/server/database";
 import {fail, redirect} from "@sveltejs/kit";
 import {ObjectId} from "mongodb";
 import {encryptPassword} from "$lib/server/utility";
+import DatabaseAccount from "$lib/server/databaseObjects/DatabaseAccount";
 
 interface PasswordResetToken {
     password_reset_token: string;
@@ -12,7 +12,7 @@ let _id: ObjectId;
 export const load = async ({params}: any) => {
     const reset_password_token = params.password_reset_token;
 
-    const response = await Database.getResetPasswordToken(reset_password_token);
+    const response = await DatabaseAccount.getResetPasswordToken(reset_password_token);
 
     if (!response.success) throw redirect(307, "/")
 
@@ -32,11 +32,11 @@ export const actions = {
 
         if (newPassword !== confirmPassword) return fail(401, {passwordMatch: false});
 
-        const update = await Database.updatePassword(_id, saltedPassword)
+        const update = await DatabaseAccount.updatePassword(_id, saltedPassword)
 
         if (!update) return fail(401, {success: false});
 
-        await Database.deleteResetPasswordToken(_id)
+        await DatabaseAccount.deleteResetPasswordToken(_id)
 
         return {success: true}
 

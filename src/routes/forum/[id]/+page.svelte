@@ -7,6 +7,7 @@
     import {forum_id_navigation} from "$lib/stores/DynamicNavigation.js";
     import DefaultNavigation from "$lib/components/dynamicNavigations/DefaultNavigation.svelte";
     import {fade} from "svelte/transition";
+    import forum_id_bg from "$lib/assets/images/forum_id_bg.jpg";
 
     DynamicNavigation.set(DefaultNavigation);
 
@@ -17,13 +18,15 @@
     let fontSize: number;
 
     let wordCount: number;
-    // check if like array contains user id
+    // check if like array contains user [id]
 
     let likedByThisUser: boolean = false;
     let loggedInUser: string | undefined = undefined;
+    let loggedInUserName: string | undefined = undefined;
 
     UserCache.subscribe(value => {
         loggedInUser = value.full_name;
+        loggedInUserName = value.username;
     })
     forum_id_navigation.subscribe(value => {
         fontSize = value.fontSize;
@@ -65,13 +68,15 @@
             currentURL: window.location.pathname,
             totalLikes: post_detail.likes.length,
             totalViews: post_detail.viewCount,
-            fontSize: 0
+            fontSize: 18,
+            self: post_detail.author === loggedInUserName
         });
         DynamicNavigation.set(Forum_ID_Navigation);
 
         post_data = true;
         await incrementViewCount();
     })
+
 
     async function incrementViewCount() {
         setTimeout(async () => {
@@ -106,6 +111,10 @@
     }
 
 </script>
+
+<section class="fixed bg-fixed top-0 left-0 h-screen w-screen -z-50">
+    <img alt="sign-in-bg" class="w-full h-full bg-fixed object-cover" src="{forum_id_bg}">
+</section>
 
 <main class="my-28 mx-64">
     {#if post_data}

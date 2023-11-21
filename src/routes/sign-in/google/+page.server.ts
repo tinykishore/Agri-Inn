@@ -1,9 +1,9 @@
 import {error, redirect} from "@sveltejs/kit";
 import jwt from "jsonwebtoken";
 import {JWT_SECRET} from "$env/static/private";
-import {Database} from "$lib/server/database";
 import {ObjectId} from "mongodb";
 import {encryptPassword, generateToken} from "$lib/server/utility";
+import DatabaseAccount from "$lib/server/databaseObjects/DatabaseAccount";
 
 export let load = async ({cookies}: any) => {
     const cookie_encrypted_id: any = cookies.get("google_auth");
@@ -40,7 +40,7 @@ export const actions = {
 
             const _id = new ObjectId(verified.new_user_id);
             // input into database
-            const successInSignUp = await Database.completeGoogleSignUp(
+            const successInSignUp = await DatabaseAccount.completeGoogleSignUp(
                 _id,
                 username,
                 hashedPassword);

@@ -15,6 +15,15 @@ declare global {
 		password: string
 	}
 
+	interface TypeUserCache {
+		_id: string | undefined
+		full_name: string | undefined
+		email: string | undefined
+		username: string | undefined
+		profile_picture: string | undefined
+		user_role: USER_ROLE | undefined
+	}
+
 	interface Post {
 		title: string
 		post: string
@@ -33,27 +42,23 @@ declare global {
 		google_id: string
 	}
 
+	interface Address {
+		street: string,
+		city: string,
+		state: string,
+		zip: string,
+		country: string
+	}
+
 	interface UserObject {
 		full_name: string,
 		date_of_birth: string,
 		gender: string,
-		address: {
-			street: string,
-			city: string,
-			state: string,
-			zip: string,
-			country: string
-		},
+		address: Address,
 		phone: string,
 		occupation: string,
 		social_connections: null,
-		credentials: {
-			email: string,
-			username: string,
-			password_hash: string,
-			password_reset_token: string,
-			google_id: string
-		},
+		credentials: Credentials,
 		profile_picture: string,
 		role: USER_ROLE,
 	}
@@ -86,20 +91,69 @@ declare global {
 		"delivery_date": Date
 	}
 
-	interface health_track_animal {
-		"farm_id": string,
-		"animal_list": {
-			"animal_id": string
+	interface PublicProfile {
+		full_name: string,
+		username: string,
+		email: string,
+		gender: string,
+		phone: string,
+		occupation: string,
+		social_connections?: [],
+		profile_picture: string
+	}
+
+	interface PaymentObject {
+		user_id: string,
+		product_id: string,
+		product_breed: string,
+		farm_id: string,
+		total_price: number,
+		shipping_address: Address,
+		payment: {
+			method: number,
+			card_number: string,
+			card_holder: string,
+			card_expiration: string,
+			card_cvv: string,
+			bkash_number: string,
 		},
-		"vet_list": {
-			"vet_id": string
-		},
-		"vaccine_list": [
-			"Rabies",
-			"Distemper",
-			"Parvo"
-		],
-		"selected_vaccine":[],
-		"booked_vet":[]
+		installment?: {
+			total_installment: number,
+			remaining_installment: number,
+			next_installment_date: Date,
+			paid_amount: number,
+			due_amount: number,
+			monthly_fee:number,
+		}
+
+	}
+	interface vet{
+		username:string,
+		full_name: string,
+		address: Address,
+		phone: string,
+		profile_picture: string,
+		free_slots:[],
+	}
+
+	interface notification{
+		id:string,
+		baseCount:number,
+		notifications:notificationObject[]
+	}
+
+	interface notificationObject{
+		date:Date,
+		body:string,
+		type:string,
+		seen:boolean
+	}
+
+	interface bookmarkedItem {
+		userid : string,
+		post : [],
+		news : [],
+		events : [],
+		products : []
 	}
 }

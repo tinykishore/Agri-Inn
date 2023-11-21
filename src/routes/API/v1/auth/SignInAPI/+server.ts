@@ -1,7 +1,7 @@
 import consoleLog, {LEVEL} from "$lib/server/log";
 import bcrypt from "bcrypt";
 import {generateToken} from "$lib/server/utility";
-import {Database} from "$lib/server/database";
+import DatabaseAccount from "$lib/server/databaseObjects/DatabaseAccount";
 
 /**
  * Sign-in API for authenticating users.
@@ -24,11 +24,11 @@ export const POST = async ({request}: any): Promise<Response> => {
     if (keyIsEmail) {
         consoleLog("SignInAPI API REQUEST: key is email", LEVEL.OK)
         // If the key is an email, find the user by email
-        authenticationResult = await Database.getUserByEmail(credentials.key);
+        authenticationResult = await DatabaseAccount.getUserByEmail(credentials.key);
     } else {
         consoleLog("SignInAPI API REQUEST: key is username", LEVEL.OK);
         // If the key is a username, find the user by username
-        authenticationResult = await Database.getUserByUsername(credentials.key);
+        authenticationResult = await DatabaseAccount.getUserByUsername(credentials.key);
     }
 
     // If the user is not found, return a 401 status code

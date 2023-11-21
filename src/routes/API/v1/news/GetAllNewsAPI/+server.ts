@@ -1,6 +1,6 @@
 import consoleLog, {LEVEL} from "$lib/server/log";
 import {verifyRequest} from "$lib/server/utility";
-import {Database} from "$lib/server/database";
+import DatabaseNews from "$lib/server/databaseObjects/DatabaseNews";
 
 export const GET = async ({cookies}: any) => {
     consoleLog("GetNewsAPI REQUEST Received", LEVEL.OK);
@@ -8,7 +8,7 @@ export const GET = async ({cookies}: any) => {
     if (!verifyRequest(cookies)) {
         return new Response("Unauthorized", {status: 401});
     }
-    const allNewsInfo = await Database.getAllNews();
+    const allNewsInfo = await DatabaseNews.getAllNews();
     if (!allNewsInfo) {
         consoleLog("GetNewsAPI RESPONSE: status 404", LEVEL.ERROR);
         return new Response(null, {status: 404});

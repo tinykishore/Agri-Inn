@@ -1,34 +1,47 @@
 <script lang="ts">
     import {onMount} from "svelte";
+    import DynamicNavigation, {farm_productID_navigation} from "$lib/stores/DynamicNavigation";
+    import Farm_Product_ID_Navigation from "$lib/components/dynamicNavigations/farm/Farm_Product_ID_Navigation.svelte";
+    import {modals} from "$lib/stores/Modals";
+    import DefaultNavigation from "$lib/components/dynamicNavigations/DefaultNavigation.svelte";
     import PaymentSection from "./PaymentSection.svelte";
-    import DynamicNavigation from "$lib/stores/DynamicNavigation";
-    import DashboardNavigation from "$lib/components/dynamicNavigations/DashboardNavigation.svelte";
 
     export let data;
-    DynamicNavigation.set(DashboardNavigation);
-    const product_id = data.product_id;
+    DynamicNavigation.set(DefaultNavigation);
 
-    let product_info: any;
-    let price: number;
-    let installments: number;
+    // Variable to store product information
+    let product_information: any;
+	let total_price: number;
 
-    let showPayment = false;
+    // Variable to check if payment section is visible
+    let isPaymentSectionVisible: boolean = false;
 
-    const showPaymentSection = () => {
-        showPayment = !showPayment;
-    }
+    // Subscribe to modals store to show the modal
+    modals.subscribe((value) => {
+        isPaymentSectionVisible = value.farms_farm_product_modal;
+    });
 
     onMount(async () => {
-        // Call api to get product data
-        const productResponse = await fetch('/API/v1/farms/GetProductInfoAPI', {
+        // Call API to get product information
+        const GetProductInfoAPIResponse = await fetch('/API/v1/farms/GetProductInfoAPI', {
             method: 'POST',
-            body: JSON.stringify(product_id),
+            body: JSON.stringify(data.product_id),
             headers: {
                 'Content-Type': 'application/json'
             }
         });
 
-        const farmResponse = await fetch('/API/v1/farms/GetOneFarmAPI', {
+        // Get product information from API response
+        product_information = await GetProductInfoAPIResponse.json();
+
+        // Remove $ and , from price because price stored in database is a string
+        let price: any = product_information.price;
+        price = parseFloat(price.replace(/[$,]/g, ''));
+		total_price = price;
+
+
+        // Call API to get farm information
+        const GetOneFarmAPIResponse = await fetch('/API/v1/farms/GetOneFarmAPI', {
             method: 'POST',
             body: JSON.stringify(data.farm_id),
             headers: {
@@ -36,50 +49,35 @@
             }
         });
 
-        const farm_info = await farmResponse.json();
-        installments = farm_info.installments;
+        // Get farm information from API response
+        const farm_information = await GetOneFarmAPIResponse.json();
 
-        product_info = await productResponse.json();
-        let dollarAmount = product_info.price;
-        price = parseFloat(dollarAmount.replace(/[$,]/g, ''));
+        // Set navigation store for farm_productID_navigation
+        farm_productID_navigation.set({
+			productID: data.product_id,
+			farm_name: farm_information.farm_name,
+			product_price: price,
+            availability: product_information.availability,
+		});
 
-
+        // Set Dynamic Navbar
+        DynamicNavigation.set(Farm_Product_ID_Navigation);
 	});
 
 
 </script>
 
+{#if isPaymentSectionVisible}
+	<PaymentSection user_id={data._id} product_id={data.product_id} farm_id={data.farm_id} total_price={total_price} product_breed={product_information.breed}/>
+{/if}
 
-<main class="min-h-screen container mx-auto p-4 my-24 px-20 grid grid-cols-3 gap-4 ">
-	<div id="main-section" class="col-span-2 bg-blue-300 rounded-2xl p-4 ">
-		{#if product_info === undefined}
+<main class="min-h-screen container mx-auto p-4 my-24 px-20 gap-4">
+	<div id="main-section" class="bg-blue-300 rounded-2xl p-4 ">
+		{#if product_information === undefined}
 			<p>Loading...</p>
 		{:else}
-			<h1>{product_info.id}</h1>
-			<p>{product_info.health_status}</p>
-			<p>{price}</p>
-			<h1 class="text-4xl">Payment --------</h1>
-			<button on:click={showPaymentSection}>Buy Now</button>
-
+			<h1>{product_information.id}</h1>
+			<h1>Will Show the product info</h1>
 		{/if}
 	</div>
-	{#if showPayment}
-	<div id="payment-section" class="bg-amber-100 h-fit rounded-2xl flex flex-col gap-4 p-4">
-		<div class="flex justify-between">
-			<h1>Payment method</h1>
-			<button on:click={() => {
-			const mainSection = document.getElementById('main-section');
-			const paymentSection = document.getElementById('payment-section');
-			mainSection?.classList.remove('col-span-2');
-			mainSection?.classList.add('col-span-3');
-			paymentSection?.classList.add('hidden');
-		}}>Close
-			</button>
-		</div>
-
-
-		<PaymentSection total_amount={price} user_id={data._id} product_id={data.product_id}/>
-
-	</div>
-	{/if}
 </main>

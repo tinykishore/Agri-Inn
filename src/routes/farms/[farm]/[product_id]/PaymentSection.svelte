@@ -1,251 +1,176 @@
 <script lang="ts">
-    import {fade} from "svelte/transition";
-	import {onMount} from "svelte";
+    import {modals} from "$lib/stores/Modals";
+    import {fade, fly} from "svelte/transition";
+    import close_icon from "$lib/assets/icons/farms_farm_product_id_modal_close_icon.svg";
+    import {onMount} from "svelte";
+    import UserCache from "$lib/stores/UserCache";
+    import FirstSection from "$lib/components/payment-section/FirstSection.svelte";
+    import Payment from "$lib/stores/Payment";
+    import payment from "$lib/stores/Payment";
+    import SecondSection from "$lib/components/payment-section/SecondSection.svelte";
+    import ThirdSection from "$lib/components/payment-section/ThirdSection.svelte";
 
-	export let user_id: any;
-	export let product_id: any;
-    export let total_amount: any;
-	let shipping_address: any;
-	let phone_number: any;
-	let selectedOption = "";
-	let status: any;
-	let paid: any;
-	let due: any;
-	let installment_remaining: any = new Date();
-	let installment_deadline: any = new Date();
-	let order_date: any = new Date();
-	let delivery_date: any = new Date();
-
-
-    let pageCount = 1;
+    export let user_id: string;
+    export let product_id: string;
+    export let farm_id: string;
+	export let total_price: number;
+	export let product_breed: string;
 
 
-    $:console.log(pageCount)
+
+    let public_profile: PublicProfile;
+    let paymentInformation: PaymentObject;
 
 
-    // price is string, convert it to int, price stored in product_info.price
+	let monthly_fee: number = 0;
+	let remaining_installment: number = 0;
+	let paid_amount: number = 0;
+	let due_amount: number = 0;
+	let next_installment_date: Date = new Date();
+	let next_month_date: Date = new Date();
+	next_month_date.setMonth(next_month_date.getMonth() + 1);
 
-    const installmentThreshold = 1000;
 
-    const onchange = (event: any) => {
-        selectedOption = event.currentTarget.value;
-    }
-
-	const handleConfirmOrder = async (event: any) => {
-		console.log(user_id);
-		const order: Order = {
-			user_id,
+    Payment.update((values) => {
+        return {
+            ...values,
+            user_id,
 			product_id,
-			total_amount,
-			shipping_address,
-			phone_number,
-			payment_method: selectedOption,
-			isInstallment: {
-				status, paid, due, installment_remaining, installment_deadline
-			},
-			order_date,
-			delivery_date
+			farm_id,
+			total_price,
+			product_breed,
+        }
+    })
+
+	Payment.subscribe(value => {
+		paymentInformation = value;
+	});
+
+	const modalCloseAction = () => {
+		modals.update((values) => {
+			return {
+				...values,
+				farms_farm_product_modal: false,
+			}
+		})
+	}
+
+	onMount(async () => {
+        let username: string | undefined;
+
+        UserCache.subscribe(value => {
+            username = value.username;
+        })
+
+        const response = await fetch('/API/v1/auth/GetPublicProfile', {
+            method: 'POST',
+            body: JSON.stringify({
+                "username": username,
+            }),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+
+        public_profile = await response.json();
+    });
+
+    const processPayment = async () => {
+		if(paymentInformation.installment?.total_installment!=undefined){
+			paymentInformation.installment.monthly_fee = total_price/paymentInformation.installment.total_installment;
+			paymentInformation.installment.remaining_installment = paymentInformation.installment.total_installment-1;
+			paymentInformation.installment.next_installment_date = next_month_date;
+			paymentInformation.installment.paid_amount = total_price/paymentInformation.installment.total_installment;
+			paymentInformation.installment.due_amount = total_price-(total_price/paymentInformation.installment.total_installment);
 		}
-		// Call api to get product data
-		const productResponse = await fetch('/API/v1/farms/PlaceOrderAPI', {
+		const response = await fetch('/API/v1/farms/PlaceOrderAPI', {
 			method: 'POST',
-			body: JSON.stringify(order),
+			body: JSON.stringify(
+				paymentInformation
+			),
 			headers: {
 				'Content-Type': 'application/json'
 			}
 		});
+
 	}
 
-
-    let reducedPrice = total_amount;
-    let isInstallment = false;
-
-    const options = [
-        {value: "card", label: "Card"},
-        {value: "bkash", label: "BKash"},
-        {value: "cod", label: "Cash on Delivery"}
-    ];
-
-    let cardInfo = {
-        cardNumber: "",
-        cardName: "",
-        cardExpiry: "",
-        cardCvv: ""
-    };
-    let bkashInfo = {trxId: ""};
 
 
 </script>
 
-{#key pageCount}
-	<div in:fade={{ duration: 200, delay: 500 }}>
-		{#if pageCount === 1}
-			<h1>Shipping Address</h1>
-			<div class="flex gap-2 flex-col">
-				<input bind:value={shipping_address} type="text" placeholder="Enter Shipping address"/>
-				<input bind:value={phone_number} type="text" placeholder="Enter Phone Number"/>
-				<button on:click={()=>{pageCount = pageCount + 2}}
-						class="bg-green-500 hover:bg-green-600 text-white font-semibold px-4 py-2 rounded-xl focus:outline-none transition duration-300">
-					Next
+<section in:fade={{ duration: 200, delay: 200 }}
+		 class="fixed bg-fixed grid grid-cols-1 top-0 left-0 h-screen w-screen z-[10000] bg-black/30 backdrop-blur-sm">
+	<main in:fly={{ duration: 200, delay: 400 }} class=" h-[80%] flex flex-col w-[80%] place-self-center px-8  py-6 bg-gradient-to-bl
+	from-white via-yellow-50 to-amber-100 rounded-2xl shadow-2xl background-animate">
+		<div class="font-black text-3xl text-amber-900 flex justify-between mx-6 my-4">
+			<h1>Payment Process</h1>
+			<div class="flex gap-4 align-middle items-center">
+				<h1 class="text-sm font-bold text-zinc-400">
+					Closing this window erases all payment data
+				</h1>
+
+				<button on:click={modalCloseAction}>
+					<span>
+						<img class="w-8 h-8" src={close_icon} alt=""/>
+					</span>
+				</button>
+
+			</div>
+		</div>
+		<div class="w-full h-full grid-cols-4 grid">
+			<FirstSection public_profile={public_profile}/>
+			<SecondSection/>
+			<ThirdSection/>
+
+			<div class="p-2 flex-col flex gap-4">
+				<h1 class="text-center text-xl font-bold text-amber-700 mb-6">
+					Confirmation
+				</h1>
+				<h1> {paymentInformation.farm_id}</h1>
+				<h1> {paymentInformation.user_id}</h1>
+				<h1> {paymentInformation.total_price}</h1>
+				<h1> {paymentInformation.product_id}</h1>
+				<h1> {paymentInformation.shipping_address.street}</h1>
+				<h1> {paymentInformation.shipping_address.city}</h1>
+				<h1> {paymentInformation.shipping_address.state}</h1>
+				<h1> {paymentInformation.shipping_address.zip}</h1>
+				<h1> {paymentInformation.shipping_address.country}</h1>
+				<h1> {paymentInformation.payment.bkash_number}</h1>
+				<h1> {paymentInformation.payment.method}</h1>
+				<h1> {paymentInformation.payment.card_cvv}</h1>
+				<h1> {paymentInformation.payment.card_expiration}</h1>
+				<h1> {paymentInformation.payment.card_number}</h1>
+				<h1> {paymentInformation.payment.card_holder}</h1>
+				<h1> {paymentInformation.installment}</h1>
+
+				<button on:click={processPayment}>
+					<span class="text-center text-xl font-bold text-amber-700 mb-6">
+						Confirm
+					</span>
 				</button>
 			</div>
-		{:else if pageCount === 3}
-			<h1>Payment Method</h1>
-			<div class="flex-col flex gap-2">
 
-				<input type="text" placeholder="payment method"/>
-				<ul class="flex flex-col w-full gap-6">
-					<li>
-						<input checked={selectedOption === "card"} class="hidden peer" id="card" name="payment"
-							   on:change={onchange} required type="radio"
-							   value="card">
-						<label class="inline-flex items-center justify-between w-full p-5 text-gray-500 bg-white border border-gray-200 rounded-lg cursor-pointer peer-checked:border-blue-600 peer-checked:text-blue-600 hover:text-gray-600 hover:bg-gray-100"
-							   for="card">
-							<div class="block">
-								<div class="w-full">Card Payment</div>
-							</div>
-							<svg aria-hidden="true" class="w-5 h-5 ml-3" fill="none" viewBox="0 0 14 10"
-								 xmlns="http://www.w3.org/2000/svg">
-								<path d="M1 5h12m0 0L9 1m4 4L9 9" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-									  stroke-width="2"/>
-							</svg>
-						</label>
-					</li>
-					<li>
-						<input checked={selectedOption === "bkash"} class="hidden peer" id="bkash" name="payment"
-							   on:change={onchange} type="radio" value="bkash">
-						<label class="inline-flex items-center justify-between w-full p-5 text-gray-500 bg-white border border-gray-200 rounded-lg cursor-pointer  peer-checked:border-blue-600 peer-checked:text-blue-600 hover:text-gray-600 hover:bg-gray-100"
-							   for="bkash">
-							<div class="block">
-								<div class="w-full">Bkash</div>
-							</div>
-							<svg aria-hidden="true" class="w-5 h-5 ml-3" fill="none" viewBox="0 0 14 10"
-								 xmlns="http://www.w3.org/2000/svg">
-								<path d="M1 5h12m0 0L9 1m4 4L9 9" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-									  stroke-width="2"/>
-							</svg>
-						</label>
-					</li>
+		</div>
+	</main>
+</section>
 
-					<li>
-						<input checked={selectedOption === "cod"} class="hidden peer" id="cod" name="payment" on:change={onchange}
-							   required type="radio"
-							   value="cod">
-						<label class="inline-flex items-center justify-between w-full p-5 text-gray-500 bg-white border border-gray-200 rounded-lg cursor-pointer peer-checked:border-blue-600 peer-checked:text-blue-600 hover:text-gray-600 hover:bg-gray-100"
-							   for="cod">
-							<div class="block">
-								<div class="w-full">Cash on Delivery (COD)</div>
-							</div>
-							<svg aria-hidden="true" class="w-5 h-5 ml-3" fill="none" viewBox="0 0 14 10"
-								 xmlns="http://www.w3.org/2000/svg">
-								<path d="M1 5h12m0 0L9 1m4 4L9 9" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-									  stroke-width="2"/>
-							</svg>
-						</label>
-					</li>
-				</ul>
 
-				{#if selectedOption === 'card'}
-					<div class="max-w-md mx-auto p-6 bg-white rounded-lg shadow-md">
-						<div class="flex flex-col gap-4">
-							<div class="flex flex-col gap-1">
-								<label for="cardNumber" class="text-gray-600 font-semibold">Card Number</label>
-								<input class="border border-gray-300 rounded py-2 px-3 focus:outline-none focus:border-blue-500"
-									   type="text" id="cardNumber" bind:value={cardInfo.cardNumber}
-									   placeholder="**** **** **** ****"/>
-							</div>
+<style>
+    .background-animate {
+        background-size: 200%;
+        -webkit-animation: AnimationName 3s ease infinite;
+        -moz-animation: AnimationName 3s ease infinite;
+        animation: AnimationName 3s ease infinite;
+    }
 
-							<div class="flex flex-col gap-1">
-								<label for="cardName" class="text-gray-600 font-semibold">Card Name</label>
-								<input class="border border-gray-300 rounded py-2 px-3 focus:outline-none focus:border-blue-500"
-									   type="text" id="cardName" bind:value={cardInfo.cardName} placeholder="John Doe"/>
-							</div>
-
-							<div class="flex gap-1">
-								<div class="flex flex-col w-1/2 gap-1">
-									<label for="cardExpiry" class="text-gray-600 font-semibold">Card Expiry</label>
-									<input class="border border-gray-300 rounded py-2 px-3 focus:outline-none focus:border-blue-500"
-										   type="text" id="cardExpiry" bind:value={cardInfo.cardExpiry}
-										   placeholder="MM/YY"/>
-								</div>
-
-								<div class="flex flex-col w-1/2 gap-1">
-									<label for="cardCvv" class="text-gray-600 font-semibold">Card CVV</label>
-									<input class="border border-gray-300 rounded py-2 px-3 focus:outline-none focus:border-blue-500"
-										   type="text" id="cardCvv" bind:value={cardInfo.cardCvv} placeholder="CVV"/>
-								</div>
-							</div>
-						</div>
-					</div>
-
-				{/if}
-
-				{#if selectedOption === 'bkash'}
-					<div class="max-w-md mx-auto p-6 bg-white rounded-lg shadow-md">
-						<div class="mt-4">
-							<label for="trxId" class="block text-gray-600 font-semibold mb-1">Transaction ID</label>
-							<input type="text" id="trxId" bind:value={bkashInfo.trxId}
-								   class="border border-gray-300 rounded py-2 px-3 w-full focus:outline-none focus:border-blue-500"/>
-						</div>
-					</div>
-
-				{/if}
-
-				{#if selectedOption === 'cod'}
-					<div class="max-w-md mx-auto p-6 bg-white rounded-lg shadow-md">
-						<div class="mt-4">
-							<label for="address" class="block text-gray-600 font-semibold mb-1">Delivery Address</label>
-							<input type="text" id="address"
-								   class="border border-gray-300 rounded py-2 px-3 w-full focus:outline-none focus:border-blue-500"/>
-						</div>
-
-						<div class="mt-4">
-							<label for="phoneNumber" class="block text-gray-600 font-semibold mb-1">Phone Number</label>
-							<input type="tel" id="phoneNumber"
-								   class="border border-gray-300 rounded py-2 px-3 w-full focus:outline-none focus:border-blue-500"/>
-						</div>
-
-					</div>
-
-				{/if}
-
-				<button on:click={()=>{pageCount = pageCount - 2}}
-						class="bg-green-500 hover:bg-green-600 text-white font-semibold px-4 py-2 rounded-xl focus:outline-none transition duration-300">
-					Back
-			</button>
-				<button on:click={()=>{pageCount = pageCount + 1}}
-						class="bg-green-500 hover:bg-green-600 text-white font-semibold px-4 py-2 rounded-xl focus:outline-none transition duration-300">
-					Installment Option
-				</button>
-
-				<button on:click={()=>{pageCount = pageCount + 2}}
-						class="bg-green-500 hover:bg-green-600 text-white font-semibold px-4 py-2 rounded-xl focus:outline-none transition duration-300">
-					Next
-				</button>
-			</div>
-		{:else if pageCount === 4}
-			<h1>Select installment</h1>
-			<h1>select 2 or 3 months</h1>
-			<button on:click={()=>{pageCount = pageCount - 1}}
-					class="bg-green-500 hover:bg-green-600 text-white font-semibold px-4 py-2 rounded-xl focus:outline-none transition duration-300">
-				back
-			</button>
-			<button on:click={()=>{pageCount = pageCount + 1}}
-					class="bg-green-500 hover:bg-green-600 text-white font-semibold px-4 py-2 rounded-xl focus:outline-none transition duration-300">
-				Next
-			</button>
-		{:else if pageCount === 5}
-			<h1>Confirm Order</h1>
-			<h1>Show details of payment</h1>
-			<button on:click={()=>{pageCount = pageCount - 2}}
-					class="bg-green-500 hover:bg-green-600 text-white font-semibold px-4 py-2 rounded-xl focus:outline-none transition duration-300">
-				Back
-			</button>
-			<button on:click={handleConfirmOrder}
-					class="bg-green-500 hover:bg-green-600 text-white font-semibold px-4 py-2 rounded-xl focus:outline-none transition duration-300">
-				Confirm
-			</button>
-		{/if}
-	</div>
-
-{/key}
+    @keyframes AnimationName {
+        0%,
+        100% {
+            background-position: 0 50%;
+        }
+        50% {
+            background-position: 100% 50%;
+        }
+    }
+</style>
