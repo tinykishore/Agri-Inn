@@ -148,4 +148,12 @@ declare global {
 		type:string,
 		seen:boolean
 	}
+
+	interface bookmarkedItem {
+		userid : string,
+		post : [],
+		news : [],
+		events : [],
+		products : []
+	}
 }
