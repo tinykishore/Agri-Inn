@@ -68,7 +68,7 @@
 </script>
 
 {#if isPaymentSectionVisible}
-	<PaymentSection user_id={data._id} product_id={data.product_id} farm_id={data.farm_id} total_price={total_price}/>
+	<PaymentSection user_id={data._id} product_id={data.product_id} farm_id={data.farm_id} total_price={total_price} product_breed={product_information.breed}/>
 {/if}
 
 <main class="min-h-screen container mx-auto p-4 my-24 px-20 gap-4">

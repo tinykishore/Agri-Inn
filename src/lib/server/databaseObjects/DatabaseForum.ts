@@ -86,4 +86,10 @@ export default class DatabaseForum extends Database {
         consoleLog(`DATABASE LOG: Inserting post {` + post + `} information...`, LEVEL.OK)
         return await super.collections["forum"].insertOne(post);
     }
+
+     public static async getAllVets() {
+         consoleLog("DATABASE LOG: Getting all vets...", LEVEL.OK)
+         return await super.collections["vets"].find({}).toArray();
+
+    }
 }

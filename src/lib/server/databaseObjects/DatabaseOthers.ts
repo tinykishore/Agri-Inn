@@ -48,4 +48,9 @@ export default class DatabaseOthers extends Database {
             forum_result: forum_result
         }
     }
+
+    public static async getNotifications(userObjectID: string) {
+        consoleLog(`DATABASE LOG: Get notifications for user {` + userObjectID + `} ...`, LEVEL.OK)
+        return await super.collections["notification"].findOne({user_id: userObjectID});
+    }
 }

@@ -240,7 +240,7 @@ export default class DatabaseAccount extends Database {
                     phone: 1,
                     occupation: 1,
                     social_connections: 1,
-                    profile_picture: 1,
+                    profile_picture: 1
                 }
             }
         );

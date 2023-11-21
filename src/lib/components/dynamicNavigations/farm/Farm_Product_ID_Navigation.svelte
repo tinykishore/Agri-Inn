@@ -101,6 +101,7 @@
 			<img alt="" class="block w-5 h-5" src={purchase_icon}/>
 			Purchase
 		</button>
+
 		<a class="flex gap-4 rounded-full align-middle border-yellow-800/20 border justify-center items-center font-semibold text-yellow-950  hover:bg-yellow-300 hover:border-yellow-800 transition-all duration-300"
 		   href="/{username}"
 		   in:fade>

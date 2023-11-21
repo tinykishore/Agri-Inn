@@ -3,12 +3,19 @@
     import cancel_icon from "$lib/assets/icons/sign-up-cancel-icon.svg";
     import {fade} from "svelte/transition";
     import UserCache from "$lib/stores/UserCache";
-    import {isUserCacheValid} from "$lib/client/utility";
+	import {isUnseenNotification, isUserCacheValid} from "$lib/client/utility";
+	import {onMount} from "svelte";
+	import seenNotification from "$lib/assets/notificationIcon/notification-bell.png";
+	import unseenNotification from "$lib/assets/notificationIcon/notification.png";
 
-    let username: string | undefined;
+
+	let username: string | undefined;
     let full_name: string | undefined;
     let profile_picture: string | undefined;
     let UserCacheValid = isUserCacheValid();
+
+	let isUnseen = false;
+	let notificationBox = false;
 
     UserCache.subscribe((value) => {
         username = value.username;
@@ -20,6 +27,28 @@
         document.getElementById('close_image')?.classList.add('hidden');
         document.getElementById('sign_out_spinner')?.classList.remove('hidden');
     }
+
+	onMount(async () => {
+		const response = await fetch('/API/v1/GetNotificationAPI', {
+			method: "POST",
+			body: JSON.stringify({
+				"username": username
+			}),
+			headers: {
+				'Content-Type': 'application/json'
+			}
+		});
+		const data = await response.json();
+		console.log(data.notifications);
+
+		isUnseen = isUnseenNotification(data.notifications);
+		console.log(isUnseen);
+
+	});
+	export let showNotification = () => {
+		notificationBox = !notificationBox;
+	}
+
 
 </script>
 
@@ -52,6 +81,12 @@
 				Hello
 			</button>
 		</form>
+
+		<a href="/installments" class="px-3 py-2 text-sm flex bg-white items-center gap-2 align-middle rounded-full font-bold hover:bg-zinc-100
+               transition-all duration-300"
+				type="submit">
+			Installments
+		</a>
 	</div>
 
 	<div class="gap-x-4 text-xl font-bold text-amber-800 text-center">
@@ -63,6 +98,18 @@
 	</div>
 
 	<div class="flex justify-end gap-2 text-sm">
+		{#if isUnseen}
+			<button on:click={showNotification} in:fade
+			   class="mr-4 flex gap-4 rounded-full align-middle justify-center items-center font-semibold text-yellow-950  hover:bg-yellow-300 hover:border-yellow-800 transition-all duration-300">
+				<img class="h-8 w-8 mr-4" src={unseenNotification} alt="">
+			</button>
+		{:else}
+			<button on:click={showNotification} in:fade
+			   class="mr-4 flex gap-4 rounded-full align-middle justify-center items-center font-semibold text-yellow-950  hover:bg-yellow-300 hover:border-yellow-800 transition-all duration-300">
+				<img class="h-9 w-9 " src={seenNotification} alt="">
+			</button>
+		{/if}
+
 			{#if !UserCacheValid}
 			<svg class="animate-spin  h-[30px] w-[30px] mr-1 text-yellow-800" xmlns="http://www.w3.org/2000/svg" fill="none"
 				 viewBox="0 0 24 24">

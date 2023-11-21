@@ -105,6 +105,7 @@ declare global {
 	interface PaymentObject {
 		user_id: string,
 		product_id: string,
+		product_breed: string,
 		farm_id: string,
 		total_price: number,
 		shipping_address: Address,
@@ -116,17 +117,36 @@ declare global {
 			card_cvv: string,
 			bkash_number: string,
 		},
-		installment: number
+		installment?: {
+			total_installment: number,
+			remaining_installment: number,
+			next_installment_date: Date,
+			paid_amount: number,
+			due_amount: number,
+			monthly_fee:number,
+		}
+
+	}
+	interface vet{
+		username:string,
+		full_name: string,
+		address: Address,
+		phone: string,
+		profile_picture: string,
+		free_slots:[],
 	}
 
-	interface InstallmentObject {
-		payment_id: string,
-		installment_no: number,
-		next_installment_date: Date
-		remaining_installment: number
-		paid_amount: number;
-		due_amount: number;
+	interface notification{
+		id:string,
+		baseCount:number,
+		notifications:notificationObject[]
+	}
 
+	interface notificationObject{
+		date:Date,
+		body:string,
+		type:string,
+		seen:boolean
 	}
 
 	interface bookmarkedItem {

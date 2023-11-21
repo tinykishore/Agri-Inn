@@ -6,21 +6,27 @@
     import UserCache from "$lib/stores/UserCache";
     import FirstSection from "$lib/components/payment-section/FirstSection.svelte";
     import Payment from "$lib/stores/Payment";
+    import payment from "$lib/stores/Payment";
     import SecondSection from "$lib/components/payment-section/SecondSection.svelte";
     import ThirdSection from "$lib/components/payment-section/ThirdSection.svelte";
-    import payment from "$lib/stores/Payment";
 
     export let user_id: string;
     export let product_id: string;
     export let farm_id: string;
 	export let total_price: number;
+	export let product_breed: string;
 
-	let remaining_installment: number;
+
 
     let public_profile: PublicProfile;
-
     let paymentInformation: PaymentObject;
 
+
+	let monthly_fee: number = 0;
+	let remaining_installment: number = 0;
+	let paid_amount: number = 0;
+	let due_amount: number = 0;
+	let next_installment_date: Date = new Date();
 	let next_month_date: Date = new Date();
 	next_month_date.setMonth(next_month_date.getMonth() + 1);
 
@@ -32,16 +38,20 @@
 			product_id,
 			farm_id,
 			total_price,
+			product_breed,
         }
     })
 
-	payment.subscribe(value => {
+	Payment.subscribe(value => {
 		paymentInformation = value;
 	});
 
 	const modalCloseAction = () => {
-		modals.set({
-			farms_farm_product_modal: false,
+		modals.update((values) => {
+			return {
+				...values,
+				farms_farm_product_modal: false,
+			}
 		})
 	}
 
@@ -66,6 +76,13 @@
     });
 
     const processPayment = async () => {
+		if(paymentInformation.installment?.total_installment!=undefined){
+			paymentInformation.installment.monthly_fee = total_price/paymentInformation.installment.total_installment;
+			paymentInformation.installment.remaining_installment = paymentInformation.installment.total_installment-1;
+			paymentInformation.installment.next_installment_date = next_month_date;
+			paymentInformation.installment.paid_amount = total_price/paymentInformation.installment.total_installment;
+			paymentInformation.installment.due_amount = total_price-(total_price/paymentInformation.installment.total_installment);
+		}
 		const response = await fetch('/API/v1/farms/PlaceOrderAPI', {
 			method: 'POST',
 			body: JSON.stringify(
@@ -75,30 +92,7 @@
 				'Content-Type': 'application/json'
 			}
 		});
-		const orderInfo = await response.json();
-		if(paymentInformation.installment!=undefined){
 
-			const installmentInformation: InstallmentObject = {
-				payment_id: orderInfo.insertedId,
-				installment_no: paymentInformation.installment,
-				next_installment_date: next_month_date,
-				remaining_installment: paymentInformation.installment-1,
-				paid_amount: total_price/paymentInformation.installment,
-				due_amount: total_price- (total_price/paymentInformation.installment)
-			}
-
-			total_price = total_price/paymentInformation.installment;
-
-			const response = await fetch('/API/v1/farms/PlaceInstallmentAPI', {
-				method: 'POST',
-				body: JSON.stringify(
-					installmentInformation
-				),
-				headers: {
-					'Content-Type': 'application/json'
-				}
-			});
-		}
 	}
 
 

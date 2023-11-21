@@ -8,12 +8,11 @@ export const POST = async ({request, cookies}: any): Promise<Response> => {
     if (!verifyRequest(cookies)) {
         return new Response("Unauthorized", {status: 401});
     }
+
     // Extract the farm_uid from request
-    const product_id = await request.json();
+    const {product_category, farm_id} = await request.json();
 
-    console.log(product_id)
-
-    const product_info = await DatabaseFarm.getOneProduct(product_id);
+    const product_info = await DatabaseFarm.getCategoryProduct(product_category, farm_id)
     if (!product_info) {
         consoleLog("GetProductInfoAPI RESPONSE: status 404", LEVEL.ERROR);
         return new Response(null, {status: 404})

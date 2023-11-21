@@ -25,4 +25,5 @@ export default class DatabaseNews extends Database {
         return x;
 
     }
+
 }

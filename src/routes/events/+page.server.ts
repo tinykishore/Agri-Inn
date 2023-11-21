@@ -30,6 +30,6 @@ export const load = async ({cookies}: any) => {
 
     // If the JWT is valid, return the user data
     return {
-        _id: authenticated.userObjectID,
+        _id: authenticated._id
     }
 }

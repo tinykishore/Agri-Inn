@@ -66,13 +66,41 @@ export default class DatabaseFarm extends Database {
         return await super.collections["order"].insertOne(order);
     }
 
-    public static async insertInstallment(installment: InstallmentObject): Promise<any> {
-        consoleLog(`DATABASE LOG:  payment details {` + installment + `} ...`, LEVEL.OK)
-        return await super.collections["installment"].insertOne(installment);
+    public static async getInstallments(user_id: string): Promise<any> {
+        let installments: any;
+        consoleLog(`DATABASE LOG:  payment details {` + user_id + `} ...`, LEVEL.OK)
+        installments = await super.collections["order"].find({"user_id": user_id}).toArray();
+        for (let i: number = 0; i < installments.length; i++) {
+            if(installments[i].installment?.total_installment === undefined){
+                //pop that element
+                installments.splice(i,1);
+            }
+        }
+        console.log(installments);
+        return installments;
+    }
+    public static async getSellingProductCatalog(owner_uid: string): Promise<any> {
+        consoleLog(`DATABASE LOG: Getting farm products {` + owner_uid + `} information...`, LEVEL.OK)
+        console.log(owner_uid)
+        let products = await super.collections["farm-info"].findOne({
+            owner_id: owner_uid
+        }
+
+        );
+
+        console.log(products);
+        return products;
     }
 
-    // public static async getInstallment(payment_id: string): Promise<any> {
-    //     consoleLog(`DATABASE LOG:  payment details {` + payment_id + `} ...`, LEVEL.OK)
-    //     return await super.collections["installment"].findOne({"payment_id": payment_id});
-    // }
+
+    public static async getCategoryProduct(category: string, farm_id: string) {
+        console.log(category)
+        console.log(farm_id)
+        consoleLog(`DATABASE LOG: Getting farm products {` + category + `} information...`, LEVEL.OK);
+
+        return await super.collections["livestock-products"]
+            .find({category: category, farm_id: farm_id})
+            .toArray();
+    }
+
 }
