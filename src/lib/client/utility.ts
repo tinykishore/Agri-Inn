@@ -108,15 +108,6 @@ export function makeURL(text: string) {
     if (isSecureURL(text)) {
         return text;
     }
-    if (isInsecureURL(text)) {
-        return text.replace('http://', 'https://');
-    }
-    const urlRegex = /(?<!https?:\/\/)(?<!www\.)(\S+)/g;
-    if (urlRegex.test(text)) {
-        return text.replace(urlRegex, function (url: string) {
-            return 'https://' + url;
-        });
-    }
 }
 
 export function isUnseenNotification(notification: any[]) {
