@@ -116,3 +116,7 @@ export function isUnseenNotification(notification: any[]) {
     });
 }
 
+export function makeFirstLetterCapital(str: string) {
+    return str.charAt(0).toUpperCase() + str.slice(1);
+}
+

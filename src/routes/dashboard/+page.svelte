@@ -3,6 +3,7 @@
     import DashboardNavigation from "$lib/components/dynamicNavigations/DashboardNavigation.svelte";
     import {onMount} from "svelte";
     import UserCache from "$lib/stores/UserCache";
+    import {USER_ROLE} from "$lib/client/utility";
 
     DynamicNavigation.set(DashboardNavigation);
 
@@ -23,11 +24,8 @@
 </svelte:head>
 
 <main class="my-20 mx-32">
-
 	<div class="grid-cols-3 grid gap-4">
 		<div class="col-span-2 bg-amber-100 w-full p-4 rounded-2xl">
-			User Greetings
-
 			{userCache?.full_name}
 			{userCache?.email}
 			{userCache?.username}
@@ -46,6 +44,13 @@
 				<h1 class="text-xl font-bold antialiased text-amber-900">Farms</h1>
 				<h1 class="text-sm font-bold antialiased text-amber-900">Manage your farms</h1>
 			</a>
+
+			{#if userCache?.user_role === USER_ROLE.OWNER}
+				<a class="rounded-2xl bg-zinc-50 p-4" href="/health-track">
+					<h1 class="text-xl font-bold antialiased text-amber-900">Health Track</h1>
+					<h1 class="text-sm font-bold antialiased text-amber-900">Track your livestock health</h1>
+				</a>
+			{/if}
 
 			<a class="rounded-2xl bg-zinc-50 p-4" href="/forum">
 				<h1 class="text-xl font-bold antialiased text-amber-900">Forum</h1>
@@ -66,6 +71,7 @@
 				<h1 class="text-xl font-bold antialiased text-amber-900">Events</h1>
 				<h1 class="text-sm font-bold antialiased text-amber-900">View recent livestock events</h1>
 			</a>
+
 
 
 

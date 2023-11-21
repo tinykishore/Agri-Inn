@@ -7,8 +7,6 @@
     let products: any = [];
 
     onMount(async () => {
-        // Get all product by category
-
         if (product_category == '' || farm_id == '') {
             return;
         }
@@ -29,83 +27,50 @@
 
 </script>
 
-<style>
-	.product-category-container {
-		display: grid;
-		grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-		gap: 20px;
-		margin: 20px;
-	}
-
-	.product-category {
-		background-color: #f8f8f8;
-		border: 1px solid #ddd;
-		border-radius: 15px;
-		overflow: hidden;
-		transition: box-shadow 0.3s ease;
-	}
-
-	.product-category:hover {
-		box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
-	}
-
-	.product-container {
-		display: flex;
-		flex-direction: column;
-		gap: 10px;
-		padding: 20px;
-	}
-
-	.section-title {
-		font-size: 1.2em;
-		font-weight: bold;
-		margin-bottom: 0.5em;
-		color: #333;
-	}
-
-	.product-details,
-	.vaccine-records,
-	.diseases {
-		width: 100%;
-	}
-
-	.product-container h1 {
-		color: #555;
-	}
-
-	.product-details h1,
-	.vaccine-records h1,
-	.diseases h1 {
-		margin: 0;
-	}
-</style>
-
-<div class="product-category-container">
+<div class="flex flex-col gap-2">
 	{#each products as product}
-		<div class="product-category">
-			<div class="product-container">
-				<div class="product-details">
-					<div class="section-title">Product ID</div>
-					<h1>{product.id}</h1>
-				</div>
+		<div class="bg-white rounded-2xl flex flex-col p-4 gap-2">
+			<h1 class="px-3 py-1 text-sm font-mono bg-zinc-300 rounded-full w-fit">
+				ID: {product.id}
+			</h1>
 
-				<div class="vaccine-records">
-					<div class="section-title">Vaccine Records</div>
+			<div class="">
+				<div class="text-xl font-black text-amber-800 text-center">Vaccine Records</div>
+				<table class="min-w-full divide-y divide-gray-200 rounded">
+					<!-- Table headers -->
+					<thead class="rounded">
+					<tr class="bg-orange-200">
+						<th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+							Vaccine Name
+						</th>
+						<th class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
+							Date
+						</th>
+						<!-- Add more headers as needed -->
+					</tr>
+					</thead>
+					<!-- Table body -->
+					<tbody class="bg-white divide-y divide-gray-200">
+					<!-- Row 1 -->
+
+					</tbody>
+				</table>
 					{#each product.vaccination_records as pvc}
-						<div class="vaccine-record">
-							<h1>{pvc.vaccine_name}</h1>
-							<h1>{pvc.date_administered}</h1>
-						</div>
+						<tr>
+							<td class="px-6 py-4">{pvc.vaccine_name}</td>
+							<td class="px-6 py-4 align-middle items-center flex text-center justify-center">{pvc.date_administered}</td>
+						</tr>
 					{/each}
 				</div>
 
-				<div class="diseases">
-					<div class="section-title">Diseases</div>
+			<div>
+				<h1 class="text-xl font-black text-amber-800 text-center mb-4">Previous Diseases</h1>
+				<div class="flex gap-3 justify-center">
 					{#each product.diseases as disease}
-						<h1>{disease}</h1>
+						<h1 class="bg-amber-700 px-3 py-1 rounded-full font-semibold text-sm text-white">{disease}</h1>
 					{/each}
+					</div>
 				</div>
 			</div>
-		</div>
 	{/each}
 </div>

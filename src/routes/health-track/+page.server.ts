@@ -24,7 +24,6 @@ export const load = async ({cookies}: any) => {
     try {
         authenticated = jwt.verify(token, JWT_SECRET);
     } catch (e) {
-        console.log(e);
         throw redirect(307, "/sign-in");
     }
 
