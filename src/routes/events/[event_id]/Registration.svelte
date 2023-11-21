@@ -16,9 +16,22 @@
             }
         })
     }
-	async function handleRegister() {
-	console.log("ok")
-	}
+	// async function handleRegister() {
+	// 	const response = await fetch("/API/v1/events/RegisterEventAPI", {
+	// 		method: "POST",
+	// 		body: JSON.stringify(
+	// 				{
+	// 					event_id: event.event_id,
+	//
+	// 				}
+	// 		),
+	// 		headers: {
+	// 			"Content-Type": "application/json"
+	// 		},
+	//
+	// });
+	// 	event = await response.json();
+	// }
 
 
     onMount(async () => {
