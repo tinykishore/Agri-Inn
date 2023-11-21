@@ -30,7 +30,7 @@
 	},
 	"type": "module",
 	"dependencies": {
-		"@supabase/supabase-js": "^2.38.4",
+		"@supabase/supabase-js": "^2.38.5",
 		"bcrypt": "^5.1.1",
 		"cryptojs": "^2.5.3",
 		"google-auth-library": "^9.2.0",
