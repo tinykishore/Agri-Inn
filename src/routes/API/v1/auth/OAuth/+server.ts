@@ -36,7 +36,8 @@ export const GET = async ({url, cookies}: any) => {
     const profile_picture = data.picture;
     const google_id = data.sub;
 
-    const result = await DatabaseAccount.getUserByEmail(email)
+    const result = await DatabaseAccount.getUserAccount(null, null, email);
+
     if (result) {
         consoleLog("User found", LEVEL.OK);
         if (result.credentials.google_id === "" || result.credentials.google_id !== google_id) {

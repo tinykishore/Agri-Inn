@@ -46,7 +46,7 @@
             profilePicture: profilePicture
         }
 
-        const response = await fetch('/API/v1/forum/InsertPostAPI', {
+        const response = await fetch('/API/v1/for\ um/InsertPostAPI', {
             method: 'POST',
             body: JSON.stringify(post),
             headers: {

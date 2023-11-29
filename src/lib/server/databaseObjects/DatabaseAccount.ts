@@ -1,54 +1,40 @@
-import Database from "$lib/server/database";
+import Database from "$lib/server/Database";
 import consoleLog, {LEVEL} from "$lib/server/log";
 import type {ObjectId} from "mongodb";
 
 export default class DatabaseAccount extends Database {
     /**
-     * Retrieves a user from the database by their email.
+     * Retrieves a user account from the database based on specified criteria.
      *
-     * @param email - The email of the user to look up.
-     * @returns A Promise that resolves to the user object or null if not found.
+     * @param _id - The unique identifier of the user account (optional).
+     * @param username - The username of the user account (optional).
+     * @param email - The email address associated with the user account (optional).
+     *
+     * @returns A Promise that resolves to the user account if found, or null if not found.
+     *
+     * @remarks
+     * This method uses the specified criteria to search for a user account in the "user-account" collection of the database.
+     * If the user account is found, it is logged with a <200> status; otherwise, a <404> status is logged.
+     *
      */
-    public static async getUserByEmail(email: string): Promise<any> {
-        consoleLog("DATABASE LOG: Retrieving User by Email...", LEVEL.INFO)
-        const result = await super.collections["user-account"].findOne({"credentials.email": email});
-        if (result !== null) {
-            consoleLog(`DATABASE LOG: Retrieved User by Email ${email}`, LEVEL.OK);
-            return result;
-        }
-        consoleLog(`DATABASE LOG: Retrieve Failure (404:: ${email} not found) by email`, LEVEL.ERROR);
-    }
+    public static async getUserAccount(
+        _id?: ObjectId | null,
+        username?: string | null,
+        email?: string | null
+    ): Promise<any> {
+        consoleLog("DATABASE LOG: Retrieving User...", LEVEL.INFO)
+        const queryResult = await super.collections["user-account"].findOne(
+            {
+                $or: [
+                    {"credentials.username": username},
+                    {"_id": _id},
+                    {"credentials.email": email}
+                ]
+            });
 
-    /**
-     * Retrieves a user from the database by their username.
-     *
-     * @param username - The username of the user to look up.
-     * @returns A Promise that resolves to the user object or null if not found.
-     */
-    public static async getUserByUsername(username: string): Promise<any> {
-        consoleLog("DATABASE LOG: Retrieving User by username...", LEVEL.INFO)
-        const result = await super.collections["user-account"].findOne({"credentials.username": username});
-        if (result !== null) {
-            consoleLog(`DATABASE LOG: Retrieved User by Username ${username}`, LEVEL.OK);
-            return result;
-        }
-        consoleLog(`DATABASE LOG: Retrieve Failure (404:: ${username} not found) by username`, LEVEL.ERROR);
-    }
-
-    /**
-     * Retrieves a user from the database by their unique ObjectID.
-     *
-     * @param _id - The ObjectID of the user to look up.
-     * @returns A Promise that resolves to the user object or null if not found.
-     */
-    public static async getUserByObjectID(_id: ObjectId): Promise<any> {
-            consoleLog("DATABASE LOG: Retrieving User by ObjectID...", LEVEL.INFO)
-        const result = await super.collections["user-account"].findOne({_id: _id});
-        if (result !== null) {
-            consoleLog(`DATABASE LOG: Retrieved User by ObjectID ${_id}`, LEVEL.OK);
-            return result;
-        }
-        consoleLog(`DATABASE LOG: Retrieve Failure (404:: ${_id} not found) by ObjectID`, LEVEL.ERROR);
+        if (queryResult !== null) consoleLog(`DATABASE LOG: <200> Retrieved User ${queryResult.credentials.username}`, LEVEL.OK);
+        else consoleLog(`DATABASE LOG: <404> Retrieve Failure`, LEVEL.ERROR);
+        return queryResult;
     }
 
     /**
@@ -57,17 +43,16 @@ export default class DatabaseAccount extends Database {
      * @param _id - The ObjectID of the user to retrieve cache information for.
      * @returns A Promise that resolves to a TypeUserCache object.
      */
-    public static async getUserCache(_id: ObjectId) {
+    public static async getUserCache(
+        _id: ObjectId
+    ): Promise<TypeUserCache | undefined> {
         consoleLog(`DATABASE LOG: Retrieving User Cache for {` + _id + `}`, LEVEL.INFO);
         const result = await super.collections["user-account"].findOne({_id: _id});
         if (result !== null) {
-            consoleLog(`DATABASE LOG: Retrieved User Cache for {` + _id + `}`, LEVEL.OK);
+            consoleLog(`DATABASE LOG: <200> Retrieved User Cache for {` + _id + `}`, LEVEL.OK);
             return {
-                _id: result._id,
-                full_name: result.full_name,
-                email: result.credentials.email,
-                username: result.credentials.username,
-                profile_picture: result.profile_picture,
+                _id: result._id, full_name: result.full_name, email: result.credentials.email,
+                username: result.credentials.username, profile_picture: result.profile_picture,
                 user_role: result.role,
             };
         }
@@ -240,7 +225,8 @@ export default class DatabaseAccount extends Database {
                     phone: 1,
                     occupation: 1,
                     social_connections: 1,
-                    profile_picture: 1
+                    profile_picture: 1,
+
                 }
             }
         );

@@ -21,15 +21,7 @@ export const POST = async ({request}: any): Promise<Response> => {
 
     // Define authenticationResult variable, which will be used to determine if the user is authenticated
     let authenticationResult: any;
-    if (keyIsEmail) {
-        consoleLog("SignInAPI API REQUEST: key is email", LEVEL.OK)
-        // If the key is an email, find the user by email
-        authenticationResult = await DatabaseAccount.getUserByEmail(credentials.key);
-    } else {
-        consoleLog("SignInAPI API REQUEST: key is username", LEVEL.OK);
-        // If the key is a username, find the user by username
-        authenticationResult = await DatabaseAccount.getUserByUsername(credentials.key);
-    }
+    authenticationResult = await DatabaseAccount.getUserAccount(null, credentials.key, credentials.key)
 
     // If the user is not found, return a 401 status code
     if (!authenticationResult) {

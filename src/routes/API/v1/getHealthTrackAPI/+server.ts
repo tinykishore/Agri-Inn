@@ -1,6 +1,6 @@
 import consoleLog, {LEVEL} from "$lib/server/log";
 import {verifyRequest} from "$lib/server/utility";
-import Database from "$lib/server/database";
+import Database from "$lib/server/Database";
 
 export const GET = async ({cookies}: any) => {
     consoleLog("GetAllHealthInfo REQUEST Received", LEVEL.OK);
