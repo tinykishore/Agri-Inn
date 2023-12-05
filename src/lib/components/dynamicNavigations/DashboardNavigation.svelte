@@ -3,13 +3,15 @@
     import cancel_icon from "$lib/assets/icons/sign-up-cancel-icon.svg";
     import {fade} from "svelte/transition";
     import UserCache from "$lib/stores/UserCache";
-	import {isUnseenNotification, isUserCacheValid} from "$lib/client/utility";
-	import {onMount} from "svelte";
-	import seenNotification from "$lib/assets/notificationIcon/notification-bell.png";
-	import unseenNotification from "$lib/assets/notificationIcon/notification.png";
+    import {isUnseenNotification, isUserCacheValid} from "$lib/client/utility";
+    import {onMount} from "svelte";
+    import seenNotification from "$lib/assets/notificationIcon/notification-bell.png";
+    import unseenNotification from "$lib/assets/notificationIcon/notification.png";
+    import {notificationPanel} from "$lib/stores/NotificationPanel";
+    import {modals} from "$lib/stores/Modals";
 
 
-	let username: string | undefined;
+    let username: string | undefined;
     let full_name: string | undefined;
     let profile_picture: string | undefined;
     let UserCacheValid = isUserCacheValid();
@@ -39,14 +41,23 @@
 			}
 		});
 		const data = await response.json();
-		console.log(data.notifications);
-
 		isUnseen = isUnseenNotification(data.notifications);
-		console.log(isUnseen);
 
 	});
 	export let showNotification = () => {
-		notificationBox = !notificationBox;
+        notificationPanel.update((values) => {
+            return {
+                ...values,
+                show_notification: !values.show_notification
+            }
+        })
+        isUnseen = false;
+	}
+
+    $: {
+        notificationPanel.subscribe((values) => {
+			notificationBox = values.show_notification;
+		})
 	}
 
 

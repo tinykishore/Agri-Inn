@@ -120,3 +120,19 @@ export function makeFirstLetterCapital(str: string) {
     return str.charAt(0).toUpperCase() + str.slice(1);
 }
 
+export function formatDateTime(isoString: string | number | Date) {
+    const dateTime = new Date(isoString);
+
+    const options = {
+        hour: "2-digit",
+        minute: "2-digit",
+        day: "2-digit",
+        month: "2-digit",
+        year: "2-digit"
+    };
+
+    const dateFormatter = new Intl.DateTimeFormat("en-US", options);
+    const formattedDateTime = dateFormatter.format(dateTime);
+
+    return formattedDateTime;
+}

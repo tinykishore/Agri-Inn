@@ -1,5 +1,5 @@
 import type {Handle} from "@sveltejs/kit";
-import {initializeDatabaseConnection, isDatabaseConnectionInitialized} from "$lib/server/Database";
+import {initializeDatabaseConnection, isDatabaseConnectionInitialized} from "$lib/server/database";
 
 /**
  * A SvelteKit server function to handle incoming requests.

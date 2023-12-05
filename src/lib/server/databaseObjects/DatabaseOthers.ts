@@ -1,4 +1,4 @@
-import Database from "$lib/server/Database";
+import Database from "$lib/server/database";
 import consoleLog, {LEVEL} from "$lib/server/log";
 
 export default class DatabaseOthers extends Database {
