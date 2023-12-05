@@ -1,5 +1,4 @@
 <script lang="ts">
-	import flowbite
     import DynamicNavigation from "$lib/stores/DynamicNavigation";
     import DashboardNavigation from "$lib/components/dynamicNavigations/DashboardNavigation.svelte";
     import {onMount} from "svelte";
@@ -7,6 +6,7 @@
     import right_arrow from "$lib/assets/icons/right_arrow.svg";
     import UserCache from "$lib/stores/UserCache";
     import forum_bg from "$lib/assets/images/forum-bg.png";
+    import 'flowbite';
 
     DynamicNavigation.set(DashboardNavigation);
 
@@ -115,28 +115,33 @@
 		<div class="relative h-56 overflow-hidden rounded-lg md:h-96">
 			<!-- Item 1 -->
 			<div class="hidden duration-700 ease-in-out" data-carousel-item>
-				<img src="/src/lib/assets/images/about_bg.jpg"/>
-					 class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="...">
+				<img src="/src/lib/assets/images/about_bg.jpg"
+					 class="object-cover absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
+					 alt="...">
 			</div>
 			<!-- Item 2 -->
 			<div class="hidden duration-700 ease-in-out" data-carousel-item>
 				<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e6/Lvm.svg/400px-Lvm.svg.png"
-					 class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="...">
+					 class="object-cover absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
+					 alt="...">
 			</div>
 			<!-- Item 3 -->
 			<div class="hidden duration-700 ease-in-out" data-carousel-item>
 				<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e6/Lvm.svg/400px-Lvm.svg.png"
-					 class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="...">
+					 class="object-cover absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
+					 alt="...">
 			</div>
 			<!-- Item 4 -->
 			<div class="hidden duration-700 ease-in-out" data-carousel-item>
 				<img src="https://assets.site-static.com/userFiles/1681/image/uploads/agent-1/buy-sell-land.jpg"
-					 class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="...">
+					 class="object-cover absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
+					 alt="...">
 			</div>
 			<!-- Item 5 -->
 			<div class="hidden duration-700 ease-in-out" data-carousel-item>
 				<img src="https://assets.site-static.com/userFiles/1681/image/uploads/agent-1/buy-sell-land.jpg"
-					 class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="...">
+					 class="object-cover absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
+					 alt="...">
 			</div>
 		</div>
 		<!-- Slider indicators -->
@@ -199,7 +204,6 @@
 			<h1>
 				Somrthing
 			</h1>
-
 		</div>
 
 
@@ -213,15 +217,8 @@
 		   class="p-4 rounded-xl bg-white/40 hover:bg-white hover:scale-105 transition duration-300">Marketplace</a>
 		<a href="/instalments"
 		   class="p-4 rounded-xl bg-white/40 hover:bg-white hover:scale-105 transition duration-300">Installments</a>
+
 	</div>
 
 
 </main>
-
-
-<script>
-    // Include the Flowbite library
-    import flowbite from 'https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.0/flowbite.min.js';
-
-    // Any additional script logic related to Flowbite can go here
-</script>
