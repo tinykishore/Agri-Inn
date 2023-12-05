@@ -6,6 +6,7 @@
     import {isUnseenNotification, isUserCacheValid} from "$lib/client/utility";
     import {onMount} from "svelte";
     import seenNotification from "$lib/assets/notificationIcon/notification-bell.png";
+	import saveIcon from "$lib/assets/icons/save.svg";
     import unseenNotification from "$lib/assets/notificationIcon/notification.png";
     import {notificationPanel} from "$lib/stores/NotificationPanel";
     import {modals} from "$lib/stores/Modals";
@@ -61,6 +62,8 @@
 	}
 
 
+
+
 </script>
 
 <div class="grid grid-cols-3 items-center">
@@ -109,6 +112,9 @@
 	</div>
 
 	<div class="flex justify-end gap-2 text-sm">
+		<a href="/savedItem">
+			<img class="h-8 w-8 mr-4" src={saveIcon} alt="">
+		</a>
 		{#if isUnseen}
 			<button on:click={showNotification} in:fade
 			   class="mr-4 flex gap-4 rounded-full align-middle justify-center items-center font-semibold text-yellow-950  hover:bg-yellow-300 hover:border-yellow-800 transition-all duration-300">

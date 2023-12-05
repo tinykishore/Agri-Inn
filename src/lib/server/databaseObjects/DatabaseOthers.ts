@@ -53,4 +53,9 @@ export default class DatabaseOthers extends Database {
         consoleLog(`DATABASE LOG: Get notifications for user {` + userObjectID + `} ...`, LEVEL.OK)
         return await super.collections["notification"].findOne({user_id: userObjectID});
     }
+
+    public static async getSavedItems(userObjectID: string) {
+        consoleLog(`DATABASE LOG: Get saved items for user {` + userObjectID + `} ...`, LEVEL.OK)
+        return await super.collections["saved_items"].findOne({user_id: userObjectID});
+    }
 }
