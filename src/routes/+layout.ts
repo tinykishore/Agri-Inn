@@ -13,9 +13,8 @@ import UserCache from "$lib/stores/UserCache";
  * @param {Function} options.parent - A function representing the parent process.
  * @param {Object} options.data - Data for the API call.
  * @param {Function} options.fetch - A function for making fetch requests.
- * @returns {Promise<{ url: any }>} A Promise that resolves with an object containing the pathname of the URL.
  */
-export let load = async ({url, parent, data, fetch}: any): Promise<{ url: any }> => {
+export let load = async ({url, parent, data, fetch}: any) => {
     await parent();
 
     // Try load USER_CACHE
@@ -34,7 +33,30 @@ export let load = async ({url, parent, data, fetch}: any): Promise<{ url: any }>
         }
     }
 
+    let got_username: any = null;
+
+    // Try load NOTIFICATIONS
+    UserCache.subscribe((value) => {
+        got_username = value.username;
+    });
+
+
+    let got_notification: any;
+    if (got_username) {
+        const response = await fetch('/API/v1/GetNotificationAPI', {
+            method: "POST",
+            body: JSON.stringify({
+                "username": got_username
+            }),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+        got_notification = await response.json();
+    }
+
     return {
-        url: url.pathname
+        url: url.pathname,
+        notifications: got_notification
     }
 }

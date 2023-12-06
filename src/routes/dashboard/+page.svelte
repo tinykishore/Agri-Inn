@@ -40,7 +40,7 @@
 		<div id="user_info"
 			 class="bg-white/60 backdrop-blur-2xl  rounded-2xl p-4 align-middle items-center flex flex-col">
 			<div class="flex flex-col gap-1 justify-center align-middle items-center -translate-y-16 ">
-				<img class="rounded-full animate-spin w-28 h-28 border-8 border-white/60 backdrop-blur-2x"
+				<img class="rounded-full  w-28 h-28 border-8 border-white/60 backdrop-blur-2x"
 					 src={userCache.profile_picture} alt="profile_picture">
 				<h1 class=" text-2xl font-black w-full  text-amber-950">Welcome, {userCache.full_name}</h1>
 				<h1 class=" font-semibold font-mono">{userCache.email}</h1>

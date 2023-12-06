@@ -10,12 +10,6 @@ export enum USER_ROLE {
     OWNER
 }
 
-export enum PAYMENT_METHOD {
-    CARD_PAYMENT,
-    BKASH,
-    COD
-}
-
 export function isUserCacheValid(): boolean {
     let username, email, full_name, profile_picture, user_role;
     UserCache.subscribe((value) => {
@@ -99,11 +93,6 @@ export function isSecureURL(str: string) {
     return pattern.test(str);
 }
 
-export function isInsecureURL(str: string) {
-    const pattern = new RegExp('^(http:\\/\\/)');
-    return pattern.test(str);
-}
-
 export function makeURL(text: string) {
     if (isSecureURL(text)) {
         return text;
@@ -120,3 +109,8 @@ export function makeFirstLetterCapital(str: string) {
     return str.charAt(0).toUpperCase() + str.slice(1);
 }
 
+export function formatDateTime(isoString: string | number | Date) {
+    const dateTime = new Date(isoString);
+    const dateFormatter: Intl.DateTimeFormat = new Intl.DateTimeFormat("en-US");
+    return dateFormatter.format(dateTime);
+}

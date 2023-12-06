@@ -3,13 +3,14 @@
     import cancel_icon from "$lib/assets/icons/sign-up-cancel-icon.svg";
     import {fade} from "svelte/transition";
     import UserCache from "$lib/stores/UserCache";
-	import {isUnseenNotification, isUserCacheValid} from "$lib/client/utility";
-	import {onMount} from "svelte";
-	import seenNotification from "$lib/assets/notificationIcon/notification-bell.png";
-	import unseenNotification from "$lib/assets/notificationIcon/notification.png";
+    import {isUnseenNotification, isUserCacheValid} from "$lib/client/utility";
+    import {onMount} from "svelte";
+    import seenNotification from "$lib/assets/notificationIcon/notification-bell.png";
+	import saveIcon from "$lib/assets/icons/save.svg";
+    import unseenNotification from "$lib/assets/notificationIcon/notification.png";
+    import {notificationPanel} from "$lib/stores/NotificationPanel";
 
-
-	let username: string | undefined;
+    let username: string | undefined;
     let full_name: string | undefined;
     let profile_picture: string | undefined;
     let UserCacheValid = isUserCacheValid();
@@ -29,6 +30,7 @@
     }
 
 	onMount(async () => {
+        console.log(notificationBox)
 		const response = await fetch('/API/v1/GetNotificationAPI', {
 			method: "POST",
 			body: JSON.stringify({
@@ -39,14 +41,23 @@
 			}
 		});
 		const data = await response.json();
-		console.log(data.notifications);
-
 		isUnseen = isUnseenNotification(data.notifications);
-		console.log(isUnseen);
 
 	});
 	export let showNotification = () => {
-		notificationBox = !notificationBox;
+        notificationPanel.update((values) => {
+            return {
+                ...values,
+                show_notification: !values.show_notification
+            }
+        })
+        isUnseen = false;
+	}
+
+    $: {
+        notificationPanel.subscribe((values) => {
+			notificationBox = values.show_notification;
+		})
 	}
 
 
@@ -98,6 +109,9 @@
 	</div>
 
 	<div class="flex justify-end gap-2 text-sm">
+		<a href="/savedItem">
+			<img class="h-8 w-8 mr-4" src={saveIcon} alt="">
+		</a>
 		{#if isUnseen}
 			<button on:click={showNotification} in:fade
 			   class="mr-4 flex gap-4 rounded-full align-middle justify-center items-center font-semibold text-yellow-950  hover:bg-yellow-300 hover:border-yellow-800 transition-all duration-300">
