@@ -155,4 +155,12 @@ declare global {
 		events : [],
 		products : []
 	}
+
+	interface marketplace {
+		product_id : string,
+		product_name : string,
+		product_type : string,
+		product_price : string,
+		manufacturer : string,
+	}
 }
