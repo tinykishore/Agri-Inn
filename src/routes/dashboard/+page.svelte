@@ -16,7 +16,7 @@
     })
 
 	onMount(async () => {
-        // something
+
 	})
 </script>
 
