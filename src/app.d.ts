@@ -9,7 +9,6 @@ declare global {
 		// interface PageData {}
 		// interface Platform {}
 	}
-
 	interface SignInCredentials {
 		key: string
 		password: string

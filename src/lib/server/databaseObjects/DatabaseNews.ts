@@ -1,5 +1,6 @@
 import Database from "$lib/server/Database";
 import consoleLog, {LEVEL} from "$lib/server/log";
+import type {ObjectId} from "mongodb";
 
 
 export default class DatabaseNews extends Database {
@@ -8,9 +9,16 @@ export default class DatabaseNews extends Database {
         return await super.collections["news"].find({}).toArray();
     }
 
-    public static async getOneNews(news_uid: string): Promise<any> {
+    public static async getOneNews(news_uid?: string | null, _id?:ObjectId | null): Promise<any> {
         consoleLog(`DATABASE LOG: Getting farm {` + news_uid + `} information...`, LEVEL.OK)
-        return await this.collections["news"].findOne({"u_id": news_uid});
+        return await this.collections["news"].findOne(
+            {
+                $or: [
+                    {_id: _id},
+                    {news_uid: news_uid}
+                ]
+            }
+        );
     }
 
     public static async saveNews(user_id: string, news_id: string,) {

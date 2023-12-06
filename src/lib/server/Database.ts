@@ -62,28 +62,12 @@ export const isDatabaseConnectionInitialized = (): boolean => {
 }
 
 /**
- * Terminates the database connection, closing the connection to the MongoDB server.
- *
- * @returns A Promise that resolves when the connection is successfully closed.
- */
-export const terminateDatabaseConnection = async (): Promise<void> => {
-    for (let key in collections) {
-        collections[key] = null;
-    }
-    databaseConnection = null;
-    await client.close();
-    consoleLog("DATABASE LOG: Connection to MongoDB Server closed", LEVEL.OK)
-}
-
-/**
  * A class for interacting with the database.
  */
 export default class Database {
 
     // Declare private static variables
     protected static collections = collections;
-
-
 
     public static async getHealthTrack() {
         consoleLog("DATABASE LOG: Getting all health track information...", LEVEL.OK)
