@@ -9,8 +9,6 @@
 	import saveIcon from "$lib/assets/icons/save.svg";
     import unseenNotification from "$lib/assets/notificationIcon/notification.png";
     import {notificationPanel} from "$lib/stores/NotificationPanel";
-    import {modals} from "$lib/stores/Modals";
-
 
     let username: string | undefined;
     let full_name: string | undefined;
@@ -32,6 +30,7 @@
     }
 
 	onMount(async () => {
+        console.log(notificationBox)
 		const response = await fetch('/API/v1/GetNotificationAPI', {
 			method: "POST",
 			body: JSON.stringify({
@@ -60,8 +59,6 @@
 			notificationBox = values.show_notification;
 		})
 	}
-
-
 
 
 </script>

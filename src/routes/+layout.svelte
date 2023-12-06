@@ -10,9 +10,7 @@
 
     let showNotificationPanel = false;
 
-
     $: {
-        console.log(data.notifications.notifications);
         notificationPanel.subscribe((value) => {
             showNotificationPanel = value.show_notification;
         })

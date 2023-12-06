@@ -15,16 +15,10 @@
     let totalViews: number = 0;
     let font_size: number = 18;
 
-    $: {
-
-    }
-
     forum_id_navigation.subscribe((value) => {
-
         currentURL = value.currentURL;
         totalLikes = value.totalLikes;
         totalViews = value.totalViews;
-
     });
 
     UserCache.subscribe((value) => {
@@ -32,7 +26,6 @@
         full_name = value.full_name;
         profile_picture = value.profile_picture;
     });
-
 
     const onClickPurchase = () => {
         modals.update((value: any) => {

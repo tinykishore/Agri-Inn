@@ -14,7 +14,7 @@ import UserCache from "$lib/stores/UserCache";
  * @param {Object} options.data - Data for the API call.
  * @param {Function} options.fetch - A function for making fetch requests.
  */
-export let load = async ({url, parent, data, fetch}: any): Promise<{ url: any }> => {
+export let load = async ({url, parent, data, fetch}: any) => {
     await parent();
 
     // Try load USER_CACHE
