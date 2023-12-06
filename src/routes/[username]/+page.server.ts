@@ -3,23 +3,32 @@ import {JWT_SECRET} from "$env/static/private";
 import DatabaseAccount from "$lib/server/databaseObjects/DatabaseAccount";
 
 export const load = async ({cookies, params}: any) => {
-    // Get cookie value "sessionID"
     const sessionID = cookies.get('sessionID');
     let decodedSessionID: any;
-    try {
-        decodedSessionID = jwt.verify(sessionID, JWT_SECRET);
-        const loggedInUserObjectID = decodedSessionID.userObjectID;
-        const usernameOwner: boolean = await DatabaseAccount.crosscheckUsernameAndObjectID(params.username, loggedInUserObjectID);
+    decodedSessionID = jwt.verify(sessionID, JWT_SECRET);
+    const loggedInUserObjectID = decodedSessionID.userObjectID;
+    const urlUsername = params.username;
+
+    // Check if urlUsername exists in database
+    const verifyUsernameExists: any = await DatabaseAccount.getUserAccount(null, urlUsername, null);
+    if (!verifyUsernameExists) {
+        throw new Error("Username does not exist");
+    }
+
+    const senderOID = verifyUsernameExists._id.toString();
+
+    const usernameOwner: boolean = await DatabaseAccount.crosscheckUsernameAndObjectID(urlUsername, loggedInUserObjectID);
+    if (!usernameOwner) {
         return {
-            usernameOwner,
+            usernameVerified: false,
+            usernameObjectID: senderOID,
             username: params.username
         }
-
-
-    } catch (e) {
+    } else {
         return {
-            username: params.username,
-            usernameOwner: false
+            usernameVerified: true,
+            username: params.username
         }
     }
+
 }
