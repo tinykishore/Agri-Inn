@@ -11,7 +11,6 @@
     DynamicNavigation.set(DashboardNavigation);
 
     let userCache: TypeUserCache;
-
     UserCache.subscribe(value => {
         userCache = value;
     })
@@ -71,7 +70,7 @@
 					<h1 class="text-sm antialiased text-amber-900">Join the community</h1>
 				</a>
 
-				<a class="rounded-2xl bg-zinc-50 p-4" href="/event">
+				<a class="rounded-2xl bg-zinc-50 p-4" href="/events">
 					<h1>icon</h1>
 					<h1 class="text-xl font-bold antialiased text-amber-900">Event</h1>
 					<h1 class="text-sm antialiased text-amber-900">Join the event</h1>
