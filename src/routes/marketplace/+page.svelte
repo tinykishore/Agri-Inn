@@ -3,7 +3,13 @@
     import {onMount} from "svelte";
     import DefaultNavigation from "$lib/components/dynamicNavigations/DefaultNavigation.svelte";
     import {cartArray} from "$lib/stores/Cart";
-    import {browser} from "$app/environment";
+    import { browser } from "$app/environment";
+
+
+    if (browser){
+        variable.subscribe((value) => localStorage.user = JSON.stringify(value))
+    }
+    // import {browser} from "$app/environment";
     //export let data
     DynamicNavigation.set(DefaultNavigation);
 
