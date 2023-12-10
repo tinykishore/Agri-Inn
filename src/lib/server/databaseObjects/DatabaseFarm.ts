@@ -83,8 +83,8 @@ export default class DatabaseFarm extends Database {
         consoleLog(`DATABASE LOG: Getting farm products {` + owner_uid + `} information...`, LEVEL.OK)
         console.log(owner_uid)
         let products = await super.collections["farm-info"].findOne({
-            owner_id: owner_uid
-        }
+                owner_id: owner_uid
+            }
 
         );
 
@@ -118,3 +118,4 @@ export default class DatabaseFarm extends Database {
     }
 
 }
+[]
