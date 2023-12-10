@@ -103,4 +103,18 @@ export default class DatabaseFarm extends Database {
             .toArray();
     }
 
+    public static async addProduct(newProductObject: any, uid: string): Promise<any> {
+        try {
+            consoleLog(`DATABASE LOG: Adding new product object to ${uid}...`, LEVEL.OK);
+            const result = await super.collections["farm_products"].updateOne(
+                { uid: uid },
+                { $push: { products: newProductObject } }
+            );
+            return result;
+        } catch (error) {
+            console.error("Error adding product object:", error);
+            throw new Error("Failed to add product object");
+        }
+    }
+
 }

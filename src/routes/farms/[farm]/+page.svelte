@@ -2,6 +2,7 @@
 	import {onMount} from "svelte";
 	import DynamicNavigation from "$lib/stores/DynamicNavigation";
 	import DashboardNavigation from "$lib/components/dynamicNavigations/DashboardNavigation.svelte";
+	import UserCache from "$lib/stores/UserCache";
 
 	export let data
 	DynamicNavigation.set(DashboardNavigation);
@@ -11,6 +12,22 @@
 
 	let farm_info: any;
 	let farm_products: any;
+
+	let userCache: TypeUserCache;
+	let isOwner = false;
+
+	UserCache.subscribe(value => {
+		userCache = value;
+	})
+
+	let newProduct = {
+		breed: "",
+		price: "",
+		age: "",
+		weight: "",
+		color: ""
+	}
+
 
 	onMount(async () => {
 		// Call API to get farm info
@@ -23,6 +40,9 @@
 		});
 		farm_info = await farm_info_response.json();
 
+		if(userCache._id === farm_info.owner_id){
+			isOwner = true;
+		}
 
 		// Call API to get farm products
 		const farm_products_response = await fetch('/API/v1/farms/GetOneFarmProductsAPI', {
@@ -32,10 +52,26 @@
 				'Content-Type': 'application/json'
 			}
 		});
+
 		farm_products = await farm_products_response.json();
 		const installments = farm_products["installments"]
 		console.log(installments)
+
 	})
+
+	const addProduct = () => {
+		fetch('/API/v1/farms/AddProductAPI', {
+			method: 'POST',
+			body: JSON.stringify({
+				farm_uid: farm_uid,
+				product: newProduct
+			}),
+			headers: {
+				'Content-Type': 'application/json'
+			}
+		});
+	}
+
 
 
 </script>
@@ -50,7 +86,15 @@
 			<p class="text-4xl">{farm_info.farm_name}</p>
 			<p>{farm_info.description}</p>
 			<p>{farm_info.owner_name}</p>
-			<a href="/farms/{farm_info.uid}/purchase">Cart</a>
+			{#if isOwner}
+				<input type="text" placeholder="Breed" bind:value={newProduct.breed}> <br>
+				<input type="text" placeholder="Price" bind:value={newProduct.price}> <br>
+				<input type="text" placeholder="Age" bind:value={newProduct.age}> <br>
+				<input type="text" placeholder="Weight" bind:value={newProduct.weight}> <br>
+				<input type="text" placeholder="Color" bind:value={newProduct.color}> <br>
+
+				<button on:click={addProduct}>Add Product</button>
+			{/if}
 		</div>
 	{/if}
 
