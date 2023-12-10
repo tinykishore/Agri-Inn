@@ -16,6 +16,11 @@
     UserCache.subscribe((value) => {
         user_role = value.user_role;
     });
+	let isOwner = false;
+
+	if(user_role === USER_ROLE.OWNER){
+		isOwner = true;
+	}
 
     let isRegistrationSectionVisible: boolean = false;
 
@@ -82,10 +87,12 @@
 						rounded-full">{event.location}</span></h1>
 				{#if user_role === USER_ROLE.OWNER}
 					<div class="">
+						{#if isOwner}
 						<button on:click={onRegisterClick}
 								class="px-8 py-2 rounded-full bg-amber-900 text-white mt-4 font-bold hover:shadow-xl hover:bg-amber-700 transition-all duration-300">
 							Register
 						</button>
+						{/if}
 					</div>
 				{/if}
 			</div>

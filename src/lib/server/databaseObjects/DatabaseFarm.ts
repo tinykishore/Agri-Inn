@@ -118,4 +118,3 @@ export default class DatabaseFarm extends Database {
     }
 
 }
-[]
