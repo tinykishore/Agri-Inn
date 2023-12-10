@@ -1,10 +1,15 @@
 <script lang="ts">
     import {onMount} from "svelte";
+    import UserCache from "$lib/stores/UserCache";
 
     export let data;
 
     let installments: any;
+    let user_role: any;
 
+    UserCache.subscribe((value) => {
+        user_role = value.user_role;
+    });
 
     onMount(async () => {
         const response = await fetch('/API/v1/farms/GetInstallmentsAPI', {

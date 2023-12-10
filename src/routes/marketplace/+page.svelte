@@ -3,13 +3,7 @@
     import {onMount} from "svelte";
     import DefaultNavigation from "$lib/components/dynamicNavigations/DefaultNavigation.svelte";
     import {cartArray} from "$lib/stores/Cart";
-    import { browser } from "$app/environment";
 
-
-    if (browser){
-        variable.subscribe((value) => localStorage.user = JSON.stringify(value))
-    }
-    // import {browser} from "$app/environment";
     //export let data
     DynamicNavigation.set(DefaultNavigation);
 
@@ -20,7 +14,7 @@
     let selectedCategory = 'Dairy';
     let localCartArray: any = [];
     let cartList: any;
-    let count =0;
+    let count = 0;
     let itemNumber = 0;
 
 
@@ -55,17 +49,18 @@
         }
         count++;
         try {
-            localStorage.setItem('cart', localCartArray);
+            localStorage.setItem('cart', JSON.stringify(localCartArray));
         } catch (error:any) {
             console.error(error.message); //raises the error
         }
+
+        console.log(localStorage.getItem('cart'))
     }
 
 
     onMount(async () => {
         const response = await fetch('/API/v1/marketplace/getAllProductsmarketAPI');
         allProducts = await response.json();
-        console.log(allProducts)
         filteredProducts = allProducts.filter((product: any) => product.product_type === selectedCategory);
         cartArray.subscribe(value => {
             let sum = 0;
@@ -82,9 +77,12 @@
         filteredProducts = allProducts.filter((product: any) => product.product_type === categoryKey);
     }
 
-$:{
-   localStorage.setItem("cart",localCartArray)
-}
+    const clearCart = () => {
+        localStorage.removeItem('cart')
+        localCartArray = [];
+        console.log(localStorage.getItem('cart'))
+    }
+
 </script>
 <main class="my-20 mx-32">
 
@@ -131,14 +129,11 @@ $:{
                     </button>
                 </div>
             {/each}
-
-              <a href="/ecommerce/purchase/cart"
-                 class=" transition-all duration-300 ease-in-out rounded-full py-2 px-4 bg-white shadow-md">
-                  <div class="flex justify-center items-center gap-x-2">
-<!--                      <img class="w-4" alt="The project logo" src={category_filter}/>-->
-                      <div class="hidden lg:block text-xs font-semibold">View Cart {itemNumber}</div>
-                  </div>
-              </a>
+                      <div class="text-5xl">View Cart {itemNumber}</div>
+              <a href="/marketplace/cart">Cart e jao</a>
+              <button on:click={clearCart}>
+                  Clear Cart
+              </button>
           </div>
         {/if}
 </main>

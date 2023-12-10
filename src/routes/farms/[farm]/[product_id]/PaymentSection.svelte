@@ -76,6 +76,7 @@
     });
 
     const processPayment = async () => {
+
 		if(paymentInformation.installment?.total_installment!=undefined){
 			paymentInformation.installment.monthly_fee = total_price/paymentInformation.installment.total_installment;
 			paymentInformation.installment.remaining_installment = paymentInformation.installment.total_installment-1;
