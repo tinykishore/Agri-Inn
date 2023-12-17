@@ -40,8 +40,9 @@ export default class DatabaseOthers extends Database {
                     author: 1,
                 }
             }
-        )
-            .toArray();
+        ).toArray();
+
+
 
         return {
             user_result: user_result,

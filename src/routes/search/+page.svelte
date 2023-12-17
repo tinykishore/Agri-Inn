@@ -3,6 +3,7 @@
     import SearchNavigation from "$lib/components/dynamicNavigations/SearchNavigation.svelte";
     import search_bg from "$lib/assets/images/search_bg.jpg";
     import {truncateSentence} from "$lib/client/utility.js";
+    import search_cartoon from "$lib/assets/images/search_cartoon.png";
 
     let query = "";
     let search_results: any = {
@@ -24,18 +25,17 @@
 </svelte:head>
 
 <section class="fixed bg-fixed top-0 left-0 h-screen w-screen -z-50">
-	<img alt="sign-in-bg" class="w-full h-full bg-fixed object-cover" src="{search_bg}">
+	<img alt="" class="w-full h-full bg-fixed object-cover" src="{search_bg}">
 </section>
 
 <main class="my-20 mx-32">
-	<h1>Search For: {query} </h1>
 	{#if query !== ""}
+		<h1>Search For: {query} </h1>
 		<div class="flex flex-col gap-2">
-			<h1 class="text-3xl font-black">User Accounts</h1>
-
-			<div class="grid-cols-4 gap-3 grid">
+			<h1 class="text-3xl font-black text-amber-950">User Accounts</h1>
+			<div class="grid-cols-3 gap-3 grid">
 				{#each search_results.user_result as user}
-					<div class="flex gap-4 rounded-2xl w-full p-3 hover:bg-amber-200 hover:drop-shadow-sm transition-all duration-300 items-center justify-start align-middle">
+					<div class="flex gap-4 rounded-2xl w-full px-5 py-3 hover:bg-amber-200 hover:drop-shadow-sm transition-all duration-300 items-center justify-start align-middle">
 						<img alt="" class="w-12 h-12 rounded-full" src={user.profile_picture}/>
 						<div class="flex-col flex w-full justify-start align-middle items-start">
 							<div class="flex-col flex w-full justify-start align-middle items-start">
@@ -48,7 +48,7 @@
 				{/each}
 			</div>
 
-			<h1 class="text-3xl font-black">Forum</h1>
+			<h1 class="text-3xl font-black text-amber-950">Forum</h1>
 
 			{#each search_results.forum_result as forum}
 				<div class="flex-col flex gap-1 rounded-2xl w-full p-3 hover:bg-amber-200 hover:drop-shadow-sm transition-all duration-300 justify-start align-middle">
@@ -59,9 +59,10 @@
 			{/each}
 
 		</div>
-	{:else}
-		<div class="flex flex-col gap-2">
-			<h1 class="text-2xl">No Results Found</h1>
+	{:else if query === ""}
+		<div class="flex flex-col items-center justify-center align-middle gap-2 text-center">
+			<h1 class="text-2xl font-bold text-amber-950">Type anything to search</h1>
+			<img alt="" class="w-96 " src="{search_cartoon}">
 		</div>
 	{/if}
 </main>
