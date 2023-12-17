@@ -4,7 +4,7 @@
     import Footer from "$lib/components/Footer.svelte";
     import DynamicNavigation from "$lib/stores/DynamicNavigation";
     import {notificationPanel} from "$lib/stores/NotificationPanel";
-    import {formatDateTime, formatEpochToCustom} from "$lib/client/utility";
+    import {formatDateTime} from "$lib/client/utility";
 
     export let data;
 

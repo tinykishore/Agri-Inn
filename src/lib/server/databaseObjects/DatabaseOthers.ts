@@ -42,11 +42,46 @@ export default class DatabaseOthers extends Database {
             }
         ).toArray();
 
+        const event_result = await super.collections["event"].find(
+            {
+                $or: [
+                    {"title": {$regex: `^${query}`}},
+                    {"description": {$regex: query}},
+                ]
+            },
+            {
+                projection: {
+                    _id: 1,
+                    event_name: 1,
+                    description: 1,
+                    event_date: 1,
+                }
+            }
+        ).toArray();
+
+        const news_result = await super.collections["news"].find(
+            {
+                $or: [
+                    {"title": {$regex: `^${query}`}},
+                    {"content": {$regex: query}},
+                ]
+            },
+            {
+                projection: {
+                    _id: 1,
+                    title: 1,
+                    publish_date: 1,
+                }
+            }
+        ).toArray();
+
 
 
         return {
             user_result: user_result,
-            forum_result: forum_result
+            forum_result: forum_result,
+            event_result: event_result,
+            news_result: news_result
         }
     }
 

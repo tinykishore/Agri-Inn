@@ -55,6 +55,10 @@
 		<LandingPageSteps/>
 	</section>
 
+	<section class="mb-12 bg-white px-36 pt-12">
+		Hello
+	</section>
+
 </main>
 
 

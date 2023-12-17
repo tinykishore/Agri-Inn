@@ -21,4 +21,10 @@ export class DatabaseEvent extends Database {
             { $push: { "registered_farms": farm_id } }
         );
     }
+
+    public static async getLatestEvent() {
+        consoleLog(`DATABASE LOG: Getting latest event information...`, LEVEL.OK)
+        return await super.collections["event"].find({}).sort({event_date: -1}).limit(1).toArray();
+
+    }
 }

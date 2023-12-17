@@ -2,11 +2,20 @@
     import DynamicNavigation from "$lib/stores/DynamicNavigation";
     import DashboardNavigation from "$lib/components/dynamicNavigations/DashboardNavigation.svelte";
     import {onMount} from "svelte";
-    import logo from "$lib/assets/icons/logo.svg";
-    import right_arrow from "$lib/assets/icons/right_arrow.svg";
     import UserCache from "$lib/stores/UserCache";
     import forum_bg from "$lib/assets/images/forum-bg.png";
     import 'flowbite';
+    import farm_icon from "$lib/assets/icons/farm.svg";
+    import event_icon from "$lib/assets/icons/event.svg";
+    import discussion_icon from "$lib/assets/icons/discussion.svg";
+    import oneImg from "$lib/assets/images/1.png";
+    import twoImg from "$lib/assets/images/2.png";
+    import threeImg from "$lib/assets/images/3.png";
+    import marketplace_img from "$lib/assets/images/marketplace-dashbord.png";
+    import health_cow from "$lib/assets/images/dashboard_health.jpg";
+    import news_img from "$lib/assets/images/news_ill.png";
+    import {formatDateTime, USER_ROLE} from "$lib/client/utility";
+
 
     DynamicNavigation.set(DashboardNavigation);
 
@@ -15,8 +24,13 @@
         userCache = value;
     })
 
-	onMount(async () => {
+    let res: any;
 
+	onMount(async () => {
+        // API for latest event
+        const response = await fetch('/API/v1/GetLatestEvent')
+        res = await response.json();
+        res = res[0]
 	})
 </script>
 
@@ -30,10 +44,32 @@
 </section>
 
 <main class="my-20 mx-32">
-	<div class="grid-cols-3 grid gap-4 mt-36">
+	<div class="grid-cols-3 grid gap-4 mt-36 mb-8">
 
-		<div class="flex flex-col">
-			<h1> Some panel </h1>
+		<div class="bg-white/30 backdrop-blur-2xl p-4 rounded-2xl flex flex-col gap-2">
+			<div class="flex flex-col gap-1">
+				<h1 class="text-xl font-bold antialiased text-amber-900">Upcomming Events</h1>
+				<h1 class="mb-2 text-sm font-bold antialiased bg-gradient-to-bl from-amber-900 to-amber-700 text-transparent bg-clip-text">
+					Latest events ongoing!
+				</h1>
+			</div>
+
+
+			{#if (res)}
+				<div class="rounded-2xl flex bg-zinc-50 h-full align-middle items-center p-4 hover:bg-amber-300 duration-300 transition-all">
+					<a href="/events/{res._id}">
+						<h1 class="text-xl font-bold antialiased text-amber-900">{res.event_name}</h1>
+						<h1 class="text-sm antialiased text-amber-900">{res.description}</h1>
+						<h1 class="text-sm font-black antialiased mt-2 text-amber-900">Event on:
+							<span class="px-3 py-1 text-white font-bold text-sm bg-amber-900 rounded-full">
+								{formatDateTime(res.event_date)}</span></h1>
+					</a>
+				</div>
+			{:else}
+				<h1 class="text-xl font-bold antialiased text-amber-900">No events</h1>
+			{/if}
+
+
 		</div>
 
 		<div id="user_info"
@@ -43,7 +79,13 @@
 					 src={userCache.profile_picture} alt="profile_picture">
 				<h1 class=" text-2xl font-black w-full  text-amber-950">Welcome, {userCache.full_name}</h1>
 				<h1 class=" font-semibold font-mono">{userCache.email}</h1>
-				<h1>{userCache.user_role}</h1>
+				{#if (userCache.user_role === USER_ROLE.USER)}
+					<h1 class=" font-semibold font-mono">Agri-Inn User</h1>
+				{:else if (userCache.user_role === USER_ROLE.OWNER)}
+					<h1 class=" font-semibold font-mono">Farm Owner</h1>
+				{:else if (userCache.user_role === USER_ROLE.ADMIN)}
+					<h1 class=" font-semibold font-mono">Agri-Inn Admin</h1>
+				{/if}
 			</div>
 		</div>
 
@@ -51,173 +93,112 @@
 			<div class="flex flex-col gap-1">
 				<h1 class="text-xl font-bold antialiased text-end text-amber-900">Quick Links</h1>
 				<h1 class="mb-2 text-sm font-bold antialiased text-end bg-gradient-to-bl from-amber-900 to-amber-700 text-transparent bg-clip-text">
-					Suggested From Your Activity
+					Frequently Visited Pages
 				</h1>
 			</div>
 
 			<div class="grid grid-cols-3 justify-around gap-4">
-				<a class="rounded-2xl bg-zinc-50 p-4" href="/farms">
-					<h1>icon</h1>
-
+				<a class="rounded-2xl bg-zinc-50 p-4 hover:bg-amber-300 duration-300 transition-all" href="/farms">
+					<img class="h-6 mb-2" src={farm_icon} alt=""/>
 					<h1 class="text-xl font-bold antialiased text-amber-900">Farms</h1>
 					<h1 class="text-sm antialiased text-amber-900">Manage your farms</h1>
 				</a>
 
-				<a class="rounded-2xl bg-zinc-50 p-4" href="/forum">
-					<h1>icon</h1>
+				<a class="rounded-2xl bg-zinc-50 p-4 hover:bg-amber-300 duration-300 transition-all" href="/forum">
+					<img class="h-6 mb-2" src={discussion_icon} alt=""/>
 
 					<h1 class="text-xl font-bold antialiased text-amber-900">Forum</h1>
 					<h1 class="text-sm antialiased text-amber-900">Join the community</h1>
 				</a>
 
-				<a class="rounded-2xl bg-zinc-50 p-4" href="/events">
-					<h1>icon</h1>
+				<a class="rounded-2xl bg-zinc-50 p-4 hover:bg-amber-300 duration-300 transition-all" href="/events">
+					<img class="h-6 mb-2" src={event_icon} alt=""/>
 					<h1 class="text-xl font-bold antialiased text-amber-900">Event</h1>
 					<h1 class="text-sm antialiased text-amber-900">Join the event</h1>
 				</a>
 			</div>
 
-			<!--			<a class="rounded-2xl bg-zinc-50 p-4" href="/farms">-->
-			<!--				<h1 class="text-xl font-bold antialiased text-amber-900">Farms</h1>-->
-			<!--				<h1 class="text-sm font-bold antialiased text-amber-900">Manage your farms</h1>-->
-			<!--			</a>-->
-
-			<!--			{#if userCache?.user_role === USER_ROLE.OWNER}-->
-			<!--				<a class="rounded-2xl bg-zinc-50 p-4" href="/health-track">-->
-			<!--					<h1 class="text-xl font-bold antialiased text-amber-900">Health Track</h1>-->
-			<!--					<h1 class="text-sm font-bold antialiased text-amber-900">Track your livestock health</h1>-->
-			<!--				</a>-->
-			<!--			{/if}-->
-
-			<!--			<a class="rounded-2xl bg-zinc-50 p-4" href="/forum">-->
-			<!--				<h1 class="text-xl font-bold antialiased text-amber-900">Forum</h1>-->
-			<!--				<h1 class="text-sm font-bold antialiased text-amber-900">Join the community</h1>-->
-			<!--			</a>-->
-
-			<!--			<a class="rounded-2xl bg-zinc-50 p-4" href="/marketplace">-->
-			<!--				<h1 class="text-xl font-bold antialiased text-amber-900">Marketplace</h1>-->
-			<!--				<h1 class="text-sm font-bold antialiased text-amber-900">Buy and sell your crops</h1>-->
-			<!--			</a>-->
-
-			<!--			<a class="rounded-2xl bg-zinc-50 p-4" href="/news">-->
-			<!--				<h1 class="text-xl font-bold antialiased text-amber-900">News</h1>-->
-			<!--				<h1 class="text-sm font-bold antialiased text-amber-900">Stay updated with latest livestock news</h1>-->
-			<!--			</a>-->
-
 		</div>
+	</div>
+
+	<div class="mx-24 flex gap-2 rounded-2xl bg-orange-200 mb-8">
+		<div class="flex gap-1 ">
+			<img class="h-60 rounded-l-2xl" src={oneImg} alt=""/>
+			<img class="h-60 " src={twoImg} alt=""/>
+			<img class="h-60" src={threeImg} alt=""/>
+		</div>
+		<div class="flex flex-col gap-2 p-4 w-fit h-full">
+			<h1 class="text-2xl font-black text-amber-950 antialiased">2023 Contribution of Agri-Inn</h1>
+			<h1 class="font-semibold">Explore this year’s most generous cities, unforgettable stories around the
+				globe</h1>
+			<div class="text-white bg-amber-700 font-medium w-fit rounded-2xl px-4 py-1 mt-8">
+				See more <span class="text-white font-bold">→</span>
+			</div>
+		</div>
+	</div>
+
+	<div class=" ml-3 grid grid-cols-2 gap-4 w-full mb-8">
+		<div class="flex gap-3 bg-white/30 justify-between hover:bg-amber-200 transition-all duration-300 rounded-2xl p-6">
+			<div class="h-full flex flex-col justify-between">
+				<h1 class="text-3xl text-amber-900 font-black ">Visit our Marketplace</h1>
+				<h1 class="text-xl text-amber-900 font-bold ">Fresh products from our farms</h1>
+				<a href="/marketplace"
+				   class="my-auto px-4 py-1 font-bold text-white bg-amber-700 hover:bg-amber-950
+				   transition-all duration-300  w-fit rounded-full">
+					Go to Marketplace
+					<span>
+						<svg class="inline-block w-4 h-4 ml-1" xmlns="http://www.w3.org/2000/svg"
+							 viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+							 stroke-linecap="round" stroke-linejoin="round">
+							<path d="M5 12h13M12 5l7 7-7 7"></path>
+						</svg>
+					</span>
+				</a>
+			</div>
+			<img class="w-52 " src={marketplace_img} alt=""/>
+		</div>
+
+		<div class="flex gap-3 bg-white/30 justify-between hover:bg-amber-200 transition-all duration-300 rounded-2xl p-6">
+			<div class="h-full flex flex-col justify-between">
+				<h1 class="text-3xl text-amber-900 font-black ">Stay Updated</h1>
+				<h1 class="text-xl text-amber-900 font-bold ">Visit our news section, to stay updated</h1>
+				<a href="/news"
+				   class="my-auto px-4 py-1 font-bold text-white bg-amber-700 hover:bg-amber-950
+				   transition-all duration-300  w-fit rounded-full">
+					Know What's Happening
+					<span>
+						<svg class="inline-block w-4 h-4 ml-1" xmlns="http://www.w3.org/2000/svg"
+							 viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+							 stroke-linecap="round" stroke-linejoin="round">
+							<path d="M5 12h13M12 5l7 7-7 7"></path>
+						</svg>
+					</span>
+				</a>
+			</div>
+			<img class="w-52 " src={news_img} alt=""/>
+		</div>
+
 
 	</div>
 
-
-	<div id="default-carousel" class="relative w-full" data-carousel="slide">
-		<!-- Carousel wrapper -->
-		<div class="relative h-56 overflow-hidden rounded-lg md:h-96">
-			<!-- Item 1 -->
-			<div class="hidden duration-700 ease-in-out" data-carousel-item>
-				<img src="/src/lib/assets/images/about_bg.jpg"
-					 class="object-cover absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
-					 alt="...">
+	{#if userCache.user_role === USER_ROLE.OWNER}
+	<div class="mx-24 flex gap-2 rounded-2xl bg-orange-200 mb-8">
+		<div class="flex gap-1 justify-between w-full">
+			<div class="flex flex-col gap-2 p-4 w-fit h-full my-auto">
+				<div class="px-4 py-1 rounded-full bg-blue-800  text-blue-200 mb-12 font-bold w-fit">For Farm Owners</div>
+				<div class="flex flex-col gap-2 justify-between">
+					<h1 class="text-2xl font-black text-amber-950 antialiased">Keep your livestock disease free</h1>
+					<h1 class="font-semibold">Track your livestock health and get notified when they are sick</h1>
+					<a href="/health-track" class=" mt-6 px-4 py-1 font-bold text-white bg-amber-700 hover:bg-amber-950
+				   transition-all duration-300  w-fit rounded-full">
+						Go to Health Care Panel <span class="text-white font-bold">→</span>
+					</a>
+				</div>
 			</div>
-			<!-- Item 2 -->
-			<div class="hidden duration-700 ease-in-out" data-carousel-item>
-				<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e6/Lvm.svg/400px-Lvm.svg.png"
-					 class="object-cover absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
-					 alt="...">
-			</div>
-			<!-- Item 3 -->
-			<div class="hidden duration-700 ease-in-out" data-carousel-item>
-				<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e6/Lvm.svg/400px-Lvm.svg.png"
-					 class="object-cover absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
-					 alt="...">
-			</div>
-			<!-- Item 4 -->
-			<div class="hidden duration-700 ease-in-out" data-carousel-item>
-				<img src="https://assets.site-static.com/userFiles/1681/image/uploads/agent-1/buy-sell-land.jpg"
-					 class="object-cover absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
-					 alt="...">
-			</div>
-			<!-- Item 5 -->
-			<div class="hidden duration-700 ease-in-out" data-carousel-item>
-				<img src="https://assets.site-static.com/userFiles/1681/image/uploads/agent-1/buy-sell-land.jpg"
-					 class="object-cover absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
-					 alt="...">
-			</div>
+			<img class=" w-96 rounded-r-2xl" src={health_cow} alt=""/>
 		</div>
-		<!-- Slider indicators -->
-		<div class="absolute z-30 flex -translate-x-1/2 bottom-5 left-1/2 space-x-3 rtl:space-x-reverse">
-			<button type="button" class="w-3 h-3 rounded-full" aria-current="true" aria-label="Slide 1"
-					data-carousel-slide-to="0"></button>
-			<button type="button" class="w-3 h-3 rounded-full" aria-current="false" aria-label="Slide 2"
-					data-carousel-slide-to="1"></button>
-			<button type="button" class="w-3 h-3 rounded-full" aria-current="false" aria-label="Slide 3"
-					data-carousel-slide-to="2"></button>
-			<button type="button" class="w-3 h-3 rounded-full" aria-current="false" aria-label="Slide 4"
-					data-carousel-slide-to="3"></button>
-			<button type="button" class="w-3 h-3 rounded-full" aria-current="false" aria-label="Slide 5"
-					data-carousel-slide-to="4"></button>
-		</div>
-		<!-- Slider controls -->
-		<button type="button"
-				class="absolute top-0 start-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none"
-				data-carousel-prev>
-        <span class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/30 dark:bg-gray-800/30 group-hover:bg-white/50 dark:group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-white dark:group-focus:ring-gray-800/70 group-focus:outline-none">
-            <svg class="w-4 h-4 text-white dark:text-gray-800 rtl:rotate-180" aria-hidden="true"
-				 xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
-                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-					  d="M5 1 1 5l4 4"/>
-            </svg>
-            <span class="sr-only">Previous</span>
-        </span>
-		</button>
-		<button type="button"
-				class="absolute top-0 end-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none"
-				data-carousel-next>
-        <span class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/30 dark:bg-gray-800/30 group-hover:bg-white/50 dark:group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-white dark:group-focus:ring-gray-800/70 group-focus:outline-none">
-            <svg class="w-4 h-4 text-white dark:text-gray-800 rtl:rotate-180" aria-hidden="true"
-				 xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
-                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-					  d="m1 9 4-4-4-4"/>
-            </svg>
-            <span class="sr-only">Next</span>
-        </span>
-		</button>
 	</div>
-
-
-	<h1 class="text-3xl font-bold mt-12 text-amber-950">Explore
-		<span class="ml-2 mb-1 inline-block items-center align-middle">
-			<img class=" w-32" src={logo} alt="">
-		</span>
-	</h1>
-
-	<div class="w-full flex gap-4 justify-around items-center">
-		<div class="flex flex-col gap-2">
-			<a href="/events"
-			   class="flex justify-between gap-2 rounded-xl align-middle items-center bg-white/50 hover:bg-white hover:scale-105 px-4 py-2 transition duration-300">
-				<h1>Events</h1>
-				<img src="{right_arrow}" alt=""/>
-			</a>
-			<h1>
-				Somrthing
-			</h1>
-			<h1>
-				Somrthing
-			</h1>
-		</div>
-
-
-		<a href="/farms"
-		   class="p-4 rounded-xl bg-white/40 hover:bg-white hover:scale-105 transition duration-300">Farms</a>
-		<a href="/health-track"
-		   class="p-4 rounded-xl bg-white/40 hover:bg-white hover:scale-105 transition duration-300">Health Track</a>
-		<a href="/news"
-		   class="p-4 rounded-xl bg-white/40 hover:bg-white hover:scale-105 transition duration-300">News</a>
-		<a href="/marketplace"
-		   class="p-4 rounded-xl bg-white/40 hover:bg-white hover:scale-105 transition duration-300">Marketplace</a>
-		<a href="/instalments"
-		   class="p-4 rounded-xl bg-white/40 hover:bg-white hover:scale-105 transition duration-300">Installments</a>
-
-	</div>
+	{/if}
 
 
 </main>

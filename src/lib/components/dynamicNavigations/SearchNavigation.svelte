@@ -1,8 +1,9 @@
 <script lang="ts">
     import back_icon from "$lib/assets/icons/all-back-icon.svg";
-    import category_icon from "$lib/assets/icons/search-page-category-icon.svg";
     import search_icon from "$lib/assets/icons/landing-page-search-icon.svg";
     import {search_navigation} from "$lib/stores/DynamicNavigation";
+    import {isUserCacheValid} from "$lib/client/utility";
+    import UserCache from "$lib/stores/UserCache";
 
     let query = "";
 
@@ -42,6 +43,17 @@
         }
     }
 
+    let username: string | undefined;
+    let full_name: string | undefined;
+    let profile_picture: string | undefined;
+    let UserCacheValid = isUserCacheValid();
+
+    UserCache.subscribe((value) => {
+        username = value.username;
+        full_name = value.full_name;
+        profile_picture = value.profile_picture;
+    });
+
 </script>
 <div class="grid grid-cols-3 justify-center items-center align-middle">
 	<div class="flex justify-start gap-2">
@@ -53,13 +65,7 @@
 				</span>
 			Back
 		</a>
-		<button class="px-6 py-2 flex items-center gap-2 align-middle text-sm rounded-full font-bold border
-		border-yellow-800 hover:bg-amber-300 text-yellow-950 transition-all duration-300">
-				<span class="block h-5 w-5">
-					<img alt="category_icon" src={category_icon}>
-				</span>
-			Categories
-		</button>
+
 	</div>
 
 
@@ -70,25 +76,38 @@
 		</span>
 
 		<input bind:value={query} on:input={search} type="text"
-			   class="bg-transparent font-mono focus:outline-none focus:border-0 outline-0 group-focus:outline-none outline-none font-light w-full placeholder-yellow-500 border-0 my-0 py-0"
+			   class="bg-transparent  focus:ring-0 font-mono font-light w-full placeholder-yellow-500 border-0 my-0 py-0"
 			   placeholder="Type anything to search"/>
 
-		<button class="rounded-full font-bold text-yellow-950 pr-2">
+		<button class="rounded-full font-bold text-yellow-950 pr-2 py-1">
 			Search
 		</button>
 	</div>
 
-
-	<div class="flex justify-end gap-2 text-sm">
-		<a href="/sign-in"
-		   class="px-6 py-2 rounded-full border-0 font-medium text-yellow-950  hover:bg-yellow-300 transition-all
+	{#if !UserCacheValid}
+		<div class="flex justify-end gap-2 text-sm">
+			<a href="/sign-in"
+			   class="px-6 py-2 rounded-full border-0 font-medium text-yellow-950  hover:bg-yellow-300 transition-all
 		   duration-300">
-			Sign In
-		</a>
-		<a href="/sign-up"
-		   class=" px-6 py-2 rounded-full font-bold border border-yellow-800 hover:bg-amber-300 text-yellow-950
+				Sign In
+			</a>
+			<a href="/sign-up"
+			   class=" px-6 py-2 rounded-full font-bold border border-yellow-800 hover:bg-amber-300 text-yellow-950
 		   transition-all duration-300">
-			Get Started with us
+				Get Started with us
+			</a>
+		</div>
+	{:else}
+		<div class="flex justify-end gap-2 text-sm">
+		<a href="/{username}"
+		   class="flex gap-4 rounded-full w-fit align-middle border-yellow-800/20 border justify-end items-center font-semibold text-yellow-950  hover:bg-yellow-300 hover:border-yellow-800 transition-all duration-300">
+			<h1 class=" pl-4 font-bold py-2">{full_name?.split(" ")[0]}</h1>
+			<img alt="" class="h-9 w-9 rounded-full" src={profile_picture}>
 		</a>
-	</div>
+		</div>
+
+	{/if}
+
+
+
 </div>

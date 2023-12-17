@@ -112,5 +112,7 @@ export function makeFirstLetterCapital(str: string) {
 export function formatDateTime(isoString: string | number | Date) {
     const dateTime = new Date(isoString);
     const dateFormatter: Intl.DateTimeFormat = new Intl.DateTimeFormat("en-US");
-    return dateFormatter.format(dateTime);
+
+    // return like 03rd Jan 2021, 12:00 AM
+    return `${dateFormatter.format(dateTime)}, ${dateTime.toLocaleTimeString('en-US', {hour: '2-digit', minute: '2-digit'})}`;
 }

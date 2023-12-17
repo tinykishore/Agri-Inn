@@ -33,7 +33,6 @@
 							<h1 class="text-xl font-black bg-yellow-class p-2 rounded-md">{farm.farm_name}</h1>
 							<h1 class="text-xl font-bold bg-yellow-class p-2 rounded-md">{farm.owner_name}</h1>
 							<p class="text-white mt-2 ml-3">{farm.address.street}, {farm.address.city}</p>
-
 						</div>
 					</a>
 				{/each}

@@ -1,8 +1,4 @@
 import {writable} from 'svelte/store';
-import DefaultNavigation from "$lib/components/dynamicNavigations/DefaultNavigation.svelte";
-import DashboardNavigation from "$lib/components/dynamicNavigations/DashboardNavigation.svelte";
-import LandingPageNavigation from "$lib/components/dynamicNavigations/LandingPageNavigation.svelte";
-import {SvelteComponent} from "svelte";
 
 export default writable();
 

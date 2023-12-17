@@ -5,3 +5,6 @@ describe('sum test', () => {
 		expect(1 + 2).toBe(3);
 	});
 });
+
+// Unit Testing
+// Path: src/sum.ts
