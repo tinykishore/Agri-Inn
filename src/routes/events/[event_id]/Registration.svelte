@@ -11,27 +11,11 @@
     const modalCloseAction = () => {
         modals.update((values) => {
             return {
-                ...values,
+                farms_farm_product_modal: false,
                 events_event_id_modal: false,
             }
         })
     }
-	// async function handleRegister() {
-	// 	const response = await fetch("/API/v1/events/RegisterEventAPI", {
-	// 		method: "POST",
-	// 		body: JSON.stringify(
-	// 				{
-	// 					event_id: event.event_id,
-	//
-	// 				}
-	// 		),
-	// 		headers: {
-	// 			"Content-Type": "application/json"
-	// 		},
-	//
-	// });
-	// 	event = await response.json();
-	// }
 
 
     onMount(async () => {

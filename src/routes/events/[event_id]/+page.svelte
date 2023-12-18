@@ -5,8 +5,10 @@
     import Registration from "./Registration.svelte";
     import {modals} from "$lib/stores/Modals";
     import cow_image from "$lib/assets/images/cow.jpg";
+    import DynamicNavigation from "$lib/stores/DynamicNavigation";
+    import EventsNavigation from "$lib/components/dynamicNavigations/events/EventsNavigation.svelte";
 
-
+    DynamicNavigation.set(EventsNavigation);
     export let data;
 
     let event: any;

@@ -3,6 +3,7 @@
 	import DynamicNavigation from "$lib/stores/DynamicNavigation";
 	import DashboardNavigation from "$lib/components/dynamicNavigations/DashboardNavigation.svelte";
 	import UserCache from "$lib/stores/UserCache";
+    import search_bg from "$lib/assets/images/search_bg.jpg";
 
 	export let data
 	DynamicNavigation.set(DashboardNavigation);
@@ -72,9 +73,11 @@
 		});
 	}
 
-
-
 </script>
+
+<section class="fixed bg-fixed top-0 left-0 h-screen w-screen -z-50">
+	<img alt="" class="w-full h-full bg-fixed object-cover" src="{search_bg}">
+</section>
 
 <main class="my-20 mx-32">
 	{#if farm_info === undefined}
@@ -82,19 +85,10 @@
 			Farm info loading
 		</h1>
 	{:else}
-		<div class="bg-gradient-to-bl from-amber-50 via-yellow-100 to-amber-100 w-full rounded-2xl p-6">
-			<p class="text-4xl">{farm_info.farm_name}</p>
-			<p>{farm_info.description}</p>
-			<p>{farm_info.owner_name}</p>
-			{#if isOwner}
-				<input type="text" placeholder="Breed" bind:value={newProduct.breed}> <br>
-				<input type="text" placeholder="Price" bind:value={newProduct.price}> <br>
-				<input type="text" placeholder="Age" bind:value={newProduct.age}> <br>
-				<input type="text" placeholder="Weight" bind:value={newProduct.weight}> <br>
-				<input type="text" placeholder="Color" bind:value={newProduct.color}> <br>
-
-				<button on:click={addProduct}>Add Product</button>
-			{/if}
+		<div>
+			<h1 class="text-4xl text-amber-950 font-bold">{farm_info.farm_name}</h1>
+			<h1 class="text-2xl text-amber-950 font-bold">{farm_info.description}</h1>
+			<h1 class="text-xl text-amber-950 font-bold">{farm_info.address.street}, {farm_info.address.city}</h1>
 		</div>
 	{/if}
 

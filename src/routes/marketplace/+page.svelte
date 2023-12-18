@@ -3,9 +3,11 @@
     import {onMount} from "svelte";
     import DefaultNavigation from "$lib/components/dynamicNavigations/DefaultNavigation.svelte";
     import {cartArray} from "$lib/stores/Cart";
+    import EventsNavigation from "$lib/components/dynamicNavigations/events/EventsNavigation.svelte";
+    import DashboardNavigation from "$lib/components/dynamicNavigations/DashboardNavigation.svelte";
 
     //export let data
-    DynamicNavigation.set(DefaultNavigation);
+    DynamicNavigation.set(DashboardNavigation);
 
     let allProducts: any;
     let filteredProducts: any;
@@ -85,6 +87,7 @@
 
 </script>
 <main class="my-20 mx-32">
+    <h1 class="text-4xl font-bold mb-6">Marketplace</h1>
 
 
     <input type="radio" id="option1" name="options" value="Dairy" on:input={handleCategoryKeyChange}>
@@ -102,18 +105,20 @@
     <input type="radio" id="option5" name="options" value="Equipments" on:input={handleCategoryKeyChange}>
     <label for="option5">Equipments</label>
 
+    <a href="/marketplace/cart"
+       class="bg-amber-600 text-white w-fit font-bold py-2 px-4 rounded-full hover:bg-amber-700 focus:outline-none focus:ring-2 focus:ring-amber-600 focus:ring-opacity-50 hover:shadow-md transition duration-300">Go to cart</a>
+
+    <div class="text-xl">Item Count {itemNumber}</div>
 
 
-    <div class="bg-gradient-to-bl from-amber-50 via-yellow-100 to-amber-100 w-full rounded-2xl p-6 flex items-center justify-center">
-        <h1 class="text-4xl font-bold">Marketplace</h1>
-    </div>
+
 
     {#if allProducts === undefined}
         <h1>
             Marketplace products loading
         </h1>
     {:else}
-          <div class="grid grid-cols-3 gap-9 my-16">
+          <div class="grid grid-cols-3 gap-10 my-16">
 
             {#each filteredProducts as product}
                 <div class="group relative rounded-2xl h-72">
@@ -129,11 +134,6 @@
                     </button>
                 </div>
             {/each}
-                      <div class="text-5xl">View Cart {itemNumber}</div>
-              <a href="/marketplace/cart">Cart e jao</a>
-              <button on:click={clearCart}>
-                  Clear Cart
-              </button>
           </div>
         {/if}
 </main>

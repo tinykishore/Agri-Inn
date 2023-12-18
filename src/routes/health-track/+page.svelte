@@ -31,6 +31,19 @@
         allVetsData = await allVetsResponse.json();
     });
 
+    const clickButton = () => {
+        // input alert
+        const input = prompt("Select Your date and time");
+        // if input is not null
+        if (input !== null) {
+            // alert the input value
+            alert("Appointment has been made");
+        } else {
+            // alert cancelled
+            alert("Appointment cancelled");
+        }
+    }
+
 </script>
 
 <section class="fixed bg-fixed top-0 left-0 h-screen w-screen -z-50">
@@ -83,8 +96,9 @@
                                             <div class="text-lg font-bold">{vet.full_name}</div>
                                             <div class="text-sm font-medium text-zinc-500">{vet.username} &bull; {vet.phone}</div>
                                             <div class="flex-col flex w-full justify-start align-middle items-start">
-                                                <button class="bg-zinc-400 mt-1.5 text-white w-fit font-bold py-1 px-2.5 rounded-full">
-                                                    View Profile
+                                                <button on:click={clickButton}
+                                                        class="bg-zinc-400 mt-1.5 text-white w-fit font-bold py-1 px-2.5 rounded-full">
+                                                    Make Appointment
                                                 </button>
                                             </div>
                                         </div>

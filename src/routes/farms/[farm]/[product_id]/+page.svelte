@@ -72,12 +72,59 @@
 {/if}
 
 <main class="min-h-screen container mx-auto p-4 my-24 px-20 gap-4">
-	<div id="main-section" class="bg-blue-300 rounded-2xl p-4 ">
+	<div id="main-section" class="bg-gradient-to-bl from-amber-50 via-yellow-100 to-amber-100 rounded-2xl p-8 shadow-lg">
 		{#if product_information === undefined}
-			<p>Loading...</p>
+			<div class="text-center animate__animated animate__flash">
+				<p class="text-xl font-semibold text-gray-600">
+					Loading...
+				</p>
+			</div>
 		{:else}
-			<h1>{product_information.id}</h1>
-			<h1>Will Show the product info</h1>
+			<h1 class="text-4xl font-extrabold text-gray-800 mb-4">{product_information.id}</h1>
+			<h2 class="text-2xl font-semibold text-gray-700 mb-8">Product Information</h2>
+
+			<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+				<div class="mb-4">
+					<p class="text-lg font-bold text-yellow-500">Category:</p>
+					<p class="text-gray-700">{product_information.category}</p>
+				</div>
+
+				<div class="mb-4">
+					<p class="text-lg font-bold text-yellow-500">Breed:</p>
+					<p class="text-gray-700">{product_information.breed}</p>
+				</div>
+
+				<div class="mb-4">
+					<p class="text-lg font-bold text-yellow-500">Age:</p>
+					<p class="text-gray-700">{product_information.age}</p>
+				</div>
+
+				<div class="mb-4">
+					<p class="text-lg font-bold text-yellow-500">Gender:</p>
+					<p class="text-gray-700">{product_information.gender}</p>
+				</div>
+
+				<div class="mb-4">
+					<p class="text-lg font-bold text-yellow-500">Weight:</p>
+					<p class="text-gray-700">{product_information.weight}</p>
+				</div>
+
+				<div class="mb-4">
+					<p class="text-lg font-bold text-yellow-500">Health Status:</p>
+					<p class="text-gray-700">{product_information.health_status}</p>
+				</div>
+
+				<div class="mb-4">
+					<p class="text-lg font-bold text-yellow-500">Temperament:</p>
+					<p class="text-gray-700">{product_information.temperament}</p>
+				</div>
+
+				<div class="mb-4">
+					<p class="text-lg font-bold text-yellow-500">Diet:</p>
+					<p class="text-gray-700">{product_information.diet}</p>
+				</div>
+			</div>
 		{/if}
 	</div>
 </main>
+
