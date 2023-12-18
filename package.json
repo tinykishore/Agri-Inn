@@ -33,7 +33,7 @@
 		"@supabase/supabase-js": "^2.39.0",
 		"bcrypt": "^5.1.1",
 		"cryptojs": "^2.5.3",
-		"flowbite": "^2.2.0",
+		"flowbite": "^2.2.1",
 		"google-auth-library": "^9.4.1",
 		"jsonwebtoken": "^9.0.2",
 		"mongodb": "^6.3.0",
