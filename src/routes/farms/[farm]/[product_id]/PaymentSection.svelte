@@ -124,27 +124,7 @@
 			<SecondSection/>
 			<ThirdSection/>
 
-			<div class="p-2 flex-col flex gap-4">
-				<h1 class="text-center text-xl font-bold text-amber-700 mb-6">
-					Confirmation
-				</h1>
-				<h1> {paymentInformation.farm_id}</h1>
-				<h1> {paymentInformation.user_id}</h1>
-				<h1> {paymentInformation.total_price}</h1>
-				<h1> {paymentInformation.product_id}</h1>
-				<h1> {paymentInformation.shipping_address.street}</h1>
-				<h1> {paymentInformation.shipping_address.city}</h1>
-				<h1> {paymentInformation.shipping_address.state}</h1>
-				<h1> {paymentInformation.shipping_address.zip}</h1>
-				<h1> {paymentInformation.shipping_address.country}</h1>
-				<h1> {paymentInformation.payment.bkash_number}</h1>
-				<h1> {paymentInformation.payment.method}</h1>
-				<h1> {paymentInformation.payment.card_cvv}</h1>
-				<h1> {paymentInformation.payment.card_expiration}</h1>
-				<h1> {paymentInformation.payment.card_number}</h1>
-				<h1> {paymentInformation.payment.card_holder}</h1>
-				<h1> {paymentInformation.installment}</h1>
-
+			<div class="p-2 flex-col flex gap-4 justify-center items-center align-middle">
 				<button on:click={processPayment}>
 					<span class="text-center text-xl font-bold text-amber-700 mb-6">
 						Confirm

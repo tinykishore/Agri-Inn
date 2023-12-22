@@ -4,7 +4,6 @@
     import {USER_ROLE} from "$lib/client/utility";
     import Registration from "./Registration.svelte";
     import {modals} from "$lib/stores/Modals";
-    import cow_image from "$lib/assets/images/cow.jpg";
     import DynamicNavigation from "$lib/stores/DynamicNavigation";
     import EventsNavigation from "$lib/components/dynamicNavigations/events/EventsNavigation.svelte";
 
@@ -26,10 +25,12 @@
 
     let isRegistrationSectionVisible: boolean = false;
 
-    modals.subscribe((value) => {
-        isRegistrationSectionVisible = value.events_event_id_modal;
-    });
+    $: {
+        modals.subscribe((value) => {
+            isRegistrationSectionVisible = value.events_event_id_modal;
+        });
 
+    }
 
     onMount(async () => {
         // POST API REQ, GET one EVENT data

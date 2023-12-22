@@ -53,16 +53,20 @@
 	<PaymentSection user_id="" product_id="" farm_id="" total_price={dummy} product_breed=""/>
 {/if}
 
-<div class="mt-20">
+<div class="mt-20 mx-36">
 	{#each cart as item}
-		{item.name}
-		{item.quantity}
-		{item.price}
-		total: {item.quantity * item.price}
-		<button id={item.id} on:click={removeItem}>remove</button>
-		<br>
+		<div class="flex items-center justify-between mb-4">
+			<div class="text-gray-800 font-semibold">{item.name}</div>
+			<div class="text-gray-600">{item.quantity}</div>
+			<div class="text-green-700">${item.price}</div>
+			<div class="text-blue-600">Total: ${item.quantity * item.price}</div>
+			<button id={item.id} class="px-2 py-1 bg-red-500 text-white rounded-md focus:outline-none" on:click={removeItem}>
+				Remove
+			</button>
+		</div>
 	{/each}
-	<h1>Total Price--- {total} </h1>
-	<button on:click={onClickPurchase}>Purchase</button>
-
+	<h1 class="text-2xl font-bold mt-4">Total Price: ${total}</h1>
+	<button class="px-4 py-2 bg-blue-500 text-white rounded-md mt-4 focus:outline-none" on:click={onClickPurchase}>
+		Purchase
+	</button>
 </div>

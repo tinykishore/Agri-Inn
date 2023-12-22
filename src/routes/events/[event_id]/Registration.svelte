@@ -9,6 +9,7 @@
     let public_profile: any;
 
     const modalCloseAction = () => {
+        console.log("modal close action");
         modals.update((values) => {
             return {
                 farms_farm_product_modal: false,
@@ -17,6 +18,9 @@
         })
     }
 
+    const handleRegister = () => {
+		console.log("handle register");
+	}
 
     onMount(async () => {
         let username: string | undefined;
@@ -34,11 +38,8 @@
                 'Content-Type': 'application/json'
             }
         });
-
         public_profile = await response.json();
-
     });
-
 </script>
 
 
@@ -95,9 +96,9 @@
 				</div>
 
 				<div class="flex flex-col gap-2">
-				<button class="bg-zinc-400 mt-1.5 text-white w-fit font-bold py-1 px-2.5 rounded-full " on:click={handleRegister}>
-					Register Now
-				</button>
+					<button class="bg-amber-700 mt-1.5 text-white w-fit font-bold py-1 px-2.5 rounded-full hover:bg-amber-900 " on:click={handleRegister}>
+						Register Now
+					</button>
 				</div>
 
 			</div>
