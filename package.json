@@ -30,7 +30,7 @@
 	},
 	"type": "module",
 	"dependencies": {
-		"@supabase/supabase-js": "^2.39.0",
+		"@supabase/supabase-js": "^2.39.2",
 		"bcrypt": "^5.1.1",
 		"cryptojs": "^2.5.3",
 		"flowbite": "^2.2.0",
