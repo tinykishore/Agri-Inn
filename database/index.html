@@ -1,0 +1,2743 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../api/">
+      
+      
+        <link rel="next" href="../ajax/">
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.2">
+    
+    
+      
+        <title>Database - Agri-Inn | Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.50c56a3b.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,700,700i%7CJetBrains+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="orange" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#database-documentation" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="Agri-Inn | Documentation" class="md-header__button md-logo" aria-label="Agri-Inn | Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Agri-Inn | Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Database
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Agri-Inn | Documentation" class="md-nav__button md-logo" aria-label="Agri-Inn | Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    Agri-Inn | Documentation
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../features/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Features
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../docs/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Documentation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    API Reference
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Database
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    Database
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#database-details" class="md-nav__link">
+    <span class="md-ellipsis">
+      Database Details
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#establishing-database-connection" class="md-nav__link">
+    <span class="md-ellipsis">
+      Establishing Database Connection
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#forming-the-database-system" class="md-nav__link">
+    <span class="md-ellipsis">
+      Forming the Database System
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#databasets-file" class="md-nav__link">
+    <span class="md-ellipsis">
+      Database.ts File
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Database.ts File">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#database-class" class="md-nav__link">
+    <span class="md-ellipsis">
+      Database class
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#databaseaccountts-file" class="md-nav__link">
+    <span class="md-ellipsis">
+      DatabaseAccount.ts File
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="DatabaseAccount.ts File">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#databaseaccount-class" class="md-nav__link">
+    <span class="md-ellipsis">
+      DatabaseAccount class
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="DatabaseAccount class">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#getuseraccount" class="md-nav__link">
+    <span class="md-ellipsis">
+      getUserAccount()
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#getusercache" class="md-nav__link">
+    <span class="md-ellipsis">
+      getUserCache()
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#getusercredentialsbyobjectid" class="md-nav__link">
+    <span class="md-ellipsis">
+      getUserCredentialsByObjectID()
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#insertresetpasswordtoken" class="md-nav__link">
+    <span class="md-ellipsis">
+      insertResetPasswordToken()
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#getresetpasswordtoken" class="md-nav__link">
+    <span class="md-ellipsis">
+      getResetPasswordToken()
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deleteresetpasswordtoken" class="md-nav__link">
+    <span class="md-ellipsis">
+      deleteResetPasswordToken()
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#updatepassword" class="md-nav__link">
+    <span class="md-ellipsis">
+      updatePassword()
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#updategoogleid" class="md-nav__link">
+    <span class="md-ellipsis">
+      updateGoogleID()
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#insertuser" class="md-nav__link">
+    <span class="md-ellipsis">
+      insertUser()
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#completegooglesignup" class="md-nav__link">
+    <span class="md-ellipsis">
+      completeGoogleSignUp()
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#updateprofilepicture" class="md-nav__link">
+    <span class="md-ellipsis">
+      updateProfilePicture()
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#crosscheckusernameandobjectid" class="md-nav__link">
+    <span class="md-ellipsis">
+      crosscheckUsernameAndObjectID()
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#getpublicprofile" class="md-nav__link">
+    <span class="md-ellipsis">
+      getPublicProfile()
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#databaseeventts-file" class="md-nav__link">
+    <span class="md-ellipsis">
+      DatabaseEvent.ts File
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="DatabaseEvent.ts File">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#databaseevent-class" class="md-nav__link">
+    <span class="md-ellipsis">
+      DatabaseEvent class
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="DatabaseEvent class">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#getallevents" class="md-nav__link">
+    <span class="md-ellipsis">
+      getAllEvents()
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#getoneevent" class="md-nav__link">
+    <span class="md-ellipsis">
+      getOneEvent()
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#updateoneevent" class="md-nav__link">
+    <span class="md-ellipsis">
+      updateOneEvent()
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#getlatestevent" class="md-nav__link">
+    <span class="md-ellipsis">
+      getLatestEvent()
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#getallfarms" class="md-nav__link">
+    <span class="md-ellipsis">
+      getAllFarms()
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#getonefarm" class="md-nav__link">
+    <span class="md-ellipsis">
+      getOneFarm()
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#getonefarmproducts" class="md-nav__link">
+    <span class="md-ellipsis">
+      getOneFarmProducts()
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#getoneproduct" class="md-nav__link">
+    <span class="md-ellipsis">
+      getOneProduct()
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#placeorder" class="md-nav__link">
+    <span class="md-ellipsis">
+      placeOrder()
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#getinstallments" class="md-nav__link">
+    <span class="md-ellipsis">
+      getInstallments()
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#getsellingproductcatalog" class="md-nav__link">
+    <span class="md-ellipsis">
+      getSellingProductCatalog()
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#getcategoryproduct" class="md-nav__link">
+    <span class="md-ellipsis">
+      getCategoryProduct()
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#addproduct" class="md-nav__link">
+    <span class="md-ellipsis">
+      addProduct()
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#getonepost" class="md-nav__link">
+    <span class="md-ellipsis">
+      getOnePost()
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#getallposts" class="md-nav__link">
+    <span class="md-ellipsis">
+      getAllPosts()
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#getmostlikedposts" class="md-nav__link">
+    <span class="md-ellipsis">
+      getMostLikedPosts()
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#insertreplyinpost" class="md-nav__link">
+    <span class="md-ellipsis">
+      insertReplyInPost()
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#votepost" class="md-nav__link">
+    <span class="md-ellipsis">
+      votePost()
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#databasenewsts-file" class="md-nav__link">
+    <span class="md-ellipsis">
+      DatabaseNews.ts File
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="DatabaseNews.ts File">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#databasenews-class" class="md-nav__link">
+    <span class="md-ellipsis">
+      DatabaseNews class
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="DatabaseNews class">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#getallnews" class="md-nav__link">
+    <span class="md-ellipsis">
+      getAllNews()
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#getonenews" class="md-nav__link">
+    <span class="md-ellipsis">
+      getOneNews()
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#savenews" class="md-nav__link">
+    <span class="md-ellipsis">
+      saveNews()
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#databaseothersts-file" class="md-nav__link">
+    <span class="md-ellipsis">
+      DatabaseOthers.ts File
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="DatabaseOthers.ts File">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#databaseothers-class" class="md-nav__link">
+    <span class="md-ellipsis">
+      DatabaseOthers class
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="DatabaseOthers class">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#getglobalsearchresult" class="md-nav__link">
+    <span class="md-ellipsis">
+      getGlobalSearchResult()
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#getnotifications" class="md-nav__link">
+    <span class="md-ellipsis">
+      getNotifications()
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#getsaveditems" class="md-nav__link">
+    <span class="md-ellipsis">
+      getSavedItems()
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ajax/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    AJAX Usage
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../license/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    License
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../about/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    About
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#database-details" class="md-nav__link">
+    <span class="md-ellipsis">
+      Database Details
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#establishing-database-connection" class="md-nav__link">
+    <span class="md-ellipsis">
+      Establishing Database Connection
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#forming-the-database-system" class="md-nav__link">
+    <span class="md-ellipsis">
+      Forming the Database System
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#databasets-file" class="md-nav__link">
+    <span class="md-ellipsis">
+      Database.ts File
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Database.ts File">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#database-class" class="md-nav__link">
+    <span class="md-ellipsis">
+      Database class
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#databaseaccountts-file" class="md-nav__link">
+    <span class="md-ellipsis">
+      DatabaseAccount.ts File
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="DatabaseAccount.ts File">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#databaseaccount-class" class="md-nav__link">
+    <span class="md-ellipsis">
+      DatabaseAccount class
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="DatabaseAccount class">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#getuseraccount" class="md-nav__link">
+    <span class="md-ellipsis">
+      getUserAccount()
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#getusercache" class="md-nav__link">
+    <span class="md-ellipsis">
+      getUserCache()
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#getusercredentialsbyobjectid" class="md-nav__link">
+    <span class="md-ellipsis">
+      getUserCredentialsByObjectID()
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#insertresetpasswordtoken" class="md-nav__link">
+    <span class="md-ellipsis">
+      insertResetPasswordToken()
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#getresetpasswordtoken" class="md-nav__link">
+    <span class="md-ellipsis">
+      getResetPasswordToken()
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deleteresetpasswordtoken" class="md-nav__link">
+    <span class="md-ellipsis">
+      deleteResetPasswordToken()
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#updatepassword" class="md-nav__link">
+    <span class="md-ellipsis">
+      updatePassword()
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#updategoogleid" class="md-nav__link">
+    <span class="md-ellipsis">
+      updateGoogleID()
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#insertuser" class="md-nav__link">
+    <span class="md-ellipsis">
+      insertUser()
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#completegooglesignup" class="md-nav__link">
+    <span class="md-ellipsis">
+      completeGoogleSignUp()
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#updateprofilepicture" class="md-nav__link">
+    <span class="md-ellipsis">
+      updateProfilePicture()
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#crosscheckusernameandobjectid" class="md-nav__link">
+    <span class="md-ellipsis">
+      crosscheckUsernameAndObjectID()
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#getpublicprofile" class="md-nav__link">
+    <span class="md-ellipsis">
+      getPublicProfile()
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#databaseeventts-file" class="md-nav__link">
+    <span class="md-ellipsis">
+      DatabaseEvent.ts File
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="DatabaseEvent.ts File">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#databaseevent-class" class="md-nav__link">
+    <span class="md-ellipsis">
+      DatabaseEvent class
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="DatabaseEvent class">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#getallevents" class="md-nav__link">
+    <span class="md-ellipsis">
+      getAllEvents()
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#getoneevent" class="md-nav__link">
+    <span class="md-ellipsis">
+      getOneEvent()
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#updateoneevent" class="md-nav__link">
+    <span class="md-ellipsis">
+      updateOneEvent()
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#getlatestevent" class="md-nav__link">
+    <span class="md-ellipsis">
+      getLatestEvent()
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#getallfarms" class="md-nav__link">
+    <span class="md-ellipsis">
+      getAllFarms()
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#getonefarm" class="md-nav__link">
+    <span class="md-ellipsis">
+      getOneFarm()
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#getonefarmproducts" class="md-nav__link">
+    <span class="md-ellipsis">
+      getOneFarmProducts()
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#getoneproduct" class="md-nav__link">
+    <span class="md-ellipsis">
+      getOneProduct()
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#placeorder" class="md-nav__link">
+    <span class="md-ellipsis">
+      placeOrder()
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#getinstallments" class="md-nav__link">
+    <span class="md-ellipsis">
+      getInstallments()
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#getsellingproductcatalog" class="md-nav__link">
+    <span class="md-ellipsis">
+      getSellingProductCatalog()
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#getcategoryproduct" class="md-nav__link">
+    <span class="md-ellipsis">
+      getCategoryProduct()
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#addproduct" class="md-nav__link">
+    <span class="md-ellipsis">
+      addProduct()
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#getonepost" class="md-nav__link">
+    <span class="md-ellipsis">
+      getOnePost()
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#getallposts" class="md-nav__link">
+    <span class="md-ellipsis">
+      getAllPosts()
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#getmostlikedposts" class="md-nav__link">
+    <span class="md-ellipsis">
+      getMostLikedPosts()
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#insertreplyinpost" class="md-nav__link">
+    <span class="md-ellipsis">
+      insertReplyInPost()
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#votepost" class="md-nav__link">
+    <span class="md-ellipsis">
+      votePost()
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#databasenewsts-file" class="md-nav__link">
+    <span class="md-ellipsis">
+      DatabaseNews.ts File
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="DatabaseNews.ts File">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#databasenews-class" class="md-nav__link">
+    <span class="md-ellipsis">
+      DatabaseNews class
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="DatabaseNews class">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#getallnews" class="md-nav__link">
+    <span class="md-ellipsis">
+      getAllNews()
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#getonenews" class="md-nav__link">
+    <span class="md-ellipsis">
+      getOneNews()
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#savenews" class="md-nav__link">
+    <span class="md-ellipsis">
+      saveNews()
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#databaseothersts-file" class="md-nav__link">
+    <span class="md-ellipsis">
+      DatabaseOthers.ts File
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="DatabaseOthers.ts File">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#databaseothers-class" class="md-nav__link">
+    <span class="md-ellipsis">
+      DatabaseOthers class
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="DatabaseOthers class">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#getglobalsearchresult" class="md-nav__link">
+    <span class="md-ellipsis">
+      getGlobalSearchResult()
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#getnotifications" class="md-nav__link">
+    <span class="md-ellipsis">
+      getNotifications()
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#getsaveditems" class="md-nav__link">
+    <span class="md-ellipsis">
+      getSavedItems()
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+<h1 id="database-documentation">Database Documentation</h1>
+<p>This project uses MongoDB as the database.
+The database is hosted on MongoDB Atlas.
+Every API calls these database functions to perform CRUD operations.
+These functions are encapsulated within a dedicated data access layer, ensuring a clean separation of concerns and
+enhancing the maintainability of the codebase.</p>
+<h2 id="database-details">Database Details</h2>
+<p><strong>Database Name</strong></p>
+<p>The database name is <code>Agri-Inn</code></p>
+<p><strong>Collections</strong></p>
+<p>The database contains the following collections:</p>
+<table>
+<thead>
+<tr>
+<th>Collection Name</th>
+<th>Documents</th>
+<th>Storage Size</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>animal-health-details</code></td>
+<td>17</td>
+<td>20.48 KB</td>
+<td>Contains the details of the animal health</td>
+</tr>
+<tr>
+<td><code>comment</code></td>
+<td>10</td>
+<td>20.48 KB</td>
+<td>Contains the comments of a forum post</td>
+</tr>
+<tr>
+<td><code>event</code></td>
+<td>5</td>
+<td>20.48 KB</td>
+<td>Contains the details of the events</td>
+</tr>
+<tr>
+<td><code>farm-info</code></td>
+<td>11</td>
+<td>24.58 KB</td>
+<td>Contains the details of the farms</td>
+</tr>
+<tr>
+<td><code>farm-products</code></td>
+<td>3</td>
+<td>32.77 KB</td>
+<td>Contains all products of the farms</td>
+</tr>
+<tr>
+<td><code>forum</code></td>
+<td>5</td>
+<td>24.58 KB</td>
+<td>Contains the details of the forum</td>
+</tr>
+<tr>
+<td><code>index</code></td>
+<td>7</td>
+<td>20.48 KB</td>
+<td>Contains the search indexes</td>
+</tr>
+<tr>
+<td><code>installment</code></td>
+<td>3</td>
+<td>20.48 KB</td>
+<td>Contains the details of the installments</td>
+</tr>
+<tr>
+<td><code>livestock-products</code></td>
+<td>17</td>
+<td>28.67 KB</td>
+<td>Contains the details of the livestock products</td>
+</tr>
+<tr>
+<td><code>marketplace</code></td>
+<td>33</td>
+<td>24.58 KB</td>
+<td>Contains all products for sale</td>
+</tr>
+<tr>
+<td><code>news</code></td>
+<td>4</td>
+<td>24.58 KB</td>
+<td>Contains all the news information</td>
+</tr>
+<tr>
+<td><code>notification</code></td>
+<td>3</td>
+<td>20.48 KB</td>
+<td>Contains notification for each user</td>
+</tr>
+<tr>
+<td><code>order</code></td>
+<td>8</td>
+<td>20.48 KB</td>
+<td>Contains all the order(s) that have made</td>
+</tr>
+<tr>
+<td><code>payment-info</code></td>
+<td>3</td>
+<td>20.48 KB</td>
+<td>Contains all payment that have made</td>
+</tr>
+<tr>
+<td><code>saved-item</code></td>
+<td>1</td>
+<td>20.48 KB</td>
+<td>Contains the saved item for each user</td>
+</tr>
+<tr>
+<td><code>user-account</code></td>
+<td>5</td>
+<td>20.48 KB</td>
+<td>Contains all the account information</td>
+</tr>
+<tr>
+<td><code>vets</code></td>
+<td>4</td>
+<td>20.48 KB</td>
+<td>Contains all the vet information</td>
+</tr>
+</tbody>
+</table>
+<h2 id="establishing-database-connection">Establishing Database Connection</h2>
+<blockquote>
+<p><em><strong>Developer Note</strong>: You should not need to worry about this section. This section is for the developers who are interested in the technical details of the project.</em></p>
+</blockquote>
+<p>The database connection is initiated once a user makes a request to the server. 
+Below is a step by step explanation of how the database connection is established.</p>
+<ol>
+<li>
+<p><strong>MongoClient Instance</strong>: A <code>MongoClient</code> instance is created with the MongoDB server URL and some options. The server URL is fetched from the environment variable <code>MONGO_URL</code>.</p>
+<blockquote>
+<p>This <code>client</code> object is located in <code>Database.ts</code> file in the <code>src/lib/server</code> directory. This object is not exported so that it cannot be accessed from outside the file.</p>
+</blockquote>
+<div class="language-typescript highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">Database.ts</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1"></a><span class="kd">const</span><span class="w"> </span><span class="nx">client</span><span class="o">:</span><span class="w"> </span><span class="kt">MongoClient</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">MongoClient</span><span class="p">(</span><span class="nx">MONGO_URL</span><span class="p">,</span><span class="w"> </span><span class="p">{...});</span>
+</span></code></pre></div></td></tr></table></div>
+</li>
+<li>
+<p><strong>Function that connects</strong>: The <code>initializeDatabaseConnection</code> function is defined. This function is responsible for establishing the connection to the MongoDB server and setting up the collections.</p>
+<blockquote>
+<p>This <code>initializeDatabaseConnection</code> function is located in <code>Database.ts</code> file in the <code>src/lib/server</code> directory. This function is exported so that it can be accessed from <code>hooks.server.ts</code> file.</p>
+</blockquote>
+<div class="language-typescript highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-1-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-1-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-1-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-1-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-1-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-1-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-1-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-1-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-1-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-1-10">10</a></span>
+<span class="normal"><a href="#__codelineno-1-11">11</a></span>
+<span class="normal"><a href="#__codelineno-1-12">12</a></span>
+<span class="normal"><a href="#__codelineno-1-13">13</a></span>
+<span class="normal"><a href="#__codelineno-1-14">14</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1"></a><span class="k">export</span><span class="w"> </span><span class="kd">const</span><span class="w"> </span><span class="nx">initializeDatabaseConnection</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">async</span><span class="w"> </span><span class="p">()</span><span class="o">:</span><span class="w"> </span><span class="nb">Promise</span><span class="o">&lt;</span><span class="ow">void</span><span class="o">&gt;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2"></a><span class="w">    </span><span class="k">try</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3"></a><span class="w">        </span><span class="k">await</span><span class="w"> </span><span class="nx">client</span><span class="p">.</span><span class="nx">connect</span><span class="p">();</span>
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4"></a><span class="hll"><span class="w">        </span><span class="nx">databaseConnection</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">client</span><span class="p">.</span><span class="nx">db</span><span class="p">(</span><span class="nx">MONGO_DATABASE</span><span class="p">);</span>
+</span></span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5"></a>
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6"></a><span class="w">        </span><span class="c1">// Dynamically fetch all collections in the database</span>
+</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7"></a><span class="w">        </span><span class="kd">const</span><span class="w"> </span><span class="nx">collectionsList</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">databaseConnection</span><span class="p">.</span><span class="nx">listCollections</span><span class="p">().</span><span class="nx">toArray</span><span class="p">();</span>
+</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8"></a>
+</span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9"></a><span class="w">        </span><span class="c1">// Create collections dynamically</span>
+</span><span id="__span-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10"></a><span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kd">const</span><span class="w"> </span><span class="nx">collectionInfo</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="nx">collectionsList</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-1-11"><a id="__codelineno-1-11" name="__codelineno-1-11"></a><span class="hll"><span class="w">            </span><span class="nx">collections</span><span class="p">[</span><span class="nx">collectionInfo</span><span class="p">.</span><span class="nx">name</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">databaseConnection</span><span class="p">.</span><span class="nx">collection</span><span class="p">(</span><span class="nx">collectionInfo</span><span class="p">.</span><span class="nx">name</span><span class="p">);</span>
+</span></span><span id="__span-1-12"><a id="__codelineno-1-12" name="__codelineno-1-12"></a><span class="w">        </span><span class="p">}</span>
+</span><span id="__span-1-13"><a id="__codelineno-1-13" name="__codelineno-1-13"></a><span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="k">catch</span><span class="w"> </span><span class="p">(</span><span class="nx">error</span><span class="o">:</span><span class="w"> </span><span class="kt">any</span><span class="p">)</span><span class="w"> </span><span class="p">{}</span>
+</span><span id="__span-1-14"><a id="__codelineno-1-14" name="__codelineno-1-14"></a><span class="p">}</span>
+</span></code></pre></div></td></tr></table></div>
+</li>
+<li>
+<p><strong>Establishing Connection</strong>: The <code>initializeDatabaseConnection</code> function is called in the <code>handle</code> function in the <code>src/hooks.server.ts</code> file. This function is a SvelteKit server function that handles incoming requests. If the database connection is not initialized, it calls the <code>initializeDatabaseConnection</code> function to establish the connection.
+    <div class="language-typescript highlight"><span class="filename">hooks.server.ts</span><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="k">export</span><span class="w"> </span><span class="kd">const</span><span class="w"> </span><span class="nx">handle</span><span class="o">:</span><span class="w"> </span><span class="kt">Handle</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">async</span><span class="w"> </span><span class="p">({</span><span class="nx">event</span><span class="p">,</span><span class="w"> </span><span class="nx">resolve</span><span class="p">})</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="nx">isDatabaseConnectionInitialized</span><span class="p">())</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">initializeDatabaseConnection</span><span class="p">();</span>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nx">resolve</span><span class="p">(</span><span class="nx">event</span><span class="p">);</span>
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="p">};</span>
+</span></code></pre></div></p>
+</li>
+</ol>
+<p>So, the database connection is initiated when the first request comes in and the <code>handle</code> function is called.</p>
+<h2 id="forming-the-database-system">Forming the Database System</h2>
+<p>The database system is an <strong>Object-Oriented</strong> system. It contains the following classes:</p>
+<ul>
+<li>
+<p><strong>Base Class</strong> - <code>Database</code> in <code>Database.ts</code> file in the <code>src/lib/server</code> directory. This class contains only one attribute <code>collections</code>.</p>
+</li>
+<li>
+<p><strong>Child Classes</strong>: Each child class contains functionality for each feature.</p>
+<ul>
+<li><strong><code>DatabaseAccount</code></strong> in <code>DatabaseAccount.ts</code> file in the <code>src/lib/server/databaseObjects</code> directory. This class contains functionality for the <code>user-accounts</code> feature.</li>
+<li><strong><code>DatabaseEvent</code></strong> in <code>DatabaseEvent.ts</code> file in the <code>src/lib/server/databaseObjects</code> directory. This class contains functionality for the <code>events</code> feature.</li>
+<li><strong><code>DatabaseFarm</code></strong> in <code>DatabaseFarm.ts</code> file in the <code>src/lib/server/databaseObjects</code> directory. This class contains functionality for the <code>farms</code> feature.</li>
+<li><strong><code>DatabaseForum</code></strong> in <code>DatabaseForum.ts</code> file in the <code>src/lib/server/databaseObjects</code> directory. This class contains functionality for the <code>forum</code> feature.</li>
+<li><strong><code>DatabaseNews</code></strong> in <code>DatabaseNews.ts</code> file in the <code>src/lib/server/databaseObjects</code> directory. This class contains functionality for the <code>news</code> feature.</li>
+<li><strong><code>DatabaseOthers</code></strong> in <code>DatabaseOthers.ts</code> file in the <code>src/lib/server/databaseObjects</code> directory. This class contains functionality for the all others feature.</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p><em><strong>Developer Note</strong>: Every class uses <code>collection</code> object from parent class to execute queries and communicate with database</em></p>
+</blockquote>
+<h2 id="databasets-file"><code>Database.ts</code> File</h2>
+<p>The <code>Database.ts</code> file is a typescript file that sets up and manages the connection to a MongoDB database for the application. Here's a breakdown of its contents:</p>
+<ol>
+<li>
+<p><code>initializeDatabaseConnection</code> Function: This asynchronous function is responsible for establishing the connection to the MongoDB server and setting up the collections. It connects to the MongoDB server using the <code>MongoClient</code> instance, fetches all collections in the database, and creates collections dynamically.</p>
+</li>
+<li>
+<p><code>isDatabaseConnectionInitialized</code> Function: This function checks whether the database connection has been initialized. It returns <code>true</code> if the database connection is initialized, <code>false</code> otherwise.</p>
+</li>
+<li>
+<p><code>Database</code> Class: This class is used for interacting with the database. It has a static <code>collections</code> property that refers to the <code>collections</code> object declared earlier.</p>
+</li>
+</ol>
+<p>This file is crucial for the application as it sets up the database connection and provides a way to interact with the database.</p>
+<h3 id="database-class"><code>Database</code> class</h3>
+<p>The <code>Database</code> class in the <code>Database.ts</code> file is a base class that provides a common interface for interacting with the MongoDB database. It is designed to be extended by other classes that need to perform database operations.</p>
+<p>Here's a breakdown of the <code>Database</code> class:</p>
+<div class="language-typescript highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">Database.ts</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-3-1">1</a></span>
+<span class="normal"><a href="#__codelineno-3-2">2</a></span>
+<span class="normal"><a href="#__codelineno-3-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1"></a><span class="k">export</span><span class="w"> </span><span class="k">default</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nx">Database</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2"></a><span class="hll"><span class="w">    </span><span class="k">protected</span><span class="w"> </span><span class="k">static</span><span class="w"> </span><span class="nx">collections</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">collections</span><span class="p">;</span>
+</span></span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3"></a><span class="p">}</span>
+</span></code></pre></div></td></tr></table></div>
+<p><strong><code>collections</code></strong>: This is a static property that holds a reference to the <code>collections</code> object. This object is populated with the collections in the MongoDB database when the <code>initializeDatabaseConnection</code> function is called. Each key in the <code>collections</code> object is the name of a collection, and the corresponding value is the MongoDB collection object that can be used to perform operations on that collection.</p>
+<blockquote>
+<p><em><strong>Developers Note: </strong>The <code>Database</code> class is extended by other classes in the <code>databaseObjects</code> directory. These classes use the <code>collections</code> property of the <code>Database</code> class to perform operations on the MongoDB collections.</em> </p>
+</blockquote>
+<h2 id="databaseaccountts-file"><code>DatabaseAccount.ts</code> File</h2>
+<p>This file contains the <code>DatabaseAccount</code> class that is used for interacting with the <code>user-account</code> collection in the
+MongoDB database. It extends the <code>Database</code> class and provides methods for performing CRUD operations on
+the <code>user-account</code> collection.</p>
+<h3 id="databaseaccount-class"><code>DatabaseAccount</code> class</h3>
+<p>The <code>DatabaseAccount</code> class in the <code>DatabaseAccount.ts</code> file extends the <code>Database</code> class and provides methods for
+performing CRUD operations on the <code>user-account</code> collection.</p>
+<p>Here's a breakdown of the <code>DatabaseAccount</code> class:</p>
+<div class="language-typescript highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">DatabaseAccount.ts</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-4-1">1</a></span>
+<span class="normal"><a href="#__codelineno-4-2">2</a></span>
+<span class="normal"><a href="#__codelineno-4-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1"></a><span class="k">export</span><span class="w"> </span><span class="k">default</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nx">DatabaseAccount</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nx">Database</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2"></a><span class="w">    </span><span class="c1">// Methods for performing CRUD operations on the `user-account` collection</span>
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3"></a><span class="p">}</span>
+</span></code></pre></div></td></tr></table></div>
+<blockquote>
+<p>This class contains methods for performing CRUD operations on the <code>user-account</code> collection. Each method is documented
+with JSDoc comments.</p>
+</blockquote>
+<p>Methods for performing CRUD operations on the <code>user-account</code> collection:</p>
+<table>
+<thead>
+<tr>
+<th>Method Name</th>
+<th>Parameters</th>
+<th>Return Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="#getuseraccount"><code>getUserAccount()</code>               </a></td>
+<td><code>_id</code>: ObjectId, <br/><code>username</code>: string, <br/><code>email</code>: string</td>
+<td><code>Promise&lt;any&gt;</code></td>
+</tr>
+<tr>
+<td><a href=""><code>getUserCache ()</code>                </a></td>
+<td><code>_id</code>: ObjectId</td>
+<td><code>Promise&lt;TypeUserCache&gt;</code></td>
+</tr>
+<tr>
+<td><a href=""><code>getUserCredentialsByObjectID()</code> </a></td>
+<td><code>_id</code>: ObjectId</td>
+<td><code>Promise&lt;any&gt;</code></td>
+</tr>
+<tr>
+<td><a href=""><code>insertResetPasswordToken()</code>     </a></td>
+<td><code>email</code>: string, <br/><code>token</code>: string</td>
+<td><code>Promise&lt;boolean&gt;</code></td>
+</tr>
+<tr>
+<td><a href=""><code>getResetPasswordToken()</code>        </a></td>
+<td><code>token</code>: string</td>
+<td><code>Promise&lt;any&gt;</code></td>
+</tr>
+<tr>
+<td><a href=""><code>deleteResetPasswordToken()</code>     </a></td>
+<td><code>_id</code>: ObjectId</td>
+<td><code>Promise&lt;boolean&gt;</code></td>
+</tr>
+<tr>
+<td><a href=""><code>updatePassword()</code>               </a></td>
+<td><code>_id</code>: ObjectId, <br/><code>password</code>: string</td>
+<td><code>Promise&lt;boolean&gt;</code></td>
+</tr>
+<tr>
+<td><a href=""><code>updateGoogleID()</code>               </a></td>
+<td><code>email</code>: string, <br/><code>google_id</code>: string</td>
+<td><code>Promise&lt;boolean&gt;</code></td>
+</tr>
+<tr>
+<td><a href=""><code>insertUser()</code>                   </a></td>
+<td><code>userObject</code>: UserObject</td>
+<td><code>Promise&lt;any&gt;</code></td>
+</tr>
+<tr>
+<td><a href=""><code>completeGoogleSignUp()</code>         </a></td>
+<td><code>_id</code>: ObjectId, <br/><code>username</code>: string, <br/><code>password_hash</code>: string</td>
+<td><code>Promise&lt;boolean&gt;</code></td>
+</tr>
+<tr>
+<td><a href=""><code>updateProfilePicture()</code>         </a></td>
+<td><code>_id</code>: ObjectId, <br/><code>profile_picture</code>: string</td>
+<td><code>Promise&lt;boolean&gt;</code></td>
+</tr>
+<tr>
+<td><a href=""><code>crosscheckUsernameAndObjectI()</code> </a></td>
+<td><code>username</code>: string, <br/><code>_id</code>: ObjectId</td>
+<td><code>Promise&lt;boolean&gt;</code></td>
+</tr>
+<tr>
+<td><a href=""><code>getPublicProfile()</code>             </a></td>
+<td><code>_id</code>: ObjectId, <br/><code>username</code>: string, <br/><code>email</code>: string</td>
+<td><code>Promise&lt;PublicProfile&gt;</code></td>
+</tr>
+</tbody>
+</table>
+<p>Below is a detailed description of each method:</p>
+<h4 id="getuseraccount">getUserAccount()</h4>
+<p><strong>Definition:</strong></p>
+<div class="language-typescript highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="nx">getUserAccount</span><span class="p">(</span>
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="w">    </span><span class="nx">_id?</span><span class="o">:</span><span class="w"> </span><span class="kt">ObjectId</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w"> </span>
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="w">    </span><span class="nx">username?</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w"> </span>
+</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="w">    </span><span class="nx">email?</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="kc">null</span><span class="p">)</span>
+</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="o">:</span><span class="w"> </span><span class="nb">Promise</span><span class="o">&lt;</span><span class="nx">any</span><span class="o">&gt;</span>
+</span></code></pre></div>
+<p><strong>Access:</strong> Public<br />
+<strong>Modifier:</strong> Static<br />
+<strong>Asynchronous:</strong> Yes</p>
+<p><strong>Description:</strong><br />
+This method retrieves a user account from the database based on specified criteria.</p>
+<p><strong>Parameters:</strong></p>
+<ul>
+<li><code>_id</code> (ObjectId | null, optional): The unique identifier of the user account.</li>
+<li><code>username</code> (string | null, optional): The username of the user account.</li>
+<li><code>email</code> (string | null, optional): The email address associated with the user account.</li>
+</ul>
+<p><strong>Returns:</strong><br />
+A Promise that resolves to the user account if found, or null if not found.</p>
+<p><strong>Usage:</strong></p>
+<p>This method uses the specified criteria to search for a user account in the "user-account" collection of the database. If the user account is found, it is logged with a &lt;200&gt; status; otherwise, a &lt;404&gt; status is logged.</p>
+<p>Here's the documentation for the <code>getUserCache()</code> method in the <code>DatabaseAccount</code> class:</p>
+<hr />
+<h4 id="getusercache">getUserCache()</h4>
+<p><strong>Definition:</strong></p>
+<div class="language-typescript highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="nx">getUserCache</span><span class="p">(</span><span class="nx">_id</span><span class="o">:</span><span class="w"> </span><span class="kt">ObjectId</span><span class="p">)</span><span class="o">:</span><span class="w"> </span><span class="nb">Promise</span><span class="o">&lt;</span><span class="nx">TypeUserCache</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="kc">undefined</span><span class="o">&gt;</span>
+</span></code></pre></div>
+<p><strong>Access:</strong> Public<br />
+<strong>Modifier:</strong> Static<br />
+<strong>Asynchronous:</strong> Yes</p>
+<p><strong>Description:</strong>
+This method retrieves cached user information from the database by their unique ObjectID.</p>
+<p><strong>Parameters:</strong></p>
+<ul>
+<li><code>_id</code> (ObjectId): The unique identifier of the user account.</li>
+</ul>
+<p><strong>Returns:</strong>
+A Promise that resolves to a TypeUserCache object if found, or undefined if not found.</p>
+<p><strong>Usage:</strong></p>
+<p>This method uses the specified ObjectID to search for a user account in the "user-account" collection of the database. If the user account is found, it is logged with a &lt;200&gt; status; otherwise, a &lt;404&gt; status is logged.</p>
+<hr />
+<h4 id="getusercredentialsbyobjectid">getUserCredentialsByObjectID()</h4>
+<p><strong>Definition:</strong></p>
+<div class="language-typescript highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="nx">getUserCredentialsByObjectID</span><span class="p">(</span><span class="nx">_id</span><span class="o">:</span><span class="w"> </span><span class="kt">ObjectId</span><span class="p">)</span><span class="o">:</span><span class="w"> </span><span class="nb">Promise</span><span class="o">&lt;</span><span class="nx">any</span><span class="o">&gt;</span>
+</span></code></pre></div>
+<p><strong>Access:</strong> Public<br />
+<strong>Modifier:</strong> Static<br />
+<strong>Asynchronous:</strong> Yes</p>
+<p><strong>Description:</strong>
+This method retrieves user credentials from the database by their unique ObjectID.</p>
+<p><strong>Parameters:</strong></p>
+<ul>
+<li><code>_id</code> (ObjectId): The unique identifier of the user account.</li>
+</ul>
+<p><strong>Returns:</strong>
+A Promise that resolves to a Credentials object.</p>
+<p><strong>Usage:</strong></p>
+<p>This method uses the specified ObjectID to search for a user account in the "user-account" collection of the database. If the user account is found, it is logged with a &lt;200&gt; status; otherwise, a &lt;404&gt; status is logged.</p>
+<hr />
+<h4 id="insertresetpasswordtoken">insertResetPasswordToken()</h4>
+<p><strong>Definition:</strong></p>
+<div class="language-typescript highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="nx">insertResetPasswordToken</span><span class="p">(</span><span class="nx">email</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="nx">token</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="o">:</span><span class="w"> </span><span class="nb">Promise</span><span class="o">&lt;</span><span class="kt">boolean</span><span class="o">&gt;</span>
+</span></code></pre></div>
+<p><strong>Access:</strong> Public<br />
+<strong>Modifier:</strong> Static<br />
+<strong>Asynchronous:</strong> Yes</p>
+<p><strong>Description:</strong>
+This method inserts a reset password token for a user by their email.</p>
+<p><strong>Parameters:</strong></p>
+<ul>
+<li><code>email</code> (string): The email of the user for whom the reset token is inserted.</li>
+<li><code>token</code> (string): The reset password token to be inserted.</li>
+</ul>
+<p><strong>Returns:</strong>
+A Promise that resolves to a boolean indicating whether the reset token insertion was successful.</p>
+<p><strong>Usage:</strong></p>
+<p>This method uses the specified email to search for a user account in the "user-account" collection of the database. If the user account is found, it inserts the provided reset password token into the user's account and logs a &lt;200&gt; status; otherwise, a &lt;404&gt; status is logged.</p>
+<hr />
+<h4 id="getresetpasswordtoken">getResetPasswordToken()</h4>
+<p><strong>Definition:</strong></p>
+<div class="language-typescript highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="nx">getResetPasswordToken</span><span class="p">(</span><span class="nx">token</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="o">:</span><span class="w"> </span><span class="nb">Promise</span><span class="o">&lt;</span><span class="nx">any</span><span class="o">&gt;</span>
+</span></code></pre></div>
+<p><strong>Access:</strong> Public<br />
+<strong>Modifier:</strong> Static<br />
+<strong>Asynchronous:</strong> Yes</p>
+<p><strong>Description:</strong>
+This method retrieves a reset password token for a user from the database.</p>
+<p><strong>Parameters:</strong></p>
+<ul>
+<li><code>token</code> (string): The reset password token.</li>
+</ul>
+<p><strong>Returns:</strong>
+A Promise that resolves to an object containing the user's <code>_id</code> and a <code>success</code> boolean if the reset password token is found, or an object with <code>success</code> set to <code>false</code> if not found.</p>
+<p><strong>Usage:</strong></p>
+<p>This method uses the specified token to search for a user account in the "user-account" collection of the database. If the user account is found, it returns an object containing the user's <code>_id</code> and a <code>success</code> boolean set to <code>true</code>; otherwise, it returns an object with <code>success</code> set to <code>false</code>.</p>
+<p>Here's the table entry for the <code>getResetPasswordToken()</code> method:</p>
+<hr />
+<h4 id="deleteresetpasswordtoken">deleteResetPasswordToken()</h4>
+<p><strong>Definition:</strong></p>
+<div class="language-typescript highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="nx">deleteResetPasswordToken</span><span class="p">(</span><span class="nx">_id</span><span class="o">:</span><span class="w"> </span><span class="kt">ObjectId</span><span class="p">)</span><span class="o">:</span><span class="w"> </span><span class="nb">Promise</span><span class="o">&lt;</span><span class="kt">boolean</span><span class="o">&gt;</span>
+</span></code></pre></div>
+<p><strong>Access:</strong> Public<br />
+<strong>Modifier:</strong> Static<br />
+<strong>Asynchronous:</strong> Yes</p>
+<p><strong>Description:</strong>
+This method deletes a reset password token for a user by their unique ObjectID.</p>
+<p><strong>Parameters:</strong></p>
+<ul>
+<li><code>_id</code> (ObjectId): The unique identifier of the user account.</li>
+</ul>
+<p><strong>Returns:</strong>
+A Promise that resolves to a boolean indicating whether the reset token deletion was successful.</p>
+<p><strong>Usage:</strong></p>
+<p>This method uses the specified ObjectID to search for a user account in the "user-account" collection of the database. If the user account is found, it deletes the reset password token from the user's account and logs a &lt;200&gt; status; otherwise, a &lt;404&gt; status is logged.</p>
+<hr />
+<h4 id="updatepassword">updatePassword()</h4>
+<p><strong>Definition:</strong></p>
+<div class="language-typescript highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="nx">updatePassword</span><span class="p">(</span>
+</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a><span class="w">    </span><span class="nx">_id</span><span class="o">:</span><span class="w"> </span><span class="kt">ObjectId</span><span class="p">,</span><span class="w"> </span>
+</span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a><span class="w">    </span><span class="nx">password</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span>
+</span><span id="__span-11-4"><a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a><span class="o">:</span><span class="w"> </span><span class="nb">Promise</span><span class="o">&lt;</span><span class="kt">boolean</span><span class="o">&gt;</span>
+</span></code></pre></div>
+<p><strong>Access:</strong> Public<br />
+<strong>Modifier:</strong> Static<br />
+<strong>Asynchronous:</strong> Yes</p>
+<p><strong>Description:</strong>
+This method updates the password for a user in the database by their unique ObjectID.</p>
+<p><strong>Parameters:</strong></p>
+<ul>
+<li><code>_id</code> (ObjectId): The unique identifier of the user account.</li>
+<li><code>password</code> (string): The new password for the user account.</li>
+</ul>
+<p><strong>Returns:</strong>
+A Promise that resolves to a boolean indicating whether the password update was successful.</p>
+<p><strong>Usage:</strong></p>
+<p>This method uses the specified ObjectID to search for a user account in the "user-account" collection of the database. If the user account is found, it updates the user's password and logs a &lt;200&gt; status; otherwise, a &lt;404&gt; status is logged.</p>
+<hr />
+<h4 id="updategoogleid">updateGoogleID()</h4>
+<p><strong>Definition:</strong></p>
+<div class="language-typescript highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="nx">updateGoogleID</span><span class="p">(</span><span class="nx">email</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="nx">google_id</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="o">:</span><span class="w"> </span><span class="nb">Promise</span><span class="o">&lt;</span><span class="kt">boolean</span><span class="o">&gt;</span>
+</span></code></pre></div>
+<p><strong>Access:</strong> Public<br />
+<strong>Modifier:</strong> Static<br />
+<strong>Asynchronous:</strong> Yes</p>
+<p><strong>Description:</strong>
+This method updates the Google ID for a user in the database by their email.</p>
+<p><strong>Parameters:</strong></p>
+<ul>
+<li><code>email</code> (string): The email of the user for whom the Google ID is updated.</li>
+<li><code>google_id</code> (string): The new Google ID for the user account.</li>
+</ul>
+<p><strong>Returns:</strong>
+A Promise that resolves to a boolean indicating whether the Google ID update was successful.</p>
+<p><strong>Usage:</strong></p>
+<p>This method uses the specified email to search for a user account in the "user-account" collection of the database. If the user account is found, it updates the user's Google ID and logs a &lt;200&gt; status; otherwise, a &lt;404&gt; status is logged.</p>
+<hr />
+<h4 id="insertuser">insertUser()</h4>
+<p><strong>Definition:</strong></p>
+<div class="language-typescript highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="nx">insertUser</span><span class="p">(</span><span class="nx">userObject</span><span class="o">:</span><span class="w"> </span><span class="kt">UserObject</span><span class="p">)</span><span class="o">:</span><span class="w"> </span><span class="nb">Promise</span><span class="o">&lt;</span><span class="nx">any</span><span class="o">&gt;</span>
+</span></code></pre></div>
+<p><strong>Access:</strong> Public<br />
+<strong>Modifier:</strong> Static<br />
+<strong>Asynchronous:</strong> Yes</p>
+<p><strong>Description:</strong>
+This method inserts a new user account into the database.</p>
+<p><strong>Parameters:</strong></p>
+<ul>
+<li><code>userObject</code> (UserObject): The user account object to be inserted.</li>
+</ul>
+<p><strong>Returns:</strong>
+A Promise that resolves to the result of the insertion operation.</p>
+<p><strong>Usage:</strong></p>
+<p>This method uses the provided <code>userObject</code> to insert a new user account into the "user-account" collection of the database. If the insertion is successful, it logs a &lt;200&gt; status; otherwise, a &lt;404&gt; status is logged.</p>
+<hr />
+<h4 id="completegooglesignup">completeGoogleSignUp()</h4>
+<p><strong>Definition:</strong></p>
+<div class="language-typescript highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="nx">completeGoogleSignUp</span><span class="p">(</span><span class="nx">_id</span><span class="o">:</span><span class="w"> </span><span class="kt">ObjectId</span><span class="p">,</span><span class="w"> </span><span class="nx">username</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="nx">password_hash</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="o">:</span><span class="w"> </span><span class="nb">Promise</span><span class="o">&lt;</span><span class="kt">boolean</span><span class="o">&gt;</span>
+</span></code></pre></div>
+<p><strong>Access:</strong> Public<br />
+<strong>Modifier:</strong> Static<br />
+<strong>Asynchronous:</strong> Yes</p>
+<p><strong>Description:</strong>
+This method completes the Google sign-up process for a user in the database by their unique ObjectID.</p>
+<p><strong>Parameters:</strong></p>
+<ul>
+<li><code>_id</code> (ObjectId): The unique identifier of the user account.</li>
+<li><code>username</code> (string): The username for the user account.</li>
+<li><code>password_hash</code> (string): The hashed password for the user account.</li>
+</ul>
+<p><strong>Returns:</strong>
+A Promise that resolves to a boolean indicating whether the Google sign-up process was completed successfully.</p>
+<p><strong>Usage:</strong></p>
+<p>This method uses the specified ObjectID to search for a user account in the "user-account" collection of the database. If the user account is found, it updates the user's username and password hash and logs a &lt;200&gt; status; otherwise, a &lt;404&gt; status is logged.</p>
+<hr />
+<h4 id="updateprofilepicture">updateProfilePicture()</h4>
+<p><strong>Definition:</strong></p>
+<div class="language-typescript highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="nx">updateProfilePicture</span><span class="p">(</span><span class="nx">_id</span><span class="o">:</span><span class="w"> </span><span class="kt">ObjectId</span><span class="p">,</span><span class="w"> </span><span class="nx">profile_picture</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="o">:</span><span class="w"> </span><span class="nb">Promise</span><span class="o">&lt;</span><span class="kt">boolean</span><span class="o">&gt;</span>
+</span></code></pre></div>
+<p><strong>Access:</strong> Public<br />
+<strong>Modifier:</strong> Static<br />
+<strong>Asynchronous:</strong> Yes</p>
+<p><strong>Description:</strong>
+This method updates the profile picture for a user in the database by their unique ObjectID.</p>
+<p><strong>Parameters:</strong></p>
+<ul>
+<li><code>_id</code> (ObjectId): The unique identifier of the user account.</li>
+<li><code>profile_picture</code> (string): The new profile picture for the user account.</li>
+</ul>
+<p><strong>Returns:</strong>
+A Promise that resolves to a boolean indicating whether the profile picture update was successful.</p>
+<p><strong>Usage:</strong></p>
+<p>This method uses the specified ObjectID to search for a user account in the "user-account" collection of the database. If the user account is found, it updates the user's profile picture and logs a &lt;200&gt; status; otherwise, a &lt;404&gt; status is logged.</p>
+<hr />
+<h4 id="crosscheckusernameandobjectid">crosscheckUsernameAndObjectID()</h4>
+<p><strong>Definition:</strong></p>
+<div class="language-typescript highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="nx">crosscheckUsernameAndObjectID</span><span class="p">(</span><span class="nx">username</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="nx">_id</span><span class="o">:</span><span class="w"> </span><span class="kt">ObjectId</span><span class="p">)</span><span class="o">:</span><span class="w"> </span><span class="nb">Promise</span><span class="o">&lt;</span><span class="kt">boolean</span><span class="o">&gt;</span>
+</span></code></pre></div>
+<p><strong>Access:</strong> Public<br />
+<strong>Modifier:</strong> Static<br />
+<strong>Asynchronous:</strong> Yes</p>
+<p><strong>Description:</strong>
+This method crosschecks a username and ObjectID to ensure they match in the database.</p>
+<p><strong>Parameters:</strong></p>
+<ul>
+<li><code>username</code> (string): The username of the user account.</li>
+<li><code>_id</code> (ObjectId): The unique identifier of the user account.</li>
+</ul>
+<p><strong>Returns:</strong>
+A Promise that resolves to a boolean indicating whether the username and ObjectID match.</p>
+<p><strong>Usage:</strong></p>
+<p>This method uses the specified username and ObjectID to search for a user account in the "user-account" collection of the database. If the user account is found and the username and ObjectID match, it logs a &lt;200&gt; status and returns <code>true</code>; otherwise, it logs a &lt;404&gt; status and returns <code>false</code>.</p>
+<hr />
+<h4 id="getpublicprofile">getPublicProfile()</h4>
+<p><strong>Definition:</strong></p>
+<div class="language-typescript highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a><span class="nx">getPublicProfile</span><span class="p">(</span>
+</span><span id="__span-17-2"><a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a><span class="w">    </span><span class="nx">_id?</span><span class="o">:</span><span class="w"> </span><span class="kt">ObjectId</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w"> </span>
+</span><span id="__span-17-3"><a id="__codelineno-17-3" name="__codelineno-17-3" href="#__codelineno-17-3"></a><span class="w">    </span><span class="nx">username?</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">,</span><span class="w"> </span>
+</span><span id="__span-17-4"><a id="__codelineno-17-4" name="__codelineno-17-4" href="#__codelineno-17-4"></a><span class="w">    </span><span class="nx">email?</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span>
+</span><span id="__span-17-5"><a id="__codelineno-17-5" name="__codelineno-17-5" href="#__codelineno-17-5"></a><span class="o">:</span><span class="w"> </span><span class="nb">Promise</span><span class="o">&lt;</span><span class="nx">PublicProfile</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="kc">null</span><span class="o">&gt;</span>
+</span></code></pre></div>
+<p><strong>Access:</strong> Public<br />
+<strong>Modifier:</strong> Static<br />
+<strong>Asynchronous:</strong> Yes</p>
+<p><strong>Description:</strong>
+This method retrieves public profile information for a user from the database based on specified criteria.</p>
+<p><strong>Parameters:</strong></p>
+<ul>
+<li><code>_id</code> (ObjectId | null, optional): The unique identifier of the user account.</li>
+<li><code>username</code> (string, optional): The username of the user account.</li>
+<li><code>email</code> (string, optional): The email address associated with the user account.</li>
+</ul>
+<p><strong>Returns:</strong>
+A Promise that resolves to a PublicProfile object if found, or null if not found.</p>
+<p><strong>Usage:</strong></p>
+<p>This method uses the specified criteria to search for a user account in the "user-account" collection of the database. If the user account is found, it returns a PublicProfile object containing the user's full name, username, email, gender, phone number, occupation, social connections, and profile picture. If the user account is not found, it logs a &lt;404&gt; status and returns null.</p>
+<hr />
+<h2 id="databaseeventts-file"><code>DatabaseEvent.ts</code> File</h2>
+<p>This file contains the <code>DatabaseEvent</code> class that is used for interacting with the <code>event</code> collection in the
+MongoDB database. It extends the <code>Database</code> class and provides methods for performing CRUD operations on
+the <code>event</code> collection.</p>
+<h3 id="databaseevent-class"><code>DatabaseEvent</code> class</h3>
+<p>The <code>DatabaseEvent</code> class in the <code>DatabaseEvent.ts</code> file extends the <code>Database</code> class and provides methods for
+performing CRUD operations on the <code>event</code> collection.</p>
+<p>Here's a breakdown of the <code>DatabaseAccount</code> class:</p>
+<div class="language-typescript highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">DatabaseAccount.ts</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-18-1">1</a></span>
+<span class="normal"><a href="#__codelineno-18-2">2</a></span>
+<span class="normal"><a href="#__codelineno-18-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1"></a><span class="k">export</span><span class="w"> </span><span class="k">default</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nx">DatabaseAccount</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nx">Database</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-18-2"><a id="__codelineno-18-2" name="__codelineno-18-2"></a><span class="w">    </span><span class="c1">// Methods for performing CRUD operations on the `user-account` collection</span>
+</span><span id="__span-18-3"><a id="__codelineno-18-3" name="__codelineno-18-3"></a><span class="p">}</span>
+</span></code></pre></div></td></tr></table></div>
+<blockquote>
+<p>This class contains methods for performing CRUD operations on the <code>user-account</code> collection. Each method is documented
+with JSDoc comments.</p>
+</blockquote>
+<p>Methods for performing CRUD operations on the <code>user-account</code> collection:</p>
+<table>
+<thead>
+<tr>
+<th>Method Name</th>
+<th>Parameters</th>
+<th>Return Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="#getallevents"><code>getAllEvents()</code>               </a></td>
+<td>None</td>
+<td><code>Promise&lt;any&gt;</code></td>
+</tr>
+<tr>
+<td><a href="#getoneevent"><code>getOneEvent()</code>                </a></td>
+<td><code>_id</code>: ObjectId</td>
+<td><code>Promise&lt;any&gt;</code></td>
+</tr>
+<tr>
+<td><a href="#updateoneevent"><code>updateOneEvent()</code>            </a></td>
+<td><code>_id</code>: ObjectId, <br/><code>farm_id</code>: any</td>
+<td><code>Promise&lt;any&gt;</code></td>
+</tr>
+<tr>
+<td><a href="#getlatestevent"><code>getLatestEvent()</code>             </a></td>
+<td>None</td>
+<td><code>Promise&lt;any&gt;</code></td>
+</tr>
+</tbody>
+</table>
+<p>Below is a detailed description of each method:</p>
+<h4 id="getallevents">getAllEvents()</h4>
+<p><strong>Definition:</strong></p>
+<div class="language-typescript highlight"><pre><span></span><code><span id="__span-19-1"><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a><span class="nx">getAllEvents</span><span class="p">()</span><span class="o">:</span><span class="w"> </span><span class="nb">Promise</span><span class="o">&lt;</span><span class="nx">any</span><span class="o">&gt;</span>
+</span></code></pre></div>
+<p><strong>Access:</strong> Public<br />
+<strong>Modifier:</strong> Static<br />
+<strong>Asynchronous:</strong> Yes</p>
+<p><strong>Description:</strong>
+This method retrieves all event information from the database.</p>
+<p><strong>Parameters:</strong>
+None</p>
+<p><strong>Returns:</strong>
+A Promise that resolves to an array of all event information objects.</p>
+<p><strong>Usage:</strong></p>
+<p>This method performs a <code>find</code> operation on the "event" collection in the database with an empty filter (<code>{}</code>), which matches all documents in the collection. It then converts the result to an array with the <code>toArray()</code> method and returns this array.</p>
+<hr />
+<h4 id="getoneevent">getOneEvent()</h4>
+<p><strong>Definition:</strong></p>
+<div class="language-typescript highlight"><pre><span></span><code><span id="__span-20-1"><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a><span class="nx">getOneEvent</span><span class="p">(</span><span class="nx">_id</span><span class="o">:</span><span class="w"> </span><span class="kt">ObjectId</span><span class="p">)</span><span class="o">:</span><span class="w"> </span><span class="nb">Promise</span><span class="o">&lt;</span><span class="nx">any</span><span class="o">&gt;</span>
+</span></code></pre></div>
+<p><strong>Access:</strong> Public<br />
+<strong>Modifier:</strong> Static<br />
+<strong>Asynchronous:</strong> Yes</p>
+<p><strong>Description:</strong>
+This method retrieves a single event from the database by its unique ObjectID.</p>
+<p><strong>Parameters:</strong></p>
+<ul>
+<li><code>_id</code> (ObjectId): The unique identifier of the event.</li>
+</ul>
+<p><strong>Returns:</strong>
+A Promise that resolves to the event information object if found, or null if not found.</p>
+<p><strong>Usage:</strong></p>
+<p>This method uses the specified ObjectID to search for an event in the "event" collection of the database. If the event is found, it is logged with a &lt;200&gt; status; otherwise, a &lt;404&gt; status is logged.</p>
+<hr />
+<h4 id="updateoneevent">updateOneEvent()</h4>
+<p><strong>Definition:</strong></p>
+<div class="language-typescript highlight"><pre><span></span><code><span id="__span-21-1"><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a><span class="nx">updateOneEvent</span><span class="p">(</span><span class="nx">_id</span><span class="o">:</span><span class="w"> </span><span class="kt">ObjectId</span><span class="p">,</span><span class="w"> </span><span class="nx">farm_id</span><span class="o">:</span><span class="w"> </span><span class="kt">any</span><span class="p">)</span><span class="o">:</span><span class="w"> </span><span class="nb">Promise</span><span class="o">&lt;</span><span class="nx">any</span><span class="o">&gt;</span>
+</span></code></pre></div>
+<p><strong>Access:</strong> Public<br />
+<strong>Modifier:</strong> Static<br />
+<strong>Asynchronous:</strong> Yes</p>
+<p><strong>Description:</strong>
+This method updates a specific event in the database by its unique ObjectID.</p>
+<p><strong>Parameters:</strong></p>
+<ul>
+<li><code>_id</code> (ObjectId): The unique identifier of the event.</li>
+<li><code>farm_id</code> (any): The farm identifier to be added to the event's registered farms.</li>
+</ul>
+<p><strong>Returns:</strong>
+A Promise that resolves to the result of the update operation.</p>
+<p><strong>Usage:</strong></p>
+<p>This method uses the specified ObjectID to search for an event in the "event" collection of the database. If the event is found, it updates the event's registered farms by adding the provided <code>farm_id</code> and logs a &lt;200&gt; status; otherwise, a &lt;404&gt; status is logged.</p>
+<hr />
+<h4 id="getlatestevent">getLatestEvent()</h4>
+<p><strong>Definition:</strong></p>
+<div class="language-typescript highlight"><pre><span></span><code><span id="__span-22-1"><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a><span class="nx">getLatestEvent</span><span class="p">()</span><span class="o">:</span><span class="w"> </span><span class="nb">Promise</span><span class="o">&lt;</span><span class="nx">any</span><span class="o">&gt;</span>
+</span></code></pre></div>
+<p><strong>Access:</strong> Public<br />
+<strong>Modifier:</strong> Static<br />
+<strong>Asynchronous:</strong> Yes</p>
+<p><strong>Description:</strong>
+This method retrieves the latest event from the database.</p>
+<p><strong>Parameters:</strong>
+None</p>
+<p><strong>Returns:</strong>
+A Promise that resolves to the latest event information object.</p>
+<p><strong>Usage:</strong></p>
+<p>This method performs a <code>find</code> operation on the "event" collection in the database with an empty filter (<code>{}</code>), which matches all documents in the collection. It then sorts the results in descending order by the <code>event_date</code> field and limits the results to the most recent one. The method returns this latest event information object.</p>
+<hr />
+<table>
+<thead>
+<tr>
+<th>Method Name</th>
+<th>Parameters</th>
+<th>Return Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="#getallfarms"><code>getAllFarms()</code>               </a></td>
+<td>None</td>
+<td><code>Promise&lt;any&gt;</code></td>
+</tr>
+<tr>
+<td><a href="#getonefarm"><code>getOneFarm()</code>                </a></td>
+<td><code>farm_uid</code>: string</td>
+<td><code>Promise&lt;any&gt;</code></td>
+</tr>
+<tr>
+<td><a href="#getonefarmproducts"><code>getOneFarmProducts()</code>        </a></td>
+<td><code>farm_uid</code>: string</td>
+<td><code>Promise&lt;any&gt;</code></td>
+</tr>
+<tr>
+<td><a href="#getoneproduct"><code>getOneProduct()</code>             </a></td>
+<td><code>product_id</code>: string</td>
+<td><code>Promise&lt;any&gt;</code></td>
+</tr>
+<tr>
+<td><a href="#placeorder"><code>placeOrder()</code>                </a></td>
+<td><code>order</code>: PaymentObject</td>
+<td><code>Promise&lt;any&gt;</code></td>
+</tr>
+<tr>
+<td><a href="#getinstallments"><code>getInstallments()</code>           </a></td>
+<td><code>user_id</code>: string</td>
+<td><code>Promise&lt;any&gt;</code></td>
+</tr>
+<tr>
+<td><a href="#getsellingproductcatalog"><code>getSellingProductCatalog()</code>  </a></td>
+<td><code>owner_uid</code>: string</td>
+<td><code>Promise&lt;any&gt;</code></td>
+</tr>
+<tr>
+<td><a href="#getcategoryproduct"><code>getCategoryProduct()</code>        </a></td>
+<td><code>category</code>: string, <br/><code>farm_id</code>: string</td>
+<td><code>Promise&lt;any&gt;</code></td>
+</tr>
+<tr>
+<td><a href="#addproduct"><code>addProduct()</code>                </a></td>
+<td><code>newProductObject</code>: any, <br/><code>uid</code>: string</td>
+<td><code>Promise&lt;any&gt;</code></td>
+</tr>
+</tbody>
+</table>
+<h4 id="getallfarms">getAllFarms()</h4>
+<p><strong>Definition:</strong></p>
+<div class="language-typescript highlight"><pre><span></span><code><span id="__span-23-1"><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a><span class="nx">getAllFarms</span><span class="p">()</span><span class="o">:</span><span class="w"> </span><span class="nb">Promise</span><span class="o">&lt;</span><span class="nx">any</span><span class="o">&gt;</span>
+</span></code></pre></div>
+<p><strong>Access:</strong> Public<br />
+<strong>Modifier:</strong> Static<br />
+<strong>Asynchronous:</strong> Yes</p>
+<p><strong>Description:</strong>
+This method retrieves information about all farms from the database.</p>
+<p><strong>Parameters:</strong>
+None</p>
+<p><strong>Returns:</strong>
+A Promise that resolves to an array of all farm information objects.</p>
+<p><strong>Usage:</strong></p>
+<p>This method performs a <code>find</code> operation on the "farm-info" collection in the database with an empty filter (<code>{}</code>), which matches all documents in the collection. It then converts the result to an array with the <code>toArray()</code> method and returns this array.</p>
+<hr />
+<h4 id="getonefarm">getOneFarm()</h4>
+<p><strong>Definition:</strong></p>
+<div class="language-typescript highlight"><pre><span></span><code><span id="__span-24-1"><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a><span class="nx">getOneFarm</span><span class="p">(</span><span class="nx">farm_uid</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="o">:</span><span class="w"> </span><span class="nb">Promise</span><span class="o">&lt;</span><span class="nx">any</span><span class="o">&gt;</span>
+</span></code></pre></div>
+<p><strong>Access:</strong> Public<br />
+<strong>Modifier:</strong> Static<br />
+<strong>Asynchronous:</strong> Yes</p>
+<p><strong>Description:</strong>
+This method retrieves information about a single farm by its unique identifier (UID) from the database.</p>
+<p><strong>Parameters:</strong></p>
+<ul>
+<li><code>farm_uid</code> (string): The unique identifier (UID) of the farm.</li>
+</ul>
+<p><strong>Returns:</strong>
+A Promise that resolves to the farm information object if found, or null if not found.</p>
+<p><strong>Usage:</strong></p>
+<p>This method uses the specified <code>farm_uid</code> to search for a farm in the "farm-info" collection of the database. If the farm is found, it is logged with a &lt;200&gt; status; otherwise, a &lt;404&gt; status is logged.</p>
+<hr />
+<h4 id="getonefarmproducts">getOneFarmProducts()</h4>
+<p><strong>Definition:</strong></p>
+<div class="language-typescript highlight"><pre><span></span><code><span id="__span-25-1"><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a><span class="nx">getOneFarmProducts</span><span class="p">(</span><span class="nx">farm_uid</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="o">:</span><span class="w"> </span><span class="nb">Promise</span><span class="o">&lt;</span><span class="nx">any</span><span class="o">&gt;</span>
+</span></code></pre></div>
+<p><strong>Access:</strong> Public<br />
+<strong>Modifier:</strong> Static<br />
+<strong>Asynchronous:</strong> Yes</p>
+<p><strong>Description:</strong>
+This method retrieves information about farm products associated with a single farm by its unique identifier (UID) from the database.</p>
+<p><strong>Parameters:</strong></p>
+<ul>
+<li><code>farm_uid</code> (string): The unique identifier (UID) of the farm to retrieve product information for.</li>
+</ul>
+<p><strong>Returns:</strong>
+A Promise that resolves to the farm products information object or null if not found.</p>
+<p><strong>Usage:</strong></p>
+<p>This method uses the specified <code>farm_uid</code> to search for a farm in the "farm-products" collection of the database. If the farm is found, it is logged with a &lt;200&gt; status; otherwise, a &lt;404&gt; status is logged.</p>
+<hr />
+<h4 id="getoneproduct">getOneProduct()</h4>
+<p><strong>Definition:</strong></p>
+<div class="language-typescript highlight"><pre><span></span><code><span id="__span-26-1"><a id="__codelineno-26-1" name="__codelineno-26-1" href="#__codelineno-26-1"></a><span class="nx">getOneProduct</span><span class="p">(</span><span class="nx">product_id</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="o">:</span><span class="w"> </span><span class="nb">Promise</span><span class="o">&lt;</span><span class="nx">any</span><span class="o">&gt;</span>
+</span></code></pre></div>
+<p><strong>Access:</strong> Public<br />
+<strong>Modifier:</strong> Static<br />
+<strong>Asynchronous:</strong> Yes</p>
+<p><strong>Description:</strong>
+This method retrieves information about a single product by its unique identifier (ID) from the database.</p>
+<p><strong>Parameters:</strong></p>
+<ul>
+<li><code>product_id</code> (string): The unique identifier (ID) of the product to retrieve information for.</li>
+</ul>
+<p><strong>Returns:</strong>
+A Promise that resolves to the product information object if found, or null if not found.</p>
+<p><strong>Usage:</strong></p>
+<p>This method uses the specified <code>product_id</code> to search for a product in the "farm-products" collection of the database. It first finds the document where the product is located, then iterates over the products array in the document to find the product with the matching ID. If the product is found, it is returned; otherwise, null is returned.</p>
+<hr />
+<h4 id="placeorder">placeOrder()</h4>
+<p><strong>Definition:</strong></p>
+<div class="language-typescript highlight"><pre><span></span><code><span id="__span-27-1"><a id="__codelineno-27-1" name="__codelineno-27-1" href="#__codelineno-27-1"></a><span class="nx">placeOrder</span><span class="p">(</span><span class="nx">order</span><span class="o">:</span><span class="w"> </span><span class="kt">PaymentObject</span><span class="p">)</span><span class="o">:</span><span class="w"> </span><span class="nb">Promise</span><span class="o">&lt;</span><span class="nx">any</span><span class="o">&gt;</span>
+</span></code></pre></div>
+<p><strong>Access:</strong> Public<br />
+<strong>Modifier:</strong> Static<br />
+<strong>Asynchronous:</strong> Yes</p>
+<p><strong>Description:</strong>
+This method places an order by inserting the order details into the database.</p>
+<p><strong>Parameters:</strong></p>
+<ul>
+<li><code>order</code> (PaymentObject): The order details to be inserted.</li>
+</ul>
+<p><strong>Returns:</strong>
+A Promise that resolves to the result of the insertion operation.</p>
+<p><strong>Usage:</strong></p>
+<p>This method uses the provided <code>order</code> object to insert a new order into the "order" collection of the database. If the insertion is successful, it logs a &lt;200&gt; status; otherwise, a &lt;404&gt; status is logged.</p>
+<hr />
+<h4 id="getinstallments">getInstallments()</h4>
+<p><strong>Definition:</strong></p>
+<div class="language-typescript highlight"><pre><span></span><code><span id="__span-28-1"><a id="__codelineno-28-1" name="__codelineno-28-1" href="#__codelineno-28-1"></a><span class="nx">getInstallments</span><span class="p">(</span><span class="nx">user_id</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="o">:</span><span class="w"> </span><span class="nb">Promise</span><span class="o">&lt;</span><span class="nx">any</span><span class="o">&gt;</span>
+</span></code></pre></div>
+<p><strong>Access:</strong> Public<br />
+<strong>Modifier:</strong> Static<br />
+<strong>Asynchronous:</strong> Yes</p>
+<p><strong>Description:</strong>
+This method retrieves all installment information for a specific user from the database.</p>
+<p><strong>Parameters:</strong></p>
+<ul>
+<li><code>user_id</code> (string): The unique identifier (ID) of the user to retrieve installment information for.</li>
+</ul>
+<p><strong>Returns:</strong>
+A Promise that resolves to an array of installment information objects for the specified user.</p>
+<p><strong>Usage:</strong></p>
+<p>This method uses the specified <code>user_id</code> to search for installments in the "order" collection of the database. It finds all documents where the <code>user_id</code> field matches the provided <code>user_id</code>. It then iterates over the resulting array of installments and removes any installments that do not have a <code>total_installment</code> field. The method returns the filtered array of installments.</p>
+<hr />
+<h4 id="getsellingproductcatalog">getSellingProductCatalog()</h4>
+<p><strong>Definition:</strong></p>
+<div class="language-typescript highlight"><pre><span></span><code><span id="__span-29-1"><a id="__codelineno-29-1" name="__codelineno-29-1" href="#__codelineno-29-1"></a><span class="nx">getSellingProductCatalog</span><span class="p">(</span><span class="nx">owner_uid</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="o">:</span><span class="w"> </span><span class="nb">Promise</span><span class="o">&lt;</span><span class="nx">any</span><span class="o">&gt;</span>
+</span></code></pre></div>
+<p><strong>Access:</strong> Public<br />
+<strong>Modifier:</strong> Static<br />
+<strong>Asynchronous:</strong> Yes</p>
+<p><strong>Description:</strong>
+This method retrieves the product catalog for a specific farm owner from the database.</p>
+<p><strong>Parameters:</strong></p>
+<ul>
+<li><code>owner_uid</code> (string): The unique identifier (UID) of the farm owner.</li>
+</ul>
+<p><strong>Returns:</strong>
+A Promise that resolves to the product catalog information object for the specified farm owner.</p>
+<p><strong>Usage:</strong></p>
+<p>This method uses the specified <code>owner_uid</code> to search for a farm in the "farm-info" collection of the database. If the farm is found, it returns the product catalog associated with the farm owner.</p>
+<hr />
+<h4 id="getcategoryproduct">getCategoryProduct()</h4>
+<p><strong>Definition:</strong></p>
+<div class="language-typescript highlight"><pre><span></span><code><span id="__span-30-1"><a id="__codelineno-30-1" name="__codelineno-30-1" href="#__codelineno-30-1"></a><span class="nx">getCategoryProduct</span><span class="p">(</span><span class="nx">category</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="nx">farm_id</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="o">:</span><span class="w"> </span><span class="nb">Promise</span><span class="o">&lt;</span><span class="nx">any</span><span class="o">&gt;</span>
+</span></code></pre></div>
+<p><strong>Access:</strong> Public<br />
+<strong>Modifier:</strong> Static<br />
+<strong>Asynchronous:</strong> Yes</p>
+<p><strong>Description:</strong>
+This method retrieves products from a specific category for a specific farm from the database.</p>
+<p><strong>Parameters:</strong></p>
+<ul>
+<li><code>category</code> (string): The category of the products to retrieve.</li>
+<li><code>farm_id</code> (string): The unique identifier (ID) of the farm to retrieve products for.</li>
+</ul>
+<p><strong>Returns:</strong>
+A Promise that resolves to an array of product information objects that match the specified category and farm ID.</p>
+<p><strong>Usage:</strong></p>
+<p>This method uses the specified <code>category</code> and <code>farm_id</code> to search for products in the "livestock-products" collection of the database. It finds all documents where the <code>category</code> and <code>farm_id</code> fields match the provided values. The method returns an array of these matching product information objects.</p>
+<hr />
+<h4 id="addproduct">addProduct()</h4>
+<p><strong>Definition:</strong></p>
+<div class="language-typescript highlight"><pre><span></span><code><span id="__span-31-1"><a id="__codelineno-31-1" name="__codelineno-31-1" href="#__codelineno-31-1"></a><span class="nx">addProduct</span><span class="p">(</span><span class="nx">newProductObject</span><span class="o">:</span><span class="w"> </span><span class="kt">any</span><span class="p">,</span><span class="w"> </span><span class="nx">uid</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="o">:</span><span class="w"> </span><span class="nb">Promise</span><span class="o">&lt;</span><span class="nx">any</span><span class="o">&gt;</span>
+</span></code></pre></div>
+<p><strong>Access:</strong> Public<br />
+<strong>Modifier:</strong> Static<br />
+<strong>Asynchronous:</strong> Yes</p>
+<p><strong>Description:</strong>
+This method adds a new product to a specific farm in the database.</p>
+<p><strong>Parameters:</strong></p>
+<ul>
+<li><code>newProductObject</code> (any): The new product object to be added.</li>
+<li><code>uid</code> (string): The unique identifier (UID) of the farm to add the product to.</li>
+</ul>
+<p><strong>Returns:</strong>
+A Promise that resolves to the result of the insertion operation.</p>
+<p><strong>Usage:</strong></p>
+<p>This method uses the provided <code>newProductObject</code> and <code>uid</code> to insert a new product into the "farm_products" collection of the database. If the insertion is successful, it logs a &lt;200&gt; status; otherwise, a &lt;404&gt; status is logged.</p>
+<hr />
+<table>
+<thead>
+<tr>
+<th>Method Name</th>
+<th>Parameters</th>
+<th>Return Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="#getonepost"><code>getOnePost()</code>               </a></td>
+<td><code>post_uid</code>: ObjectId</td>
+<td><code>Promise&lt;any&gt;</code></td>
+</tr>
+<tr>
+<td><a href="#getallposts"><code>getAllPosts()</code>              </a></td>
+<td>None</td>
+<td><code>Promise&lt;any&gt;</code></td>
+</tr>
+<tr>
+<td><a href="#getmostlikedposts"><code>getMostLikedPosts()</code>        </a></td>
+<td>None</td>
+<td><code>Promise&lt;any&gt;</code></td>
+</tr>
+<tr>
+<td><a href="#insertreplyinpost"><code>insertReplyInPost()</code>        </a></td>
+<td><code>reply</code>: any</td>
+<td><code>Promise&lt;any&gt;</code></td>
+</tr>
+<tr>
+<td><a href="#votepost"><code>votePost()</code>                 </a></td>
+<td><code>postObjectID</code>: ObjectId, <br/><code>likerObjectID</code>: string, <br/><code>alreadyLiked</code>: boolean</td>
+<td><code>Promise&lt;any&gt;</code></td>
+</tr>
+</tbody>
+</table>
+<h4 id="getonepost">getOnePost()</h4>
+<p><strong>Definition:</strong></p>
+<div class="language-typescript highlight"><pre><span></span><code><span id="__span-32-1"><a id="__codelineno-32-1" name="__codelineno-32-1" href="#__codelineno-32-1"></a><span class="nx">getOnePost</span><span class="p">(</span><span class="nx">post_uid</span><span class="o">:</span><span class="w"> </span><span class="kt">ObjectId</span><span class="p">)</span><span class="o">:</span><span class="w"> </span><span class="nb">Promise</span><span class="o">&lt;</span><span class="nx">any</span><span class="o">&gt;</span>
+</span></code></pre></div>
+<p><strong>Access:</strong> Public<br />
+<strong>Modifier:</strong> Static<br />
+<strong>Asynchronous:</strong> Yes</p>
+<p><strong>Description:</strong>
+This method retrieves information about a single post from the forum by its unique ObjectID.</p>
+<p><strong>Parameters:</strong></p>
+<ul>
+<li><code>post_uid</code> (ObjectId): The unique identifier (ObjectID) of the post to retrieve information for.</li>
+</ul>
+<p><strong>Returns:</strong>
+A Promise that resolves to the post information object if found, or null if not found.</p>
+<p><strong>Usage:</strong></p>
+<p>This method uses the specified <code>post_uid</code> to search for a post in the "forum" collection of the database. If the post is found, it is logged with a &lt;200&gt; status; otherwise, a &lt;404&gt; status is logged.</p>
+<hr />
+<h4 id="getallposts">getAllPosts()</h4>
+<p><strong>Definition:</strong></p>
+<div class="language-typescript highlight"><pre><span></span><code><span id="__span-33-1"><a id="__codelineno-33-1" name="__codelineno-33-1" href="#__codelineno-33-1"></a><span class="nx">getAllPosts</span><span class="p">()</span><span class="o">:</span><span class="w"> </span><span class="nb">Promise</span><span class="o">&lt;</span><span class="nx">any</span><span class="o">&gt;</span>
+</span></code></pre></div>
+<p><strong>Access:</strong> Public<br />
+<strong>Modifier:</strong> Static<br />
+<strong>Asynchronous:</strong> Yes</p>
+<p><strong>Description:</strong>
+This method retrieves all posts from the forum.</p>
+<p><strong>Parameters:</strong>
+None</p>
+<p><strong>Returns:</strong>
+A Promise that resolves to an array of all post information objects.</p>
+<p><strong>Usage:</strong></p>
+<p>This method performs a <code>find</code> operation on the "forum" collection in the database with an empty filter (<code>{}</code>), which matches all documents in the collection. It then converts the result to an array with the <code>toArray()</code> method and returns this array.</p>
+<hr />
+<h4 id="getmostlikedposts">getMostLikedPosts()</h4>
+<p><strong>Definition:</strong></p>
+<div class="language-typescript highlight"><pre><span></span><code><span id="__span-34-1"><a id="__codelineno-34-1" name="__codelineno-34-1" href="#__codelineno-34-1"></a><span class="nx">getMostLikedPosts</span><span class="p">()</span><span class="o">:</span><span class="w"> </span><span class="nb">Promise</span><span class="o">&lt;</span><span class="nx">any</span><span class="o">&gt;</span>
+</span></code></pre></div>
+<p><strong>Access:</strong> Public<br />
+<strong>Modifier:</strong> Static<br />
+<strong>Asynchronous:</strong> Yes</p>
+<p><strong>Description:</strong>
+This method retrieves information about the most liked posts from the forum.</p>
+<p><strong>Parameters:</strong>
+None</p>
+<p><strong>Returns:</strong>
+A Promise that resolves to an array of the most liked post information objects.</p>
+<p><strong>Usage:</strong></p>
+<p>This method performs a <code>find</code> operation on the "forum" collection in the database with an empty filter (<code>{}</code>), which matches all documents in the collection. It then sorts the results in descending order by the <code>like</code> field and limits the results to the top three. The method returns this array of the most liked post information objects.</p>
+<hr />
+<h4 id="insertreplyinpost">insertReplyInPost()</h4>
+<p><strong>Definition:</strong></p>
+<div class="language-typescript highlight"><pre><span></span><code><span id="__span-35-1"><a id="__codelineno-35-1" name="__codelineno-35-1" href="#__codelineno-35-1"></a><span class="nx">insertReplyInPost</span><span class="p">(</span><span class="nx">reply</span><span class="o">:</span><span class="w"> </span><span class="kt">any</span><span class="p">)</span><span class="o">:</span><span class="w"> </span><span class="nb">Promise</span><span class="o">&lt;</span><span class="nx">any</span><span class="o">&gt;</span>
+</span></code></pre></div>
+<p><strong>Access:</strong> Public<br />
+<strong>Modifier:</strong> Static<br />
+<strong>Asynchronous:</strong> Yes</p>
+<p><strong>Description:</strong>
+This method inserts a reply into a post in the comment section of the forum.</p>
+<p><strong>Parameters:</strong></p>
+<ul>
+<li><code>reply</code> (any): The reply to be inserted.</li>
+</ul>
+<p><strong>Returns:</strong>
+A Promise that resolves to the result of the insertion operation.</p>
+<p><strong>Usage:</strong></p>
+<p>This method uses the provided <code>reply</code> object to insert a new reply into the "comment" collection of the database. If the insertion is successful, it logs a &lt;200&gt; status; otherwise, a &lt;404&gt; status is logged.</p>
+<hr />
+<h4 id="votepost">votePost()</h4>
+<p><strong>Definition:</strong></p>
+<div class="language-typescript highlight"><pre><span></span><code><span id="__span-36-1"><a id="__codelineno-36-1" name="__codelineno-36-1" href="#__codelineno-36-1"></a><span class="nx">votePost</span><span class="p">(</span><span class="nx">postObjectID</span><span class="o">:</span><span class="w"> </span><span class="kt">ObjectId</span><span class="p">,</span><span class="w"> </span><span class="nx">likerObjectID</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="nx">alreadyLiked</span><span class="o">:</span><span class="w"> </span><span class="kt">boolean</span><span class="p">)</span><span class="o">:</span><span class="w"> </span><span class="nb">Promise</span><span class="o">&lt;</span><span class="nx">any</span><span class="o">&gt;</span>
+</span></code></pre></div>
+<p><strong>Access:</strong> Public<br />
+<strong>Modifier:</strong> Static<br />
+<strong>Asynchronous:</strong> Yes</p>
+<p><strong>Description:</strong>
+This method handles the voting (liking) of a post in the forum. If a user has already liked a post, their like is removed. If they haven't liked the post yet, their like is added.</p>
+<p><strong>Parameters:</strong></p>
+<ul>
+<li><code>postObjectID</code> (ObjectId): The unique identifier (ObjectID) of the post to be voted on.</li>
+<li><code>likerObjectID</code> (string): The unique identifier (string) of the user who is voting.</li>
+<li><code>alreadyLiked</code> (boolean): A flag indicating whether the user has already liked the post.</li>
+</ul>
+<p><strong>Returns:</strong>
+A Promise that resolves to the result of the voting operation.</p>
+<p><strong>Usage:</strong></p>
+<p>This method uses the provided <code>postObjectID</code> and <code>likerObjectID</code> to update the "likes" array of a post in the "forum" collection of the database. If <code>alreadyLiked</code> is <code>true</code>, it removes the <code>likerObjectID</code> from the "likes" array of the post (i.e., the user unlikes the post). If <code>alreadyLiked</code> is <code>false</code>, it adds the <code>likerObjectID</code> to the "likes" array of the post (i.e., the user likes the post).</p>
+<hr />
+<h2 id="databasenewsts-file"><code>DatabaseNews.ts</code> File</h2>
+<p>This file contains the <code>DatabaseNews</code> class that is used for interacting with the <code>news</code> and <code>saved_items</code> collections in the MongoDB database. It extends the <code>Database</code> class and provides methods for performing operations on these collections.</p>
+<h3 id="databasenews-class"><code>DatabaseNews</code> class</h3>
+<p>The <code>DatabaseNews</code> class in the <code>DatabaseNews.ts</code> file extends the <code>Database</code> class and provides methods for performing operations on the <code>news</code> and <code>saved_items</code> collections.</p>
+<p>Here's a breakdown of the <code>DatabaseNews</code> class:</p>
+<div class="language-typescript highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">DatabaseNews.ts</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-37-1">1</a></span>
+<span class="normal"><a href="#__codelineno-37-2">2</a></span>
+<span class="normal"><a href="#__codelineno-37-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-37-1"><a id="__codelineno-37-1" name="__codelineno-37-1"></a><span class="k">export</span><span class="w"> </span><span class="k">default</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nx">DatabaseNews</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nx">Database</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-37-2"><a id="__codelineno-37-2" name="__codelineno-37-2"></a><span class="w">    </span><span class="c1">// Methods for performing operations on the `news` and `saved_items` collections</span>
+</span><span id="__span-37-3"><a id="__codelineno-37-3" name="__codelineno-37-3"></a><span class="p">}</span>
+</span></code></pre></div></td></tr></table></div>
+<blockquote>
+<p>This class contains methods for performing operations on the <code>news</code> and <code>saved_items</code> collections. Each method is documented with JSDoc comments.</p>
+</blockquote>
+<p>Methods for performing operations on the <code>news</code> and <code>saved_items</code> collections:
+Here's the table with all the methods from the <code>DatabaseNews</code> class:</p>
+<table>
+<thead>
+<tr>
+<th>Method Name</th>
+<th>Parameters</th>
+<th>Return Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="#getallnews"><code>getAllNews()</code>               </a></td>
+<td>None</td>
+<td><code>Promise&lt;any&gt;</code></td>
+</tr>
+<tr>
+<td><a href="#getonenews"><code>getOneNews()</code>                </a></td>
+<td><code>news_uid</code>: string | null, <br/><code>_id</code>: ObjectId | null</td>
+<td><code>Promise&lt;any&gt;</code></td>
+</tr>
+<tr>
+<td><a href="#savenews"><code>saveNews()</code>                  </a></td>
+<td><code>user_id</code>: string, <br/><code>news_id</code>: string</td>
+<td><code>Promise&lt;any&gt;</code></td>
+</tr>
+</tbody>
+</table>
+<p>Please note that the links in the "Method Name" column are placeholders and should be replaced with the actual links to the method documentation.</p>
+<h4 id="getallnews">getAllNews()</h4>
+<p><strong>Definition:</strong></p>
+<div class="language-typescript highlight"><pre><span></span><code><span id="__span-38-1"><a id="__codelineno-38-1" name="__codelineno-38-1" href="#__codelineno-38-1"></a><span class="nx">getAllNews</span><span class="p">()</span><span class="o">:</span><span class="w"> </span><span class="nb">Promise</span><span class="o">&lt;</span><span class="nx">any</span><span class="o">&gt;</span>
+</span></code></pre></div>
+<p><strong>Access:</strong> Public<br />
+<strong>Modifier:</strong> Static<br />
+<strong>Asynchronous:</strong> Yes</p>
+<p><strong>Description:</strong>
+This method retrieves all news information from the database.</p>
+<p><strong>Parameters:</strong>
+None</p>
+<p><strong>Returns:</strong>
+A Promise that resolves to an array of all news information objects.</p>
+<p><strong>Usage:</strong></p>
+<p>This method performs a <code>find</code> operation on the "news" collection in the database with an empty filter (<code>{}</code>), which matches all documents in the collection. It then converts the result to an array with the <code>toArray()</code> method and returns this array.</p>
+<hr />
+<h4 id="getonenews">getOneNews()</h4>
+<p><strong>Definition:</strong></p>
+<div class="language-typescript highlight"><pre><span></span><code><span id="__span-39-1"><a id="__codelineno-39-1" name="__codelineno-39-1" href="#__codelineno-39-1"></a><span class="nx">getOneNews</span><span class="p">(</span><span class="nx">news_uid?</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w"> </span><span class="nx">_id?</span><span class="o">:</span><span class="kt">ObjectId</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="kc">null</span><span class="p">)</span><span class="o">:</span><span class="w"> </span><span class="nb">Promise</span><span class="o">&lt;</span><span class="nx">any</span><span class="o">&gt;</span>
+</span></code></pre></div>
+<p><strong>Access:</strong> Public<br />
+<strong>Modifier:</strong> Static<br />
+<strong>Asynchronous:</strong> Yes</p>
+<p><strong>Description:</strong>
+This method retrieves information about a single news item from the database by its unique identifier (UID) or ObjectID.</p>
+<p><strong>Parameters:</strong></p>
+<ul>
+<li><code>news_uid</code> (string | null, optional): The unique identifier (UID) of the news item.</li>
+<li><code>_id</code> (ObjectId | null, optional): The ObjectID of the news item.</li>
+</ul>
+<p><strong>Returns:</strong>
+A Promise that resolves to the news information object if found, or null if not found.</p>
+<p><strong>Usage:</strong></p>
+<p>This method uses the specified <code>news_uid</code> or <code>_id</code> to search for a news item in the "news" collection of the database. If the news item is found, it is logged with a &lt;200&gt; status; otherwise, a &lt;404&gt; status is logged.</p>
+<hr />
+<h4 id="savenews">saveNews()</h4>
+<p><strong>Definition:</strong></p>
+<div class="language-typescript highlight"><pre><span></span><code><span id="__span-40-1"><a id="__codelineno-40-1" name="__codelineno-40-1" href="#__codelineno-40-1"></a><span class="nx">saveNews</span><span class="p">(</span><span class="nx">user_id</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="nx">news_id</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="o">:</span><span class="w"> </span><span class="nb">Promise</span><span class="o">&lt;</span><span class="nx">any</span><span class="o">&gt;</span>
+</span></code></pre></div>
+<p><strong>Access:</strong> Public<br />
+<strong>Modifier:</strong> Static<br />
+<strong>Asynchronous:</strong> Yes</p>
+<p><strong>Description:</strong>
+This method saves a news item for a specific user in the database.</p>
+<p><strong>Parameters:</strong></p>
+<ul>
+<li><code>user_id</code> (string): The unique identifier (ID) of the user who is saving the news item.</li>
+<li><code>news_id</code> (string): The unique identifier (ID) of the news item to be saved.</li>
+</ul>
+<p><strong>Returns:</strong>
+A Promise that resolves to the result of the save operation.</p>
+<p><strong>Usage:</strong></p>
+<p>This method uses the provided <code>user_id</code> and <code>news_id</code> to update the "saved_items" collection in the database. It finds the document where the <code>user_id</code> field matches the provided <code>user_id</code> and adds the <code>news_id</code> to the "saved_news" array of the document.</p>
+<hr />
+<h2 id="databaseothersts-file"><code>DatabaseOthers.ts</code> File</h2>
+<p>This file contains the <code>DatabaseOthers</code> class that is used for interacting with various collections in the MongoDB database. It extends the <code>Database</code> class and provides methods for performing operations on these collections.</p>
+<h3 id="databaseothers-class"><code>DatabaseOthers</code> class</h3>
+<p>The <code>DatabaseOthers</code> class in the <code>DatabaseOthers.ts</code> file extends the <code>Database</code> class and provides methods for performing operations on various collections.</p>
+<p>Here's a breakdown of the <code>DatabaseOthers</code> class:</p>
+<div class="language-typescript highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">DatabaseOthers.ts</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-41-1">1</a></span>
+<span class="normal"><a href="#__codelineno-41-2">2</a></span>
+<span class="normal"><a href="#__codelineno-41-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-41-1"><a id="__codelineno-41-1" name="__codelineno-41-1"></a><span class="k">export</span><span class="w"> </span><span class="k">default</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nx">DatabaseOthers</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nx">Database</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-41-2"><a id="__codelineno-41-2" name="__codelineno-41-2"></a><span class="w">    </span><span class="c1">// Methods for performing operations on various collections</span>
+</span><span id="__span-41-3"><a id="__codelineno-41-3" name="__codelineno-41-3"></a><span class="p">}</span>
+</span></code></pre></div></td></tr></table></div>
+<blockquote>
+<p>This class contains methods for performing operations on various collections. Each method is documented with JSDoc comments.</p>
+</blockquote>
+<p>Methods for performing operations on various collections:</p>
+<table>
+<thead>
+<tr>
+<th>Method Name</th>
+<th>Parameters</th>
+<th>Return Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="#getglobalsearchresult"><code>getGlobalSearchResult()</code>   </a></td>
+<td><code>query</code>: string</td>
+<td><code>Promise&lt;any&gt;</code></td>
+</tr>
+<tr>
+<td><a href="#getnotifications"><code>getNotifications()</code>        </a></td>
+<td><code>userObjectID</code>: string</td>
+<td><code>Promise&lt;any&gt;</code></td>
+</tr>
+<tr>
+<td><a href="#getsaveditems"><code>getSavedItems()</code>           </a></td>
+<td><code>userObjectID</code>: string</td>
+<td><code>Promise&lt;any&gt;</code></td>
+</tr>
+</tbody>
+</table>
+<p>Below is a detailed description of each method:</p>
+<h4 id="getglobalsearchresult">getGlobalSearchResult()</h4>
+<p><strong>Definition:</strong></p>
+<div class="language-typescript highlight"><pre><span></span><code><span id="__span-42-1"><a id="__codelineno-42-1" name="__codelineno-42-1" href="#__codelineno-42-1"></a><span class="nx">getGlobalSearchResult</span><span class="p">(</span><span class="nx">query</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="o">:</span><span class="w"> </span><span class="nb">Promise</span><span class="o">&lt;</span><span class="nx">any</span><span class="o">&gt;</span>
+</span></code></pre></div>
+<p><strong>Access:</strong> Public<br />
+<strong>Modifier:</strong> Static<br />
+<strong>Asynchronous:</strong> Yes</p>
+<p><strong>Description:</strong>
+This method performs a global search in the database based on the provided query string.</p>
+<p><strong>Parameters:</strong></p>
+<ul>
+<li><code>query</code> (string): The search query string.</li>
+</ul>
+<p><strong>Returns:</strong>
+A Promise that resolves to an object containing the search results from various collections in the database.</p>
+<p><strong>Usage:</strong></p>
+<p>This method uses the provided <code>query</code> string to perform a search in the "user-account", "forum", "event", and "news" collections of the database. It finds all documents where the <code>full_name</code>, <code>credentials.username</code>, <code>credentials.email</code>, <code>title</code>, <code>post</code>, <code>description</code>, and <code>content</code> fields match the provided <code>query</code> string. The method returns an object containing arrays of matching documents from each collection.</p>
+<hr />
+<h4 id="getnotifications">getNotifications()</h4>
+<p><strong>Definition:</strong></p>
+<div class="language-typescript highlight"><pre><span></span><code><span id="__span-43-1"><a id="__codelineno-43-1" name="__codelineno-43-1" href="#__codelineno-43-1"></a><span class="nx">getNotifications</span><span class="p">(</span><span class="nx">userObjectID</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="o">:</span><span class="w"> </span><span class="nb">Promise</span><span class="o">&lt;</span><span class="nx">any</span><span class="o">&gt;</span>
+</span></code></pre></div>
+<p><strong>Access:</strong> Public<br />
+<strong>Modifier:</strong> Static<br />
+<strong>Asynchronous:</strong> Yes</p>
+<p><strong>Description:</strong>
+This method retrieves all notifications for a specific user from the database.</p>
+<p><strong>Parameters:</strong></p>
+<ul>
+<li><code>userObjectID</code> (string): The unique identifier (ID) of the user to retrieve notifications for.</li>
+</ul>
+<p><strong>Returns:</strong>
+A Promise that resolves to the notifications object for the specified user.</p>
+<p><strong>Usage:</strong></p>
+<p>This method uses the specified <code>userObjectID</code> to search for a user in the "notification" collection of the database. If the user is found, it returns the user's notifications object.</p>
+<hr />
+<h4 id="getsaveditems">getSavedItems()</h4>
+<p><strong>Definition:</strong></p>
+<div class="language-typescript highlight"><pre><span></span><code><span id="__span-44-1"><a id="__codelineno-44-1" name="__codelineno-44-1" href="#__codelineno-44-1"></a><span class="nx">getSavedItems</span><span class="p">(</span><span class="nx">userObjectID</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="o">:</span><span class="w"> </span><span class="nb">Promise</span><span class="o">&lt;</span><span class="nx">any</span><span class="o">&gt;</span>
+</span></code></pre></div>
+<p><strong>Access:</strong> Public<br />
+<strong>Modifier:</strong> Static<br />
+<strong>Asynchronous:</strong> Yes</p>
+<p><strong>Description:</strong>
+This method retrieves all saved items for a specific user from the database.</p>
+<p><strong>Parameters:</strong></p>
+<ul>
+<li><code>userObjectID</code> (string): The unique identifier (ID) of the user to retrieve saved items for.</li>
+</ul>
+<p><strong>Returns:</strong>
+A Promise that resolves to the saved items object for the specified user.</p>
+<p><strong>Usage:</strong></p>
+<p>This method uses the specified <code>userObjectID</code> to search for a user in the "saved_items" collection of the database. If the user is found, it returns the user's saved items object.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "..", "features": ["content.code.copy", "content.code.select", "navigation.instant", "navigation.instant.prefetch", "navigation.top"], "search": "../assets/javascripts/workers/search.f886a092.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.d7c377c4.min.js"></script>
+      
+    
+  </body>
+</html>

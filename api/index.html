@@ -1,0 +1,2368 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../docs/">
+      
+      
+        <link rel="next" href="../database/">
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.2">
+    
+    
+      
+        <title>API Reference - Agri-Inn | Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.50c56a3b.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,700,700i%7CJetBrains+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="orange" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#api-references" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="Agri-Inn | Documentation" class="md-header__button md-logo" aria-label="Agri-Inn | Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Agri-Inn | Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              API Reference
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Agri-Inn | Documentation" class="md-nav__button md-logo" aria-label="Agri-Inn | Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    Agri-Inn | Documentation
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../features/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Features
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../docs/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Documentation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    API Reference
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    API Reference
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#available-api-endpoints" class="md-nav__link">
+    <span class="md-ellipsis">
+      Available API Endpoints
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#definitions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Definitions
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#authforgotpasswordapi" class="md-nav__link">
+    <span class="md-ellipsis">
+      auth.ForgotPasswordAPI
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#authgetpublicprofileapi" class="md-nav__link">
+    <span class="md-ellipsis">
+      auth.GetPublicProfileAPI
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#authoauthapi" class="md-nav__link">
+    <span class="md-ellipsis">
+      auth.OAuthAPI
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#authretrievecacheapi" class="md-nav__link">
+    <span class="md-ellipsis">
+      auth.RetrieveCacheAPI
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#authsigninapi" class="md-nav__link">
+    <span class="md-ellipsis">
+      auth.SignInAPI
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#eventsgetalleventsapi" class="md-nav__link">
+    <span class="md-ellipsis">
+      events.GetAllEventsAPI
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#eventsgetlatesteventapi" class="md-nav__link">
+    <span class="md-ellipsis">
+      events.GetLatestEventAPI
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#eventsgetoneeventapi" class="md-nav__link">
+    <span class="md-ellipsis">
+      events.GetOneEventAPI
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#eventsregistereventapi" class="md-nav__link">
+    <span class="md-ellipsis">
+      events.RegisterEventAPI
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#farmsgetfarmsapi" class="md-nav__link">
+    <span class="md-ellipsis">
+      farms.GetFarmsAPI
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#farmsgetallvetapi" class="md-nav__link">
+    <span class="md-ellipsis">
+      farms.GetAllVetAPI
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#farmsgethealthtrackapi" class="md-nav__link">
+    <span class="md-ellipsis">
+      farms.GetHealthTrackAPI
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#farmsaddproductapi" class="md-nav__link">
+    <span class="md-ellipsis">
+      farms.AddProductAPI
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#farmsgetcategoryproductsapi" class="md-nav__link">
+    <span class="md-ellipsis">
+      farms.GetCategoryProductsAPI
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#farmsgetinstallmentsapi" class="md-nav__link">
+    <span class="md-ellipsis">
+      farms.GetInstallmentsAPI
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#farmsgetonefarmapi" class="md-nav__link">
+    <span class="md-ellipsis">
+      farms.GetOneFarmAPI
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#farmsgetonefarmproductsapi" class="md-nav__link">
+    <span class="md-ellipsis">
+      farms.GetOneFarmProductsAPI
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#farmsgetproductinfoapi" class="md-nav__link">
+    <span class="md-ellipsis">
+      farms.GetProductInfoAPI
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#farmsplaceorderapi" class="md-nav__link">
+    <span class="md-ellipsis">
+      farms.PlaceOrderAPI
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#farmsgetproductcatalogapi" class="md-nav__link">
+    <span class="md-ellipsis">
+      farms.GetProductCatalogAPI
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#forumgetallpostapi" class="md-nav__link">
+    <span class="md-ellipsis">
+      forum.GetAllPostAPI
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#forumgetmostlikedpostsapi" class="md-nav__link">
+    <span class="md-ellipsis">
+      forum.GetMostLikedPostsAPI
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#forumgetonepostapi" class="md-nav__link">
+    <span class="md-ellipsis">
+      forum.GetOnePostAPI
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#forumincrementviewcountapi" class="md-nav__link">
+    <span class="md-ellipsis">
+      forum.IncrementViewCountAPI
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#foruminsertpostapi" class="md-nav__link">
+    <span class="md-ellipsis">
+      forum.InsertPostAPI
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#forumsendreplyapi" class="md-nav__link">
+    <span class="md-ellipsis">
+      forum.SendReplyAPI
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#forumupvotepostapi" class="md-nav__link">
+    <span class="md-ellipsis">
+      forum.UpvotePostAPI
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#marketplacegetallproductsmarketapi" class="md-nav__link">
+    <span class="md-ellipsis">
+      marketplace.GetAllProductsMarketAPI
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#newsgetallnewsapi" class="md-nav__link">
+    <span class="md-ellipsis">
+      news.GetAllNewsAPI
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#newsgetonenewsapi" class="md-nav__link">
+    <span class="md-ellipsis">
+      news.GetOneNewsAPI
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#newssavenewsapi" class="md-nav__link">
+    <span class="md-ellipsis">
+      news.saveNewsAPI
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#miscgetnotificationapi" class="md-nav__link">
+    <span class="md-ellipsis">
+      misc.GetNotificationAPI
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#miscsaveditemsapi" class="md-nav__link">
+    <span class="md-ellipsis">
+      misc.savedItemsAPI
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#miscsearchallapi" class="md-nav__link">
+    <span class="md-ellipsis">
+      misc.SearchAllAPI
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../database/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Database
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ajax/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    AJAX Usage
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../license/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    License
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../about/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    About
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#available-api-endpoints" class="md-nav__link">
+    <span class="md-ellipsis">
+      Available API Endpoints
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#definitions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Definitions
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#authforgotpasswordapi" class="md-nav__link">
+    <span class="md-ellipsis">
+      auth.ForgotPasswordAPI
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#authgetpublicprofileapi" class="md-nav__link">
+    <span class="md-ellipsis">
+      auth.GetPublicProfileAPI
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#authoauthapi" class="md-nav__link">
+    <span class="md-ellipsis">
+      auth.OAuthAPI
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#authretrievecacheapi" class="md-nav__link">
+    <span class="md-ellipsis">
+      auth.RetrieveCacheAPI
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#authsigninapi" class="md-nav__link">
+    <span class="md-ellipsis">
+      auth.SignInAPI
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#eventsgetalleventsapi" class="md-nav__link">
+    <span class="md-ellipsis">
+      events.GetAllEventsAPI
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#eventsgetlatesteventapi" class="md-nav__link">
+    <span class="md-ellipsis">
+      events.GetLatestEventAPI
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#eventsgetoneeventapi" class="md-nav__link">
+    <span class="md-ellipsis">
+      events.GetOneEventAPI
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#eventsregistereventapi" class="md-nav__link">
+    <span class="md-ellipsis">
+      events.RegisterEventAPI
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#farmsgetfarmsapi" class="md-nav__link">
+    <span class="md-ellipsis">
+      farms.GetFarmsAPI
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#farmsgetallvetapi" class="md-nav__link">
+    <span class="md-ellipsis">
+      farms.GetAllVetAPI
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#farmsgethealthtrackapi" class="md-nav__link">
+    <span class="md-ellipsis">
+      farms.GetHealthTrackAPI
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#farmsaddproductapi" class="md-nav__link">
+    <span class="md-ellipsis">
+      farms.AddProductAPI
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#farmsgetcategoryproductsapi" class="md-nav__link">
+    <span class="md-ellipsis">
+      farms.GetCategoryProductsAPI
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#farmsgetinstallmentsapi" class="md-nav__link">
+    <span class="md-ellipsis">
+      farms.GetInstallmentsAPI
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#farmsgetonefarmapi" class="md-nav__link">
+    <span class="md-ellipsis">
+      farms.GetOneFarmAPI
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#farmsgetonefarmproductsapi" class="md-nav__link">
+    <span class="md-ellipsis">
+      farms.GetOneFarmProductsAPI
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#farmsgetproductinfoapi" class="md-nav__link">
+    <span class="md-ellipsis">
+      farms.GetProductInfoAPI
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#farmsplaceorderapi" class="md-nav__link">
+    <span class="md-ellipsis">
+      farms.PlaceOrderAPI
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#farmsgetproductcatalogapi" class="md-nav__link">
+    <span class="md-ellipsis">
+      farms.GetProductCatalogAPI
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#forumgetallpostapi" class="md-nav__link">
+    <span class="md-ellipsis">
+      forum.GetAllPostAPI
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#forumgetmostlikedpostsapi" class="md-nav__link">
+    <span class="md-ellipsis">
+      forum.GetMostLikedPostsAPI
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#forumgetonepostapi" class="md-nav__link">
+    <span class="md-ellipsis">
+      forum.GetOnePostAPI
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#forumincrementviewcountapi" class="md-nav__link">
+    <span class="md-ellipsis">
+      forum.IncrementViewCountAPI
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#foruminsertpostapi" class="md-nav__link">
+    <span class="md-ellipsis">
+      forum.InsertPostAPI
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#forumsendreplyapi" class="md-nav__link">
+    <span class="md-ellipsis">
+      forum.SendReplyAPI
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#forumupvotepostapi" class="md-nav__link">
+    <span class="md-ellipsis">
+      forum.UpvotePostAPI
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#marketplacegetallproductsmarketapi" class="md-nav__link">
+    <span class="md-ellipsis">
+      marketplace.GetAllProductsMarketAPI
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#newsgetallnewsapi" class="md-nav__link">
+    <span class="md-ellipsis">
+      news.GetAllNewsAPI
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#newsgetonenewsapi" class="md-nav__link">
+    <span class="md-ellipsis">
+      news.GetOneNewsAPI
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#newssavenewsapi" class="md-nav__link">
+    <span class="md-ellipsis">
+      news.saveNewsAPI
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#miscgetnotificationapi" class="md-nav__link">
+    <span class="md-ellipsis">
+      misc.GetNotificationAPI
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#miscsaveditemsapi" class="md-nav__link">
+    <span class="md-ellipsis">
+      misc.savedItemsAPI
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#miscsearchallapi" class="md-nav__link">
+    <span class="md-ellipsis">
+      misc.SearchAllAPI
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+<h1 id="api-references">API References</h1>
+<p>This page lists all the API endpoints that are currently available in the project. The API endpoints are grouped by
+their respective scopes.
+Scopes are used to determine the access level of the API endpoint. For example, an API endpoint with the scope <code>Public</code>
+can be accessed by anyone,
+whereas an API endpoint with the scope <code>Private</code> can only be accessed by a logged-in user. Also, only <code>GET</code> and <code>POST</code>
+requests are used for
+this project.</p>
+<p>Every API receives a JSON object as its request body and returns a JSON object as its response body. The request body is
+used to pass the
+required parameters to the API and the response body is used to return the result of the API call. The response body
+will always contain
+a <code>status</code> field, which will be either <code>success</code> or <code>error</code>. If the status is <code>success</code>, then the API call was
+successful, and the response
+body will contain the result of the API call. If the status is <code>error</code>, then the API call was unsuccessful, and the
+response body will contain
+the error message.</p>
+<h2 id="available-api-endpoints">Available API Endpoints</h2>
+<p>Below are the API endpoints that are currently available in v1:</p>
+<p><strong>Primary symbols</strong> used in the table below:</p>
+<table>
+<thead>
+<tr>
+<th>API Endpoint Name</th>
+<th>Type</th>
+<th>Scope</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="#authforgotpasswordapi"><code>auth.ForgotPasswordAPI</code></a></td>
+<td><code>POST</code></td>
+<td><code>Public</code></td>
+</tr>
+<tr>
+<td><a href="#authgetpublicprofileapi"><code>auth.GetPublicProfile</code></a></td>
+<td><code>POST</code></td>
+<td><code>Public</code></td>
+</tr>
+<tr>
+<td><a href="#authoauthapi"><code>auth.OAuth</code></a></td>
+<td><code>POST</code></td>
+<td><code>Public</code></td>
+</tr>
+<tr>
+<td><a href="#authretrievecacheapi"><code>auth.RetrieveCache</code></a></td>
+<td><code>POST</code></td>
+<td><code>Private</code></td>
+</tr>
+<tr>
+<td><a href="#authsigninapi"><code>auth.SignInAPI</code></a></td>
+<td><code>POST</code></td>
+<td><code>Public</code></td>
+</tr>
+<tr>
+<td><a href="#eventsgetalleventsapi"><code>events.GetAllEventsAPI</code></a></td>
+<td><code>GET</code></td>
+<td><code>Private</code></td>
+</tr>
+<tr>
+<td><a href="#eventsgetlatesteventapi"><code>events.GetLatestEvent</code></a></td>
+<td><code>GET</code></td>
+<td><code>Private</code></td>
+</tr>
+<tr>
+<td><a href="#eventsgetoneeventapi"><code>events.GetOneEventsAPI</code></a></td>
+<td><code>POST</code></td>
+<td><code>Private</code></td>
+</tr>
+<tr>
+<td><a href="#eventsregistereventapi"><code>events.RegisterEventAPI</code></a></td>
+<td><code>POST</code></td>
+<td><code>Private</code></td>
+</tr>
+<tr>
+<td><a href="#farmsgetfarmsapi"><code>farms.GetFarmsAPI</code></a></td>
+<td><code>GET</code></td>
+<td><code>Private</code></td>
+</tr>
+<tr>
+<td><a href="#farmsgetallvetapi"><code>farms.GetAllVetAPI</code></a></td>
+<td><code>GET</code></td>
+<td><code>Private</code></td>
+</tr>
+<tr>
+<td><a href="#farmsgethealthtrackapi"><code>farms.GetHealthTrackAPI</code></a></td>
+<td><code>GET</code></td>
+<td><code>Private</code></td>
+</tr>
+<tr>
+<td><a href="#farmsaddproductapi"><code>farms.AddProductAPI</code></a></td>
+<td><code>POST</code></td>
+<td><code>Private</code></td>
+</tr>
+<tr>
+<td><a href="#farmsgetcategoryproductsapi"><code>farms.GetCategoryProducts</code></a></td>
+<td><code>POST</code></td>
+<td><code>Private</code></td>
+</tr>
+<tr>
+<td><a href="#farmsgetinstallmentsapi"><code>farms.GetInstallmentsAPI</code></a></td>
+<td><code>POST</code></td>
+<td><code>Private</code></td>
+</tr>
+<tr>
+<td><a href="#farmsgetonefarmapi"><code>farms.GetOneFarmAPI</code></a></td>
+<td><code>POST</code></td>
+<td><code>Private</code></td>
+</tr>
+<tr>
+<td><a href="#farmsgetonefarmproductsapi"><code>farms.GetOneFarmProductsAPI</code></a></td>
+<td><code>POST</code></td>
+<td><code>Private</code></td>
+</tr>
+<tr>
+<td><a href="#farmsgetproductinfoapi"><code>farms.GetProductInfoAPI</code></a></td>
+<td><code>POST</code></td>
+<td><code>Private</code></td>
+</tr>
+<tr>
+<td><a href="#farmsplaceorderapi"><code>farms.PlaceOrderAPI</code></a></td>
+<td><code>POST</code></td>
+<td><code>Private</code></td>
+</tr>
+<tr>
+<td><a href="#farmsgetproductcatalogapi"><code>farms.GetProductCatalogAPI</code></a></td>
+<td><code>POST</code></td>
+<td><code>Private</code></td>
+</tr>
+<tr>
+<td><a href="#forumgetallpostapi"><code>forum.GetAllPostAPI</code></a></td>
+<td><code>GET</code></td>
+<td><code>Private</code></td>
+</tr>
+<tr>
+<td><a href="#forumgetmostlikedpostsapi"><code>forum.GetMostLikedPostsAPI</code></a></td>
+<td><code>GET</code></td>
+<td><code>Private</code></td>
+</tr>
+<tr>
+<td><a href="#forumgetonepostapi"><code>forum.GetOnePostAPI</code></a></td>
+<td><code>POST</code></td>
+<td><code>Private</code></td>
+</tr>
+<tr>
+<td><a href="#forumincrementviewcountapi"><code>forum.IncrementViewCountAPI</code></a></td>
+<td><code>POST</code></td>
+<td><code>Private</code></td>
+</tr>
+<tr>
+<td><a href="#foruminsertpostapi"><code>forum.InsertPostAPI</code></a></td>
+<td><code>POST</code></td>
+<td><code>Private</code></td>
+</tr>
+<tr>
+<td><a href="#forumsendreplyapi"><code>forum.SendReplyAPI</code></a></td>
+<td><code>POST</code></td>
+<td><code>Private</code></td>
+</tr>
+<tr>
+<td><a href="#forumupvotepostapi"><code>forum.UpvotePostAPI</code></a></td>
+<td><code>POST</code></td>
+<td><code>Private</code></td>
+</tr>
+<tr>
+<td><a href="#marketplacegetallproductsmarketapi"><code>marketplace.getAllProductsmarketAPI</code></a></td>
+<td><code>GET</code></td>
+<td><code>Private</code></td>
+</tr>
+<tr>
+<td><a href="#newsgetallnewsapi"><code>news.GetAllNewsAPI</code></a></td>
+<td><code>GET</code></td>
+<td><code>Private</code></td>
+</tr>
+<tr>
+<td><a href="#newsgetonenewsapi"><code>news.GetOneNewsAPI</code></a></td>
+<td><code>POST</code></td>
+<td><code>Private</code></td>
+</tr>
+<tr>
+<td><a href="#newssavenewsapi"><code>news.SaveNewsAPI</code></a></td>
+<td><code>POST</code></td>
+<td><code>Private</code></td>
+</tr>
+<tr>
+<td><a href="#miscgetnotificationapi"><code>misc.GetNotificationAPI</code></a></td>
+<td><code>POST</code></td>
+<td><code>Private</code></td>
+</tr>
+<tr>
+<td><a href="#miscsaveditemsapi"><code>misc.SavedItemsAPI</code></a></td>
+<td><code>POST</code></td>
+<td><code>Private</code></td>
+</tr>
+<tr>
+<td><a href="#miscsearchallapi"><code>misc.SearchAllAPI</code></a></td>
+<td><code>POST</code></td>
+<td><code>Private</code></td>
+</tr>
+</tbody>
+</table>
+<h2 id="definitions">Definitions</h2>
+<p>Below are the definitions of each API endpoint:</p>
+<h2 id="authforgotpasswordapi"><code>auth.ForgotPasswordAPI</code></h2>
+<p>This API endpoint is responsible for initiating the password reset process for a user. It receives a JSON object in the request body containing the user's email address and a turnstile token for validation.</p>
+<ul>
+<li><strong>Version:</strong> <code>1.0</code></li>
+<li><strong>Method:</strong> <code>POST</code></li>
+<li><strong>Endpoint:</strong> <code>/auth/ForgotPasswordAPI</code></li>
+</ul>
+<p><strong>Request Body</strong></p>
+<div class="language-json highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="p">{</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="w">   </span><span class="nt">&quot;email&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;user@example.com&quot;</span><span class="p">,</span>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w">   </span><span class="nt">&quot;turnstile_token&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;example_turnstile_token&quot;</span>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="p">}</span>
+</span></code></pre></div>
+<ul>
+<li><code>email</code> (string): The email address of the user requesting a password reset.</li>
+<li><code>turnstile_token</code> (string): A turnstile token used for validation.</li>
+</ul>
+<p><strong>Response</strong></p>
+<p>The API responds with an appropriate status code and an empty body.</p>
+<ul>
+<li>Status Code 200: Password reset initiated successfully. An email containing the password reset link will be sent to the user.</li>
+<li>Status Code 401: Unauthorized. The provided turnstile token is invalid.</li>
+<li>Status Code 500: Internal Server Error. This could occur if there's an issue with token generation, database insertion, or email sending.</li>
+</ul>
+<p><strong>Processing Steps</strong></p>
+<ol>
+<li><strong>Turnstile Token Validation</strong>: The received turnstile token is validated using the cfTurnstileValidation function.
+   If
+   the token is invalid, the API returns a 401 Unauthorized response.</li>
+<li><strong>Email and Token Extraction</strong>: The email address and turnstile token are extracted from the request body.</li>
+<li><strong>Token Generation</strong>: A unique reset token is generated using the resetTokenGenerator function.</li>
+<li><strong>Token Insertion into Database</strong>: The generated reset token is inserted into the database using the
+   <code>DatabaseAccount.insertResetPasswordToken</code> function. If the insertion is successful, the process continues.
+   Otherwise,
+   a 500 Internal Server Error response is returned.</li>
+<li><strong>Email Sending</strong>: An email is sent to the user containing a link for password reset. The link includes the generated
+   reset token. The actual link is formed as: <code>https://agriinn.vercel.app/sign-in/forgot-password/{reset_token}</code>. The
+   email is sent using the sendMail function.</li>
+<li><strong>Response</strong>: If the email is sent successfully, the API returns a 200 OK response. If the email does not exist in
+   the
+   database, a 500 Internal Server Error response is returned.</li>
+</ol>
+<hr />
+<h2 id="authgetpublicprofileapi"><code>auth.GetPublicProfileAPI</code></h2>
+<p>This API endpoint is responsible for retrieving the public profile of a user. It receives a JSON object in the request
+body containing the user's _id, username, or email.</p>
+<ul>
+<li><strong>Version:</strong> <code>1.0</code></li>
+<li><strong>Method:</strong> <code>POST</code></li>
+<li><strong>Endpoint:</strong> <code>/auth/GetPublicProfileAPI</code></li>
+</ul>
+<p><strong>Request Body</strong></p>
+<div class="language-json highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="p">{</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="w">   </span><span class="nt">&quot;_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;user_id&quot;</span><span class="p">,</span>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="w">   </span><span class="nt">&quot;username&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;user_username&quot;</span><span class="p">,</span>
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="w">   </span><span class="nt">&quot;email&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;user@example.com&quot;</span>
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="p">}</span>
+</span></code></pre></div>
+<ul>
+<li><code>_id</code> (string): The unique identifier of the user whose public profile is being requested.</li>
+<li><code>username</code> (string): The username of the user whose public profile is being requested.</li>
+<li><code>email</code> (string): The email address of the user whose public profile is being requested.</li>
+</ul>
+<p><strong>Response</strong></p>
+<p>The API responds with an appropriate status code and a JSON object containing the public profile of the user.</p>
+<ul>
+<li>Status Code 200: Public profile retrieved successfully. The response body contains the public profile of the user.</li>
+<li>Status Code 404: Not Found. The user does not exist.</li>
+</ul>
+<p><strong>Processing Steps</strong></p>
+<ol>
+<li><strong>Request Body Extraction</strong>: The _id, username, and email are extracted from the request body.</li>
+<li><strong>Public Profile Retrieval</strong>: The <code>DatabaseAccount.getPublicProfile</code> function is called with the extracted _id,
+   username, and email to retrieve the public profile of the user.</li>
+<li><strong>Response</strong>: If the public profile is retrieved successfully, the API returns a 200 OK response with the public
+   profile in the response body. If the user does not exist, a 404 Not Found response is returned.</li>
+</ol>
+<hr />
+<h2 id="authoauthapi"><code>auth.OAuthAPI</code></h2>
+<p>This API endpoint is responsible for handling Google OAuth2.0 requests for user authentication. It receives a code from
+Google's OAuth2.0 server, which is then exchanged for an access token. The access token is used to fetch the user's
+details from Google's server.</p>
+<ul>
+<li><strong>Version:</strong> <code>1.0</code></li>
+<li><strong>Method:</strong> <code>GET</code></li>
+<li><strong>Endpoint:</strong> <code>/auth/OAuthAPI</code></li>
+</ul>
+<p><strong>Processing Steps</strong></p>
+<ol>
+<li><strong>OAuth2.0 Request Reception</strong>: The API receives a request from Google's OAuth2.0 server containing a code.</li>
+<li><strong>Access Token Generation</strong>: The code is exchanged for an access token using Google's OAuth2.0 client.</li>
+<li><strong>User Details Fetching</strong>: The access token is used to fetch the user's details from Google's server.</li>
+<li><strong>User Existence Check</strong>: The API checks if the user already exists in the database.</li>
+<li><strong>Existing User Handling</strong>: If the user exists, their Google ID is updated (if necessary), a session token is
+   generated, and the user is redirected to the dashboard.</li>
+<li><strong>New User Handling</strong>: If the user does not exist, a new user object is created and inserted into the database. The
+   user's profile picture is downloaded and uploaded to Supabase Storage. The profile picture URL is updated in the
+   database. An encrypted ID is generated and the user is redirected to the Google sign-in page.</li>
+</ol>
+<p><strong>Response</strong></p>
+<p>The API does not directly respond with a status code and body. Instead, it redirects the user to the appropriate page
+based on whether the user exists in the database or not.</p>
+<ul>
+<li>Redirect to Dashboard: If the user exists in the database, a session token is set in the cookies and the user is
+  redirected to the dashboard.</li>
+<li>Redirect to Google Sign-In: If the user does not exist in the database, an encrypted ID is set in the cookies and the
+  user is redirected to the Google sign-in page.</li>
+</ul>
+<hr />
+<h2 id="authretrievecacheapi"><code>auth.RetrieveCacheAPI</code></h2>
+<p>This API endpoint is responsible for retrieving the cache data of a user. It receives a JSON object in the request body
+containing the user's _id.</p>
+<ul>
+<li><strong>Version:</strong> <code>1.0</code></li>
+<li><strong>Method:</strong> <code>POST</code></li>
+<li><strong>Endpoint:</strong> <code>/auth/RetrieveCacheAPI</code></li>
+</ul>
+<p><strong>Request Body</strong></p>
+<div class="language-json highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="p">{</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="w">   </span><span class="nt">&quot;_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;user_id&quot;</span>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="p">}</span>
+</span></code></pre></div>
+<ul>
+<li><code>_id</code> (string): The unique identifier of the user whose cache data is being requested.</li>
+</ul>
+<p><strong>Processing Steps</strong></p>
+<ol>
+<li><strong>Request Body Extraction</strong>: The _id is extracted from the request body.</li>
+<li><strong>Cache Data Retrieval</strong>: The <code>DatabaseAccount.getUserCache</code> function is called with the extracted _id to retrieve
+   the cache data of the user.</li>
+</ol>
+<p><strong>Response</strong></p>
+<p>The API responds with an appropriate status code and a JSON object containing the cache data of the user.</p>
+<ul>
+<li>Status Code 200: Cache data retrieved successfully. The response body contains the cache data of the user.</li>
+<li>Status Code 404: Not Found. The user does not exist or there is no cache data for the user.</li>
+</ul>
+<hr />
+<h2 id="authsigninapi"><code>auth.SignInAPI</code></h2>
+<p>This API endpoint is responsible for authenticating users. It receives a JSON object in the request body containing the
+user's key (username or email) and password.</p>
+<ul>
+<li><strong>Version:</strong> <code>1.0</code></li>
+<li><strong>Method:</strong> <code>POST</code></li>
+<li><strong>Endpoint:</strong> <code>/auth/SignInAPI</code></li>
+</ul>
+<p><strong>Request Body</strong></p>
+<div class="language-json highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="p">{</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="w">   </span><span class="nt">&quot;key&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;user_key&quot;</span><span class="p">,</span>
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="w">   </span><span class="nt">&quot;password&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;user_password&quot;</span>
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="p">}</span>
+</span></code></pre></div>
+<ul>
+<li><code>key</code> (string): The username or email of the user trying to authenticate.</li>
+<li><code>password</code> (string): The password of the user trying to authenticate.</li>
+</ul>
+<p><strong>Processing Steps</strong></p>
+<ol>
+<li><strong>Request Body Extraction</strong>: The key and password are extracted from the request body.</li>
+<li><strong>User Retrieval</strong>: The <code>DatabaseAccount.getUserAccount</code> function is called with the extracted key to retrieve the
+   user's account.</li>
+<li><strong>Password Verification</strong>: The provided password is compared with the stored password hash using the <code>bcrypt.compare</code>
+   function.</li>
+<li><strong>Token Generation and Response</strong>: If the password is correct, a session token is generated using the <code>generateToken</code>
+   function. The token is set in the cookies and the user's details are returned in the response body.</li>
+</ol>
+<p><strong>Response</strong></p>
+<p>The API responds with an appropriate status code and a JSON object containing the user's details if the authentication
+is successful.</p>
+<ul>
+<li>Status Code 200: Authentication successful. The response body contains the user's details and a session token is set
+  in the cookies.</li>
+<li>Status Code 401: Unauthorized. The provided key or password is incorrect.</li>
+<li>Status Code 404: Not Found. The user does not exist.</li>
+</ul>
+<hr />
+<h2 id="eventsgetalleventsapi"><code>events.GetAllEventsAPI</code></h2>
+<p>This API endpoint is responsible for retrieving all events. It does not require any request body.</p>
+<ul>
+<li><strong>Version:</strong> <code>1.0</code></li>
+<li><strong>Method:</strong> <code>GET</code></li>
+<li><strong>Endpoint:</strong> <code>/events/GetAllEventsAPI</code></li>
+</ul>
+<p><strong>Processing Steps</strong></p>
+<ol>
+<li><strong>Request Verification</strong>: The API verifies the request using the <code>verifyRequest</code> function. If the request is not
+   verified, it returns a 401 Unauthorized response.</li>
+<li><strong>Events Retrieval</strong>: The <code>DatabaseEvent.getAllEvents</code> function is called to retrieve all events.</li>
+</ol>
+<p><strong>Response</strong></p>
+<p>The API responds with an appropriate status code and a JSON array containing all events.</p>
+<ul>
+<li>Status Code 200: All events retrieved successfully. The response body contains a JSON array of all events.</li>
+<li>Status Code 404: Not Found. There are no events in the database.</li>
+<li>Status Code 401: Unauthorized. The request is not authorized.</li>
+</ul>
+<hr />
+<h2 id="eventsgetlatesteventapi"><code>events.GetLatestEventAPI</code></h2>
+<p>This API endpoint is responsible for retrieving the latest event. It does not require any request body.</p>
+<ul>
+<li><strong>Version:</strong> <code>1.0</code></li>
+<li><strong>Method:</strong> <code>GET</code></li>
+<li><strong>Endpoint:</strong> <code>/GetLatestEventAPI</code></li>
+</ul>
+<p><strong>Processing Steps</strong></p>
+<ol>
+<li><strong>Request Verification</strong>: The API verifies the request using the <code>verifyRequest</code> function. If the request is not
+   verified, it returns a 401 Unauthorized response.</li>
+<li><strong>Latest Event Retrieval</strong>: The <code>DatabaseEvent.getLatestEvent</code> function is called to retrieve the latest event.</li>
+</ol>
+<p><strong>Response</strong></p>
+<p>The API responds with an appropriate status code and a JSON object containing the latest event.</p>
+<ul>
+<li>Status Code 200: Latest event retrieved successfully. The response body contains the latest event.</li>
+<li>Status Code 404: Not Found. There are no events in the database.</li>
+<li>Status Code 401: Unauthorized. The request is not authorized.</li>
+</ul>
+<hr />
+<h2 id="eventsgetoneeventapi"><code>events.GetOneEventAPI</code></h2>
+<p>This API endpoint is responsible for retrieving a specific event. It receives a JSON object in the request body
+containing the event's _id.</p>
+<ul>
+<li><strong>Version:</strong> <code>1.0</code></li>
+<li><strong>Method:</strong> <code>POST</code></li>
+<li><strong>Endpoint:</strong> <code>/GetOneEventAPI</code></li>
+</ul>
+<p><strong>Request Body</strong></p>
+<div class="language-json highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="p">{</span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="w">   </span><span class="nt">&quot;_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;event_id&quot;</span>
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="p">}</span>
+</span></code></pre></div>
+<ul>
+<li><code>_id</code> (string): The unique identifier of the event being requested.</li>
+</ul>
+<p><strong>Processing Steps</strong></p>
+<ol>
+<li><strong>Request Verification</strong>: The API verifies the request using the <code>verifyRequest</code> function. If the request is not
+   verified, it returns a 401 Unauthorized response.</li>
+<li><strong>Request Body Extraction</strong>: The _id is extracted from the request body.</li>
+<li><strong>Event Retrieval</strong>: The <code>DatabaseEvent.getOneEvent</code> function is called with the extracted _id to retrieve the
+   specific event.</li>
+</ol>
+<p><strong>Response</strong></p>
+<p>The API responds with an appropriate status code and a JSON object containing the event.</p>
+<ul>
+<li>Status Code 200: Event retrieved successfully. The response body contains the event.</li>
+<li>Status Code 404: Not Found. The event does not exist.</li>
+<li>Status Code 401: Unauthorized. The request is not authorized.</li>
+</ul>
+<hr />
+<h2 id="eventsregistereventapi"><code>events.RegisterEventAPI</code></h2>
+<p>This API endpoint is responsible for registering an event. It receives a JSON object in the request body containing the
+event's _id and the farm_id.</p>
+<ul>
+<li><strong>Version:</strong> <code>1.0</code></li>
+<li><strong>Method:</strong> <code>POST</code></li>
+<li><strong>Endpoint:</strong> <code>/RegisterEventAPI</code></li>
+</ul>
+<p><strong>Request Body</strong></p>
+<div class="language-json highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="p">{</span>
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="w">   </span><span class="nt">&quot;event_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;event_id&quot;</span><span class="p">,</span>
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="w">   </span><span class="nt">&quot;farm_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;farm_id&quot;</span>
+</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="p">}</span>
+</span></code></pre></div>
+<ul>
+<li><code>event_id</code> (string): The unique identifier of the event being registered.</li>
+<li><code>farm_id</code> (string): The unique identifier of the farm where the event is being registered.</li>
+</ul>
+<p><strong>Processing Steps</strong></p>
+<ol>
+<li><strong>Request Verification</strong>: The API verifies the request using the <code>verifyRequest</code> function. If the request is not
+   verified, it returns a 401 Unauthorized response.</li>
+<li><strong>Request Body Extraction</strong>: The event_id and farm_id are extracted from the request body.</li>
+<li><strong>Event Registration</strong>: The <code>DatabaseEvent.updateOneEvent</code> function is called with the extracted event_id and farm_id
+   to register the event.</li>
+</ol>
+<p><strong>Response</strong></p>
+<p>The API responds with an appropriate status code and a JSON object containing the registered event.</p>
+<ul>
+<li>Status Code 200: Event registered successfully. The response body contains the registered event.</li>
+<li>Status Code 404: Not Found. The event does not exist.</li>
+<li>Status Code 401: Unauthorized. The request is not authorized.</li>
+</ul>
+<hr />
+<h2 id="farmsgetfarmsapi"><code>farms.GetFarmsAPI</code></h2>
+<p>This API endpoint is responsible for retrieving all farms. It does not require any request body.</p>
+<ul>
+<li><strong>Version:</strong> <code>1.0</code></li>
+<li><strong>Method:</strong> <code>GET</code></li>
+<li><strong>Endpoint:</strong> <code>/farms/GetFarmsAPI</code></li>
+</ul>
+<p><strong>Processing Steps</strong></p>
+<ol>
+<li><strong>Request Verification</strong>: The API verifies the request using the <code>verifyRequest</code> function. If the request is not
+   verified, it returns a 401 Unauthorized response.</li>
+<li><strong>Farms Retrieval</strong>: The <code>DatabaseFarm.getAllFarms</code> function is called to retrieve all farms.</li>
+</ol>
+<p><strong>Response</strong></p>
+<p>The API responds with an appropriate status code and a JSON array containing all farms.</p>
+<ul>
+<li>Status Code 200: All farms retrieved successfully. The response body contains a JSON array of all farms.</li>
+<li>Status Code 404: Not Found. There are no farms in the database.</li>
+<li>Status Code 401: Unauthorized. The request is not authorized.</li>
+</ul>
+<hr />
+<h2 id="farmsgetallvetapi"><code>farms.GetAllVetAPI</code></h2>
+<p>This API endpoint is responsible for retrieving all vets. It does not require any request body.</p>
+<ul>
+<li><strong>Version:</strong> <code>1.0</code></li>
+<li><strong>Method:</strong> <code>GET</code></li>
+<li><strong>Endpoint:</strong> <code>/GetAllVetAPI</code></li>
+</ul>
+<p><strong>Processing Steps</strong></p>
+<ol>
+<li><strong>Request Verification</strong>: The API verifies the request using the <code>verifyRequest</code> function. If the request is not
+   verified, it returns a 401 Unauthorized response.</li>
+<li><strong>Vets Retrieval</strong>: The <code>DatabaseForum.getAllVets</code> function is called to retrieve all vets.</li>
+</ol>
+<p><strong>Response</strong></p>
+<p>The API responds with an appropriate status code and a JSON array containing all vets.</p>
+<ul>
+<li>Status Code 200: All vets retrieved successfully. The response body contains a JSON array of all vets.</li>
+<li>Status Code 404: Not Found. There are no vets in the database.</li>
+<li>Status Code 401: Unauthorized. The request is not authorized.</li>
+</ul>
+<hr />
+<h2 id="farmsgethealthtrackapi"><code>farms.GetHealthTrackAPI</code></h2>
+<p>This API endpoint is responsible for retrieving all health track records. It does not require any request body.</p>
+<ul>
+<li><strong>Version:</strong> <code>1.0</code></li>
+<li><strong>Method:</strong> <code>GET</code></li>
+<li><strong>Endpoint:</strong> <code>/farms/GetHealthTrackAPI</code></li>
+</ul>
+<p><strong>Processing Steps</strong></p>
+<ol>
+<li><strong>Request Verification</strong>: The API verifies the request using the <code>verifyRequest</code> function. If the request is not
+   verified, it returns a 401 Unauthorized response.</li>
+<li><strong>Health Track Retrieval</strong>: The <code>Database.getHealthTrack</code> function is called to retrieve all health track records.</li>
+</ol>
+<p><strong>Response</strong></p>
+<p>The API responds with an appropriate status code and a JSON array containing all health track records.</p>
+<ul>
+<li>Status Code 200: All health track records retrieved successfully. The response body contains a JSON array of all
+  health track records.</li>
+<li>Status Code 404: Not Found. There are no health track records in the database.</li>
+<li>Status Code 401: Unauthorized. The request is not authorized.</li>
+</ul>
+<hr />
+<h2 id="farmsaddproductapi"><code>farms.AddProductAPI</code></h2>
+<p>This API endpoint is responsible for adding a product to a farm. It receives a JSON object in the request body
+containing the product details and the farm's _id.</p>
+<ul>
+<li><strong>Version:</strong> <code>1.0</code></li>
+<li><strong>Method:</strong> <code>POST</code></li>
+<li><strong>Endpoint:</strong> <code>/farms/AddProductAPI</code></li>
+</ul>
+<p><strong>Request Body</strong></p>
+<div class="language-json highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="p">{</span>
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="w">   </span><span class="nt">&quot;product&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="w">      </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;product_name&quot;</span><span class="p">,</span>
+</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="w">      </span><span class="nt">&quot;description&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;product_description&quot;</span><span class="p">,</span>
+</span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a><span class="w">      </span><span class="nt">&quot;price&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;product_price&quot;</span>
+</span><span id="__span-6-6"><a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a><span class="w">   </span><span class="p">},</span>
+</span><span id="__span-6-7"><a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a><span class="w">   </span><span class="nt">&quot;farm_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;farm_id&quot;</span>
+</span><span id="__span-6-8"><a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a><span class="p">}</span>
+</span></code></pre></div>
+<ul>
+<li><code>product</code> (object): The product details to be added.</li>
+<li><code>name</code> (string): The name of the product.</li>
+<li><code>description</code> (string): The description of the product.</li>
+<li><code>price</code> (string): The price of the product.</li>
+<li><code>farm_id</code> (string): The unique identifier of the farm where the product is being added.</li>
+</ul>
+<p><strong>Processing Steps</strong></p>
+<ol>
+<li><strong>Request Verification</strong>: The API verifies the request using the <code>verifyRequest</code> function. If the request is not
+   verified, it returns a 401 Unauthorized response.</li>
+<li><strong>Request Body Extraction</strong>: The product and farm_id are extracted from the request body.</li>
+<li><strong>Product Addition</strong>: The <code>DatabaseFarm.addProduct</code> function is called with the extracted product and farm_id to add
+   the product to the farm.</li>
+</ol>
+<p><strong>Response</strong></p>
+<p>The API responds with an appropriate status code and a JSON object containing the added product.</p>
+<ul>
+<li>Status Code 200: Product added successfully. The response body contains the added product.</li>
+<li>Status Code 404: Not Found. The farm does not exist.</li>
+<li>Status Code 401: Unauthorized. The request is not authorized.</li>
+</ul>
+<hr />
+<h2 id="farmsgetcategoryproductsapi"><code>farms.GetCategoryProductsAPI</code></h2>
+<p>This API endpoint is responsible for retrieving products of a specific category from a farm. It receives a JSON object
+in the request body containing the product category and the farm's _id.</p>
+<ul>
+<li><strong>Version:</strong> <code>1.0</code></li>
+<li><strong>Method:</strong> <code>POST</code></li>
+<li><strong>Endpoint:</strong> <code>/farms/GetCategoryProductsAPI</code></li>
+</ul>
+<p><strong>Request Body</strong></p>
+<div class="language-json highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="p">{</span>
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="w">   </span><span class="nt">&quot;product_category&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;product_category&quot;</span><span class="p">,</span>
+</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="w">   </span><span class="nt">&quot;farm_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;farm_id&quot;</span>
+</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="p">}</span>
+</span></code></pre></div>
+<ul>
+<li><code>product_category</code> (string): The category of the products being requested.</li>
+<li><code>farm_id</code> (string): The unique identifier of the farm from where the products are being requested.</li>
+</ul>
+<p><strong>Processing Steps</strong></p>
+<ol>
+<li><strong>Request Verification</strong>: The API verifies the request using the <code>verifyRequest</code> function. If the request is not
+   verified, it returns a 401 Unauthorized response.</li>
+<li><strong>Request Body Extraction</strong>: The product_category and farm_id are extracted from the request body.</li>
+<li><strong>Product Retrieval</strong>: The <code>DatabaseFarm.getCategoryProduct</code> function is called with the extracted product_category
+   and farm_id to retrieve the specific products.</li>
+</ol>
+<p><strong>Response</strong></p>
+<p>The API responds with an appropriate status code and a JSON object containing the products.</p>
+<ul>
+<li>Status Code 200: Products retrieved successfully. The response body contains the products.</li>
+<li>Status Code 404: Not Found. The products do not exist.</li>
+<li>Status Code 401: Unauthorized. The request is not authorized.</li>
+</ul>
+<hr />
+<h2 id="farmsgetinstallmentsapi"><code>farms.GetInstallmentsAPI</code></h2>
+<p>This API endpoint is responsible for retrieving all installments of a user. It receives a JSON object in the request
+body containing the user's _id.</p>
+<ul>
+<li><strong>Version:</strong> <code>1.0</code></li>
+<li><strong>Method:</strong> <code>POST</code></li>
+<li><strong>Endpoint:</strong> <code>/farms/GetInstallmentsAPI</code></li>
+</ul>
+<p><strong>Request Body</strong></p>
+<div class="language-json highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="p">{</span>
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="w">   </span><span class="nt">&quot;_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;user_id&quot;</span>
+</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="p">}</span>
+</span></code></pre></div>
+<ul>
+<li><code>_id</code> (string): The unique identifier of the user whose installments are being requested.</li>
+</ul>
+<p><strong>Processing Steps</strong></p>
+<ol>
+<li><strong>Request Verification</strong>: The API verifies the request using the <code>verifyRequest</code> function. If the request is not
+   verified, it returns a 401 Unauthorized response.</li>
+<li><strong>Request Body Extraction</strong>: The _id is extracted from the request body.</li>
+<li><strong>Installments Retrieval</strong>: The <code>DatabaseFarm.getInstallments</code> function is called with the extracted _id to retrieve
+   the installments of the user.</li>
+</ol>
+<p><strong>Response</strong></p>
+<p>The API responds with an appropriate status code and a JSON object containing the installments.</p>
+<ul>
+<li>Status Code 200: Installments retrieved successfully. The response body contains the installments.</li>
+<li>Status Code 404: Not Found. The user does not exist or there are no installments for the user.</li>
+<li>Status Code 401: Unauthorized. The request is not authorized.</li>
+</ul>
+<hr />
+<h2 id="farmsgetonefarmapi"><code>farms.GetOneFarmAPI</code></h2>
+<p>This API endpoint is responsible for retrieving a specific farm. It receives a JSON object in the request body
+containing the farm's _id.</p>
+<ul>
+<li><strong>Version:</strong> <code>1.0</code></li>
+<li><strong>Method:</strong> <code>POST</code></li>
+<li><strong>Endpoint:</strong> <code>/farms/GetOneFarmAPI</code></li>
+</ul>
+<p><strong>Request Body</strong></p>
+<div class="language-json highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="p">{</span>
+</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="w">   </span><span class="nt">&quot;_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;farm_id&quot;</span>
+</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a><span class="p">}</span>
+</span></code></pre></div>
+<ul>
+<li><code>_id</code> (string): The unique identifier of the farm being requested.</li>
+</ul>
+<p><strong>Processing Steps</strong></p>
+<ol>
+<li><strong>Request Verification</strong>: The API verifies the request using the <code>verifyRequest</code> function. If the request is not
+   verified, it returns a 401 Unauthorized response.</li>
+<li><strong>Request Body Extraction</strong>: The _id is extracted from the request body.</li>
+<li><strong>Farm Retrieval</strong>: The <code>DatabaseFarm.getOneFarm</code> function is called with the extracted _id to retrieve the specific
+   farm.</li>
+</ol>
+<p><strong>Response</strong></p>
+<p>The API responds with an appropriate status code and a JSON object containing the farm.</p>
+<ul>
+<li>Status Code 200: Farm retrieved successfully. The response body contains the farm.</li>
+<li>Status Code 404: Not Found. The farm does not exist.</li>
+<li>Status Code 401: Unauthorized. The request is not authorized.</li>
+</ul>
+<hr />
+<h2 id="farmsgetonefarmproductsapi"><code>farms.GetOneFarmProductsAPI</code></h2>
+<p>This API endpoint is responsible for retrieving all products of a specific farm. It receives a JSON object in the
+request body containing the farm's _id.</p>
+<ul>
+<li><strong>Version:</strong> <code>1.0</code></li>
+<li><strong>Method:</strong> <code>POST</code></li>
+<li><strong>Endpoint:</strong> <code>/farms/GetOneFarmProductsAPI</code></li>
+</ul>
+<p><strong>Request Body</strong></p>
+<div class="language-json highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="p">{</span>
+</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="w">   </span><span class="nt">&quot;_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;farm_id&quot;</span>
+</span><span id="__span-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a><span class="p">}</span>
+</span></code></pre></div>
+<ul>
+<li><code>_id</code> (string): The unique identifier of the farm whose products are being requested.</li>
+</ul>
+<p><strong>Processing Steps</strong></p>
+<ol>
+<li><strong>Request Verification</strong>: The API verifies the request using the <code>verifyRequest</code> function. If the request is not
+   verified, it returns a 401 Unauthorized response.</li>
+<li><strong>Request Body Extraction</strong>: The _id is extracted from the request body.</li>
+<li><strong>Product Retrieval</strong>: The <code>DatabaseFarm.getOneFarmProducts</code> function is called with the extracted _id to retrieve
+   the products of the specific farm.</li>
+</ol>
+<p><strong>Response</strong></p>
+<p>The API responds with an appropriate status code and a JSON object containing the products.</p>
+<ul>
+<li>Status Code 200: Products retrieved successfully. The response body contains the products.</li>
+<li>Status Code 404: Not Found. The farm does not exist or there are no products for the farm.</li>
+<li>Status Code 401: Unauthorized. The request is not authorized.</li>
+</ul>
+<hr />
+<h2 id="farmsgetproductinfoapi"><code>farms.GetProductInfoAPI</code></h2>
+<p>This API endpoint is responsible for retrieving information about a specific product. It receives a JSON object in the
+request body containing the product's _id.</p>
+<ul>
+<li><strong>Version:</strong> <code>1.0</code></li>
+<li><strong>Method:</strong> <code>POST</code></li>
+<li><strong>Endpoint:</strong> <code>/farms/GetProductInfoAPI</code></li>
+</ul>
+<p><strong>Request Body</strong></p>
+<div class="language-json highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="p">{</span>
+</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a><span class="w">   </span><span class="nt">&quot;_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;product_id&quot;</span>
+</span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a><span class="p">}</span>
+</span></code></pre></div>
+<ul>
+<li><code>_id</code> (string): The unique identifier of the product whose information is being requested.</li>
+</ul>
+<p><strong>Processing Steps</strong></p>
+<ol>
+<li><strong>Request Verification</strong>: The API verifies the request using the <code>verifyRequest</code> function. If the request is not
+   verified, it returns a 401 Unauthorized response.</li>
+<li><strong>Request Body Extraction</strong>: The _id is extracted from the request body.</li>
+<li><strong>Product Information Retrieval</strong>: The <code>DatabaseFarm.getOneProduct</code> function is called with the extracted _id to
+   retrieve the information of the specific product.</li>
+</ol>
+<p><strong>Response</strong></p>
+<p>The API responds with an appropriate status code and a JSON object containing the product information.</p>
+<ul>
+<li>Status Code 200: Product information retrieved successfully. The response body contains the product information.</li>
+<li>Status Code 404: Not Found. The product does not exist.</li>
+<li>Status Code 401: Unauthorized. The request is not authorized.</li>
+</ul>
+<hr />
+<h2 id="farmsplaceorderapi"><code>farms.PlaceOrderAPI</code></h2>
+<p>This API endpoint is responsible for placing an order for a specific product from a farm. It receives a JSON object in
+the request body containing the product's _id, the quantity of the product, and the user's _id.</p>
+<ul>
+<li><strong>Version:</strong> <code>1.0</code></li>
+<li><strong>Method:</strong> <code>POST</code></li>
+<li><strong>Endpoint:</strong> <code>/farms/PlaceOrderAPI</code></li>
+</ul>
+<p><strong>Request Body</strong></p>
+<div class="language-json highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="p">{</span>
+</span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a><span class="w">   </span><span class="nt">&quot;product_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;product_id&quot;</span><span class="p">,</span>
+</span><span id="__span-12-3"><a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a><span class="w">   </span><span class="nt">&quot;quantity&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;quantity&quot;</span><span class="p">,</span>
+</span><span id="__span-12-4"><a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a><span class="w">   </span><span class="nt">&quot;user_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;user_id&quot;</span>
+</span><span id="__span-12-5"><a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a><span class="p">}</span>
+</span></code></pre></div>
+<ul>
+<li><code>product_id</code> (string): The unique identifier of the product being ordered.</li>
+<li><code>quantity</code> (number): The quantity of the product being ordered.</li>
+<li><code>user_id</code> (string): The unique identifier of the user placing the order.</li>
+</ul>
+<p><strong>Processing Steps</strong></p>
+<ol>
+<li><strong>Request Verification</strong>: The API verifies the request using the <code>verifyRequest</code> function. If the request is not
+   verified, it returns a 401 Unauthorized response.</li>
+<li><strong>Request Body Extraction</strong>: The product_id, quantity, and user_id are extracted from the request body.</li>
+<li><strong>Order Placement</strong>: The <code>DatabaseFarm.placeOrder</code> function is called with the extracted product_id, quantity, and
+   user_id to place the order.</li>
+</ol>
+<p><strong>Response</strong></p>
+<p>The API responds with an appropriate status code and a JSON object containing the order details.</p>
+<ul>
+<li>Status Code 200: Order placed successfully. The response body contains the order details.</li>
+<li>Status Code 404: Not Found. The product does not exist.</li>
+<li>Status Code 401: Unauthorized. The request is not authorized.</li>
+</ul>
+<hr />
+<h2 id="farmsgetproductcatalogapi"><code>farms.GetProductCatalogAPI</code></h2>
+<p>This API endpoint is responsible for retrieving the product catalog of a specific farm. It receives a JSON object in the
+request body containing the farm's _id.</p>
+<ul>
+<li><strong>Version:</strong> <code>1.0</code></li>
+<li><strong>Method:</strong> <code>POST</code></li>
+<li><strong>Endpoint:</strong> <code>/farms/GetProductCatalogAPI</code></li>
+</ul>
+<p><strong>Request Body</strong></p>
+<div class="language-json highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="p">{</span>
+</span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a><span class="w">   </span><span class="nt">&quot;_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;farm_id&quot;</span>
+</span><span id="__span-13-3"><a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a><span class="p">}</span>
+</span></code></pre></div>
+<ul>
+<li><code>_id</code> (string): The unique identifier of the farm whose product catalog is being requested.</li>
+</ul>
+<p><strong>Processing Steps</strong></p>
+<ol>
+<li><strong>Request Verification</strong>: The API verifies the request using the <code>verifyRequest</code> function. If the request is not
+   verified, it returns a 401 Unauthorized response.</li>
+<li><strong>Request Body Extraction</strong>: The _id is extracted from the request body.</li>
+<li><strong>Product Catalog Retrieval</strong>: The <code>DatabaseFarm.getProductCatalog</code> function is called with the extracted _id to
+   retrieve the product catalog of the specific farm.</li>
+</ol>
+<p><strong>Response</strong></p>
+<p>The API responds with an appropriate status code and a JSON object containing the product catalog.</p>
+<ul>
+<li>Status Code 200: Product catalog retrieved successfully. The response body contains the product catalog.</li>
+<li>Status Code 404: Not Found. The farm does not exist or there is no product catalog for the farm.</li>
+<li>Status Code 401: Unauthorized. The request is not authorized.</li>
+</ul>
+<hr />
+<h2 id="forumgetallpostapi"><code>forum.GetAllPostAPI</code></h2>
+<p>This API endpoint is responsible for retrieving all posts. It does not require any request body.</p>
+<ul>
+<li><strong>Version:</strong> <code>1.0</code></li>
+<li><strong>Method:</strong> <code>GET</code></li>
+<li><strong>Endpoint:</strong> <code>/forum/GetAllPostAPI</code></li>
+</ul>
+<p><strong>Processing Steps</strong></p>
+<ol>
+<li><strong>Request Verification</strong>: The API verifies the request using the <code>verifyRequest</code> function. If the request is not verified, it returns a 401 Unauthorized response.</li>
+<li><strong>Posts Retrieval</strong>: The <code>DatabaseForum.getAllPosts</code> function is called to retrieve all posts.</li>
+</ol>
+<p><strong>Response</strong></p>
+<p>The API responds with an appropriate status code and a JSON array containing all posts.</p>
+<ul>
+<li>Status Code 200: All posts retrieved successfully. The response body contains a JSON array of all posts.</li>
+<li>Status Code 404: Not Found. There are no posts in the database.</li>
+<li>Status Code 401: Unauthorized. The request is not authorized.</li>
+</ul>
+<hr />
+<h2 id="forumgetmostlikedpostsapi"><code>forum.GetMostLikedPostsAPI</code></h2>
+<p>This API endpoint is responsible for retrieving the most liked posts. It does not require any request body.</p>
+<ul>
+<li><strong>Version:</strong> <code>1.0</code></li>
+<li><strong>Method:</strong> <code>GET</code></li>
+<li><strong>Endpoint:</strong> <code>/forum/GetMostLikedPostsAPI</code></li>
+</ul>
+<p><strong>Processing Steps</strong></p>
+<ol>
+<li><strong>Request Verification</strong>: The API verifies the request using the <code>verifyRequest</code> function. If the request is not verified, it returns a 401 Unauthorized response.</li>
+<li><strong>Most Liked Posts Retrieval</strong>: The <code>DatabaseForum.getMostLikedPosts</code> function is called to retrieve the most liked posts.</li>
+</ol>
+<p><strong>Response</strong></p>
+<p>The API responds with an appropriate status code and a JSON array containing the most liked posts.</p>
+<ul>
+<li>Status Code 200: Most liked posts retrieved successfully. The response body contains a JSON array of the most liked posts.</li>
+<li>Status Code 404: Not Found. There are no posts in the database.</li>
+<li>Status Code 401: Unauthorized. The request is not authorized.</li>
+</ul>
+<hr />
+<h2 id="forumgetonepostapi"><code>forum.GetOnePostAPI</code></h2>
+<p>This API endpoint is responsible for retrieving a specific post. It receives a JSON object in the request body containing the post's _id.</p>
+<ul>
+<li><strong>Version:</strong> <code>1.0</code></li>
+<li><strong>Method:</strong> <code>POST</code></li>
+<li><strong>Endpoint:</strong> <code>/forum/GetOnePostAPI</code></li>
+</ul>
+<p><strong>Request Body</strong></p>
+<div class="language-json highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="p">{</span>
+</span><span id="__span-14-2"><a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a><span class="w">   </span><span class="nt">&quot;_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;post_id&quot;</span>
+</span><span id="__span-14-3"><a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a><span class="p">}</span>
+</span></code></pre></div>
+<ul>
+<li><code>_id</code> (string): The unique identifier of the post being requested.</li>
+</ul>
+<p><strong>Processing Steps</strong></p>
+<ol>
+<li><strong>Request Verification</strong>: The API verifies the request using the <code>verifyRequest</code> function. If the request is not verified, it returns a 401 Unauthorized response.</li>
+<li><strong>Request Body Extraction</strong>: The _id is extracted from the request body.</li>
+<li><strong>Post Retrieval</strong>: The <code>DatabaseForum.getOnePost</code> function is called with the extracted _id to retrieve the specific post.</li>
+</ol>
+<p><strong>Response</strong></p>
+<p>The API responds with an appropriate status code and a JSON object containing the post.</p>
+<ul>
+<li>Status Code 200: Post retrieved successfully. The response body contains the post.</li>
+<li>Status Code 404: Not Found. The post does not exist.</li>
+<li>Status Code 401: Unauthorized. The request is not authorized.</li>
+</ul>
+<hr />
+<h2 id="forumincrementviewcountapi"><code>forum.IncrementViewCountAPI</code></h2>
+<p>This API endpoint is responsible for incrementing the view count of a specific post. It receives a JSON object in the request body containing the post's _id.</p>
+<ul>
+<li><strong>Version:</strong> <code>1.0</code></li>
+<li><strong>Method:</strong> <code>POST</code></li>
+<li><strong>Endpoint:</strong> <code>/forum/IncrementViewCountAPI</code></li>
+</ul>
+<p><strong>Request Body</strong></p>
+<div class="language-json highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="p">{</span>
+</span><span id="__span-15-2"><a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a><span class="w">   </span><span class="nt">&quot;_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;post_id&quot;</span>
+</span><span id="__span-15-3"><a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a><span class="p">}</span>
+</span></code></pre></div>
+<ul>
+<li><code>_id</code> (string): The unique identifier of the post whose view count is being incremented.</li>
+</ul>
+<p><strong>Processing Steps</strong></p>
+<ol>
+<li><strong>Request Verification</strong>: The API verifies the request using the <code>verifyRequest</code> function. If the request is not verified, it returns a 401 Unauthorized response.</li>
+<li><strong>Request Body Extraction</strong>: The _id is extracted from the request body.</li>
+<li><strong>View Count Increment</strong>: The <code>DatabaseForum.incrementViewCount</code> function is called with the extracted _id to increment the view count of the specific post.</li>
+</ol>
+<p><strong>Response</strong></p>
+<p>The API responds with an appropriate status code and a JSON object containing the success status.</p>
+<ul>
+<li>Status Code 200: View count incremented successfully. The response body contains the success status.</li>
+<li>Status Code 404: Not Found. The post does not exist.</li>
+<li>Status Code 401: Unauthorized. The request is not authorized.</li>
+</ul>
+<hr />
+<h2 id="foruminsertpostapi"><code>forum.InsertPostAPI</code></h2>
+<p>This API endpoint is responsible for inserting a new post. It receives a JSON object in the request body containing the post details.</p>
+<ul>
+<li><strong>Version:</strong> <code>1.0</code></li>
+<li><strong>Method:</strong> <code>POST</code></li>
+<li><strong>Endpoint:</strong> <code>/forum/InsertPostAPI</code></li>
+</ul>
+<p><strong>Request Body</strong></p>
+<div class="language-json highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="p">{</span>
+</span><span id="__span-16-2"><a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a><span class="w">   </span><span class="nt">&quot;title&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;post_title&quot;</span><span class="p">,</span>
+</span><span id="__span-16-3"><a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a><span class="w">   </span><span class="nt">&quot;content&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;post_content&quot;</span><span class="p">,</span>
+</span><span id="__span-16-4"><a id="__codelineno-16-4" name="__codelineno-16-4" href="#__codelineno-16-4"></a><span class="w">   </span><span class="nt">&quot;author&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;post_author&quot;</span>
+</span><span id="__span-16-5"><a id="__codelineno-16-5" name="__codelineno-16-5" href="#__codelineno-16-5"></a><span class="p">}</span>
+</span></code></pre></div>
+<ul>
+<li><code>title</code> (string): The title of the post.</li>
+<li><code>content</code> (string): The content of the post.</li>
+<li><code>author</code> (string): The author of the post.</li>
+</ul>
+<p><strong>Processing Steps</strong></p>
+<ol>
+<li><strong>Request Verification</strong>: The API verifies the request using the <code>verifyRequest</code> function. If the request is not verified, it returns a 401 Unauthorized response.</li>
+<li><strong>Request Body Extraction</strong>: The post details are extracted from the request body.</li>
+<li><strong>Post Insertion</strong>: The <code>DatabaseForum.insertPost</code> function is called with the extracted post details to insert the new post.</li>
+</ol>
+<p><strong>Response</strong></p>
+<p>The API responds with an appropriate status code and a JSON object containing the success status.</p>
+<ul>
+<li>Status Code 200: Post inserted successfully. The response body contains the success status.</li>
+<li>Status Code 404: Not Found. The post could not be inserted.</li>
+<li>Status Code 401: Unauthorized. The request is not authorized.</li>
+</ul>
+<hr />
+<h2 id="forumsendreplyapi"><code>forum.SendReplyAPI</code></h2>
+<p>This API endpoint is responsible for sending a reply to a specific post. It receives a JSON object in the request body containing the reply details.</p>
+<ul>
+<li><strong>Version:</strong> <code>1.0</code></li>
+<li><strong>Method:</strong> <code>POST</code></li>
+<li><strong>Endpoint:</strong> <code>/forum/SendReplyAPI</code></li>
+</ul>
+<p><strong>Request Body</strong></p>
+<div class="language-json highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a><span class="p">{</span>
+</span><span id="__span-17-2"><a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a><span class="w">   </span><span class="nt">&quot;post_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;post_id&quot;</span><span class="p">,</span>
+</span><span id="__span-17-3"><a id="__codelineno-17-3" name="__codelineno-17-3" href="#__codelineno-17-3"></a><span class="w">   </span><span class="nt">&quot;user_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;user_id&quot;</span><span class="p">,</span>
+</span><span id="__span-17-4"><a id="__codelineno-17-4" name="__codelineno-17-4" href="#__codelineno-17-4"></a><span class="w">   </span><span class="nt">&quot;content&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;reply_content&quot;</span>
+</span><span id="__span-17-5"><a id="__codelineno-17-5" name="__codelineno-17-5" href="#__codelineno-17-5"></a><span class="p">}</span>
+</span></code></pre></div>
+<ul>
+<li><code>post_id</code> (string): The unique identifier of the post to which the reply is being sent.</li>
+<li><code>user_id</code> (string): The unique identifier of the user sending the reply.</li>
+<li><code>content</code> (string): The content of the reply.</li>
+</ul>
+<p><strong>Processing Steps</strong></p>
+<ol>
+<li><strong>Request Verification</strong>: The API verifies the request using the <code>verifyRequest</code> function. If the request is not verified, it returns a 401 Unauthorized response.</li>
+<li><strong>Request Body Extraction</strong>: The reply details are extracted from the request body.</li>
+<li><strong>Reply Insertion</strong>: The <code>DatabaseForum.insertReplyInPost</code> function is called with the extracted reply details to insert the reply into the specific post.</li>
+</ol>
+<p><strong>Response</strong></p>
+<p>The API responds with an appropriate status code and a JSON object containing the success status.</p>
+<ul>
+<li>Status Code 200: Reply sent successfully. The response body contains the success status.</li>
+<li>Status Code 404: Not Found. The post does not exist.</li>
+<li>Status Code 401: Unauthorized. The request is not authorized.</li>
+</ul>
+<hr />
+<h2 id="forumupvotepostapi"><code>forum.UpvotePostAPI</code></h2>
+<p>This API endpoint is responsible for upvoting a specific post. It receives a JSON object in the request body containing the post's _id, the liker's _id, and a boolean indicating whether the liker has already liked the post.</p>
+<ul>
+<li><strong>Version:</strong> <code>1.0</code></li>
+<li><strong>Method:</strong> <code>POST</code></li>
+<li><strong>Endpoint:</strong> <code>/forum/UpvotePostAPI</code></li>
+</ul>
+<p><strong>Request Body</strong></p>
+<div class="language-json highlight"><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a><span class="p">{</span>
+</span><span id="__span-18-2"><a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a><span class="w">   </span><span class="nt">&quot;postObjectID&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;post_id&quot;</span><span class="p">,</span>
+</span><span id="__span-18-3"><a id="__codelineno-18-3" name="__codelineno-18-3" href="#__codelineno-18-3"></a><span class="w">   </span><span class="nt">&quot;likerObjectID&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;liker_id&quot;</span><span class="p">,</span>
+</span><span id="__span-18-4"><a id="__codelineno-18-4" name="__codelineno-18-4" href="#__codelineno-18-4"></a><span class="w">   </span><span class="nt">&quot;alreadyLiked&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;already_liked&quot;</span>
+</span><span id="__span-18-5"><a id="__codelineno-18-5" name="__codelineno-18-5" href="#__codelineno-18-5"></a><span class="p">}</span>
+</span></code></pre></div>
+<ul>
+<li><code>postObjectID</code> (string): The unique identifier of the post being upvoted.</li>
+<li><code>likerObjectID</code> (string): The unique identifier of the user who is liking the post.</li>
+<li><code>alreadyLiked</code> (boolean): A boolean indicating whether the user has already liked the post.</li>
+</ul>
+<p><strong>Processing Steps</strong></p>
+<ol>
+<li><strong>Request Verification</strong>: The API verifies the request using the <code>verifyRequest</code> function. If the request is not verified, it returns a 401 Unauthorized response.</li>
+<li><strong>Request Body Extraction</strong>: The postObjectID, likerObjectID, and alreadyLiked are extracted from the request body.</li>
+<li><strong>Post Upvoting</strong>: The <code>DatabaseForum.votePost</code> function is called with the extracted postObjectID, likerObjectID, and alreadyLiked to upvote the specific post.</li>
+</ol>
+<p><strong>Response</strong></p>
+<p>The API responds with an appropriate status code and a JSON object containing the success status.</p>
+<ul>
+<li>Status Code 200: Post upvoted successfully. The response body contains the success status.</li>
+<li>Status Code 404: Not Found. The post does not exist.</li>
+<li>Status Code 401: Unauthorized. The request is not authorized.</li>
+</ul>
+<hr />
+<h2 id="marketplacegetallproductsmarketapi"><code>marketplace.GetAllProductsMarketAPI</code></h2>
+<p>This API endpoint is responsible for retrieving all products from the marketplace. It does not require any request body.</p>
+<ul>
+<li><strong>Version:</strong> <code>1.0</code></li>
+<li><strong>Method:</strong> <code>GET</code></li>
+<li><strong>Endpoint:</strong> <code>/marketplace/GetAllProductsMarketAPI</code></li>
+</ul>
+<p><strong>Processing Steps</strong></p>
+<ol>
+<li><strong>Request Verification</strong>: The API verifies the request using the <code>verifyRequest</code> function. If the request is not
+   verified, it returns a 401 Unauthorized response.</li>
+<li><strong>Product Retrieval</strong>: The <code>DatabaseOthers.getAllProducts</code> function is called to retrieve all products from the
+   marketplace.</li>
+</ol>
+<p><strong>Response</strong></p>
+<p>The API responds with an appropriate status code and a JSON object containing the products information.</p>
+<ul>
+<li>Status Code 200: Products retrieved successfully. The response body contains the products information.</li>
+<li>Status Code 404: Not Found. No products exist in the marketplace.</li>
+<li>Status Code 401: Unauthorized. The request is not authorized.</li>
+</ul>
+<hr />
+<h2 id="newsgetallnewsapi"><code>news.GetAllNewsAPI</code></h2>
+<p>This API endpoint is responsible for retrieving all news. It does not require any request body.</p>
+<ul>
+<li><strong>Version:</strong> <code>1.0</code></li>
+<li><strong>Method:</strong> <code>GET</code></li>
+<li><strong>Endpoint:</strong> <code>/news/GetAllNewsAPI</code></li>
+</ul>
+<p><strong>Processing Steps</strong></p>
+<ol>
+<li><strong>Request Verification</strong>: The API verifies the request using the <code>verifyRequest</code> function. If the request is not
+   verified, it returns a 401 Unauthorized response.</li>
+<li><strong>News Retrieval</strong>: The <code>DatabaseNews.getAllNews</code> function is called to retrieve all news.</li>
+</ol>
+<p><strong>Response</strong></p>
+<p>The API responds with an appropriate status code and a JSON object containing the news information.</p>
+<ul>
+<li>Status Code 200: News retrieved successfully. The response body contains the news information.</li>
+<li>Status Code 404: Not Found. No news exist.</li>
+<li>Status Code 401: Unauthorized. The request is not authorized.</li>
+</ul>
+<hr />
+<h2 id="newsgetonenewsapi"><code>news.GetOneNewsAPI</code></h2>
+<p>This API endpoint is responsible for retrieving a specific news item. It receives a JSON object in the request body
+containing the news item's _id and news_uid.</p>
+<ul>
+<li><strong>Version:</strong> <code>1.0</code></li>
+<li><strong>Method:</strong> <code>POST</code></li>
+<li><strong>Endpoint:</strong> <code>/news/GetOneNewsAPI</code></li>
+</ul>
+<p><strong>Request Body</strong></p>
+<div class="language-json highlight"><pre><span></span><code><span id="__span-19-1"><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a><span class="p">{</span>
+</span><span id="__span-19-2"><a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a><span class="w">   </span><span class="nt">&quot;_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;news_id&quot;</span><span class="p">,</span>
+</span><span id="__span-19-3"><a id="__codelineno-19-3" name="__codelineno-19-3" href="#__codelineno-19-3"></a><span class="w">   </span><span class="nt">&quot;news_uid&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;news_uid&quot;</span>
+</span><span id="__span-19-4"><a id="__codelineno-19-4" name="__codelineno-19-4" href="#__codelineno-19-4"></a><span class="p">}</span>
+</span></code></pre></div>
+<ul>
+<li><code>_id</code> (string): The unique identifier of the news item being retrieved.</li>
+<li><code>news_uid</code> (string): The unique user identifier associated with the news item.</li>
+</ul>
+<p><strong>Processing Steps</strong></p>
+<ol>
+<li><strong>Request Verification</strong>: The API verifies the request using the <code>verifyRequest</code> function. If the request is not
+   verified, it returns a 401 Unauthorized response.</li>
+<li><strong>Request Body Extraction</strong>: The _id and news_uid are extracted from the request body.</li>
+<li><strong>News Retrieval</strong>: The <code>DatabaseNews.getOneNews</code> function is called with the extracted _id and news_uid to retrieve
+   the specific news item.</li>
+</ol>
+<p><strong>Response</strong></p>
+<p>The API responds with an appropriate status code and a JSON object containing the news information.</p>
+<ul>
+<li>Status Code 200: News retrieved successfully. The response body contains the news information.</li>
+<li>Status Code 404: Not Found. The news item does not exist.</li>
+<li>Status Code 401: Unauthorized. The request is not authorized.</li>
+</ul>
+<hr />
+<h2 id="newssavenewsapi"><code>news.saveNewsAPI</code></h2>
+<p>This API endpoint is responsible for saving a news item. It receives a JSON object in the request body containing the
+news item's _id and the user's _id.</p>
+<ul>
+<li><strong>Version:</strong> <code>1.0</code></li>
+<li><strong>Method:</strong> <code>POST</code></li>
+<li><strong>Endpoint:</strong> <code>/news/saveNewsAPI</code></li>
+</ul>
+<p><strong>Request Body</strong></p>
+<div class="language-json highlight"><pre><span></span><code><span id="__span-20-1"><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a><span class="p">{</span>
+</span><span id="__span-20-2"><a id="__codelineno-20-2" name="__codelineno-20-2" href="#__codelineno-20-2"></a><span class="w">   </span><span class="nt">&quot;news_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;news_id&quot;</span><span class="p">,</span>
+</span><span id="__span-20-3"><a id="__codelineno-20-3" name="__codelineno-20-3" href="#__codelineno-20-3"></a><span class="w">   </span><span class="nt">&quot;user_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;user_id&quot;</span>
+</span><span id="__span-20-4"><a id="__codelineno-20-4" name="__codelineno-20-4" href="#__codelineno-20-4"></a><span class="p">}</span>
+</span></code></pre></div>
+<ul>
+<li><code>news_id</code> (string): The unique identifier of the news item being saved.</li>
+<li><code>user_id</code> (string): The unique identifier of the user who is saving the news item.</li>
+</ul>
+<p><strong>Processing Steps</strong></p>
+<ol>
+<li><strong>Request Verification</strong>: The API verifies the request using the <code>verifyRequest</code> function. If the request is not
+   verified, it returns a 401 Unauthorized response.</li>
+<li><strong>Request Body Extraction</strong>: The news_id and user_id are extracted from the request body.</li>
+<li><strong>News Saving</strong>: The <code>DatabaseNews.saveNews</code> function is called with the extracted user_id and news_id to save the
+   specific news item.</li>
+</ol>
+<p><strong>Response</strong></p>
+<p>The API responds with an appropriate status code and a JSON object containing the success status.</p>
+<ul>
+<li>Status Code 200: News saved successfully. The response body contains the success status.</li>
+<li>Status Code 404: Not Found. The news item does not exist.</li>
+<li>Status Code 401: Unauthorized. The request is not authorized.</li>
+</ul>
+<hr />
+<h2 id="miscgetnotificationapi"><code>misc.GetNotificationAPI</code></h2>
+<p>This API endpoint is responsible for retrieving notifications for a specific user. It receives a JSON object in the
+request body containing the user's username.</p>
+<ul>
+<li><strong>Version:</strong> <code>1.0</code></li>
+<li><strong>Method:</strong> <code>POST</code></li>
+<li><strong>Endpoint:</strong> <code>/API/v1/GetNotificationAPI</code></li>
+</ul>
+<p><strong>Request Body</strong></p>
+<div class="language-json highlight"><pre><span></span><code><span id="__span-21-1"><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a><span class="p">{</span>
+</span><span id="__span-21-2"><a id="__codelineno-21-2" name="__codelineno-21-2" href="#__codelineno-21-2"></a><span class="w">   </span><span class="nt">&quot;username&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;username&quot;</span>
+</span><span id="__span-21-3"><a id="__codelineno-21-3" name="__codelineno-21-3" href="#__codelineno-21-3"></a><span class="p">}</span>
+</span></code></pre></div>
+<ul>
+<li><code>username</code> (string): The unique identifier of the user whose notifications are being retrieved.</li>
+</ul>
+<p><strong>Processing Steps</strong></p>
+<ol>
+<li><strong>Request Verification</strong>: The API verifies the request using the <code>verifyRequest</code> function. If the request is not
+   verified, it returns a 401 Unauthorized response.</li>
+<li><strong>Request Body Extraction</strong>: The username is extracted from the request body.</li>
+<li><strong>Notification Retrieval</strong>: The <code>DatabaseOthers.getNotifications</code> function is called with the extracted username to
+   retrieve the notifications.</li>
+</ol>
+<p><strong>Response</strong></p>
+<p>The API responds with an appropriate status code and a JSON object containing the notifications.</p>
+<ul>
+<li>Status Code 200: Notifications retrieved successfully. The response body contains the notifications.</li>
+<li>Status Code 404: Not Found. The user does not have any notifications.</li>
+<li>Status Code 401: Unauthorized. The request is not authorized.</li>
+</ul>
+<hr />
+<h2 id="miscsaveditemsapi"><code>misc.savedItemsAPI</code></h2>
+<p>This API endpoint is responsible for retrieving saved items for a specific user. It receives a JSON object in the
+request body containing the user's _id.</p>
+<ul>
+<li><strong>Version:</strong> <code>1.0</code></li>
+<li><strong>Method:</strong> <code>POST</code></li>
+<li><strong>Endpoint:</strong> <code>/API/v1/savedItemsAPI</code></li>
+</ul>
+<p><strong>Request Body</strong></p>
+<div class="language-json highlight"><pre><span></span><code><span id="__span-22-1"><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a><span class="p">{</span>
+</span><span id="__span-22-2"><a id="__codelineno-22-2" name="__codelineno-22-2" href="#__codelineno-22-2"></a><span class="w">   </span><span class="nt">&quot;user_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;user_id&quot;</span>
+</span><span id="__span-22-3"><a id="__codelineno-22-3" name="__codelineno-22-3" href="#__codelineno-22-3"></a><span class="p">}</span>
+</span></code></pre></div>
+<ul>
+<li><code>user_id</code> (string): The unique identifier of the user whose saved items are being retrieved.</li>
+</ul>
+<p><strong>Processing Steps</strong></p>
+<ol>
+<li><strong>Request Verification</strong>: The API verifies the request using the <code>verifyRequest</code> function. If the request is not
+   verified, it returns a 401 Unauthorized response.</li>
+<li><strong>Request Body Extraction</strong>: The user_id is extracted from the request body.</li>
+<li><strong>Saved Items Retrieval</strong>: The <code>DatabaseOthers.getSavedItems</code> function is called with the extracted user_id to
+   retrieve the saved items.</li>
+</ol>
+<p><strong>Response</strong></p>
+<p>The API responds with an appropriate status code and a JSON object containing the saved items.</p>
+<ul>
+<li>Status Code 200: Saved items retrieved successfully. The response body contains the saved items.</li>
+<li>Status Code 404: Not Found. The user does not have any saved items.</li>
+<li>Status Code 401: Unauthorized. The request is not authorized.</li>
+</ul>
+<hr />
+<h2 id="miscsearchallapi"><code>misc.SearchAllAPI</code></h2>
+<p>This API endpoint is responsible for searching all available data based on a query. It receives a JSON object in the
+request body containing the query.</p>
+<ul>
+<li><strong>Version:</strong> <code>1.0</code></li>
+<li><strong>Method:</strong> <code>POST</code></li>
+<li><strong>Endpoint:</strong> <code>/API/v1/SearchAllAPI</code></li>
+</ul>
+<p><strong>Request Body</strong></p>
+<div class="language-json highlight"><pre><span></span><code><span id="__span-23-1"><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a><span class="p">{</span>
+</span><span id="__span-23-2"><a id="__codelineno-23-2" name="__codelineno-23-2" href="#__codelineno-23-2"></a><span class="w">   </span><span class="nt">&quot;query&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;query&quot;</span>
+</span><span id="__span-23-3"><a id="__codelineno-23-3" name="__codelineno-23-3" href="#__codelineno-23-3"></a><span class="p">}</span>
+</span></code></pre></div>
+<ul>
+<li><code>query</code> (string): The search query.</li>
+</ul>
+<p><strong>Processing Steps</strong></p>
+<ol>
+<li><strong>Request Verification</strong>: The API verifies the request using the <code>verifyRequest</code> function. If the request is not
+   verified, it returns a 401 Unauthorized response.</li>
+<li><strong>Request Body Extraction</strong>: The query is extracted from the request body.</li>
+<li><strong>Search</strong>: The <code>DatabaseOthers.getGlobalSearchResult</code> function is called with the extracted query to perform the
+   search.</li>
+</ol>
+<p><strong>Response</strong></p>
+<p>The API responds with an appropriate status code and a JSON object containing the search results.</p>
+<ul>
+<li>Status Code 200: Search completed successfully. The response body contains the search results.</li>
+<li>Status Code 404: Not Found. No results were found for the query.</li>
+<li>Status Code 401: Unauthorized. The request is not authorized.</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "..", "features": ["content.code.copy", "content.code.select", "navigation.instant", "navigation.instant.prefetch", "navigation.top"], "search": "../assets/javascripts/workers/search.f886a092.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.d7c377c4.min.js"></script>
+      
+    
+  </body>
+</html>
