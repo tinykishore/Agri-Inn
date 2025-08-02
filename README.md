@@ -1,5 +1,9 @@
 # Agri-Inn
 
+:star: **Awarded *Second Runner Up* in CSE Project Show 231 at United International University** :star:
+
+> **Special thanks and heartfelt gratitude to [Ummay Maria Muna](https://github.com/mariamuna04/) for her unwavering support, invaluable guidance, and constant motivation throughout the project. I am truly grateful for the collaborative journey we shared.**
+
 Welcome to **Agri-Inn**, the next-generation platform revolutionizing livestock farming and farm management. Agri-Inn connects farm owners, enthusiasts, and experts, streamlining operations, enabling livestock sales, and fostering a vibrant community. Whether you're managing farms, participating in forums, or staying updated on industry news and events, Agri-Inn is your gateway to a sustainable and closely-knit agricultural future.
 
 ---
